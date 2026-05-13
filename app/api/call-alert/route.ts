@@ -22,6 +22,8 @@ type NormalizedCall = {
   timestamp: string;
 };
 
+type AlertStage = "started" | "completed" | "missed" | "ignored";
+
 const recentAlerts = new Map<string, number>();
 const dedupeWindowMs = 10 * 60 * 1000;
 
@@ -59,9 +61,10 @@ export async function POST(request: Request) {
   try {
     const payload = await parsePayload(request);
     const call = normalizeCallPayload(payload, request);
-    const dedupeKey = `${call.provider}:${call.callId || call.customerNumber}:${call.eventType}:${call.status}`;
+    const alertStage = getAlertStage(call);
+    const dedupeKey = `${call.provider}:${call.callId || call.customerNumber}:${alertStage}`;
 
-    if (!shouldNotify(call)) {
+    if (alertStage === "ignored") {
       return NextResponse.json({ ok: true, ignored: true });
     }
 
@@ -69,7 +72,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, deduped: true });
     }
 
-    const result = await sendTelegramMessage(formatCallAlert(call));
+    const result = await sendTelegramMessage(formatCallAlert(call, alertStage));
 
     if (!result.ok) {
       console.error("Telegram call alert failed", result.error);
@@ -164,7 +167,6 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
       firstString(
         phoneNumber.number,
         phoneNumber.twilioPhoneNumber,
-        call.phoneNumber,
         message.phoneNumber,
         payload.To,
         payload.Called,
@@ -203,22 +205,22 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
   };
 }
 
-function formatCallAlert(call: NormalizedCall) {
-  const heading = getHeading(call);
+function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
+  const heading = getHeading(alertStage);
   const lines = [
     heading,
     "",
     `From: ${call.customerNumber}`,
     `To: ${call.businessNumber}`,
-    `Status: ${call.status}`,
+    `Status: ${getDisplayStatus(call, alertStage)}`,
     `Direction: ${call.direction}`,
     `Provider: ${call.provider}`,
     `Call ID: ${call.callId}`,
-    `Time: ${call.timestamp}`
+    `Time: ${formatTimestamp(call.timestamp)}`
   ];
 
   if (call.duration && call.duration !== "Not available yet") {
-    lines.push(`Duration: ${call.duration}`);
+    lines.push(`Duration: ${formatDuration(call.duration)}`);
   }
 
   if (call.endedReason) {
@@ -236,24 +238,22 @@ function formatCallAlert(call: NormalizedCall) {
   return lines.join("\n");
 }
 
-function getHeading(call: NormalizedCall) {
-  const type = call.eventType.toLowerCase();
-  const status = call.status.toLowerCase();
-
-  if (type.includes("end-of-call") || ["completed", "ended"].includes(status)) {
+function getHeading(alertStage: AlertStage) {
+  if (alertStage === "completed") {
     return "Grade A Plumbing call completed";
   }
 
-  if (type.includes("failed") || ["busy", "failed", "no-answer", "canceled", "cancelled"].includes(status)) {
+  if (alertStage === "missed") {
     return "Grade A Plumbing missed or failed call";
   }
 
   return "New Grade A Plumbing customer call";
 }
 
-function shouldNotify(call: NormalizedCall) {
+function getAlertStage(call: NormalizedCall): AlertStage {
   const type = call.eventType.toLowerCase();
   const status = call.status.toLowerCase();
+  const hasCompletedDetails = Boolean(call.endedReason || call.recordingUrl || call.summary);
 
   if (
     type.includes("transcript") ||
@@ -267,22 +267,80 @@ function shouldNotify(call: NormalizedCall) {
     type.includes("knowledge-base") ||
     type.includes("voice-request")
   ) {
-    return false;
+    return "ignored";
   }
 
-  if (type.includes("end-of-call") || type.includes("hang") || type.includes("assistant.started")) {
-    return true;
+  if (type.includes("end-of-call") || type.includes("hang") || hasCompletedDetails) {
+    return ["busy", "failed", "no-answer", "canceled", "cancelled"].includes(status) ? "missed" : "completed";
+  }
+
+  if (["ended", "completed"].includes(status)) {
+    return type.includes("status-update") ? "ignored" : "completed";
+  }
+
+  if (["busy", "failed", "no-answer", "canceled", "cancelled"].includes(status)) {
+    return "missed";
   }
 
   if (type.includes("status-update")) {
-    return ["in-progress", "ended", "completed", "failed", "busy", "no-answer"].includes(status);
+    return status === "in-progress" ? "started" : "ignored";
   }
 
   if (call.provider.toLowerCase().includes("twilio")) {
-    return ["initiated", "ringing", "in-progress", "completed", "busy", "failed", "no-answer"].includes(status);
+    return ["initiated", "in-progress"].includes(status) ? "started" : "ignored";
   }
 
-  return type.includes("call");
+  if (type.includes("assistant.started") || type.includes("call-started") || type.includes("call-start")) {
+    return "started";
+  }
+
+  return "ignored";
+}
+
+function getDisplayStatus(call: NormalizedCall, alertStage: AlertStage) {
+  if (alertStage === "completed") {
+    return "ended";
+  }
+
+  if (alertStage === "missed") {
+    return call.status;
+  }
+
+  return call.status === "in-progress" ? "in progress" : call.status;
+}
+
+function formatTimestamp(value: string) {
+  const numericValue = Number(value);
+  const date = Number.isFinite(numericValue)
+    ? new Date(numericValue < 10000000000 ? numericValue * 1000 : numericValue)
+    : new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return new Intl.DateTimeFormat("en-AU", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Australia/Melbourne"
+  }).format(date);
+}
+
+function formatDuration(value: string) {
+  const seconds = Number(value);
+
+  if (!Number.isFinite(seconds)) {
+    return value;
+  }
+
+  if (seconds < 60) {
+    return `${seconds.toFixed(1)} sec`;
+  }
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.round(seconds % 60);
+
+  return `${minutes} min ${remainingSeconds} sec`;
 }
 
 function wasRecentlySent(key: string) {
@@ -313,6 +371,7 @@ function getObject(value: unknown): Record<string, unknown> | null {
 function firstString(...values: unknown[]) {
   for (const value of values) {
     if (value === undefined || value === null) continue;
+    if (typeof value === "object" || typeof value === "function") continue;
 
     const text = String(value).trim();
     if (text) return text;
