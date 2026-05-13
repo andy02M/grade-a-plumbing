@@ -89,6 +89,34 @@ QUOTE_FROM_EMAIL=Grade A Plumbing Quotes <quotes@your-verified-domain.com>
 
 Without `RESEND_API_KEY`, local development still works for testing. Before going live, set `RESEND_API_KEY` and `QUOTE_FROM_EMAIL` in Vercel so every quote request is delivered reliably.
 
+## Telegram Call Alerts
+
+Customer call notifications are handled by [app/api/call-alert/route.ts](./app/api/call-alert/route.ts). Configure Vapi or Twilio to send call webhooks to:
+
+```txt
+https://your-live-domain.com/api/call-alert?secret=your_webhook_secret
+```
+
+Required Vercel environment variables:
+
+```txt
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_telegram_chat_id
+CALL_WEBHOOK_SECRET=choose_a_long_random_secret
+```
+
+To test Telegram delivery after deployment, open:
+
+```txt
+https://your-live-domain.com/api/call-alert?secret=your_webhook_secret
+```
+
+Recommended Vapi setup:
+
+- Add the webhook URL above as the assistant/server URL for call notifications.
+- Enable call lifecycle events such as `call-started`, `call-ended`, `call-failed`, or server messages such as `status-update` and `end-of-call-report`, depending on what your Vapi dashboard exposes.
+- Do not replace the Twilio voice routing URL if it is already connected to Vapi. Use Vapi call webhooks first so the AI assistant keeps answering calls.
+
 ## Submit Sitemap In Google Search Console
 
 After deployment and domain connection:
