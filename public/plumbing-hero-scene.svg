@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Premium plumbing hero background</title>
+  <desc id="desc">A dramatic Melbourne-inspired skyline with layered pipework, water lines, and premium blue lighting.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#153457"/>
+      <stop offset="0.55" stop-color="#225f97"/>
+      <stop offset="1" stop-color="#6bb8ea"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.3" cy="0.2" r="0.55">
+      <stop offset="0" stop-color="#56e0ff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#56e0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.83" cy="0.14" r="0.38">
+      <stop offset="0" stop-color="#d6f4ff" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#d6f4ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pipe" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0f2f56"/>
+      <stop offset="0.48" stop-color="#1c63db"/>
+      <stop offset="1" stop-color="#28c7da"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#glowA)"/>
+  <rect width="1600" height="1000" fill="url(#glowB)"/>
+
+  <g opacity="0.22" stroke="#c9e8ff" stroke-width="1">
+    <path d="M0 100h1600M0 180h1600M0 260h1600M0 340h1600M0 420h1600M0 500h1600M0 580h1600M0 660h1600M0 740h1600M0 820h1600"/>
+    <path d="M110 0v1000M220 0v1000M330 0v1000M440 0v1000M550 0v1000M660 0v1000M770 0v1000M880 0v1000M990 0v1000M1100 0v1000M1210 0v1000M1320 0v1000M1430 0v1000"/>
+  </g>
+
+  <g opacity="0.18">
+    <path d="M0 790h1600v210H0z" fill="#d9e9f8"/>
+    <path d="M0 760h1600v40H0z" fill="#b5d1ec"/>
+  </g>
+
+  <g fill="#e8f4ff" opacity="0.26">
+    <path d="M80 730h120V525h110v205h88V470h132v260h112V580h98v150h92V440h126v290h104V535h100v195h86V490h122v240h118v270H80z"/>
+  </g>
+
+  <g fill="none" stroke="url(#pipe)" stroke-linecap="round" stroke-width="34">
+    <path d="M110 624h322c82 0 120-36 120-114V370h212"/>
+    <path d="M764 370h248c72 0 108 35 108 104v31c0 82 37 119 118 119h188"/>
+    <path d="M302 817h286c82 0 122-36 122-112V618h177"/>
+  </g>
+
+  <g fill="none" stroke="#f7fbff" stroke-linecap="round" stroke-width="18">
+    <path d="M104 624h148"/>
+    <path d="M1286 624h140"/>
+    <path d="M762 370h120"/>
+    <path d="M890 818h108"/>
+  </g>
+
+  <g fill="#fff">
+    <circle cx="764" cy="370" r="54"/>
+    <circle cx="764" cy="370" r="22" fill="#27c4da"/>
+    <circle cx="1237" cy="624" r="62"/>
+    <circle cx="1237" cy="624" r="24" fill="#27c4da"/>
+    <circle cx="706" cy="817" r="58"/>
+    <circle cx="706" cy="817" r="22" fill="#0f5fd7"/>
+  </g>
+
+  <g>
+    <path d="M1332 254s74 78 74 136c0 44-35 80-79 80-43 0-77-34-77-77 0-58 82-139 82-139Z" fill="#0f5fd7"/>
+    <path d="M1298 396a38 38 0 0 0 56 28" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10"/>
+  </g>
+
+  <g opacity="0.46" stroke="#27c4da" stroke-linecap="round" stroke-width="8">
+    <path d="M260 904h182"/>
+    <path d="M582 904h162"/>
+    <path d="M856 904h174"/>
+    <path d="M1125 904h208"/>
+  </g>
+</svg>

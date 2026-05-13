@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Melbourne plumbing services illustration</title>
+  <desc id="desc">Blue pipework, water flow, and simple Melbourne buildings representing local plumbing services.</desc>
+  <rect width="640" height="360" fill="#f4f8fb"/>
+  <path d="M0 287h640v73H0z" fill="#e9f4ff"/>
+  <path d="M75 256h43v-76h45v76h35V140h46v116h50v-91h54v91h47V118h54v138h38v-70h48v70h30" fill="#fff" stroke="#c7dbef" stroke-width="3"/>
+  <path d="M61 94h143c40 0 58 18 58 55v32c0 34 18 52 52 52h54" fill="none" stroke="#0758d6" stroke-width="18" stroke-linecap="round"/>
+  <path d="M372 233h99c35 0 52-17 52-52v-46" fill="none" stroke="#17b8d4" stroke-width="18" stroke-linecap="round"/>
+  <path d="M58 94h76M475 135h98" fill="none" stroke="#08213f" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="373" cy="233" r="27" fill="#fff" stroke="#0758d6" stroke-width="8"/>
+  <circle cx="373" cy="233" r="8" fill="#17b8d4"/>
+  <circle cx="262" cy="179" r="24" fill="#fff" stroke="#0758d6" stroke-width="8"/>
+  <path d="M463 72s38 40 38 68a38 38 0 0 1-76 0c0-28 38-68 38-68Z" fill="#0758d6"/>
+  <path d="M445 143a20 20 0 0 0 31 16" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+  <path d="M93 302h454" stroke="#c7dbef" stroke-width="4" stroke-linecap="round"/>
+  <path d="M88 321h120M258 321h105M414 321h139" stroke="#17b8d4" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+  <circle cx="126" cy="94" r="7" fill="#fff"/>
+  <circle cx="523" cy="135" r="7" fill="#fff"/>
+</svg>

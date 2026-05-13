@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-body: "Manrope", "Segoe UI", Arial, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --page-ink: #10223a;
+  --page-soft: #e7eff6;
+  --page-panel: rgba(255, 255, 255, 0.62);
+  --page-edge: rgba(255, 255, 255, 0.3);
+  --page-sea: #0f5fd7;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top right, rgba(23, 184, 212, 0.14), transparent 34%),
+    linear-gradient(180deg, #edf4fb 0%, #f9fbfd 20%, #ffffff 42%, #f6f9fc 100%);
+  color: var(--page-ink);
+  font-family: var(--font-body);
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+::selection {
+  background: #0758d6;
+  color: #ffffff;
+}
+
+.pipe-outline {
+  background:
+    linear-gradient(90deg, rgba(7, 88, 214, 0.12) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(7, 88, 214, 0.12) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.page-shell {
+  position: relative;
+}
+
+.glass-surface {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.5));
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 14px 40px rgba(10, 32, 63, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(18px);
+}
+
+.hero-mesh {
+  background:
+    linear-gradient(135deg, rgba(8, 33, 63, 0.7), rgba(8, 33, 63, 0.35)),
+    radial-gradient(circle at 20% 20%, rgba(23, 184, 212, 0.24), transparent 30%),
+    radial-gradient(circle at 80% 10%, rgba(7, 88, 214, 0.35), transparent 26%);
+}
