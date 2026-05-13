@@ -117,6 +117,44 @@ Recommended Vapi setup:
 - Enable call lifecycle events such as `call-started`, `call-ended`, `call-failed`, or server messages such as `status-update` and `end-of-call-report`, depending on what your Vapi dashboard exposes.
 - Do not replace the Twilio voice routing URL if it is already connected to Vapi. Use Vapi call webhooks first so the AI assistant keeps answering calls.
 
+## Vapi Calendly Booking Tools
+
+Vapi can check Calendly availability and create bookings through [app/api/vapi/calendly-tools/route.ts](./app/api/vapi/calendly-tools/route.ts).
+
+Endpoint:
+
+```txt
+https://your-live-domain.com/api/vapi/calendly-tools?secret=your_vapi_tool_secret
+```
+
+Required Vercel environment variables:
+
+```txt
+CALENDLY_ACCESS_TOKEN=your_calendly_personal_access_token
+CALENDLY_EVENT_TYPE_URI=https://api.calendly.com/event_types/your_event_type_uuid
+VAPI_TOOL_SECRET=choose_a_long_random_secret
+CALENDLY_TIMEZONE=Australia/Melbourne
+```
+
+Optional, only if your Calendly event type requires a location payload:
+
+```txt
+CALENDLY_LOCATION_KIND=ask_invitee
+CALENDLY_LOCATION_VALUE=
+```
+
+Create two Vapi custom tools that POST to the endpoint above:
+
+1. `check_calendly_availability`
+   - Inputs: `start_date`, `days`, `limit`, `timezone`
+   - Returns available appointment slots.
+
+2. `book_calendly_appointment`
+   - Inputs: `start_time`, `customer_name`, `email`, `phone`, `property_address`, `suburb`, `service_needed`, `issue_summary`, `urgency`, `access_notes`, `timezone`
+   - Creates the Calendly booking after payment has succeeded.
+
+If Calendly fails, the assistant prompt should use the manual follow-up fallback instead of promising a Calendly-confirmed booking.
+
 ## Submit Sitemap In Google Search Console
 
 After deployment and domain connection:
