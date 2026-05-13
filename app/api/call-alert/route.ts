@@ -17,6 +17,7 @@ type NormalizedCall = {
   eventType: string;
   provider: string;
   recordingUrl: string;
+  outcome: string;
   status: string;
   summary: string;
   timestamp: string;
@@ -150,6 +151,7 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
   const phoneNumber = getObject(call.phoneNumber) ?? {};
   const artifact = getObject(call.artifact) ?? getObject(message.artifact) ?? {};
   const analysis = getObject(call.analysis) ?? getObject(message.analysis) ?? {};
+  const structuredData = getObject(analysis.structuredData) ?? {};
 
   return {
     callId: firstString(call.id, message.callId, payload.CallSid, payload.callSid) || "Unknown",
@@ -192,6 +194,17 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
         payload.RecordingUrl,
         payload.recordingUrl
       ) || "",
+    outcome:
+      firstString(
+        analysis.successEvaluation,
+        structuredData.call_outcome,
+        structuredData.outcome,
+        structuredData.result,
+        structuredData.lead_status,
+        message.outcome,
+        call.outcome,
+        payload.outcome
+      ) || "",
     status:
       firstString(
         message.status,
@@ -200,16 +213,33 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
         payload.callStatus,
         payload.CallStatusCallbackEvent
       ) || eventType,
-    summary: firstString(analysis.summary, message.summary, call.summary, payload.summary) || "",
+    summary:
+      firstString(
+        analysis.summary,
+        structuredData.summary,
+        structuredData.call_summary,
+        structuredData.notes,
+        message.summary,
+        call.summary,
+        payload.summary
+      ) || "",
     timestamp: firstString(payload.timestamp, message.timestamp, call.createdAt, call.startedAt) || new Date().toISOString()
   };
 }
 
 function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const heading = getHeading(alertStage);
+  const outcome = getOutcome(call, alertStage);
+  const nextStep = getNextStep(call, alertStage, outcome);
   const lines = [
-    heading,
+    "GRADE A PLUMBING CALL ALERT",
+    "===========================",
+    `Type: ${heading}`,
+    `Outcome: ${outcome}`,
+    `Next step: ${nextStep}`,
     "",
+    "CALL DETAILS",
+    "------------",
     `From: ${call.customerNumber}`,
     `To: ${call.businessNumber}`,
     `Status: ${getDisplayStatus(call, alertStage)}`,
@@ -227,12 +257,12 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
     lines.push(`Ended reason: ${call.endedReason}`);
   }
 
-  if (call.summary) {
-    lines.push("", `Summary: ${call.summary}`);
+  if (alertStage === "completed" || alertStage === "missed") {
+    lines.push("", "CALL SUMMARY", "------------", call.summary || "No Vapi summary was provided. Review the recording if available.");
   }
 
   if (call.recordingUrl) {
-    lines.push("", `Recording: ${call.recordingUrl}`);
+    lines.push("", "RECORDING", "---------", call.recordingUrl);
   }
 
   return lines.join("\n");
@@ -307,6 +337,68 @@ function getDisplayStatus(call: NormalizedCall, alertStage: AlertStage) {
   }
 
   return call.status === "in-progress" ? "in progress" : call.status;
+}
+
+function getOutcome(call: NormalizedCall, alertStage: AlertStage) {
+  const status = call.status.toLowerCase();
+  const endedReason = call.endedReason.toLowerCase();
+  const outcome = call.outcome.toLowerCase();
+  const summary = call.summary.toLowerCase();
+  const durationSeconds = Number(call.duration);
+
+  if (alertStage === "started") {
+    return "Call connected - customer is speaking with the AI assistant";
+  }
+
+  if (alertStage === "missed") {
+    return "Missed or failed call - follow up recommended";
+  }
+
+  if (["success", "successful", "qualified", "booked", "appointment booked", "lead captured"].some((term) => outcome.includes(term))) {
+    return "Successful call - lead looks positive";
+  }
+
+  if (["not interested", "wrong number", "no answer", "failed", "spam", "do not contact"].some((term) => outcome.includes(term))) {
+    return "Not successful - low value or no follow up needed";
+  }
+
+  if (["book", "appointment", "quote", "emergency", "urgent", "call back", "callback", "hot water", "blocked drain", "leak"].some((term) =>
+    summary.includes(term)
+  )) {
+    return "Potential lead - review and follow up";
+  }
+
+  if (Number.isFinite(durationSeconds) && durationSeconds < 15) {
+    return "Needs review - short call";
+  }
+
+  if (status === "ended" || endedReason) {
+    return "Completed call - review summary";
+  }
+
+  return "Needs review";
+}
+
+function getNextStep(call: NormalizedCall, alertStage: AlertStage, outcome: string) {
+  const normalizedOutcome = outcome.toLowerCase();
+
+  if (alertStage === "started") {
+    return "Wait for the completed call alert";
+  }
+
+  if (alertStage === "missed") {
+    return "Call the customer back as soon as possible";
+  }
+
+  if (normalizedOutcome.includes("successful") || normalizedOutcome.includes("potential lead")) {
+    return "Review the summary, then call or message the customer";
+  }
+
+  if (normalizedOutcome.includes("short call")) {
+    return "Listen to the recording and decide whether to call back";
+  }
+
+  return call.recordingUrl ? "Review the recording if more context is needed" : "Review the call in Vapi";
 }
 
 function formatTimestamp(value: string) {
