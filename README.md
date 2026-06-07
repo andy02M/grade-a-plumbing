@@ -114,7 +114,8 @@ https://your-live-domain.com/api/call-alert?secret=your_webhook_secret
 Recommended Vapi setup:
 
 - Add the webhook URL above as the assistant/server URL for call notifications.
-- Enable call lifecycle events such as `call-started`, `call-ended`, `call-failed`, or server messages such as `status-update` and `end-of-call-report`, depending on what your Vapi dashboard exposes.
+- Enable call lifecycle events such as `call-started`, `call-ended`, `call-failed`, or server messages such as `status-update`, `end-of-call-report`, and `recording-ready`, depending on what your Vapi dashboard exposes.
+- The initial ringing, in-progress, or ended alert will not include a recording because the customer may still be on the call or Vapi may still be processing the recording. The final completed-call alert is only sent when a recording URL is available, either from `recording-ready` or from a final payload that already contains a recording URL.
 - Do not replace the Twilio voice routing URL if it is already connected to Vapi. Use Vapi call webhooks first so the AI assistant keeps answering calls.
 
 ## Vapi Calendly Booking Tools

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { site } from "@/lib/site";
-import { sendTelegramMessage } from "@/lib/telegram";
+import { sendTelegramAudio, sendTelegramMessage } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,7 +23,7 @@ type NormalizedCall = {
   timestamp: string;
 };
 
-type AlertStage = "started" | "completed" | "missed" | "ignored";
+type AlertStage = "started" | "completed" | "missed" | "recording" | "ignored";
 
 const recentAlerts = new Map<string, number>();
 const dedupeWindowMs = 10 * 60 * 1000;
@@ -73,14 +73,29 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, deduped: true });
     }
 
-    const result = await sendTelegramMessage(formatCallAlert(call, alertStage));
+    const message = formatCallAlert(call, alertStage);
+    const result =
+      call.recordingUrl && (alertStage === "recording" || alertStage === "completed")
+        ? await sendTelegramAudio(call.recordingUrl, message)
+        : await sendTelegramMessage(message);
 
     if (!result.ok) {
+      if (call.recordingUrl && (alertStage === "recording" || alertStage === "completed")) {
+        const fallbackResult = await sendTelegramMessage(message);
+
+        if (fallbackResult.ok) {
+          rememberAlert(dedupeKey);
+          rememberRecordingAlertIfNeeded(call, alertStage);
+          return NextResponse.json({ ok: true, audioFallback: true });
+        }
+      }
+
       console.error("Telegram call alert failed", result.error);
       return NextResponse.json({ error: result.error }, { status: 500 });
     }
 
     rememberAlert(dedupeKey);
+    rememberRecordingAlertIfNeeded(call, alertStage);
 
     return NextResponse.json({ ok: true });
   } catch (error) {
@@ -152,6 +167,7 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
   const artifact = getObject(call.artifact) ?? getObject(message.artifact) ?? {};
   const analysis = getObject(call.analysis) ?? getObject(message.analysis) ?? {};
   const structuredData = getObject(analysis.structuredData) ?? {};
+  const recording = getObject(artifact.recording) ?? getObject(call.recording) ?? getObject(message.recording) ?? {};
 
   return {
     callId: firstString(call.id, message.callId, payload.CallSid, payload.callSid) || "Unknown",
@@ -187,10 +203,21 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
     eventType,
     provider,
     recordingUrl:
+      findRecordingUrl(payload) ||
+      findRecordingUrl(message) ||
+      findRecordingUrl(call) ||
       firstString(
+        message.recordingUrl,
+        message.stereoRecordingUrl,
         call.recordingUrl,
         artifact.recordingUrl,
         artifact.stereoRecordingUrl,
+        recording.url,
+        recording.recordingUrl,
+        recording.stereoUrl,
+        recording.stereoRecordingUrl,
+        recording.monoUrl,
+        recording.monoRecordingUrl,
         payload.RecordingUrl,
         payload.recordingUrl
       ) || "",
@@ -257,7 +284,7 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
     lines.push(`Ended reason: ${call.endedReason}`);
   }
 
-  if (alertStage === "completed" || alertStage === "missed") {
+  if (alertStage === "completed" || alertStage === "missed" || alertStage === "recording") {
     lines.push("", "CALL SUMMARY", "------------", call.summary || "No Vapi summary was provided. Review the recording if available.");
   }
 
@@ -269,6 +296,10 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
 }
 
 function getHeading(alertStage: AlertStage) {
+  if (alertStage === "recording") {
+    return "Grade A Plumbing call completed - recording ready";
+  }
+
   if (alertStage === "completed") {
     return "Grade A Plumbing call completed";
   }
@@ -283,7 +314,16 @@ function getHeading(alertStage: AlertStage) {
 function getAlertStage(call: NormalizedCall): AlertStage {
   const type = call.eventType.toLowerCase();
   const status = call.status.toLowerCase();
-  const hasCompletedDetails = Boolean(call.endedReason || call.recordingUrl || call.summary);
+  const hasRecording = Boolean(call.recordingUrl);
+
+  if (
+    type.includes("recording-ready") ||
+    type.includes("recording.ready") ||
+    type.includes("recording_ready") ||
+    (type.includes("recording") && call.recordingUrl)
+  ) {
+    return call.recordingUrl ? "recording" : "ignored";
+  }
 
   if (
     type.includes("transcript") ||
@@ -300,12 +340,20 @@ function getAlertStage(call: NormalizedCall): AlertStage {
     return "ignored";
   }
 
-  if (type.includes("end-of-call") || type.includes("hang") || hasCompletedDetails) {
-    return ["busy", "failed", "no-answer", "canceled", "cancelled"].includes(status) ? "missed" : "completed";
+  if (status === "ringing") {
+    return "ignored";
+  }
+
+  if (type.includes("end-of-call") || type.includes("hang") || call.endedReason || call.summary || hasRecording) {
+    if (["busy", "failed", "no-answer", "canceled", "cancelled"].includes(status)) {
+      return "missed";
+    }
+
+    return hasRecording ? "completed" : "ignored";
   }
 
   if (["ended", "completed"].includes(status)) {
-    return type.includes("status-update") ? "ignored" : "completed";
+    return type.includes("status-update") || !hasRecording ? "ignored" : "completed";
   }
 
   if (["busy", "failed", "no-answer", "canceled", "cancelled"].includes(status)) {
@@ -328,6 +376,10 @@ function getAlertStage(call: NormalizedCall): AlertStage {
 }
 
 function getDisplayStatus(call: NormalizedCall, alertStage: AlertStage) {
+  if (alertStage === "recording") {
+    return "recording ready";
+  }
+
   if (alertStage === "completed") {
     return "ended";
   }
@@ -345,6 +397,10 @@ function getOutcome(call: NormalizedCall, alertStage: AlertStage) {
   const outcome = call.outcome.toLowerCase();
   const summary = call.summary.toLowerCase();
   const durationSeconds = Number(call.duration);
+
+  if (alertStage === "recording") {
+    return "Recording ready - listen to the customer call";
+  }
 
   if (alertStage === "started") {
     return "Call connected - customer is speaking with the AI assistant";
@@ -381,6 +437,10 @@ function getOutcome(call: NormalizedCall, alertStage: AlertStage) {
 
 function getNextStep(call: NormalizedCall, alertStage: AlertStage, outcome: string) {
   const normalizedOutcome = outcome.toLowerCase();
+
+  if (alertStage === "recording") {
+    return "Listen to the recording and review the call outcome";
+  }
 
   if (alertStage === "started") {
     return "Wait for the completed call alert";
@@ -452,6 +512,12 @@ function rememberAlert(key: string) {
   recentAlerts.set(key, Date.now());
 }
 
+function rememberRecordingAlertIfNeeded(call: NormalizedCall, alertStage: AlertStage) {
+  if (alertStage === "completed" && call.recordingUrl) {
+    rememberAlert(`${call.provider}:${call.callId || call.customerNumber}:recording`);
+  }
+}
+
 function getObject(value: unknown): Record<string, unknown> | null {
   if (typeof value === "object" && value !== null && !Array.isArray(value)) {
     return value as Record<string, unknown>;
@@ -470,4 +536,52 @@ function firstString(...values: unknown[]) {
   }
 
   return "";
+}
+
+function findRecordingUrl(value: unknown): string {
+  const seen = new Set<unknown>();
+  const candidates: string[] = [];
+
+  collectRecordingUrls(value, "", candidates, seen);
+
+  return candidates[0] ?? "";
+}
+
+function collectRecordingUrls(value: unknown, keyPath: string, candidates: string[], seen: Set<unknown>) {
+  if (!value || candidates.length) {
+    return;
+  }
+
+  if (typeof value === "string") {
+    if (looksLikeRecordingUrl(value) && keyPath.toLowerCase().includes("record")) {
+      candidates.push(value.trim());
+    }
+
+    return;
+  }
+
+  if (typeof value !== "object" || seen.has(value)) {
+    return;
+  }
+
+  seen.add(value);
+
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => collectRecordingUrls(item, `${keyPath}.${index}`, candidates, seen));
+    return;
+  }
+
+  for (const [key, nestedValue] of Object.entries(value as Record<string, unknown>)) {
+    collectRecordingUrls(nestedValue, keyPath ? `${keyPath}.${key}` : key, candidates, seen);
+  }
+}
+
+function looksLikeRecordingUrl(value: string) {
+  const text = value.trim();
+
+  if (!/^https?:\/\//i.test(text)) {
+    return false;
+  }
+
+  return /\.(wav|mp3|m4a|ogg|webm)(\?|$)/i.test(text) || /storage\.vapi\.ai/i.test(text);
 }
