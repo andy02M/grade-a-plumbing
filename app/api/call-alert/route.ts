@@ -1,9 +1,13 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { site } from "@/lib/site";
 import { sendTelegramAudio, sendTelegramMessage } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const vapiApiBaseUrl = process.env.VAPI_API_BASE_URL ?? "https://api.vapi.ai";
+const recordingPollAttempts = 6;
+const recordingPollDelayMs = 10000;
 
 type CallPayload = Record<string, unknown>;
 
@@ -65,6 +69,11 @@ export async function POST(request: Request) {
     const alertStage = getAlertStage(call);
     const dedupeKey = `${call.provider}:${call.callId || call.customerNumber}:${alertStage}`;
 
+    if (shouldPollForRecording(call, alertStage) && !wasRecentlySent(getRecordingPollKey(call))) {
+      rememberAlert(getRecordingPollKey(call));
+      queueRecordingPoll(call);
+    }
+
     if (alertStage === "ignored") {
       return NextResponse.json({ ok: true, ignored: true });
     }
@@ -73,23 +82,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, deduped: true });
     }
 
-    const message = formatCallAlert(call, alertStage);
-    const result =
-      call.recordingUrl && (alertStage === "recording" || alertStage === "completed")
-        ? await sendTelegramAudio(call.recordingUrl, message)
-        : await sendTelegramMessage(message);
+    const result = await sendCallAlert(call, alertStage);
 
     if (!result.ok) {
-      if (call.recordingUrl && (alertStage === "recording" || alertStage === "completed")) {
-        const fallbackResult = await sendTelegramMessage(message);
-
-        if (fallbackResult.ok) {
-          rememberAlert(dedupeKey);
-          rememberRecordingAlertIfNeeded(call, alertStage);
-          return NextResponse.json({ ok: true, audioFallback: true });
-        }
-      }
-
       console.error("Telegram call alert failed", result.error);
       return NextResponse.json({ error: result.error }, { status: 500 });
     }
@@ -102,6 +97,24 @@ export async function POST(request: Request) {
     console.error("Call alert webhook failed", error);
     return NextResponse.json({ error: "Call alert webhook failed." }, { status: 500 });
   }
+}
+
+async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
+  const message = formatCallAlert(call, alertStage);
+  const prefersAudio = call.recordingUrl && (alertStage === "recording" || alertStage === "completed");
+
+  if (!prefersAudio) {
+    return sendTelegramMessage(message);
+  }
+
+  const audioResult = await sendTelegramAudio(call.recordingUrl, message);
+
+  if (audioResult.ok) {
+    return audioResult;
+  }
+
+  const fallbackResult = await sendTelegramMessage(message);
+  return fallbackResult.ok ? fallbackResult : audioResult;
 }
 
 function validateWebhookSecret(request: Request) {
@@ -375,6 +388,33 @@ function getAlertStage(call: NormalizedCall): AlertStage {
   return "ignored";
 }
 
+function shouldPollForRecording(call: NormalizedCall, alertStage: AlertStage) {
+  if (!call.callId || call.callId === "Unknown") {
+    return false;
+  }
+
+  if (call.provider.toLowerCase() !== "vapi") {
+    return false;
+  }
+
+  if (call.recordingUrl) {
+    return false;
+  }
+
+  if (!getVapiPrivateKey()) {
+    return false;
+  }
+
+  return (
+    alertStage === "ignored" &&
+    (call.status.toLowerCase() === "ended" ||
+      call.eventType.toLowerCase().includes("end-of-call") ||
+      call.eventType.toLowerCase().includes("hang") ||
+      Boolean(call.endedReason) ||
+      Boolean(call.summary))
+  );
+}
+
 function getDisplayStatus(call: NormalizedCall, alertStage: AlertStage) {
   if (alertStage === "recording") {
     return "recording ready";
@@ -584,4 +624,136 @@ function looksLikeRecordingUrl(value: string) {
   }
 
   return /\.(wav|mp3|m4a|ogg|webm)(\?|$)/i.test(text) || /storage\.vapi\.ai/i.test(text);
+}
+
+function queueRecordingPoll(call: NormalizedCall) {
+  after(async () => {
+    try {
+      const latestCall = await pollForRecording(call);
+
+      if (!latestCall) {
+        console.warn("Recording was not available before polling timed out", { callId: call.callId });
+        return;
+      }
+
+      const dedupeKey = `${latestCall.provider}:${latestCall.callId || latestCall.customerNumber}:recording`;
+
+      if (wasRecentlySent(dedupeKey)) {
+        return;
+      }
+
+      const result = await sendCallAlert(latestCall, "recording");
+
+      if (!result.ok) {
+        console.error("Telegram recording follow-up failed", result.error);
+        return;
+      }
+
+      rememberAlert(dedupeKey);
+    } catch (error) {
+      console.error("Recording follow-up polling failed", {
+        callId: call.callId,
+        error
+      });
+    }
+  });
+}
+
+async function pollForRecording(baseCall: NormalizedCall) {
+  for (let attempt = 0; attempt < recordingPollAttempts; attempt += 1) {
+    if (attempt > 0) {
+      await sleep(recordingPollDelayMs);
+    }
+
+    const latestCallPayload = await fetchVapiCall(baseCall.callId);
+
+    if (!latestCallPayload) {
+      continue;
+    }
+
+    const latestCall = normalizeCallPayload(buildFetchedCallMessage(latestCallPayload), new Request(site.baseUrl));
+
+    if (latestCall.recordingUrl) {
+      return {
+        ...latestCall,
+        endedReason: latestCall.endedReason || baseCall.endedReason,
+        outcome: latestCall.outcome || baseCall.outcome,
+        summary: latestCall.summary || baseCall.summary,
+        timestamp: latestCall.timestamp || baseCall.timestamp
+      };
+    }
+  }
+
+  return null;
+}
+
+async function fetchVapiCall(callId: string) {
+  const privateKey = getVapiPrivateKey();
+
+  if (!privateKey) {
+    return null;
+  }
+
+  const response = await fetch(`${vapiApiBaseUrl}/call/${callId}`, {
+    headers: {
+      Authorization: `Bearer ${privateKey}`,
+      "Content-Type": "application/json"
+    },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    console.error("Vapi call lookup failed", {
+      callId,
+      status: response.status,
+      body: await response.text()
+    });
+    return null;
+  }
+
+  return (await response.json()) as CallPayload;
+}
+
+function getVapiPrivateKey() {
+  return process.env.VAPI_PRIVATE_KEY ?? process.env.VAPI_API_KEY ?? "";
+}
+
+function getRecordingPollKey(call: NormalizedCall) {
+  return `${call.provider}:${call.callId || call.customerNumber}:recording-poll`;
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function buildFetchedCallMessage(payload: CallPayload) {
+  const payloadObject = getObject(payload) ?? {};
+  const nestedCall = getObject(payloadObject.call);
+  const nestedMessage = getObject(payloadObject.message);
+
+  if (nestedMessage) {
+    return {
+      ...payloadObject,
+      message: {
+        type: "recording-ready",
+        ...nestedMessage
+      }
+    };
+  }
+
+  if (nestedCall) {
+    return {
+      message: {
+        type: "recording-ready",
+        ...payloadObject
+      }
+    };
+  }
+
+  return {
+    message: {
+      type: "recording-ready",
+      call: payloadObject
+    }
+  };
 }
