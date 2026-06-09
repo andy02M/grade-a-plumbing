@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const vapiApiBaseUrl = process.env.VAPI_API_BASE_URL ?? "https://api.vapi.ai";
-const recordingPollAttempts = 6;
+const recordingPollAttempts = 18;
 const recordingPollDelayMs = 10000;
 
 type CallPayload = Record<string, unknown>;
@@ -37,6 +37,20 @@ export async function GET(request: Request) {
 
   if (authError) {
     return authError;
+  }
+
+  const url = new URL(request.url);
+
+  if (url.searchParams.get("status") === "1") {
+    return NextResponse.json({
+      ok: true,
+      environment: {
+        hasCallWebhookSecret: Boolean(process.env.CALL_WEBHOOK_SECRET),
+        hasTelegramBotToken: Boolean(process.env.TELEGRAM_BOT_TOKEN),
+        hasTelegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID),
+        hasVapiPrivateKey: Boolean(getVapiPrivateKey())
+      }
+    });
   }
 
   const result = await sendTelegramMessage(
@@ -405,6 +419,10 @@ function shouldPollForRecording(call: NormalizedCall, alertStage: AlertStage) {
     return false;
   }
 
+  if (alertStage === "started") {
+    return true;
+  }
+
   return (
     alertStage === "ignored" &&
     (call.status.toLowerCase() === "ended" ||
@@ -661,7 +679,9 @@ function queueRecordingPoll(call: NormalizedCall) {
 
 async function pollForRecording(baseCall: NormalizedCall) {
   for (let attempt = 0; attempt < recordingPollAttempts; attempt += 1) {
-    if (attempt > 0) {
+    if (attempt === 0 && getAlertStage(baseCall) === "started") {
+      await sleep(recordingPollDelayMs);
+    } else if (attempt > 0) {
       await sleep(recordingPollDelayMs);
     }
 

@@ -117,6 +117,12 @@ To test Telegram delivery after deployment, open:
 https://your-live-domain.com/api/call-alert?secret=your_webhook_secret
 ```
 
+To check whether the live deployment has all required environment variables, open:
+
+```txt
+https://your-live-domain.com/api/call-alert?secret=your_webhook_secret&status=1
+```
+
 Recommended Vapi setup:
 
 - Add the webhook URL above as the assistant/server URL for call notifications.
