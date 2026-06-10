@@ -339,41 +339,92 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const heading = getHeading(alertStage);
   const outcome = getOutcome(call, alertStage);
   const nextStep = getNextStep(call, alertStage, outcome);
+  const visual = getAlertVisual(alertStage, outcome);
   const lines = [
-    "GRADE A PLUMBING CALL ALERT",
-    "===========================",
-    `Type: ${heading}`,
-    `Outcome: ${outcome}`,
-    `Next step: ${nextStep}`,
+    `${visual.icon} ${visual.title}`,
+    visual.divider,
+    `${visual.status} ${heading}`,
+    `📌 Outcome: ${outcome}`,
+    `➡️ Next step: ${nextStep}`,
     "",
-    "CALL DETAILS",
-    "------------",
-    `From: ${call.customerNumber}`,
-    `To: ${call.businessNumber}`,
-    `Status: ${getDisplayStatus(call, alertStage)}`,
-    `Direction: ${call.direction}`,
-    `Provider: ${call.provider}`,
-    `Call ID: ${call.callId}`,
-    `Time: ${formatTimestamp(call.timestamp)}`
+    "📞 Call details",
+    "━━━━━━━━━━━━━━",
+    `👤 From: ${call.customerNumber}`,
+    `🏢 To: ${call.businessNumber}`,
+    `${visual.status} Status: ${getDisplayStatus(call, alertStage)}`,
+    `🔁 Direction: ${call.direction}`,
+    `🤖 Provider: ${call.provider}`,
+    `🆔 Call ID: ${call.callId}`,
+    `🕒 Time: ${formatTimestamp(call.timestamp)}`
   ];
 
   if (call.duration && call.duration !== "Not available yet") {
-    lines.push(`Duration: ${formatDuration(call.duration)}`);
+    lines.push(`⏱️ Duration: ${formatDuration(call.duration)}`);
   }
 
   if (call.endedReason) {
-    lines.push(`Ended reason: ${call.endedReason}`);
+    lines.push(`🏁 Ended reason: ${call.endedReason}`);
   }
 
   if (alertStage === "completed" || alertStage === "missed" || alertStage === "recording") {
-    lines.push("", "CALL SUMMARY", "------------", call.summary || "No Vapi summary was provided. Review the recording if available.");
+    lines.push(
+      "",
+      "📝 Call summary",
+      "━━━━━━━━━━━━━━",
+      call.summary || "No Vapi summary was provided yet. Listen to the recording if available."
+    );
   }
 
   if (call.recordingUrl) {
-    lines.push("", "RECORDING", "---------", call.recordingUrl);
+    lines.push("", "🎧 Recording", "━━━━━━━━━━━━━━", call.recordingUrl);
   }
 
   return lines.join("\n");
+}
+
+function getAlertVisual(alertStage: AlertStage, outcome: string) {
+  if (alertStage === "recording") {
+    return {
+      divider: "🟩🟩🟩🟩🟩🟩🟩🟩",
+      icon: "🎧",
+      status: "🟢",
+      title: "Grade A Plumbing Call Complete"
+    };
+  }
+
+  if (alertStage === "completed") {
+    return {
+      divider: "🟩🟩🟩🟩🟩🟩🟩🟩",
+      icon: "✅",
+      status: "🟢",
+      title: "Grade A Plumbing Call Complete"
+    };
+  }
+
+  if (alertStage === "missed") {
+    return {
+      divider: "🟥🟥🟥🟥🟥🟥🟥🟥",
+      icon: "🚨",
+      status: "🔴",
+      title: "Grade A Plumbing Missed Call"
+    };
+  }
+
+  if (outcome.toLowerCase().includes("needs review")) {
+    return {
+      divider: "🟨🟨🟨🟨🟨🟨🟨🟨",
+      icon: "⚠️",
+      status: "🟡",
+      title: "Grade A Plumbing Call Alert"
+    };
+  }
+
+  return {
+    divider: "🟦🟦🟦🟦🟦🟦🟦🟦",
+    icon: "📲",
+    status: "🔵",
+    title: "New Grade A Plumbing Call"
+  };
 }
 
 function getHeading(alertStage: AlertStage) {
