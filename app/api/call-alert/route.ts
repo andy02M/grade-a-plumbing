@@ -4,6 +4,7 @@ import { sendTelegramAudio, sendTelegramMessage } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 300;
 
 const vapiApiBaseUrl = process.env.VAPI_API_BASE_URL ?? "https://api.vapi.ai";
 const recordingPollAttempts = 18;
@@ -42,14 +43,66 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
 
   if (url.searchParams.get("status") === "1") {
+    const callId = url.searchParams.get("callId")?.trim();
+    const environment = {
+      hasCallWebhookSecret: Boolean(process.env.CALL_WEBHOOK_SECRET),
+      hasTelegramBotToken: Boolean(process.env.TELEGRAM_BOT_TOKEN),
+      hasTelegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID),
+      hasVapiPrivateKey: Boolean(getVapiPrivateKey())
+    };
+
+    if (callId) {
+      if (!getVapiPrivateKey()) {
+        return NextResponse.json({
+          ok: true,
+          environment,
+          vapiLookup: {
+            attempted: false,
+            error: "Missing VAPI_PRIVATE_KEY or VAPI_API_KEY in the live deployment."
+          }
+        });
+      }
+
+      const fetchedPayload = await fetchVapiCall(callId);
+
+      if (!fetchedPayload) {
+        return NextResponse.json({
+          ok: true,
+          environment,
+          vapiLookup: {
+            attempted: true,
+            ok: false,
+            callId,
+            error: "Could not fetch this call from the Vapi API. Check the Vapi private key and call ID."
+          }
+        });
+      }
+
+      const fetchedCall = normalizeCallPayload(buildFetchedCallMessage(fetchedPayload), request);
+
+      return NextResponse.json({
+        ok: true,
+        environment,
+        vapiLookup: {
+          attempted: true,
+          ok: true,
+          apiBaseUrl: vapiApiBaseUrl,
+          callId: fetchedCall.callId,
+          status: fetchedCall.status,
+          eventType: fetchedCall.eventType,
+          hasRecordingUrl: Boolean(fetchedCall.recordingUrl),
+          recordingUrl: fetchedCall.recordingUrl || null,
+          hasSummary: Boolean(fetchedCall.summary),
+          summary: fetchedCall.summary || null,
+          endedReason: fetchedCall.endedReason || null,
+          duration: fetchedCall.duration
+        }
+      });
+    }
+
     return NextResponse.json({
       ok: true,
-      environment: {
-        hasCallWebhookSecret: Boolean(process.env.CALL_WEBHOOK_SECRET),
-        hasTelegramBotToken: Boolean(process.env.TELEGRAM_BOT_TOKEN),
-        hasTelegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID),
-        hasVapiPrivateKey: Boolean(getVapiPrivateKey())
-      }
+      environment
     });
   }
 
@@ -82,9 +135,10 @@ export async function POST(request: Request) {
     const call = normalizeCallPayload(payload, request);
     const alertStage = getAlertStage(call);
     const dedupeKey = `${call.provider}:${call.callId || call.customerNumber}:${alertStage}`;
+    const recordingPollKey = getRecordingPollKey(call, alertStage);
 
-    if (shouldPollForRecording(call, alertStage) && !wasRecentlySent(getRecordingPollKey(call))) {
-      rememberAlert(getRecordingPollKey(call));
+    if (shouldPollForRecording(call, alertStage) && !wasRecentlySent(recordingPollKey)) {
+      rememberAlert(recordingPollKey);
       queueRecordingPoll(call);
     }
 
@@ -738,8 +792,10 @@ function getVapiPrivateKey() {
   return process.env.VAPI_PRIVATE_KEY ?? process.env.VAPI_API_KEY ?? "";
 }
 
-function getRecordingPollKey(call: NormalizedCall) {
-  return `${call.provider}:${call.callId || call.customerNumber}:recording-poll`;
+function getRecordingPollKey(call: NormalizedCall, alertStage: AlertStage) {
+  const trigger = alertStage === "started" ? "started" : "final";
+
+  return `${call.provider}:${call.callId || call.customerNumber}:recording-poll:${trigger}`;
 }
 
 function sleep(ms: number) {

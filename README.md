@@ -123,6 +123,12 @@ To check whether the live deployment has all required environment variables, ope
 https://your-live-domain.com/api/call-alert?secret=your_webhook_secret&status=1
 ```
 
+To check whether the live deployment can fetch a specific Vapi call and see its recording URL, add the Vapi call ID:
+
+```txt
+https://your-live-domain.com/api/call-alert?secret=your_webhook_secret&status=1&callId=your_vapi_call_id
+```
+
 Recommended Vapi setup:
 
 - Add the webhook URL above as the assistant/server URL for call notifications.
