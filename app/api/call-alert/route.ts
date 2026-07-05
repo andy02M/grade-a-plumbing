@@ -26,6 +26,22 @@ type NormalizedCall = {
   status: string;
   summary: string;
   timestamp: string;
+  lead: LeadDetails;
+};
+
+type LeadDetails = {
+  customerName: string;
+  phoneNumber: string;
+  address: string;
+  suburbLocation: string;
+  serviceNeeded: string;
+  issueSummary: string;
+  urgency: string;
+  preferredTime: string;
+  photosOrVideosAvailable: string;
+  paymentPreference: string;
+  appointmentStatus: string;
+  nextAction: string;
 };
 
 type AlertStage = "started" | "completed" | "missed" | "recording" | "ignored";
@@ -94,6 +110,8 @@ export async function GET(request: Request) {
           recordingUrl: fetchedCall.recordingUrl || null,
           hasSummary: Boolean(fetchedCall.summary),
           summary: fetchedCall.summary || null,
+          leadDetails: fetchedCall.lead,
+          missingLeadFields: getMissingLeadFields(fetchedCall),
           endedReason: fetchedCall.endedReason || null,
           duration: fetchedCall.duration
         }
@@ -175,14 +193,18 @@ async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
     return sendTelegramMessage(message);
   }
 
-  const audioResult = await sendTelegramAudio(call.recordingUrl, message);
+  const messageResult = await sendTelegramMessage(message);
+  const audioResult = await sendTelegramAudio(call.recordingUrl, formatRecordingCaption(call));
 
-  if (audioResult.ok) {
-    return audioResult;
+  if (!audioResult.ok) {
+    console.error("Telegram recording audio failed", audioResult.error);
   }
 
-  const fallbackResult = await sendTelegramMessage(message);
-  return fallbackResult.ok ? fallbackResult : audioResult;
+  if (messageResult.ok) {
+    return messageResult;
+  }
+
+  return audioResult.ok ? audioResult : messageResult;
 }
 
 function validateWebhookSecret(request: Request) {
@@ -249,28 +271,25 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
   const analysis = getObject(call.analysis) ?? getObject(message.analysis) ?? {};
   const structuredData = getObject(analysis.structuredData) ?? {};
   const recording = getObject(artifact.recording) ?? getObject(call.recording) ?? getObject(message.recording) ?? {};
+  const customerNumber =
+    firstString(
+      customer.number,
+      customer.phoneNumber,
+      call.customerNumber,
+      message.customerNumber,
+      payload.From,
+      payload.Caller,
+      payload.from
+    ) || "Unknown";
+  const businessNumber =
+    firstString(phoneNumber.number, phoneNumber.twilioPhoneNumber, message.phoneNumber, payload.To, payload.Called, payload.to) ||
+    site.phone;
+  const structuredSources = getStructuredDataSources(analysis, artifact, call, message, payload);
 
   return {
     callId: firstString(call.id, message.callId, payload.CallSid, payload.callSid) || "Unknown",
-    customerNumber:
-      firstString(
-        customer.number,
-        customer.phoneNumber,
-        call.customerNumber,
-        message.customerNumber,
-        payload.From,
-        payload.Caller,
-        payload.from
-      ) || "Unknown",
-    businessNumber:
-      firstString(
-        phoneNumber.number,
-        phoneNumber.twilioPhoneNumber,
-        message.phoneNumber,
-        payload.To,
-        payload.Called,
-        payload.to
-      ) || site.phone,
+    customerNumber,
+    businessNumber,
     direction: firstString(call.direction, message.direction, payload.Direction, payload.direction) || "Inbound",
     duration:
       firstString(
@@ -331,7 +350,8 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
         call.summary,
         payload.summary
       ) || "",
-    timestamp: firstString(payload.timestamp, message.timestamp, call.createdAt, call.startedAt) || new Date().toISOString()
+    timestamp: firstString(payload.timestamp, message.timestamp, call.createdAt, call.startedAt) || new Date().toISOString(),
+    lead: buildLeadDetails(structuredSources, customerNumber)
   };
 }
 
@@ -367,6 +387,7 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   }
 
   if (alertStage === "completed" || alertStage === "missed" || alertStage === "recording") {
+    lines.push("", ...formatLeadSnapshot(call));
     lines.push(
       "",
       "📝 Call summary",
@@ -380,6 +401,155 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   }
 
   return lines.join("\n");
+}
+
+function formatRecordingCaption(call: NormalizedCall) {
+  const issue = call.lead.issueSummary || call.lead.serviceNeeded;
+  const lines = [
+    "🎧 Grade A Plumbing recording",
+    `👤 From: ${call.customerNumber}`,
+    issue ? `🛠️ Issue: ${issue}` : "",
+    call.lead.urgency ? `🚦 Urgency: ${call.lead.urgency}` : "",
+    `🆔 Call ID: ${call.callId}`
+  ];
+
+  return lines.filter(Boolean).join("\n");
+}
+
+function formatLeadSnapshot(call: NormalizedCall) {
+  const lead = call.lead;
+  const issue = lead.issueSummary || lead.serviceNeeded;
+  const rows = [
+    ["👤 Customer", lead.customerName],
+    ["📱 Phone", lead.phoneNumber || (call.customerNumber !== "Unknown" ? call.customerNumber : "")],
+    ["📍 Address", lead.address],
+    ["📌 Suburb/location", lead.suburbLocation],
+    ["🛠️ Issue", issue],
+    ["🚦 Urgency", lead.urgency],
+    ["🕒 Preferred time", lead.preferredTime],
+    ["📷 Photos/videos", lead.photosOrVideosAvailable],
+    ["💳 Payment preference", lead.paymentPreference],
+    ["📅 Appointment status", lead.appointmentStatus],
+    ["✅ Next action", lead.nextAction]
+  ];
+  const capturedRows = rows.filter(([, value]) => value);
+  const missingFields = getMissingLeadFields(call);
+
+  return [
+    "🧾 Lead snapshot",
+    "━━━━━━━━━━━━━━",
+    ...capturedRows.map(([label, value]) => `${label}: ${value}`),
+    ...(missingFields.length ? [`⚠️ Missing: ${missingFields.join(", ")}`] : ["✅ Required details captured"])
+  ];
+}
+
+function buildLeadDetails(sources: Record<string, unknown>[], customerNumber: string): LeadDetails {
+  return {
+    customerName: firstFieldString(sources, [
+      "customer_name",
+      "customerName",
+      "customer.name",
+      "customer.fullName",
+      "name",
+      "full_name",
+      "fullName"
+    ]),
+    phoneNumber:
+      firstFieldString(sources, [
+        "phone_number",
+        "phoneNumber",
+        "phone",
+        "mobile",
+        "mobile_number",
+        "mobileNumber",
+        "best_phone_number",
+        "bestPhoneNumber",
+        "customer.phone",
+        "customer.phoneNumber"
+      ]) || (customerNumber !== "Unknown" ? customerNumber : ""),
+    address: firstFieldString(sources, [
+      "address",
+      "property_address",
+      "propertyAddress",
+      "job_address",
+      "jobAddress",
+      "full_address",
+      "fullAddress",
+      "location.address"
+    ]),
+    suburbLocation: firstFieldString(sources, [
+      "suburb",
+      "location",
+      "suburb_location",
+      "suburbLocation",
+      "job_suburb",
+      "jobSuburb",
+      "property_suburb",
+      "propertySuburb",
+      "location.suburb"
+    ]),
+    serviceNeeded: firstFieldString(sources, [
+      "service_needed",
+      "serviceNeeded",
+      "service",
+      "service_type",
+      "serviceType",
+      "job_type",
+      "jobType"
+    ]),
+    issueSummary: firstFieldString(sources, [
+      "issue_summary",
+      "issueSummary",
+      "issue",
+      "plumbing_issue",
+      "plumbingIssue",
+      "problem",
+      "description",
+      "notes",
+      "summary",
+      "call_summary",
+      "callSummary"
+    ]),
+    urgency: firstFieldString(sources, ["urgency", "priority", "timeframe", "same_day", "sameDay", "urgent"]),
+    preferredTime: firstFieldString(sources, ["preferred_time", "preferredTime", "preferred_date", "preferredDate", "availability"]),
+    photosOrVideosAvailable: firstFieldString(sources, [
+      "photos_or_videos_available",
+      "photosOrVideosAvailable",
+      "photos_available",
+      "photosAvailable",
+      "videos_available",
+      "videosAvailable"
+    ]),
+    paymentPreference: firstFieldString(sources, ["payment_preference", "paymentPreference", "payment", "payment_method", "paymentMethod"]),
+    appointmentStatus: firstFieldString(sources, ["appointment_status", "appointmentStatus", "booking_status", "bookingStatus"]),
+    nextAction: firstFieldString(sources, ["next_action", "nextAction", "action_required", "actionRequired"])
+  };
+}
+
+function getMissingLeadFields(call: NormalizedCall) {
+  const missingFields: string[] = [];
+
+  if (!call.lead.customerName) {
+    missingFields.push("name");
+  }
+
+  if (!call.lead.phoneNumber && call.customerNumber === "Unknown") {
+    missingFields.push("phone");
+  }
+
+  if (!call.lead.issueSummary && !call.lead.serviceNeeded) {
+    missingFields.push("issue");
+  }
+
+  if (!call.lead.address && !call.lead.suburbLocation) {
+    missingFields.push("address/suburb");
+  }
+
+  if (!call.lead.urgency) {
+    missingFields.push("urgency");
+  }
+
+  return missingFields;
 }
 
 function getAlertVisual(alertStage: AlertStage, outcome: string) {
@@ -562,7 +732,7 @@ function getOutcome(call: NormalizedCall, alertStage: AlertStage) {
   const durationSeconds = Number(call.duration);
 
   if (alertStage === "recording") {
-    return "Recording ready - listen to the customer call";
+    return getMissingLeadFields(call).length ? "Recording ready - review missing details" : "Lead details captured - review and follow up";
   }
 
   if (alertStage === "started") {
@@ -699,6 +869,106 @@ function firstString(...values: unknown[]) {
   }
 
   return "";
+}
+
+function getStructuredDataSources(...values: Record<string, unknown>[]) {
+  const sources: Record<string, unknown>[] = [];
+
+  for (const value of values) {
+    const structuredData = getObject(value.structuredData);
+    const structuredOutputs = getObject(value.structuredOutputs);
+
+    if (structuredData) {
+      sources.push(structuredData);
+    }
+
+    if (structuredOutputs) {
+      sources.push(...getStructuredOutputResults(structuredOutputs));
+    }
+  }
+
+  return sources;
+}
+
+function getStructuredOutputResults(value: unknown, seen = new Set<unknown>()): Record<string, unknown>[] {
+  if (!value || typeof value !== "object" || seen.has(value)) {
+    return [];
+  }
+
+  seen.add(value);
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => getStructuredOutputResults(item, seen));
+  }
+
+  const object = value as Record<string, unknown>;
+  const result = getObject(object.result);
+  const output = getObject(object.output);
+  const directSources = [result, output].filter((source): source is Record<string, unknown> => Boolean(source));
+  const nestedSources = Object.values(object).flatMap((nestedValue) => getStructuredOutputResults(nestedValue, seen));
+
+  return [...directSources, ...nestedSources];
+}
+
+function firstFieldString(sources: Record<string, unknown>[], fieldNames: string[]) {
+  for (const source of sources) {
+    for (const fieldName of fieldNames) {
+      const value = getFieldValue(source, fieldName);
+      const text = stringifyFieldValue(value);
+
+      if (text) {
+        return text;
+      }
+    }
+  }
+
+  return "";
+}
+
+function getFieldValue(source: Record<string, unknown>, fieldName: string): unknown {
+  if (fieldName in source) {
+    return source[fieldName];
+  }
+
+  if (!fieldName.includes(".")) {
+    return undefined;
+  }
+
+  return fieldName.split(".").reduce<unknown>((currentValue, key) => {
+    const currentObject = getObject(currentValue);
+
+    return currentObject ? currentObject[key] : undefined;
+  }, source);
+}
+
+function stringifyFieldValue(value: unknown): string {
+  if (value === undefined || value === null) {
+    return "";
+  }
+
+  if (typeof value === "boolean") {
+    return value ? "Yes" : "No";
+  }
+
+  if (typeof value === "number") {
+    return String(value);
+  }
+
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => stringifyFieldValue(item)).filter(Boolean).join(", ");
+  }
+
+  const object = getObject(value);
+
+  if (!object) {
+    return "";
+  }
+
+  return firstString(object.value, object.text, object.label, object.name);
 }
 
 function findRecordingUrl(value: unknown): string {
