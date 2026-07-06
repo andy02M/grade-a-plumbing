@@ -665,7 +665,7 @@ function getAlertStage(call: NormalizedCall): AlertStage {
     type.includes("recording_ready") ||
     (type.includes("recording") && call.recordingUrl)
   ) {
-    return call.recordingUrl ? "recording" : "ignored";
+    return "ignored";
   }
 
   if (
@@ -733,10 +733,6 @@ function shouldPollForRecording(call: NormalizedCall, alertStage: AlertStage) {
 
   if (!getVapiPrivateKey()) {
     return false;
-  }
-
-  if (alertStage === "started") {
-    return true;
   }
 
   return (
