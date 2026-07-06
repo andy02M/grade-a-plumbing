@@ -9,6 +9,7 @@ export const maxDuration = 300;
 const vapiApiBaseUrl = process.env.VAPI_API_BASE_URL ?? "https://api.vapi.ai";
 const recordingPollAttempts = 18;
 const recordingPollDelayMs = 10000;
+const alertDivider = "====================================";
 
 type CallPayload = Record<string, unknown>;
 
@@ -369,12 +370,31 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
 
 function formatStartedAlert(call: NormalizedCall) {
   const lines = [
-    "📲 New Grade A Plumbing Call",
-    "🟦🟦🟦🟦🟦🟦🟦🟦",
-    `📞 Caller: ${call.customerNumber}`,
-    `🕒 Started: ${formatTimestamp(call.timestamp)}`,
+    "🟦🟪🟩🟦🟪🟩🟦🟪🟩",
+    alertDivider,
+    "🎮 GRADE A PLUMBING ALERTS",
+    "📲 NEW CUSTOMER CALL RECEIVED",
+    alertDivider,
     "",
-    "Max is speaking with the customer now."
+    "🟢 CALL STATUS: IN PROGRESS",
+    "🤖 ASSISTANT: MAX",
+    "🔧 SERVICE TYPE: PLUMBING ENQUIRY",
+    "",
+    alertDivider,
+    `📞 CALLER: ${formatPhoneNumber(call.customerNumber)}`,
+    `🕒 STARTED: ${formatTimestamp(call.timestamp)}`,
+    alertDivider,
+    "",
+    "🎯 MAX IS COLLECTING",
+    "• Customer name",
+    "• Plumbing issue",
+    "• Address / suburb",
+    "• Urgency",
+    "• Preferred booking time",
+    "",
+    alertDivider,
+    "🟦🟩🟦 CALL ACTIVE 🟦🟩🟦",
+    alertDivider
   ];
 
   return lines.join("\n");
@@ -382,66 +402,124 @@ function formatStartedAlert(call: NormalizedCall) {
 
 function formatMissedAlert(call: NormalizedCall) {
   const lines = [
-    "🚨 Grade A Plumbing Missed Call",
-    "🟥🟥🟥🟥🟥🟥🟥🟥",
-    `📞 Caller: ${call.customerNumber}`,
-    `🕒 Time: ${formatTimestamp(call.timestamp)}`,
+    "🟥🟧🟨🟥🟧🟨🟥🟧🟨",
+    alertDivider,
+    "🎮 GRADE A PLUMBING ALERTS",
+    "🚨 MISSED OR FAILED CALL",
+    alertDivider,
     "",
-    "Call the customer back as soon as possible."
+    "🔴 CALL STATUS: MISSED",
+    "🚨 NEXT ACTION: CALL BACK",
+    "🔧 SERVICE TYPE: PLUMBING ENQUIRY",
+    "",
+    alertDivider,
+    `📞 CALLER: ${formatPhoneNumber(call.customerNumber)}`,
+    `🕒 TIME: ${formatTimestamp(call.timestamp)}`,
+    alertDivider,
+    "",
+    "🎯 ACTION",
+    "Call the customer back as soon as possible.",
+    alertDivider,
+    "🟥🟧🟨 ACTION NEEDED 🟨🟧🟥",
+    alertDivider
   ];
 
   return lines.join("\n");
 }
 
 function formatCompletedAlert(call: NormalizedCall) {
-  const presentation = getCompletedPresentation(call);
-  const lines = [
-    `${presentation.badge} ${presentation.heading}`,
-    presentation.title,
-    presentation.divider,
-    ...formatLeadSnapshot(call)
-  ];
-
-  if (call.duration && call.duration !== "Not available yet") {
-    lines.push(`⏱️ Call length: ${formatDuration(call.duration)}`);
-  }
-
-  if (call.summary) {
-    lines.push("", "📝 Notes", call.summary);
-  }
-
-  if (call.recordingUrl) {
-    lines.push("", "🎧 Recording", call.recordingUrl);
-  }
-
-  return lines.join("\n");
-}
-
-function getCompletedPresentation(call: NormalizedCall) {
   if (isNonJobLead(call)) {
-    return {
-      badge: "ℹ️",
-      divider: "⬜⬜⬜⬜⬜⬜⬜⬜",
-      heading: "Grade A Plumbing Call Complete",
-      title: "Call complete - no plumbing job"
-    };
+    return formatNonJobCompletedAlert(call);
   }
 
   if (getMissingLeadFields(call).length) {
-    return {
-      badge: "⚠️",
-      divider: "🟨🟨🟨🟨🟨🟨🟨🟨",
-      heading: "Grade A Plumbing Call Complete",
-      title: "Callback needed - details missing"
-    };
+    return formatCallbackRequiredAlert(call);
   }
 
-  return {
-    badge: "🎧",
-    divider: "🟩🟩🟩🟩🟩🟩🟩🟩",
-    heading: "Grade A Plumbing Call Complete",
-    title: "New plumbing lead captured"
-  };
+  return formatLeadCapturedAlert(call);
+}
+
+function formatCallbackRequiredAlert(call: NormalizedCall) {
+  const missingFields = getMissingLeadFields(call);
+  const lines = [
+    "🟨🟧🟥🟨🟧🟥🟨🟧🟥",
+    alertDivider,
+    "🎮 GRADE A PLUMBING ALERTS",
+    "⚠️ CALLBACK REQUIRED",
+    alertDivider,
+    "",
+    `📞 CUSTOMER: ${formatPhoneNumber(call.lead.phoneNumber || call.customerNumber)}`,
+    "",
+    "🟡 REASON:",
+    "Call ended but booking details are missing.",
+    "",
+    "🧩 STILL NEEDED:",
+    ...missingFields.map((field) => `🔴 ${formatMissingField(field)}`),
+    "",
+    "🎯 ACTION:",
+    "Check availability, then call customer back.",
+    "",
+    ...formatRecordingLines(call),
+    alertDivider,
+    "🚨 ACTION NEEDED",
+    alertDivider
+  ];
+
+  return lines.filter((line, index, array) => !(line === "" && array[index - 1] === "")).join("\n");
+}
+
+function formatLeadCapturedAlert(call: NormalizedCall) {
+  const lead = call.lead;
+  const location = [lead.address, lead.suburbLocation].filter(Boolean).join(" - ");
+  const lines = [
+    "🟩🟦🟩🟩🟦🟩🟩🟦🟩",
+    alertDivider,
+    "🎮 GRADE A PLUMBING ALERTS",
+    "✅ NEW PLUMBING LEAD CAPTURED",
+    alertDivider,
+    "",
+    `👤 CUSTOMER: ${lead.customerName}`,
+    `📞 PHONE: ${formatPhoneNumber(lead.phoneNumber || call.customerNumber)}`,
+    location ? `📍 LOCATION: ${location}` : "",
+    `🔧 ISSUE: ${lead.issueSummary || lead.serviceNeeded}`,
+    `🚦 URGENCY: ${lead.urgency}`,
+    lead.preferredTime ? `🕒 PREFERRED: ${lead.preferredTime}` : "",
+    "",
+    "🎯 NEXT STEP:",
+    lead.nextAction || "Review the lead and follow up.",
+    "",
+    ...formatRecordingLines(call),
+    alertDivider,
+    "🟩🟦🟩 READY FOR FOLLOW UP 🟩🟦🟩",
+    alertDivider
+  ];
+
+  return lines.filter(Boolean).join("\n");
+}
+
+function formatNonJobCompletedAlert(call: NormalizedCall) {
+  const lead = call.lead;
+  const issue = lead.issueSummary || lead.serviceNeeded || "No plumbing job requested.";
+  const lines = [
+    "⬜🟦⬜⬜🟦⬜⬜🟦⬜",
+    alertDivider,
+    "🎮 GRADE A PLUMBING ALERTS",
+    "ℹ️ CALL COMPLETED - NO JOB",
+    alertDivider,
+    "",
+    lead.customerName ? `👤 CUSTOMER: ${lead.customerName}` : "",
+    `📞 PHONE: ${formatPhoneNumber(lead.phoneNumber || call.customerNumber)}`,
+    "",
+    "📝 REASON:",
+    issue,
+    "",
+    ...formatRecordingLines(call),
+    alertDivider,
+    "⬜ NO ACTION REQUIRED ⬜",
+    alertDivider
+  ];
+
+  return lines.filter(Boolean).join("\n");
 }
 
 function formatRecordingCaption(call: NormalizedCall) {
@@ -478,6 +556,22 @@ function formatLeadSnapshot(call: NormalizedCall) {
     ...capturedRows.map(([label, value]) => `${label}: ${value}`),
     ...(missingFields.length ? [`⚠️ Still needed: ${missingFields.join(", ")}`] : ["✅ Ready for follow-up"])
   ];
+}
+
+function formatRecordingLines(call: NormalizedCall) {
+  return call.recordingUrl ? ["🎧 RECORDING:", call.recordingUrl, ""] : [];
+}
+
+function formatMissingField(field: string) {
+  const labels: Record<string, string> = {
+    "address/suburb": "Address / suburb",
+    issue: "Plumbing issue",
+    name: "Name",
+    phone: "Phone",
+    urgency: "Urgency"
+  };
+
+  return labels[field] ?? field;
 }
 
 function buildLeadDetails(sources: Record<string, unknown>[], customerNumber: string): LeadDetails {
@@ -852,6 +946,21 @@ function getNextStep(call: NormalizedCall, alertStage: AlertStage, outcome: stri
   }
 
   return call.recordingUrl ? "Review the recording if more context is needed" : "Review the call in Vapi";
+}
+
+function formatPhoneNumber(value: string) {
+  const text = value.trim();
+  const digits = text.replace(/\D/g, "");
+
+  if (digits.startsWith("61") && digits.length === 11) {
+    return `+61 ${digits.slice(2, 5)} ${digits.slice(5, 8)} ${digits.slice(8)}`;
+  }
+
+  if (digits.startsWith("04") && digits.length === 10) {
+    return `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
+  }
+
+  return text;
 }
 
 function formatTimestamp(value: string) {
