@@ -356,61 +356,79 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
 }
 
 function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
-  const heading = getHeading(alertStage);
-  const outcome = getOutcome(call, alertStage);
-  const nextStep = getNextStep(call, alertStage, outcome);
-  const visual = getAlertVisual(alertStage, outcome);
+  if (alertStage === "started") {
+    return formatStartedAlert(call);
+  }
+
+  if (alertStage === "missed") {
+    return formatMissedAlert(call);
+  }
+
+  return formatCompletedAlert(call);
+}
+
+function formatStartedAlert(call: NormalizedCall) {
   const lines = [
-    `${visual.icon} ${visual.title}`,
-    visual.divider,
-    `${visual.status} ${heading}`,
-    `📌 Outcome: ${outcome}`,
-    `➡️ Next step: ${nextStep}`,
-    "",
-    "📞 Call details",
+    "📲 New call",
     "━━━━━━━━━━━━━━",
-    `👤 From: ${call.customerNumber}`,
-    `🏢 To: ${call.businessNumber}`,
-    `${visual.status} Status: ${getDisplayStatus(call, alertStage)}`,
-    `🔁 Direction: ${call.direction}`,
-    `🤖 Provider: ${call.provider}`,
-    `🆔 Call ID: ${call.callId}`,
-    `🕒 Time: ${formatTimestamp(call.timestamp)}`
+    `📱 From: ${call.customerNumber}`,
+    `🕒 Time: ${formatTimestamp(call.timestamp)}`,
+    "➡️ Max is speaking with the customer now."
   ];
+
+  return lines.join("\n");
+}
+
+function formatMissedAlert(call: NormalizedCall) {
+  const lines = [
+    "🚨 Missed or failed call",
+    "━━━━━━━━━━━━━━",
+    `📱 From: ${call.customerNumber}`,
+    `🕒 Time: ${formatTimestamp(call.timestamp)}`,
+    "➡️ Call the customer back as soon as possible."
+  ];
+
+  return lines.join("\n");
+}
+
+function formatCompletedAlert(call: NormalizedCall) {
+  const lines = [getCompletedTitle(call), "━━━━━━━━━━━━━━", ...formatLeadSnapshot(call)];
 
   if (call.duration && call.duration !== "Not available yet") {
     lines.push(`⏱️ Duration: ${formatDuration(call.duration)}`);
   }
 
-  if (call.endedReason) {
-    lines.push(`🏁 Ended reason: ${call.endedReason}`);
-  }
-
-  if (alertStage === "completed" || alertStage === "missed" || alertStage === "recording") {
-    lines.push("", ...formatLeadSnapshot(call));
-    lines.push(
-      "",
-      "📝 Call summary",
-      "━━━━━━━━━━━━━━",
-      call.summary || "No Vapi summary was provided yet. Listen to the recording if available."
-    );
+  if (call.summary) {
+    lines.push("", "📝 Notes", call.summary);
   }
 
   if (call.recordingUrl) {
-    lines.push("", "🎧 Recording", "━━━━━━━━━━━━━━", call.recordingUrl);
+    lines.push("", "🎧 Recording", call.recordingUrl);
   }
 
   return lines.join("\n");
 }
 
+function getCompletedTitle(call: NormalizedCall) {
+  if (isNonJobLead(call)) {
+    return "ℹ️ Call complete - no plumbing job";
+  }
+
+  if (getMissingLeadFields(call).length) {
+    return "⚠️ Call complete - details missing";
+  }
+
+  return "✅ New plumbing lead";
+}
+
 function formatRecordingCaption(call: NormalizedCall) {
   const issue = call.lead.issueSummary || call.lead.serviceNeeded;
+  const nameOrPhone = call.lead.customerName || call.lead.phoneNumber || call.customerNumber;
   const lines = [
     "🎧 Grade A Plumbing recording",
-    `👤 From: ${call.customerNumber}`,
+    nameOrPhone ? `👤 ${nameOrPhone}` : "",
     issue ? `🛠️ Issue: ${issue}` : "",
-    call.lead.urgency ? `🚦 Urgency: ${call.lead.urgency}` : "",
-    `🆔 Call ID: ${call.callId}`
+    call.lead.urgency ? `🚦 Urgency: ${call.lead.urgency}` : ""
   ];
 
   return lines.filter(Boolean).join("\n");
@@ -419,25 +437,21 @@ function formatRecordingCaption(call: NormalizedCall) {
 function formatLeadSnapshot(call: NormalizedCall) {
   const lead = call.lead;
   const issue = lead.issueSummary || lead.serviceNeeded;
+  const phone = lead.phoneNumber || (call.customerNumber !== "Unknown" ? call.customerNumber : "");
+  const location = [lead.address, lead.suburbLocation].filter(Boolean).join(" - ");
   const rows = [
     ["👤 Customer", lead.customerName],
-    ["📱 Phone", lead.phoneNumber || (call.customerNumber !== "Unknown" ? call.customerNumber : "")],
-    ["📍 Address", lead.address],
-    ["📌 Suburb/location", lead.suburbLocation],
+    ["📱 Phone", phone],
+    ["📍 Location", location],
     ["🛠️ Issue", issue],
     ["🚦 Urgency", lead.urgency],
     ["🕒 Preferred time", lead.preferredTime],
-    ["📷 Photos/videos", lead.photosOrVideosAvailable],
-    ["💳 Payment preference", lead.paymentPreference],
-    ["📅 Appointment status", lead.appointmentStatus],
     ["✅ Next action", lead.nextAction]
   ];
   const capturedRows = rows.filter(([, value]) => value);
   const missingFields = getMissingLeadFields(call);
 
   return [
-    "🧾 Lead snapshot",
-    "━━━━━━━━━━━━━━",
     ...capturedRows.map(([label, value]) => `${label}: ${value}`),
     ...(missingFields.length ? [`⚠️ Missing: ${missingFields.join(", ")}`] : ["✅ Required details captured"])
   ];
@@ -527,6 +541,10 @@ function buildLeadDetails(sources: Record<string, unknown>[], customerNumber: st
 }
 
 function getMissingLeadFields(call: NormalizedCall) {
+  if (isNonJobLead(call)) {
+    return [];
+  }
+
   const missingFields: string[] = [];
 
   if (!call.lead.customerName) {
@@ -550,6 +568,29 @@ function getMissingLeadFields(call: NormalizedCall) {
   }
 
   return missingFields;
+}
+
+function isNonJobLead(call: NormalizedCall) {
+  const text = [
+    call.lead.serviceNeeded,
+    call.lead.issueSummary,
+    call.lead.nextAction,
+    call.outcome,
+    call.summary
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return [
+    "courtesy call",
+    "not requesting plumbing",
+    "no plumbing service",
+    "not a plumbing job",
+    "wrong number",
+    "spam",
+    "test call",
+    "not interested"
+  ].some((term) => text.includes(term));
 }
 
 function getAlertVisual(alertStage: AlertStage, outcome: string) {
