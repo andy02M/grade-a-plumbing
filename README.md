@@ -105,6 +105,12 @@ TELEGRAM_CHAT_ID=your_telegram_chat_id
 CALL_WEBHOOK_SECRET=choose_a_long_random_secret
 ```
 
+To send alerts to more than one Telegram chat or group, separate IDs with commas and no spaces:
+
+```txt
+TELEGRAM_CHAT_ID=1190815241,-5312911777
+```
+
 Optional but strongly recommended if you want reliable final recording alerts even when Vapi does not send a separate `recording-ready` webhook:
 
 ```txt
