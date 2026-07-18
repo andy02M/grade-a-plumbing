@@ -475,7 +475,6 @@ function formatCallbackRequiredAlert(call: NormalizedCall) {
     "⚠️ CALLBACK REQUIRED",
     alertDivider,
     "",
-    `📞 CUSTOMER: ${formatPhoneNumber(call.lead.phoneNumber || call.customerNumber)}`,
     `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
     `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
     "",
