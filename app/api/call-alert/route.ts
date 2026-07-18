@@ -408,6 +408,7 @@ function formatStartedAlert(call: NormalizedCall) {
     alertDivider,
     `📞 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
     "📱 BEST CONTACT: Max is asking now",
+    ...formatTapToCallLines(call),
     `🕒 STARTED: ${formatTimestamp(call.timestamp)}`,
     alertDivider,
     "",
@@ -441,6 +442,7 @@ function formatMissedAlert(call: NormalizedCall) {
     alertDivider,
     `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
     `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
+    ...formatTapToCallLines(call),
     `🕒 TIME: ${formatTimestamp(call.timestamp)}`,
     alertDivider,
     "",
@@ -478,6 +480,7 @@ function formatCallbackRequiredAlert(call: NormalizedCall) {
     `📞 CUSTOMER: ${formatPhoneNumber(call.lead.phoneNumber || call.customerNumber)}`,
     `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
     `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
+    ...formatTapToCallLines(call),
     "",
     "🟡 REASON:",
     "Call ended but booking details are missing.",
@@ -510,6 +513,7 @@ function formatLeadCapturedAlert(call: NormalizedCall) {
     `👤 CUSTOMER: ${lead.customerName}`,
     `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
     `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
+    ...formatTapToCallLines(call),
     location ? `📍 LOCATION: ${location}` : "",
     `🔧 ISSUE: ${lead.issueSummary || lead.serviceNeeded}`,
     `🚦 URGENCY: ${lead.urgency}`,
@@ -540,6 +544,7 @@ function formatNonJobCompletedAlert(call: NormalizedCall) {
     lead.customerName ? `👤 CUSTOMER: ${lead.customerName}` : "",
     `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
     `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
+    ...formatTapToCallLines(call),
     "",
     "📝 REASON:",
     issue,
@@ -995,12 +1000,24 @@ function formatPhoneNumber(value: string) {
   const text = value.trim();
   const digits = text.replace(/\D/g, "");
 
-  if (digits.startsWith("61") && digits.length === 11) {
-    return `+61 ${digits.slice(2, 5)} ${digits.slice(5, 8)} ${digits.slice(8)}`;
+  if (!digits) {
+    return text;
   }
 
   if (digits.startsWith("04") && digits.length === 10) {
-    return `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
+    return `+61${digits.slice(1)}`;
+  }
+
+  if (digits.startsWith("0") && digits.length === 10) {
+    return `+61${digits.slice(1)}`;
+  }
+
+  if (digits.startsWith("61") && digits.length === 11) {
+    return `+${digits}`;
+  }
+
+  if (text.startsWith("+")) {
+    return `+${digits}`;
   }
 
   return text;
@@ -1012,6 +1029,26 @@ function formatKnownPhoneNumber(value: string) {
 
 function formatBestContactNumber(call: NormalizedCall) {
   return call.lead.phoneNumber ? formatPhoneNumber(call.lead.phoneNumber) : "Not provided";
+}
+
+function formatTapToCallLines(call: NormalizedCall) {
+  const phoneNumber = getCallablePhoneNumber(call);
+
+  return phoneNumber ? [`☎️ TAP TO CALL: ${phoneNumber}`] : [];
+}
+
+function getCallablePhoneNumber(call: NormalizedCall) {
+  const candidates = [call.lead.phoneNumber, call.customerNumber];
+
+  for (const candidate of candidates) {
+    const phoneNumber = formatPhoneNumber(candidate);
+
+    if (/^\+\d{8,15}$/.test(phoneNumber)) {
+      return phoneNumber;
+    }
+  }
+
+  return "";
 }
 
 function formatTimestamp(value: string) {
