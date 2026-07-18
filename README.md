@@ -153,6 +153,7 @@ Recommended Vapi setup:
 - Enable call lifecycle events such as `call-started`, `call-ended`, `call-failed`, or server messages such as `status-update`, `end-of-call-report`, and `recording-ready`, depending on what your Vapi dashboard exposes.
 - The initial ringing, in-progress, or ended alert will not include a recording because the customer may still be on the call or Vapi may still be processing the recording. The final completed-call alert is only sent when a recording URL is available, either from `recording-ready` or from a final payload that already contains a recording URL.
 - If Vapi only sends `status-update` and does not later send `recording-ready`, the site can now poll the Vapi Call API after the call ends and send the Telegram recording alert once the recording becomes available. This requires `VAPI_PRIVATE_KEY` to be set in Vercel.
+- Started call alerts are sent as a Telegram message and then edited with the completed call details when the original message ID is still available. If the serverless function has recycled before completion, the site falls back to sending a final alert so the lead is not lost.
 - Do not replace the Twilio voice routing URL if it is already connected to Vapi. Use Vapi call webhooks first so the AI assistant keeps answering calls.
 
 ## Vapi Calendly Booking Tools

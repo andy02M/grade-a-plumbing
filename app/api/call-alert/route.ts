@@ -1,7 +1,7 @@
 import { after, NextResponse } from "next/server";
 import { createRecordingLink } from "@/lib/recordings";
 import { site } from "@/lib/site";
-import { sendTelegramAudio, sendTelegramMessage } from "@/lib/telegram";
+import { editTelegramMessage, sendTelegramMessage, type TelegramDelivery } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -50,7 +50,10 @@ type LeadDetails = {
 type AlertStage = "started" | "completed" | "missed" | "recording" | "ignored";
 
 const recentAlerts = new Map<string, number>();
+const callAlertMessages = new Map<string, TelegramDelivery[]>();
+const callAlertMessageTimes = new Map<string, number>();
 const dedupeWindowMs = 10 * 60 * 1000;
+const editableMessageWindowMs = 2 * 60 * 60 * 1000;
 
 export async function GET(request: Request) {
   const authError = validateWebhookSecret(request);
@@ -191,25 +194,39 @@ export async function POST(request: Request) {
 
 async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const message = formatCallAlert(call, alertStage);
-  const prefersAudio = call.recordingUrl && (alertStage === "recording" || alertStage === "completed");
-  const recordingLink = getPublicRecordingUrl(call);
+  const callMessageKey = getCallMessageKey(call);
 
-  if (!prefersAudio) {
-    return sendTelegramMessage(message);
+  if (alertStage === "started") {
+    const result = await sendTelegramMessage(message);
+
+    if (result.ok && result.deliveries?.length) {
+      rememberCallMessage(callMessageKey, result.deliveries);
+    }
+
+    return result;
   }
 
-  const messageResult = await sendTelegramMessage(message);
-  const audioResult = await sendTelegramAudio(recordingLink || call.recordingUrl, formatRecordingCaption(call));
+  const existingMessages = getCallMessages(callMessageKey);
 
-  if (!audioResult.ok) {
-    console.error("Telegram recording audio failed", audioResult.error);
+  if (!existingMessages.length) {
+    const result = await sendTelegramMessage(message);
+
+    if (result.ok && result.deliveries?.length) {
+      rememberCallMessage(callMessageKey, result.deliveries);
+    }
+
+    return result;
   }
 
-  if (messageResult.ok) {
-    return messageResult;
+  const editResult = await editTelegramMessage(message, existingMessages);
+
+  if (editResult.ok) {
+    return editResult;
   }
 
-  return audioResult.ok ? audioResult : messageResult;
+  console.error("Telegram call alert edit failed", editResult.error);
+
+  return sendTelegramMessage(message, editResult.failedChatIds);
 }
 
 function validateWebhookSecret(request: Request) {
@@ -386,7 +403,8 @@ function formatStartedAlert(call: NormalizedCall) {
     "🔧 SERVICE TYPE: PLUMBING ENQUIRY",
     "",
     alertDivider,
-    `📞 CALLER: ${formatPhoneNumber(call.customerNumber)}`,
+    `📞 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    "📱 BEST CONTACT: Max is asking now",
     `🕒 STARTED: ${formatTimestamp(call.timestamp)}`,
     alertDivider,
     "",
@@ -418,7 +436,8 @@ function formatMissedAlert(call: NormalizedCall) {
     "🔧 SERVICE TYPE: PLUMBING ENQUIRY",
     "",
     alertDivider,
-    `📞 CALLER: ${formatPhoneNumber(call.customerNumber)}`,
+    `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
     `🕒 TIME: ${formatTimestamp(call.timestamp)}`,
     alertDivider,
     "",
@@ -454,6 +473,8 @@ function formatCallbackRequiredAlert(call: NormalizedCall) {
     alertDivider,
     "",
     `📞 CUSTOMER: ${formatPhoneNumber(call.lead.phoneNumber || call.customerNumber)}`,
+    `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
     "",
     "🟡 REASON:",
     "Call ended but booking details are missing.",
@@ -484,7 +505,8 @@ function formatLeadCapturedAlert(call: NormalizedCall) {
     alertDivider,
     "",
     `👤 CUSTOMER: ${lead.customerName}`,
-    `📞 PHONE: ${formatPhoneNumber(lead.phoneNumber || call.customerNumber)}`,
+    `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
     location ? `📍 LOCATION: ${location}` : "",
     `🔧 ISSUE: ${lead.issueSummary || lead.serviceNeeded}`,
     `🚦 URGENCY: ${lead.urgency}`,
@@ -513,7 +535,8 @@ function formatNonJobCompletedAlert(call: NormalizedCall) {
     alertDivider,
     "",
     lead.customerName ? `👤 CUSTOMER: ${lead.customerName}` : "",
-    `📞 PHONE: ${formatPhoneNumber(lead.phoneNumber || call.customerNumber)}`,
+    `📲 CALLER ID: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 BEST CONTACT: ${formatBestContactNumber(call)}`,
     "",
     "📝 REASON:",
     issue,
@@ -543,11 +566,11 @@ function formatRecordingCaption(call: NormalizedCall) {
 function formatLeadSnapshot(call: NormalizedCall) {
   const lead = call.lead;
   const issue = lead.issueSummary || lead.serviceNeeded;
-  const phone = lead.phoneNumber || (call.customerNumber !== "Unknown" ? call.customerNumber : "");
   const location = [lead.address, lead.suburbLocation].filter(Boolean).join(" - ");
   const rows = [
     ["👤 Customer", lead.customerName],
-    ["📞 Phone", phone],
+    ["📲 Caller ID", call.customerNumber !== "Unknown" ? call.customerNumber : ""],
+    ["📱 Best contact", lead.phoneNumber],
     ["📍 Location", location],
     ["🔧 Issue", issue],
     ["🚦 Urgency", lead.urgency],
@@ -598,6 +621,12 @@ function buildLeadDetails(sources: Record<string, unknown>[], customerNumber: st
     ]),
     phoneNumber:
       firstFieldString(sources, [
+        "best_contact_number",
+        "bestContactNumber",
+        "callback_number",
+        "callbackNumber",
+        "contact_number",
+        "contactNumber",
         "phone_number",
         "phoneNumber",
         "phone",
@@ -608,7 +637,7 @@ function buildLeadDetails(sources: Record<string, unknown>[], customerNumber: st
         "bestPhoneNumber",
         "customer.phone",
         "customer.phoneNumber"
-      ]) || (customerNumber !== "Unknown" ? customerNumber : ""),
+      ]) || "",
     address: firstFieldString(sources, [
       "address",
       "property_address",
@@ -974,6 +1003,14 @@ function formatPhoneNumber(value: string) {
   return text;
 }
 
+function formatKnownPhoneNumber(value: string) {
+  return value && value !== "Unknown" ? formatPhoneNumber(value) : "Unknown / private";
+}
+
+function formatBestContactNumber(call: NormalizedCall) {
+  return call.lead.phoneNumber ? formatPhoneNumber(call.lead.phoneNumber) : "Not provided";
+}
+
 function formatTimestamp(value: string) {
   const numericValue = Number(value);
   const date = Number.isFinite(numericValue)
@@ -1023,6 +1060,34 @@ function wasRecentlySent(key: string) {
 
 function rememberAlert(key: string) {
   recentAlerts.set(key, Date.now());
+}
+
+function getCallMessageKey(call: NormalizedCall) {
+  const callId = call.callId && call.callId !== "Unknown" ? call.callId : "";
+
+  return `${call.provider}:${callId || normalizePhoneForKey(call.customerNumber) || "unknown"}`;
+}
+
+function rememberCallMessage(key: string, deliveries: TelegramDelivery[]) {
+  callAlertMessages.set(key, deliveries);
+  callAlertMessageTimes.set(key, Date.now());
+}
+
+function getCallMessages(key: string) {
+  const now = Date.now();
+
+  for (const [messageKey, timestamp] of callAlertMessageTimes.entries()) {
+    if (now - timestamp > editableMessageWindowMs) {
+      callAlertMessageTimes.delete(messageKey);
+      callAlertMessages.delete(messageKey);
+    }
+  }
+
+  return callAlertMessages.get(key) ?? [];
+}
+
+function normalizePhoneForKey(value: string) {
+  return value.replace(/\D/g, "");
 }
 
 function rememberRecordingAlertIfNeeded(call: NormalizedCall, alertStage: AlertStage) {
