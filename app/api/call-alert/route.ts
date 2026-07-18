@@ -1,4 +1,5 @@
 import { after, NextResponse } from "next/server";
+import { createRecordingLink } from "@/lib/recordings";
 import { site } from "@/lib/site";
 import { sendTelegramAudio, sendTelegramMessage } from "@/lib/telegram";
 
@@ -14,6 +15,7 @@ const alertDivider = "====================================";
 type CallPayload = Record<string, unknown>;
 
 type NormalizedCall = {
+  baseUrl: string;
   callId: string;
   customerNumber: string;
   businessNumber: string;
@@ -109,6 +111,7 @@ export async function GET(request: Request) {
           eventType: fetchedCall.eventType,
           hasRecordingUrl: Boolean(fetchedCall.recordingUrl),
           recordingUrl: fetchedCall.recordingUrl || null,
+          recordingLink: getPublicRecordingUrl(fetchedCall) || null,
           hasSummary: Boolean(fetchedCall.summary),
           summary: fetchedCall.summary || null,
           leadDetails: fetchedCall.lead,
@@ -189,13 +192,14 @@ export async function POST(request: Request) {
 async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const message = formatCallAlert(call, alertStage);
   const prefersAudio = call.recordingUrl && (alertStage === "recording" || alertStage === "completed");
+  const recordingLink = getPublicRecordingUrl(call);
 
   if (!prefersAudio) {
     return sendTelegramMessage(message);
   }
 
   const messageResult = await sendTelegramMessage(message);
-  const audioResult = await sendTelegramAudio(call.recordingUrl, formatRecordingCaption(call));
+  const audioResult = await sendTelegramAudio(recordingLink || call.recordingUrl, formatRecordingCaption(call));
 
   if (!audioResult.ok) {
     console.error("Telegram recording audio failed", audioResult.error);
@@ -288,6 +292,7 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
   const structuredSources = getStructuredDataSources(analysis, artifact, call, message, payload);
 
   return {
+    baseUrl: url.origin,
     callId: firstString(call.id, message.callId, payload.CallSid, payload.callSid) || "Unknown",
     customerNumber,
     businessNumber,
@@ -559,7 +564,13 @@ function formatLeadSnapshot(call: NormalizedCall) {
 }
 
 function formatRecordingLines(call: NormalizedCall) {
-  return call.recordingUrl ? ["🎧 RECORDING:", call.recordingUrl, ""] : [];
+  const recordingLink = getPublicRecordingUrl(call);
+
+  return recordingLink ? ["🎧 RECORDING:", recordingLink, ""] : call.recordingUrl ? ["🎧 RECORDING:", call.recordingUrl, ""] : [];
+}
+
+function getPublicRecordingUrl(call: NormalizedCall) {
+  return createRecordingLink(call.baseUrl, call.callId);
 }
 
 function formatMissingField(field: string) {
@@ -1235,11 +1246,12 @@ async function pollForRecording(baseCall: NormalizedCall) {
       continue;
     }
 
-    const latestCall = normalizeCallPayload(buildFetchedCallMessage(latestCallPayload), new Request(site.baseUrl));
+    const latestCall = normalizeCallPayload(buildFetchedCallMessage(latestCallPayload), new Request(`${baseCall.baseUrl}/api/call-alert`));
 
     if (latestCall.recordingUrl) {
       return {
         ...latestCall,
+        baseUrl: baseCall.baseUrl || latestCall.baseUrl,
         endedReason: latestCall.endedReason || baseCall.endedReason,
         outcome: latestCall.outcome || baseCall.outcome,
         summary: latestCall.summary || baseCall.summary,

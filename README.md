@@ -117,6 +117,18 @@ Optional but strongly recommended if you want reliable final recording alerts ev
 VAPI_PRIVATE_KEY=your_vapi_private_key
 ```
 
+Optional recording link signing secret:
+
+```txt
+RECORDING_LINK_SECRET=choose_a_second_long_random_secret
+```
+
+If `RECORDING_LINK_SECRET` is not set, recording links are signed with `CALL_WEBHOOK_SECRET`. Raw `storage.vapi.ai` links can fail in a browser because Vapi recordings are fetched through the Vapi API. Telegram alerts now use a signed website URL like:
+
+```txt
+https://your-live-domain.com/api/call-recording/your_vapi_call_id?token=secure_token
+```
+
 To test Telegram delivery after deployment, open:
 
 ```txt
