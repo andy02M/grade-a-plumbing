@@ -1,7 +1,14 @@
 import { after, NextResponse } from "next/server";
+import {
+  claimRecentAlert,
+  getCallMessages,
+  hasDurableCallAlertStore,
+  rememberCallMessage,
+  rememberRecentAlert
+} from "@/lib/call-alert-store";
 import { createRecordingLink } from "@/lib/recordings";
 import { site } from "@/lib/site";
-import { editTelegramMessage, sendTelegramMessage, type TelegramDelivery } from "@/lib/telegram";
+import { editTelegramMessage, sendTelegramMessage } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -49,9 +56,6 @@ type LeadDetails = {
 
 type AlertStage = "started" | "completed" | "missed" | "recording" | "ignored";
 
-const recentAlerts = new Map<string, number>();
-const callAlertMessages = new Map<string, TelegramDelivery[]>();
-const callAlertMessageTimes = new Map<string, number>();
 const dedupeWindowMs = 10 * 60 * 1000;
 const editableMessageWindowMs = 2 * 60 * 60 * 1000;
 
@@ -70,6 +74,7 @@ export async function GET(request: Request) {
       hasCallWebhookSecret: Boolean(process.env.CALL_WEBHOOK_SECRET),
       hasTelegramBotToken: Boolean(process.env.TELEGRAM_BOT_TOKEN),
       hasTelegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID),
+      hasDurableCallAlertStore: hasDurableCallAlertStore(),
       hasVapiPrivateKey: Boolean(getVapiPrivateKey())
     };
 
@@ -162,8 +167,7 @@ export async function POST(request: Request) {
     const dedupeKey = `${call.provider}:${call.callId || call.customerNumber}:${alertStage}`;
     const recordingPollKey = getRecordingPollKey(call, alertStage);
 
-    if (shouldPollForRecording(call, alertStage) && !wasRecentlySent(recordingPollKey)) {
-      rememberAlert(recordingPollKey);
+    if (shouldPollForRecording(call, alertStage) && (await claimRecentAlert(recordingPollKey, dedupeWindowMs))) {
       queueRecordingPoll(call);
     }
 
@@ -171,7 +175,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, ignored: true });
     }
 
-    if (wasRecentlySent(dedupeKey)) {
+    if (!(await claimRecentAlert(dedupeKey, dedupeWindowMs))) {
       return NextResponse.json({ ok: true, deduped: true });
     }
 
@@ -182,8 +186,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: result.error }, { status: 500 });
     }
 
-    rememberAlert(dedupeKey);
-    rememberRecordingAlertIfNeeded(call, alertStage);
+    await rememberRecordingAlertIfNeeded(call, alertStage);
 
     return NextResponse.json({ ok: true });
   } catch (error) {
@@ -194,25 +197,25 @@ export async function POST(request: Request) {
 
 async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const message = formatCallAlert(call, alertStage);
-  const callMessageKey = getCallMessageKey(call);
+  const callMessageKeys = getCallMessageKeys(call);
 
   if (alertStage === "started") {
     const result = await sendTelegramMessage(message);
 
     if (result.ok && result.deliveries?.length) {
-      rememberCallMessage(callMessageKey, result.deliveries);
+      await Promise.all(callMessageKeys.map((key) => rememberCallMessage(key, result.deliveries ?? [], editableMessageWindowMs)));
     }
 
     return result;
   }
 
-  const existingMessages = getCallMessages(callMessageKey);
+  const existingMessages = await getExistingCallMessages(callMessageKeys);
 
   if (!existingMessages.length) {
     const result = await sendTelegramMessage(message);
 
     if (result.ok && result.deliveries?.length) {
-      rememberCallMessage(callMessageKey, result.deliveries);
+      await Promise.all(callMessageKeys.map((key) => rememberCallMessage(key, result.deliveries ?? [], editableMessageWindowMs)));
     }
 
     return result;
@@ -1045,54 +1048,37 @@ function formatDuration(value: string) {
   return `${minutes} min ${remainingSeconds} sec`;
 }
 
-function wasRecentlySent(key: string) {
-  const now = Date.now();
-  const sentAt = recentAlerts.get(key);
-
-  for (const [recentKey, timestamp] of recentAlerts.entries()) {
-    if (now - timestamp > dedupeWindowMs) {
-      recentAlerts.delete(recentKey);
-    }
-  }
-
-  return Boolean(sentAt && now - sentAt < dedupeWindowMs);
-}
-
-function rememberAlert(key: string) {
-  recentAlerts.set(key, Date.now());
-}
-
-function getCallMessageKey(call: NormalizedCall) {
+function getCallMessageKeys(call: NormalizedCall) {
   const callId = call.callId && call.callId !== "Unknown" ? call.callId : "";
+  const phoneKey = normalizePhoneForKey(call.customerNumber);
+  const keys = [`${call.provider}:${callId || phoneKey || "unknown"}`];
 
-  return `${call.provider}:${callId || normalizePhoneForKey(call.customerNumber) || "unknown"}`;
+  if (callId && phoneKey) {
+    keys.push(`${call.provider}:${phoneKey}`);
+  }
+
+  return [...new Set(keys)];
 }
 
-function rememberCallMessage(key: string, deliveries: TelegramDelivery[]) {
-  callAlertMessages.set(key, deliveries);
-  callAlertMessageTimes.set(key, Date.now());
-}
+async function getExistingCallMessages(keys: string[]) {
+  for (const key of keys) {
+    const deliveries = await getCallMessages(key, editableMessageWindowMs);
 
-function getCallMessages(key: string) {
-  const now = Date.now();
-
-  for (const [messageKey, timestamp] of callAlertMessageTimes.entries()) {
-    if (now - timestamp > editableMessageWindowMs) {
-      callAlertMessageTimes.delete(messageKey);
-      callAlertMessages.delete(messageKey);
+    if (deliveries.length) {
+      return deliveries;
     }
   }
 
-  return callAlertMessages.get(key) ?? [];
+  return [];
 }
 
 function normalizePhoneForKey(value: string) {
   return value.replace(/\D/g, "");
 }
 
-function rememberRecordingAlertIfNeeded(call: NormalizedCall, alertStage: AlertStage) {
+async function rememberRecordingAlertIfNeeded(call: NormalizedCall, alertStage: AlertStage) {
   if (alertStage === "completed" && call.recordingUrl) {
-    rememberAlert(`${call.provider}:${call.callId || call.customerNumber}:recording`);
+    await rememberRecentAlert(`${call.provider}:${call.callId || call.customerNumber}:recording`, dedupeWindowMs);
   }
 }
 
@@ -1276,7 +1262,7 @@ function queueRecordingPoll(call: NormalizedCall) {
 
       const dedupeKey = `${latestCall.provider}:${latestCall.callId || latestCall.customerNumber}:recording`;
 
-      if (wasRecentlySent(dedupeKey)) {
+      if (!(await claimRecentAlert(dedupeKey, dedupeWindowMs))) {
         return;
       }
 
@@ -1287,7 +1273,6 @@ function queueRecordingPoll(call: NormalizedCall) {
         return;
       }
 
-      rememberAlert(dedupeKey);
     } catch (error) {
       console.error("Recording follow-up polling failed", {
         callId: call.callId,

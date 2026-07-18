@@ -105,6 +105,22 @@ TELEGRAM_CHAT_ID=your_telegram_chat_id
 CALL_WEBHOOK_SECRET=choose_a_long_random_secret
 ```
 
+Required if you want the original Telegram call alert to be edited when the call completes:
+
+```txt
+UPSTASH_REDIS_REST_URL=your_upstash_redis_rest_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_rest_token
+```
+
+Vercel KV uses compatible variable names, so these also work:
+
+```txt
+KV_REST_API_URL=your_vercel_kv_rest_url
+KV_REST_API_TOKEN=your_vercel_kv_rest_token
+```
+
+Without Redis/KV, local development still works, but production webhooks may run in different serverless instances and the completed call may be sent as a second message instead of editing the first one.
+
 To send alerts to more than one Telegram chat or group, separate IDs with commas and no spaces:
 
 ```txt
