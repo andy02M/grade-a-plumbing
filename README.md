@@ -218,6 +218,8 @@ To preview the backfill before writing to the Statistics topic, add `dryRun=1`:
 https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20&dryRun=1
 ```
 
+The dry run returns `importableCallRows`, `uniqueImportableCalls`, and `duplicateCallRowsIgnored`. The import writes only unique Vapi call IDs, so the Telegram "new call" and "call complete" notifications are not counted as separate calls.
+
 To force the Statistics topic dashboard to post or refresh without importing new calls, use:
 
 ```txt

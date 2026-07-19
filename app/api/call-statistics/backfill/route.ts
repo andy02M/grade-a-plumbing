@@ -56,6 +56,8 @@ export async function GET(request: Request) {
   };
   const fetchedCalls = await fetchVapiCalls(privateKey, range);
   const callInputs = fetchedCalls.map(normalizeCallStatisticInput).filter(isCallStatisticInput);
+  const duplicateSummary = summarizeDuplicateCallInputs(callInputs);
+  const uniqueCallInputs = dedupeCallInputs(callInputs);
 
   if (dryRun) {
     return NextResponse.json({
@@ -63,18 +65,23 @@ export async function GET(request: Request) {
       dryRun: true,
       range,
       fetchedCalls: fetchedCalls.length,
-      importableCalls: callInputs.length,
-      preview: callInputs.slice(0, 10)
+      importableCallRows: callInputs.length,
+      uniqueImportableCalls: uniqueCallInputs.length,
+      duplicateCallRowsIgnored: duplicateSummary.duplicateRows,
+      duplicateCallKeys: duplicateSummary.duplicates.slice(0, 20),
+      preview: uniqueCallInputs.slice(0, 10)
     });
   }
 
-  const result = await recordCallStatisticsBatch(callInputs);
+  const result = await recordCallStatisticsBatch(uniqueCallInputs);
 
   return NextResponse.json({
     ok: true,
     range,
     fetchedCalls: fetchedCalls.length,
-    importableCalls: callInputs.length,
+    importableCallRows: callInputs.length,
+    uniqueImportableCalls: uniqueCallInputs.length,
+    duplicateCallRowsIgnored: duplicateSummary.duplicateRows,
     ...result
   });
 }
@@ -215,6 +222,56 @@ function normalizeCallStatisticInput(call: VapiCall): CallStatisticInput | null 
 
 function isCallStatisticInput(value: CallStatisticInput | null): value is CallStatisticInput {
   return Boolean(value);
+}
+
+function dedupeCallInputs(inputs: CallStatisticInput[]) {
+  const seen = new Set<string>();
+
+  return inputs.filter((input) => {
+    const key = getImportCallKey(input);
+
+    if (seen.has(key)) {
+      return false;
+    }
+
+    seen.add(key);
+
+    return true;
+  });
+}
+
+function summarizeDuplicateCallInputs(inputs: CallStatisticInput[]) {
+  const counts = new Map<string, number>();
+
+  for (const input of inputs) {
+    const key = getImportCallKey(input);
+
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+
+  const duplicates = Array.from(counts.entries())
+    .filter(([, count]) => count > 1)
+    .map(([key, count]) => ({
+      count,
+      key
+    }));
+
+  return {
+    duplicateRows: duplicates.reduce((total, duplicate) => total + duplicate.count - 1, 0),
+    duplicates
+  };
+}
+
+function getImportCallKey(input: CallStatisticInput) {
+  if (input.callId && input.callId !== "Unknown") {
+    return `call:${input.callId}`;
+  }
+
+  const phoneKey = input.customerNumber.replace(/\D/g, "") || "unknown";
+  const timestamp = new Date(input.timestamp);
+  const minuteBucket = Number.isNaN(timestamp.getTime()) ? input.timestamp : Math.floor(timestamp.getTime() / (60 * 1000));
+
+  return `fallback:${input.provider}:${phoneKey}:${minuteBucket}`;
 }
 
 function customerNumberFromMessages(value: unknown) {
