@@ -41,6 +41,17 @@ export const callActionStatuses = {
 
 export type CallActionStatus = keyof typeof callActionStatuses;
 
+const defaultTopicIds = {
+  booked: 4,
+  new_calls: 2,
+  no_answer: 6,
+  not_interested: 29,
+  quote_needed: 28,
+  statistics: 16,
+  texted_customer: 8,
+  wrong_number: 30
+} as const;
+
 export function buildCallActionKeyboard(actionKey: string): TelegramInlineKeyboardMarkup {
   return {
     inline_keyboard: [
@@ -105,28 +116,42 @@ export function getCallActionTopicId(action: CallActionStatus) {
     }
   }
 
-  return undefined;
+  return defaultTopicIds[action];
 }
 
 export function getNewCallsTopicId() {
-  return parseTopicId(process.env.TELEGRAM_TOPIC_NEW_CALLS ?? process.env.TELEGRAM_NEW_CALLS_THREAD_ID);
+  return parseTopicId(process.env.TELEGRAM_TOPIC_NEW_CALLS ?? process.env.TELEGRAM_NEW_CALLS_THREAD_ID) ?? defaultTopicIds.new_calls;
 }
 
 export function getStatisticsTopicId() {
-  return parseTopicId(process.env.TELEGRAM_TOPIC_STATISTICS ?? process.env.TELEGRAM_STATISTICS_THREAD_ID);
+  return parseTopicId(process.env.TELEGRAM_TOPIC_STATISTICS ?? process.env.TELEGRAM_STATISTICS_THREAD_ID) ?? defaultTopicIds.statistics;
 }
 
 export function getConfiguredCallActionTopics() {
   return Object.fromEntries(
     Object.entries(callActionStatuses).map(([action, status]) => [
       action,
-      status.topicEnvNames.some((envName) => Boolean(process.env[envName]))
+      Boolean(getCallActionTopicId(action as CallActionStatus)) ||
+        status.topicEnvNames.some((envName) => Boolean(process.env[envName]))
     ])
   );
 }
 
+export function getCallTopicDiagnostics() {
+  return {
+    booked: getCallActionTopicId("booked"),
+    new_calls: getNewCallsTopicId(),
+    no_answer: getCallActionTopicId("no_answer"),
+    not_interested: getCallActionTopicId("not_interested"),
+    quote_needed: getCallActionTopicId("quote_needed"),
+    statistics: getStatisticsTopicId(),
+    texted_customer: getCallActionTopicId("texted_customer"),
+    wrong_number: getCallActionTopicId("wrong_number")
+  };
+}
+
 export function shouldDeleteHandledCallAlert() {
-  return process.env.TELEGRAM_DELETE_HANDLED_CALL_ALERTS === "true";
+  return process.env.TELEGRAM_DELETE_HANDLED_CALL_ALERTS?.toLowerCase() !== "false";
 }
 
 export function getCallActionStoreKey(actionKey: string) {

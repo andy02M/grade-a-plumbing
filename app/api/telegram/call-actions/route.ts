@@ -3,6 +3,7 @@ import {
   getCallActionLabel,
   getCallActionStoreKey,
   getCallActionTopicId,
+  getCallTopicDiagnostics,
   getConfiguredCallActionTopics,
   parseCallActionData,
   shouldDeleteHandledCallAlert
@@ -56,6 +57,7 @@ export async function GET(request: Request) {
     ok: true,
     environment: {
       configuredCallActionTopics: getConfiguredCallActionTopics(),
+      callTopicIds: getCallTopicDiagnostics(),
       hasDurableCallAlertStore: hasDurableCallAlertStore(),
       hasTelegramActionSecret: Boolean(getExpectedActionSecret()),
       hasTelegramBotToken: Boolean(process.env.TELEGRAM_BOT_TOKEN),

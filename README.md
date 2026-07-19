@@ -125,18 +125,18 @@ Optional Telegram call outcome buttons:
 
 ```txt
 TELEGRAM_ACTION_SECRET=choose_a_long_random_secret_or_reuse_CALL_WEBHOOK_SECRET
-TELEGRAM_TOPIC_NEW_CALLS=topic_id_for_new_calls
-TELEGRAM_TOPIC_BOOKED=topic_id_for_booked
-TELEGRAM_TOPIC_NO_ANSWER=topic_id_for_no_answer
-TELEGRAM_TOPIC_TEXTED_CUSTOMER=topic_id_for_texted_customer
-TELEGRAM_TOPIC_QUOTE_NEEDED=topic_id_for_quote_needed
-TELEGRAM_TOPIC_NOT_INTERESTED=topic_id_for_not_interested
-TELEGRAM_TOPIC_WRONG_NUMBER=topic_id_for_wrong_number
-TELEGRAM_TOPIC_STATISTICS=topic_id_for_statistics
-TELEGRAM_DELETE_HANDLED_CALL_ALERTS=false
+TELEGRAM_TOPIC_NEW_CALLS=2
+TELEGRAM_TOPIC_BOOKED=4
+TELEGRAM_TOPIC_NO_ANSWER=6
+TELEGRAM_TOPIC_TEXTED_CUSTOMER=8
+TELEGRAM_TOPIC_QUOTE_NEEDED=28
+TELEGRAM_TOPIC_NOT_INTERESTED=29
+TELEGRAM_TOPIC_WRONG_NUMBER=30
+TELEGRAM_TOPIC_STATISTICS=16
+TELEGRAM_DELETE_HANDLED_CALL_ALERTS=true
 ```
 
-Set `TELEGRAM_DELETE_HANDLED_CALL_ALERTS=true` only if the bot is an admin and you want handled alerts removed from the New Calls topic after they are reposted into the selected outcome topic.
+Set `TELEGRAM_DELETE_HANDLED_CALL_ALERTS=false` only if you want handled alerts to stay in the New Calls topic after they are reposted into the selected outcome topic.
 
 The Statistics topic keeps one live dashboard message updated with total call volume, today's calls, last 7 days, busiest hour, busiest day, today's hourly breakdown, and recent caller IDs. For this Telegram group, the Statistics topic ID is `16`, so set:
 

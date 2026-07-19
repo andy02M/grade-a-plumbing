@@ -2,6 +2,7 @@ import { createHash } from "crypto";
 import { after, NextResponse } from "next/server";
 import {
   buildCallActionKeyboard,
+  getCallTopicDiagnostics,
   getCallActionStoreKey,
   getConfiguredCallActionTopics,
   getNewCallsTopicId,
@@ -86,6 +87,7 @@ export async function GET(request: Request) {
       hasTelegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID),
       hasDurableCallAlertStore: hasDurableCallAlertStore(),
       configuredCallActionTopics: getConfiguredCallActionTopics(),
+      callTopicIds: getCallTopicDiagnostics(),
       hasStatisticsTopic: Boolean(getStatisticsTopicId()),
       hasStatisticsChatId: Boolean(
         process.env.TELEGRAM_STATISTICS_CHAT_ID ?? process.env.TELEGRAM_GROUP_ID ?? process.env.TELEGRAM_CHAT_ID
@@ -158,7 +160,11 @@ export async function GET(request: Request) {
       `Business: ${site.name}`,
       `Website: ${site.baseUrl}`,
       "This confirms Telegram call alerts are connected."
-    ].join("\n")
+    ].join("\n"),
+    undefined,
+    {
+      messageThreadId: getNewCallsTopicId()
+    }
   );
 
   if (!result.ok) {
@@ -258,7 +264,10 @@ async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
 
   console.error("Telegram call alert edit failed", editResult.error);
 
-  return sendTelegramMessage(message, editResult.failedChatIds);
+  return sendTelegramMessage(message, editResult.failedChatIds, {
+    messageThreadId: getNewCallsTopicId(),
+    replyMarkup: actionKeyboard
+  });
 }
 
 function queueCallStatistic(call: NormalizedCall) {
