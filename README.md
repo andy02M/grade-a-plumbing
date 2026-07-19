@@ -127,16 +127,21 @@ Optional Telegram call outcome buttons:
 TELEGRAM_ACTION_SECRET=choose_a_long_random_secret_or_reuse_CALL_WEBHOOK_SECRET
 TELEGRAM_TOPIC_NEW_CALLS=2
 TELEGRAM_TOPIC_BOOKED=4
-TELEGRAM_TOPIC_NO_ANSWER=6
-TELEGRAM_TOPIC_TEXTED_CUSTOMER=8
-TELEGRAM_TOPIC_QUOTE_NEEDED=28
-TELEGRAM_TOPIC_NOT_INTERESTED=29
-TELEGRAM_TOPIC_WRONG_NUMBER=30
+TELEGRAM_TOPIC_FOLLOW_UP=6
+TELEGRAM_TOPIC_CLOSED=8
 TELEGRAM_TOPIC_STATISTICS=16
 TELEGRAM_DELETE_HANDLED_CALL_ALERTS=true
 ```
 
 Set `TELEGRAM_DELETE_HANDLED_CALL_ALERTS=false` only if you want handled alerts to stay in the New Calls topic after they are reposted into the selected outcome topic.
+
+The active Telegram topics are:
+
+- `01 New Calls`: incoming call alerts
+- `02 Booked`: confirmed jobs
+- `03 Follow Up Required`: no answer, texted customer, quote needed
+- `04 Closed / Not Suitable`: not interested, wrong number
+- `05 Statistics`: call volume dashboard
 
 The Statistics topic keeps one live dashboard message updated with total call volume, today's calls, last 7 days, busiest hour, busiest day, today's hourly breakdown, and recent caller IDs. For this Telegram group, the Statistics topic ID is `16`, so set:
 

@@ -11,31 +11,41 @@ export const callActionStatuses = {
     callbackLabel: "No Answer",
     emoji: "📞",
     label: "No Answer",
-    topicEnvNames: ["TELEGRAM_TOPIC_NO_ANSWER", "TELEGRAM_NO_ANSWER_THREAD_ID"]
+    topicEnvNames: ["TELEGRAM_TOPIC_FOLLOW_UP", "TELEGRAM_FOLLOW_UP_THREAD_ID", "TELEGRAM_TOPIC_NO_ANSWER", "TELEGRAM_NO_ANSWER_THREAD_ID"]
   },
   texted_customer: {
     callbackLabel: "Texted",
     emoji: "💬",
     label: "Texted Customer",
-    topicEnvNames: ["TELEGRAM_TOPIC_TEXTED_CUSTOMER", "TELEGRAM_TEXTED_CUSTOMER_THREAD_ID"]
+    topicEnvNames: [
+      "TELEGRAM_TOPIC_FOLLOW_UP",
+      "TELEGRAM_FOLLOW_UP_THREAD_ID",
+      "TELEGRAM_TOPIC_TEXTED_CUSTOMER",
+      "TELEGRAM_TEXTED_CUSTOMER_THREAD_ID"
+    ]
   },
   quote_needed: {
     callbackLabel: "Quote Needed",
     emoji: "🧾",
     label: "Quote Needed",
-    topicEnvNames: ["TELEGRAM_TOPIC_QUOTE_NEEDED", "TELEGRAM_QUOTE_NEEDED_THREAD_ID"]
+    topicEnvNames: ["TELEGRAM_TOPIC_FOLLOW_UP", "TELEGRAM_FOLLOW_UP_THREAD_ID", "TELEGRAM_TOPIC_QUOTE_NEEDED", "TELEGRAM_QUOTE_NEEDED_THREAD_ID"]
   },
   not_interested: {
     callbackLabel: "Not Interested",
     emoji: "❌",
     label: "Not Interested",
-    topicEnvNames: ["TELEGRAM_TOPIC_NOT_INTERESTED", "TELEGRAM_NOT_INTERESTED_THREAD_ID"]
+    topicEnvNames: [
+      "TELEGRAM_TOPIC_CLOSED",
+      "TELEGRAM_CLOSED_THREAD_ID",
+      "TELEGRAM_TOPIC_NOT_INTERESTED",
+      "TELEGRAM_NOT_INTERESTED_THREAD_ID"
+    ]
   },
   wrong_number: {
     callbackLabel: "Wrong Number",
     emoji: "🚫",
     label: "Wrong Number",
-    topicEnvNames: ["TELEGRAM_TOPIC_WRONG_NUMBER", "TELEGRAM_WRONG_NUMBER_THREAD_ID"]
+    topicEnvNames: ["TELEGRAM_TOPIC_CLOSED", "TELEGRAM_CLOSED_THREAD_ID", "TELEGRAM_TOPIC_WRONG_NUMBER", "TELEGRAM_WRONG_NUMBER_THREAD_ID"]
   }
 } as const;
 
@@ -43,13 +53,15 @@ export type CallActionStatus = keyof typeof callActionStatuses;
 
 const defaultTopicIds = {
   booked: 4,
+  closed: 8,
+  follow_up: 6,
   new_calls: 2,
   no_answer: 6,
-  not_interested: 29,
-  quote_needed: 28,
+  not_interested: 8,
+  quote_needed: 6,
   statistics: 16,
-  texted_customer: 8,
-  wrong_number: 30
+  texted_customer: 6,
+  wrong_number: 8
 } as const;
 
 export function buildCallActionKeyboard(actionKey: string): TelegramInlineKeyboardMarkup {
@@ -140,6 +152,8 @@ export function getConfiguredCallActionTopics() {
 export function getCallTopicDiagnostics() {
   return {
     booked: getCallActionTopicId("booked"),
+    closed: defaultTopicIds.closed,
+    follow_up: defaultTopicIds.follow_up,
     new_calls: getNewCallsTopicId(),
     no_answer: getCallActionTopicId("no_answer"),
     not_interested: getCallActionTopicId("not_interested"),
