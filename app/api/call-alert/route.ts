@@ -4,7 +4,8 @@ import {
   buildCallActionKeyboard,
   getCallActionStoreKey,
   getConfiguredCallActionTopics,
-  getNewCallsTopicId
+  getNewCallsTopicId,
+  getStatisticsTopicId
 } from "@/lib/call-actions";
 import {
   claimRecentAlert,
@@ -13,6 +14,7 @@ import {
   rememberCallMessage,
   rememberRecentAlert
 } from "@/lib/call-alert-store";
+import { recordCallStatistic } from "@/lib/call-statistics";
 import { createRecordingLink } from "@/lib/recordings";
 import { site } from "@/lib/site";
 import { editTelegramMessage, sendTelegramMessage, type TelegramDelivery } from "@/lib/telegram";
@@ -84,6 +86,10 @@ export async function GET(request: Request) {
       hasTelegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID),
       hasDurableCallAlertStore: hasDurableCallAlertStore(),
       configuredCallActionTopics: getConfiguredCallActionTopics(),
+      hasStatisticsTopic: Boolean(getStatisticsTopicId()),
+      hasStatisticsChatId: Boolean(
+        process.env.TELEGRAM_STATISTICS_CHAT_ID ?? process.env.TELEGRAM_GROUP_ID ?? process.env.TELEGRAM_CHAT_ID
+      ),
       hasVapiPrivateKey: Boolean(getVapiPrivateKey())
     };
 
@@ -184,6 +190,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, ignored: true });
     }
 
+    queueCallStatistic(call);
+
     if (!(await claimRecentAlert(dedupeKey, dedupeWindowMs))) {
       return NextResponse.json({ ok: true, deduped: true });
     }
@@ -251,6 +259,24 @@ async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   console.error("Telegram call alert edit failed", editResult.error);
 
   return sendTelegramMessage(message, editResult.failedChatIds);
+}
+
+function queueCallStatistic(call: NormalizedCall) {
+  after(async () => {
+    try {
+      await recordCallStatistic({
+        callId: call.callId,
+        customerNumber: call.customerNumber,
+        provider: call.provider,
+        timestamp: call.timestamp
+      });
+    } catch (error) {
+      console.error("Call statistics update failed", {
+        callId: call.callId,
+        error
+      });
+    }
+  });
 }
 
 function validateWebhookSecret(request: Request) {

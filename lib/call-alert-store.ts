@@ -17,6 +17,7 @@ type RedisResponse<T> =
 
 const memoryRecentAlerts = new Map<string, number>();
 const memoryCallMessages = new Map<string, StoredCallMessage>();
+const memoryJsonValues = new Map<string, { storedAt: number; value: unknown }>();
 
 export function hasDurableCallAlertStore() {
   return Boolean(getRedisConfig());
@@ -113,6 +114,34 @@ export async function rememberCallMessageStatus(key: string, ttlMs: number, stat
   memoryCallMessages.set(key, payload);
 }
 
+export async function getStoredJson<T>(kind: string, key: string, ttlMs: number) {
+  const redisKey = buildKey(kind, key);
+  const redisResult = await redisCommand<string | null>(["GET", redisKey]);
+
+  if (redisResult.ok) {
+    return parseStoredJson<T>(redisResult.value);
+  }
+
+  pruneMemoryJsonValues(ttlMs);
+
+  return (memoryJsonValues.get(`${kind}:${key}`)?.value as T | undefined) ?? null;
+}
+
+export async function setStoredJson<T>(kind: string, key: string, value: T, ttlMs: number) {
+  const redisKey = buildKey(kind, key);
+  const redisResult = await redisCommand<string>(["SET", redisKey, JSON.stringify(value), "EX", msToSeconds(ttlMs)]);
+
+  if (redisResult.ok) {
+    return;
+  }
+
+  pruneMemoryJsonValues(ttlMs);
+  memoryJsonValues.set(`${kind}:${key}`, {
+    storedAt: Date.now(),
+    value
+  });
+}
+
 function parseStoredCallMessage(value: string | null) {
   if (!value) {
     return null;
@@ -131,6 +160,18 @@ function parseStoredCallMessage(value: string | null) {
       text: typeof parsedValue.text === "string" ? parsedValue.text : undefined,
       storedAt: typeof parsedValue.storedAt === "number" ? parsedValue.storedAt : Date.now()
     };
+  } catch {
+    return null;
+  }
+}
+
+function parseStoredJson<T>(value: string | null) {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(value) as T;
   } catch {
     return null;
   }
@@ -212,7 +253,7 @@ function getRedisConfig() {
   };
 }
 
-function buildKey(kind: "message" | "recent", key: string) {
+function buildKey(kind: string, key: string) {
   return `grade-a-plumbing:call-alert:${kind}:${key}`;
 }
 
@@ -236,6 +277,16 @@ function pruneMemoryCallMessages(ttlMs: number) {
   for (const [key, value] of memoryCallMessages.entries()) {
     if (now - value.storedAt > ttlMs) {
       memoryCallMessages.delete(key);
+    }
+  }
+}
+
+function pruneMemoryJsonValues(ttlMs: number) {
+  const now = Date.now();
+
+  for (const [key, value] of memoryJsonValues.entries()) {
+    if (now - value.storedAt > ttlMs) {
+      memoryJsonValues.delete(key);
     }
   }
 }

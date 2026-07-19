@@ -132,10 +132,23 @@ TELEGRAM_TOPIC_TEXTED_CUSTOMER=topic_id_for_texted_customer
 TELEGRAM_TOPIC_QUOTE_NEEDED=topic_id_for_quote_needed
 TELEGRAM_TOPIC_NOT_INTERESTED=topic_id_for_not_interested
 TELEGRAM_TOPIC_WRONG_NUMBER=topic_id_for_wrong_number
+TELEGRAM_TOPIC_STATISTICS=topic_id_for_statistics
 TELEGRAM_DELETE_HANDLED_CALL_ALERTS=false
 ```
 
 Set `TELEGRAM_DELETE_HANDLED_CALL_ALERTS=true` only if the bot is an admin and you want handled alerts removed from the New Calls topic after they are reposted into the selected outcome topic.
+
+The Statistics topic keeps one live dashboard message updated with total call volume, today's calls, last 7 days, busiest hour, busiest day, today's hourly breakdown, and recent caller IDs. For this Telegram group, the Statistics topic ID is `16`, so set:
+
+```txt
+TELEGRAM_TOPIC_STATISTICS=16
+```
+
+If `TELEGRAM_CHAT_ID` contains more than one chat ID, set this optional variable so the statistics dashboard only posts inside the Telegram group topic:
+
+```txt
+TELEGRAM_STATISTICS_CHAT_ID=your_telegram_group_id
+```
 
 Telegram button clicks are handled by [app/api/telegram/call-actions/route.ts](./app/api/telegram/call-actions/route.ts). After deployment, set the bot webhook to:
 

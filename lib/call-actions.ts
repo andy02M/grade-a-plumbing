@@ -112,6 +112,10 @@ export function getNewCallsTopicId() {
   return parseTopicId(process.env.TELEGRAM_TOPIC_NEW_CALLS ?? process.env.TELEGRAM_NEW_CALLS_THREAD_ID);
 }
 
+export function getStatisticsTopicId() {
+  return parseTopicId(process.env.TELEGRAM_TOPIC_STATISTICS ?? process.env.TELEGRAM_STATISTICS_THREAD_ID);
+}
+
 export function getConfiguredCallActionTopics() {
   return Object.fromEntries(
     Object.entries(callActionStatuses).map(([action, status]) => [
