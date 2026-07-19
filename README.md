@@ -226,6 +226,14 @@ To force the Statistics topic dashboard to post or refresh without importing new
 https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&refresh=1
 ```
 
+The Statistics dashboard includes Telegram buttons for `Refresh`, `Today`, `7 Days`, `30 Days`, and `All Time`. Each view edits the same dashboard message and shows a by-hour bar chart so you can see what time calls come in most often. Button clicks use the same Telegram webhook as the call outcome buttons:
+
+```txt
+https://gradeaplumbing.store/api/telegram/call-actions?secret=your_telegram_action_secret
+```
+
+After deploying button changes, run the refresh URL once so the existing Statistics message receives the new buttons.
+
 Recommended Vapi setup:
 
 - Add the webhook URL above as the assistant/server URL for call notifications.

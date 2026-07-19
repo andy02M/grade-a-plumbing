@@ -1,6 +1,11 @@
 import { getStatisticsTopicId } from "@/lib/call-actions";
 import { claimRecentAlert, getStoredJson, setStoredJson } from "@/lib/call-alert-store";
-import { editTelegramMessage, sendTelegramMessage, type TelegramDelivery } from "@/lib/telegram";
+import {
+  editTelegramMessage,
+  sendTelegramMessage,
+  type TelegramDelivery,
+  type TelegramInlineKeyboardMarkup
+} from "@/lib/telegram";
 
 export type CallStatisticInput = {
   callId: string;
@@ -32,13 +37,27 @@ type StatisticsMessageRecord = {
   deliveries: TelegramDelivery[];
   storedAt: number;
   text: string;
+  view?: CallStatisticsView;
 };
+
+export type CallStatisticsView = "today" | "7d" | "30d" | "all";
+
+type CallStatisticsAction =
+  | {
+      type: "refresh";
+      view: CallStatisticsView;
+    }
+  | {
+      type: "view";
+      view: CallStatisticsView;
+    };
 
 const melbourneTimeZone = "Australia/Melbourne";
 const statisticsStoreTtlMs = 366 * 24 * 60 * 60 * 1000;
 const statisticsKind = "stats";
 const statisticsKey = "call-volume";
 const statisticsMessageKey = "telegram-message";
+const defaultStatisticsView: CallStatisticsView = "7d";
 
 export async function recordCallStatistic(input: CallStatisticInput) {
   const result = await recordCallStatisticsBatch([input]);
@@ -77,14 +96,42 @@ export async function recordCallStatisticsBatch(inputs: CallStatisticInput[]) {
   };
 }
 
-export async function refreshCallStatisticsMessage() {
+export async function refreshCallStatisticsMessage(view?: CallStatisticsView, fallbackDeliveries: TelegramDelivery[] = []) {
   const stats = normalizeStats(await getStoredJson<Partial<CallStats>>(statisticsKind, statisticsKey, statisticsStoreTtlMs));
-  const telegram = await updateStatisticsMessage(stats);
+  const telegram = await updateStatisticsMessage(stats, view, fallbackDeliveries);
 
   return {
     telegram,
     totalCalls: stats.totalCalls
   };
+}
+
+export function parseCallStatisticsActionData(value: string | undefined): CallStatisticsAction | null {
+  const parts = (value ?? "").split(":");
+
+  if (parts[0] !== "gapstats") {
+    return null;
+  }
+
+  if (parts[1] === "refresh") {
+    return {
+      type: "refresh",
+      view: normalizeCallStatisticsView(parts[2])
+    };
+  }
+
+  if (parts[1] === "view") {
+    const view = parseCallStatisticsView(parts[2]);
+
+    return view
+      ? {
+          type: "view",
+          view
+        }
+      : null;
+  }
+
+  return null;
 }
 
 function applyCallStatistic(stats: CallStats, input: CallStatisticInput, eventTime: Date, identity: string) {
@@ -111,7 +158,7 @@ function applyCallStatistic(stats: CallStats, input: CallStatisticInput, eventTi
   return stats;
 }
 
-async function updateStatisticsMessage(stats: CallStats) {
+async function updateStatisticsMessage(stats: CallStats, view?: CallStatisticsView, fallbackDeliveries: TelegramDelivery[] = []) {
   const topicId = getStatisticsTopicId();
   const chatIds = getStatisticsChatIds();
 
@@ -123,19 +170,23 @@ async function updateStatisticsMessage(stats: CallStats) {
     };
   }
 
-  const text = formatStatisticsMessage(stats);
   const existingMessage = await getStoredJson<StatisticsMessageRecord>(
     statisticsKind,
     statisticsMessageKey,
     statisticsStoreTtlMs
   );
-  const existingDeliveries = getStoredDeliveries(existingMessage);
+  const selectedView = normalizeCallStatisticsView(view ?? existingMessage?.view);
+  const text = formatStatisticsMessage(stats, selectedView);
+  const replyMarkup = buildStatisticsKeyboard(selectedView);
+  const existingDeliveries = fallbackDeliveries.length ? fallbackDeliveries : getStoredDeliveries(existingMessage);
 
   if (existingDeliveries.length) {
-    const editResult = await editTelegramMessage(text, existingDeliveries);
+    const editResult = await editTelegramMessage(text, existingDeliveries, {
+      replyMarkup
+    });
 
     if (editResult.ok) {
-      await rememberStatisticsMessage(existingDeliveries, text);
+      await rememberStatisticsMessage(existingDeliveries, text, selectedView);
       return {
         attempted: true,
         mode: "edit",
@@ -147,7 +198,8 @@ async function updateStatisticsMessage(stats: CallStats) {
   }
 
   const sendResult = await sendTelegramMessage(text, chatIds, {
-    messageThreadId: topicId
+    messageThreadId: topicId,
+    replyMarkup
   });
 
   if (!sendResult.ok) {
@@ -161,7 +213,7 @@ async function updateStatisticsMessage(stats: CallStats) {
   }
 
   if (sendResult.deliveries?.length) {
-    await rememberStatisticsMessage(sendResult.deliveries, text);
+    await rememberStatisticsMessage(sendResult.deliveries, text, selectedView);
   }
 
   return {
@@ -171,28 +223,33 @@ async function updateStatisticsMessage(stats: CallStats) {
   };
 }
 
-async function rememberStatisticsMessage(deliveries: TelegramDelivery[], text: string) {
+async function rememberStatisticsMessage(deliveries: TelegramDelivery[], text: string, view: CallStatisticsView) {
   await setStoredJson<StatisticsMessageRecord>(
     statisticsKind,
     statisticsMessageKey,
     {
       deliveries,
       storedAt: Date.now(),
-      text
+      text,
+      view
     },
     statisticsStoreTtlMs
   );
 }
 
-function formatStatisticsMessage(stats: CallStats) {
+function formatStatisticsMessage(stats: CallStats, view: CallStatisticsView) {
   const now = new Date();
   const todayKey = getMelbourneDateParts(now).dateKey;
   const lastSevenDays = getLastDateKeys(now, 7);
+  const lastThirtyDays = getLastDateKeys(now, 30);
+  const viewHourCounts = getHourCountsForView(stats, view, now);
+  const viewTotalCalls = getTotalForView(stats, view, now);
   const todayCalls = stats.byDate[todayKey] ?? 0;
   const sevenDayCalls = lastSevenDays.reduce((total, dateKey) => total + (stats.byDate[dateKey] ?? 0), 0);
-  const busiestHour = getTopEntry(stats.byHour);
+  const thirtyDayCalls = lastThirtyDays.reduce((total, dateKey) => total + (stats.byDate[dateKey] ?? 0), 0);
+  const busiestHour = getTopEntry(viewHourCounts);
   const busiestWeekday = getTopEntry(stats.byWeekday);
-  const todayHourLines = getTodayHourLines(stats, todayKey);
+  const barChartLines = getHourBarChartLines(viewHourCounts);
   const recentCallLines = getRecentCallLines(stats.recentCalls);
 
   return [
@@ -205,12 +262,15 @@ function formatStatisticsMessage(stats: CallStats) {
     `📌 TOTAL CALLS TRACKED: ${stats.totalCalls}`,
     `📅 TODAY: ${todayCalls}`,
     `🗓️ LAST 7 DAYS: ${sevenDayCalls}`,
+    `📆 LAST 30 DAYS: ${thirtyDayCalls}`,
+    `🔎 CURRENT VIEW: ${getStatisticsViewLabel(view)}`,
+    `📞 CALLS IN VIEW: ${viewTotalCalls}`,
     `🔥 BUSIEST HOUR: ${busiestHour ? `${formatHourLabel(busiestHour.key)} - ${busiestHour.value} call${plural(busiestHour.value)}` : "Not enough data yet"}`,
     `🏆 BUSIEST DAY: ${busiestWeekday ? `${busiestWeekday.key} - ${busiestWeekday.value} call${plural(busiestWeekday.value)}` : "Not enough data yet"}`,
     "",
     "====================================",
-    "⏰ TODAY BY HOUR",
-    ...todayHourLines,
+    `📊 CALLS BY HOUR - ${getStatisticsViewLabel(view).toUpperCase()}`,
+    ...barChartLines,
     "",
     "====================================",
     "🧾 RECENT CALLS",
@@ -222,25 +282,102 @@ function formatStatisticsMessage(stats: CallStats) {
   ].join("\n");
 }
 
-function getTodayHourLines(stats: CallStats, todayKey: string) {
-  const rows = Object.entries(stats.byDateHour)
-    .map(([key, value]) => {
-      const [dateKey, hour] = key.split(":");
+function buildStatisticsKeyboard(activeView: CallStatisticsView): TelegramInlineKeyboardMarkup {
+  return {
+    inline_keyboard: [
+      [
+        {
+          callback_data: `gapstats:refresh:${activeView}`,
+          text: "🔄 Refresh"
+        }
+      ],
+      [
+        buildStatisticsViewButton("today", activeView),
+        buildStatisticsViewButton("7d", activeView)
+      ],
+      [
+        buildStatisticsViewButton("30d", activeView),
+        buildStatisticsViewButton("all", activeView)
+      ]
+    ]
+  };
+}
 
-      return {
-        dateKey,
-        hour,
-        value
-      };
-    })
-    .filter((row) => row.dateKey === todayKey)
-    .sort((a, b) => Number(a.hour) - Number(b.hour));
+function buildStatisticsViewButton(view: CallStatisticsView, activeView: CallStatisticsView) {
+  return {
+    callback_data: `gapstats:view:${view}`,
+    text: `${view === activeView ? "✅ " : ""}${getStatisticsViewLabel(view)}`
+  };
+}
 
-  if (!rows.length) {
-    return ["No calls recorded today yet."];
+function getHourCountsForView(stats: CallStats, view: CallStatisticsView, now: Date) {
+  const counts = createEmptyHourCounts();
+
+  if (view === "all") {
+    for (const [hour, value] of Object.entries(stats.byHour)) {
+      counts[hour] = value;
+    }
+
+    return counts;
   }
 
-  return rows.map((row) => `• ${formatHourLabel(row.hour)}: ${row.value}`);
+  const dateKeys = new Set(getDateKeysForView(view, now));
+
+  for (const [key, value] of Object.entries(stats.byDateHour)) {
+    const [dateKey, hour] = key.split(":");
+
+    if (dateKeys.has(dateKey)) {
+      counts[hour] = (counts[hour] ?? 0) + value;
+    }
+  }
+
+  return counts;
+}
+
+function getTotalForView(stats: CallStats, view: CallStatisticsView, now: Date) {
+  if (view === "all") {
+    return stats.totalCalls;
+  }
+
+  return getDateKeysForView(view, now).reduce((total, dateKey) => total + (stats.byDate[dateKey] ?? 0), 0);
+}
+
+function getDateKeysForView(view: CallStatisticsView, now: Date) {
+  if (view === "today") {
+    return getLastDateKeys(now, 1);
+  }
+
+  if (view === "30d") {
+    return getLastDateKeys(now, 30);
+  }
+
+  return getLastDateKeys(now, 7);
+}
+
+function getHourBarChartLines(hourCounts: Record<string, number>) {
+  const entries = Object.entries(hourCounts).sort((a, b) => Number(a[0]) - Number(b[0]));
+  const maxValue = Math.max(...entries.map(([, value]) => value), 0);
+
+  if (!maxValue) {
+    return ["No calls recorded in this period yet."];
+  }
+
+  return entries.map(([hour, value]) => `${formatHourLabel(hour).padStart(5, " ")} | ${buildBar(value, maxValue)} ${value}`);
+}
+
+function buildBar(value: number, maxValue: number) {
+  if (!value) {
+    return "·";
+  }
+
+  const maxBlocks = 12;
+  const blocks = Math.max(1, Math.round((value / maxValue) * maxBlocks));
+
+  return "█".repeat(blocks);
+}
+
+function createEmptyHourCounts() {
+  return Object.fromEntries(Array.from({ length: 24 }, (_, hour) => [String(hour).padStart(2, "0"), 0]));
 }
 
 function getRecentCallLines(calls: RecentCall[]) {
@@ -335,6 +472,29 @@ function getLastDateKeys(now: Date, days: number) {
 
     return getMelbourneDateParts(date).dateKey;
   });
+}
+
+function normalizeCallStatisticsView(value: string | undefined): CallStatisticsView {
+  return parseCallStatisticsView(value) ?? defaultStatisticsView;
+}
+
+function parseCallStatisticsView(value: string | undefined): CallStatisticsView | null {
+  if (value === "today" || value === "7d" || value === "30d" || value === "all") {
+    return value;
+  }
+
+  return null;
+}
+
+function getStatisticsViewLabel(view: CallStatisticsView) {
+  const labels: Record<CallStatisticsView, string> = {
+    "30d": "30 Days",
+    "7d": "7 Days",
+    all: "All Time",
+    today: "Today"
+  };
+
+  return labels[view];
 }
 
 function getMelbourneDateParts(date: Date) {

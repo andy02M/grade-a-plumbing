@@ -8,6 +8,7 @@ import {
   shouldDeleteHandledCallAlert
 } from "@/lib/call-actions";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
+import { parseCallStatisticsActionData, refreshCallStatisticsMessage } from "@/lib/call-statistics";
 import {
   answerTelegramCallbackQuery,
   deleteTelegramMessages,
@@ -75,6 +76,33 @@ export async function POST(request: Request) {
 
   if (!callbackQuery) {
     return NextResponse.json({ ok: true, ignored: true });
+  }
+
+  const parsedStatisticsAction = parseCallStatisticsActionData(callbackQuery.data);
+
+  if (parsedStatisticsAction) {
+    const fallbackDelivery = getFallbackDelivery(callbackQuery);
+    const result = await refreshCallStatisticsMessage(
+      parsedStatisticsAction.view,
+      fallbackDelivery ? [fallbackDelivery] : []
+    );
+    const actionLabel = parsedStatisticsAction.type === "refresh" ? "Statistics refreshed." : "Statistics view updated.";
+
+    await answerTelegramCallbackQuery(
+      callbackQuery.id,
+      result.telegram.ok ? actionLabel : "Could not update statistics. Check Vercel logs."
+    );
+
+    if (!result.telegram.ok) {
+      console.error("Telegram statistics callback failed", result.telegram);
+      return NextResponse.json({ error: result.telegram.error }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      ok: true,
+      statisticsAction: parsedStatisticsAction.type,
+      view: parsedStatisticsAction.view
+    });
   }
 
   const parsedAction = parseCallActionData(callbackQuery.data);
