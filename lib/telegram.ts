@@ -45,27 +45,7 @@ export async function sendTelegramMessage(
 
   const results = await Promise.all(
     chatIds.map(async (chatId) => {
-      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          disable_web_page_preview: options.disableWebPagePreview ?? true,
-          ...(typeof options.messageThreadId === "number" ? { message_thread_id: options.messageThreadId } : {}),
-          ...(options.replyMarkup !== undefined ? { reply_markup: options.replyMarkup } : {}),
-          text: text.slice(0, 3900)
-        })
-      });
-      const data = response.ok ? ((await response.json()) as TelegramSendMessageResponse) : null;
-
-      return {
-        chatId,
-        messageId: data?.result?.message_id,
-        ok: response.ok,
-        error: response.ok ? "" : await response.text()
-      };
+      return sendTelegramTextToChat(botToken, chatId, text, options);
     })
   );
 
@@ -87,6 +67,41 @@ export async function sendTelegramMessage(
         chatId: result.chatId,
         messageId: result.messageId
       }))
+  };
+}
+
+async function sendTelegramTextToChat(
+  botToken: string,
+  chatId: string,
+  text: string,
+  options: TelegramMessageOptions,
+  attemptedMigration = false
+) {
+  const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: chatId,
+      disable_web_page_preview: options.disableWebPagePreview ?? true,
+      ...(typeof options.messageThreadId === "number" ? { message_thread_id: options.messageThreadId } : {}),
+      ...(options.replyMarkup !== undefined ? { reply_markup: options.replyMarkup } : {}),
+      text: text.slice(0, 3900)
+    })
+  });
+  const data = (await parseTelegramResponse(response)) as TelegramSendMessageResponse;
+  const migratedChatId = getMigratedChatId(data);
+
+  if (!response.ok && migratedChatId && !attemptedMigration) {
+    return sendTelegramTextToChat(botToken, migratedChatId, text, options, true);
+  }
+
+  return {
+    chatId,
+    messageId: data.result?.message_id,
+    ok: response.ok,
+    error: response.ok ? "" : JSON.stringify(data)
   };
 }
 
@@ -266,10 +281,32 @@ export async function sendTelegramAudio(audioUrl: string, caption: string): Prom
 
 type TelegramSendMessageResponse = {
   ok: boolean;
+  description?: string;
+  error_code?: number;
+  parameters?: {
+    migrate_to_chat_id?: number;
+  };
   result?: {
     message_id?: number;
   };
 };
+
+async function parseTelegramResponse(response: Response): Promise<Record<string, unknown>> {
+  try {
+    return (await response.json()) as Record<string, unknown>;
+  } catch {
+    return {
+      description: await response.text(),
+      ok: response.ok
+    };
+  }
+}
+
+function getMigratedChatId(data: TelegramSendMessageResponse) {
+  const migratedChatId = data.parameters?.migrate_to_chat_id;
+
+  return typeof migratedChatId === "number" ? String(migratedChatId) : "";
+}
 
 function getTelegramChatIds() {
   return (process.env.TELEGRAM_CHAT_ID ?? "")
