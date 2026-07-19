@@ -1,0 +1,237 @@
+import { NextResponse } from "next/server";
+import {
+  getCallActionLabel,
+  getCallActionStoreKey,
+  getCallActionTopicId,
+  getConfiguredCallActionTopics,
+  parseCallActionData,
+  shouldDeleteHandledCallAlert
+} from "@/lib/call-actions";
+import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
+import {
+  answerTelegramCallbackQuery,
+  deleteTelegramMessages,
+  editTelegramMessage,
+  sendTelegramMessage,
+  type TelegramDelivery
+} from "@/lib/telegram";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+const alertDivider = "====================================";
+const callActionRecordWindowMs = 14 * 24 * 60 * 60 * 1000;
+
+type TelegramUpdate = {
+  callback_query?: TelegramCallbackQuery;
+};
+
+type TelegramCallbackQuery = {
+  data?: string;
+  from?: {
+    first_name?: string;
+    id?: number;
+    last_name?: string;
+    username?: string;
+  };
+  id: string;
+  message?: {
+    chat?: {
+      id?: number | string;
+    };
+    message_id?: number;
+    text?: string;
+  };
+};
+
+export async function GET(request: Request) {
+  const authError = validateActionSecret(request);
+
+  if (authError) {
+    return authError;
+  }
+
+  return NextResponse.json({
+    ok: true,
+    environment: {
+      configuredCallActionTopics: getConfiguredCallActionTopics(),
+      hasDurableCallAlertStore: hasDurableCallAlertStore(),
+      hasTelegramActionSecret: Boolean(getExpectedActionSecret()),
+      hasTelegramBotToken: Boolean(process.env.TELEGRAM_BOT_TOKEN),
+      deleteHandledCallAlerts: shouldDeleteHandledCallAlert()
+    }
+  });
+}
+
+export async function POST(request: Request) {
+  const authError = validateActionSecret(request);
+
+  if (authError) {
+    return authError;
+  }
+
+  const update = (await request.json()) as TelegramUpdate;
+  const callbackQuery = update.callback_query;
+
+  if (!callbackQuery) {
+    return NextResponse.json({ ok: true, ignored: true });
+  }
+
+  const parsedAction = parseCallActionData(callbackQuery.data);
+
+  if (!parsedAction) {
+    await answerTelegramCallbackQuery(callbackQuery.id, "Unknown call action.");
+    return NextResponse.json({ ok: true, ignored: true });
+  }
+
+  const storeKey = getCallActionStoreKey(parsedAction.actionKey);
+  const record = await getCallMessageRecord(storeKey, callActionRecordWindowMs);
+  const fallbackDelivery = getFallbackDelivery(callbackQuery);
+  const deliveries = record?.deliveries.length ? record.deliveries : fallbackDelivery ? [fallbackDelivery] : [];
+  const baseText = record?.text || callbackQuery.message?.text || "Grade A Plumbing call alert";
+  const handlerName = formatTelegramUser(callbackQuery.from);
+  const actionLabel = getCallActionLabel(parsedAction.action);
+  const updatedText = formatHandledAlertText(baseText, actionLabel, handlerName);
+  const editResult = deliveries.length
+    ? await editTelegramMessage(updatedText, deliveries, {
+        replyMarkup: {
+          inline_keyboard: []
+        }
+      })
+    : { ok: false as const, error: "Original Telegram message was not available." };
+
+  await rememberCallMessage(storeKey, deliveries, callActionRecordWindowMs, updatedText);
+
+  const sourceChatId = getSourceChatId(callbackQuery);
+  const topicId = getCallActionTopicId(parsedAction.action);
+  const repostResult =
+    sourceChatId && typeof topicId === "number"
+      ? await sendTelegramMessage(formatTopicAlertText(updatedText, actionLabel), [sourceChatId], {
+          messageThreadId: topicId
+        })
+      : { ok: true as const };
+
+  if (repostResult.ok && shouldDeleteHandledCallAlert() && deliveries.length) {
+    const deleteResult = await deleteTelegramMessages(deliveries);
+
+    if (!deleteResult.ok) {
+      console.error("Telegram handled call delete failed", deleteResult.error);
+    }
+  }
+
+  await answerTelegramCallbackQuery(
+    callbackQuery.id,
+    topicId ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}.` : `Marked as ${actionLabel}. Topic not configured.`
+  );
+
+  if (!editResult.ok) {
+    console.error("Telegram handled call edit failed", editResult.error);
+  }
+
+  if (!repostResult.ok) {
+    console.error("Telegram handled call repost failed", repostResult.error);
+    return NextResponse.json({ error: repostResult.error }, { status: 500 });
+  }
+
+  return NextResponse.json({
+    ok: true,
+    action: parsedAction.action,
+    editedOriginal: editResult.ok,
+    repostedToTopic: Boolean(topicId)
+  });
+}
+
+function validateActionSecret(request: Request) {
+  const expectedSecret = getExpectedActionSecret();
+
+  if (!expectedSecret) {
+    return null;
+  }
+
+  const url = new URL(request.url);
+  const providedSecret =
+    url.searchParams.get("secret") ??
+    request.headers.get("x-telegram-bot-api-secret-token") ??
+    request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
+
+  if (providedSecret !== expectedSecret) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
+  return null;
+}
+
+function getExpectedActionSecret() {
+  return process.env.TELEGRAM_ACTION_SECRET || process.env.CALL_WEBHOOK_SECRET || "";
+}
+
+function getFallbackDelivery(callbackQuery: TelegramCallbackQuery): TelegramDelivery | null {
+  const chatId = getSourceChatId(callbackQuery);
+  const messageId = callbackQuery.message?.message_id;
+
+  if (!chatId || typeof messageId !== "number") {
+    return null;
+  }
+
+  return {
+    chatId,
+    messageId
+  };
+}
+
+function getSourceChatId(callbackQuery: TelegramCallbackQuery) {
+  const chatId = callbackQuery.message?.chat?.id;
+
+  return chatId === undefined ? "" : String(chatId);
+}
+
+function formatHandledAlertText(text: string, actionLabel: string, handlerName: string) {
+  return [
+    removeExistingOutcomeBlock(text),
+    "",
+    "📌 CALL OUTCOME",
+    alertDivider,
+    `${actionLabel.toUpperCase()}`,
+    handlerName ? `👤 UPDATED BY: ${handlerName}` : "",
+    `🕒 UPDATED: ${formatTimestamp(new Date().toISOString())}`,
+    alertDivider
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+function formatTopicAlertText(text: string, actionLabel: string) {
+  return [
+    actionLabel.toUpperCase(),
+    alertDivider,
+    "",
+    text
+  ].join("\n");
+}
+
+function removeExistingOutcomeBlock(text: string) {
+  const marker = "\n\n📌 CALL OUTCOME";
+  const markerIndex = text.indexOf(marker);
+
+  return markerIndex >= 0 ? text.slice(0, markerIndex).trimEnd() : text.trimEnd();
+}
+
+function formatTelegramUser(user: TelegramCallbackQuery["from"]) {
+  if (!user) {
+    return "";
+  }
+
+  const name = [user.first_name, user.last_name].filter(Boolean).join(" ").trim();
+
+  return user.username ? `${name || user.username} (@${user.username})` : name;
+}
+
+function formatTimestamp(value: string) {
+  const date = new Date(value);
+
+  return new Intl.DateTimeFormat("en-AU", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Australia/Melbourne"
+  }).format(date);
+}

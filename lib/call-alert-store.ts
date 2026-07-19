@@ -1,7 +1,9 @@
 import type { TelegramDelivery } from "@/lib/telegram";
 
-type StoredCallMessage = {
+export type StoredCallMessage = {
   deliveries: TelegramDelivery[];
+  status?: string;
+  text?: string;
   storedAt: number;
 };
 
@@ -52,9 +54,12 @@ export async function rememberRecentAlert(key: string, ttlMs: number) {
   memoryRecentAlerts.set(key, Date.now());
 }
 
-export async function rememberCallMessage(key: string, deliveries: TelegramDelivery[], ttlMs: number) {
+export async function rememberCallMessage(key: string, deliveries: TelegramDelivery[], ttlMs: number, text?: string) {
+  const existingRecord = text === undefined ? await getCallMessageRecord(key, ttlMs) : null;
   const payload: StoredCallMessage = {
     deliveries,
+    status: existingRecord?.status,
+    text: text ?? existingRecord?.text,
     storedAt: Date.now()
   };
   const redisKey = buildKey("message", key);
@@ -69,16 +74,43 @@ export async function rememberCallMessage(key: string, deliveries: TelegramDeliv
 }
 
 export async function getCallMessages(key: string, ttlMs: number) {
+  return (await getCallMessageRecord(key, ttlMs))?.deliveries ?? [];
+}
+
+export async function getCallMessageRecord(key: string, ttlMs: number) {
   const redisKey = buildKey("message", key);
   const redisResult = await redisCommand<string | null>(["GET", redisKey]);
 
   if (redisResult.ok) {
-    return parseStoredCallMessage(redisResult.value)?.deliveries ?? [];
+    return parseStoredCallMessage(redisResult.value);
   }
 
   pruneMemoryCallMessages(ttlMs);
 
-  return memoryCallMessages.get(key)?.deliveries ?? [];
+  return memoryCallMessages.get(key) ?? null;
+}
+
+export async function rememberCallMessageStatus(key: string, ttlMs: number, status: string, text: string) {
+  const existingRecord = await getCallMessageRecord(key, ttlMs);
+
+  if (!existingRecord) {
+    return;
+  }
+
+  const redisKey = buildKey("message", key);
+  const payload: StoredCallMessage = {
+    ...existingRecord,
+    status,
+    text,
+    storedAt: Date.now()
+  };
+  const redisResult = await redisCommand<string>(["SET", redisKey, JSON.stringify(payload), "EX", msToSeconds(ttlMs)]);
+
+  if (redisResult.ok) {
+    return;
+  }
+
+  memoryCallMessages.set(key, payload);
 }
 
 function parseStoredCallMessage(value: string | null) {
@@ -95,6 +127,8 @@ function parseStoredCallMessage(value: string | null) {
 
     return {
       deliveries: parsedValue.deliveries.filter(isTelegramDelivery),
+      status: typeof parsedValue.status === "string" ? parsedValue.status : undefined,
+      text: typeof parsedValue.text === "string" ? parsedValue.text : undefined,
       storedAt: typeof parsedValue.storedAt === "number" ? parsedValue.storedAt : Date.now()
     };
   } catch {

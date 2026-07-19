@@ -121,6 +121,36 @@ KV_REST_API_TOKEN=your_vercel_kv_rest_token
 
 Without Redis/KV, local development still works, but production webhooks may run in different serverless instances and the completed call may be sent as a second message instead of editing the first one.
 
+Optional Telegram call outcome buttons:
+
+```txt
+TELEGRAM_ACTION_SECRET=choose_a_long_random_secret_or_reuse_CALL_WEBHOOK_SECRET
+TELEGRAM_TOPIC_NEW_CALLS=topic_id_for_new_calls
+TELEGRAM_TOPIC_BOOKED=topic_id_for_booked
+TELEGRAM_TOPIC_NO_ANSWER=topic_id_for_no_answer
+TELEGRAM_TOPIC_TEXTED_CUSTOMER=topic_id_for_texted_customer
+TELEGRAM_TOPIC_QUOTE_NEEDED=topic_id_for_quote_needed
+TELEGRAM_TOPIC_NOT_INTERESTED=topic_id_for_not_interested
+TELEGRAM_TOPIC_WRONG_NUMBER=topic_id_for_wrong_number
+TELEGRAM_DELETE_HANDLED_CALL_ALERTS=false
+```
+
+Set `TELEGRAM_DELETE_HANDLED_CALL_ALERTS=true` only if the bot is an admin and you want handled alerts removed from the New Calls topic after they are reposted into the selected outcome topic.
+
+Telegram button clicks are handled by [app/api/telegram/call-actions/route.ts](./app/api/telegram/call-actions/route.ts). After deployment, set the bot webhook to:
+
+```txt
+https://gradeaplumbing.store/api/telegram/call-actions?secret=your_telegram_action_secret
+```
+
+Example PowerShell command:
+
+```powershell
+$token = "YOUR_TELEGRAM_BOT_TOKEN"
+$webhookUrl = "https://gradeaplumbing.store/api/telegram/call-actions?secret=YOUR_TELEGRAM_ACTION_SECRET"
+Invoke-RestMethod "https://api.telegram.org/bot$token/setWebhook?url=$([uri]::EscapeDataString($webhookUrl))&allowed_updates=$([uri]::EscapeDataString('["callback_query"]'))"
+```
+
 To send alerts to more than one Telegram chat or group, separate IDs with commas and no spaces:
 
 ```txt

@@ -1,4 +1,11 @@
+import { createHash } from "crypto";
 import { after, NextResponse } from "next/server";
+import {
+  buildCallActionKeyboard,
+  getCallActionStoreKey,
+  getConfiguredCallActionTopics,
+  getNewCallsTopicId
+} from "@/lib/call-actions";
 import {
   claimRecentAlert,
   getCallMessages,
@@ -8,7 +15,7 @@ import {
 } from "@/lib/call-alert-store";
 import { createRecordingLink } from "@/lib/recordings";
 import { site } from "@/lib/site";
-import { editTelegramMessage, sendTelegramMessage } from "@/lib/telegram";
+import { editTelegramMessage, sendTelegramMessage, type TelegramDelivery } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -58,6 +65,7 @@ type AlertStage = "started" | "completed" | "missed" | "recording" | "ignored";
 
 const dedupeWindowMs = 10 * 60 * 1000;
 const editableMessageWindowMs = 2 * 60 * 60 * 1000;
+const callActionRecordWindowMs = 14 * 24 * 60 * 60 * 1000;
 
 export async function GET(request: Request) {
   const authError = validateWebhookSecret(request);
@@ -75,6 +83,7 @@ export async function GET(request: Request) {
       hasTelegramBotToken: Boolean(process.env.TELEGRAM_BOT_TOKEN),
       hasTelegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID),
       hasDurableCallAlertStore: hasDurableCallAlertStore(),
+      configuredCallActionTopics: getConfiguredCallActionTopics(),
       hasVapiPrivateKey: Boolean(getVapiPrivateKey())
     };
 
@@ -198,12 +207,17 @@ export async function POST(request: Request) {
 async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const message = formatCallAlert(call, alertStage);
   const callMessageKeys = getCallMessageKeys(call);
+  const actionKeys = getCallActionKeys(callMessageKeys);
+  const actionKeyboard = buildCallActionKeyboard(actionKeys[0]);
 
   if (alertStage === "started") {
-    const result = await sendTelegramMessage(message);
+    const result = await sendTelegramMessage(message, undefined, {
+      messageThreadId: getNewCallsTopicId(),
+      replyMarkup: actionKeyboard
+    });
 
     if (result.ok && result.deliveries?.length) {
-      await Promise.all(callMessageKeys.map((key) => rememberCallMessage(key, result.deliveries ?? [], editableMessageWindowMs)));
+      await rememberCallMessageState(callMessageKeys, actionKeys, result.deliveries, message);
     }
 
     return result;
@@ -212,18 +226,25 @@ async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const existingMessages = await getExistingCallMessages(callMessageKeys);
 
   if (!existingMessages.length) {
-    const result = await sendTelegramMessage(message);
+    const result = await sendTelegramMessage(message, undefined, {
+      messageThreadId: getNewCallsTopicId(),
+      replyMarkup: actionKeyboard
+    });
 
     if (result.ok && result.deliveries?.length) {
-      await Promise.all(callMessageKeys.map((key) => rememberCallMessage(key, result.deliveries ?? [], editableMessageWindowMs)));
+      await rememberCallMessageState(callMessageKeys, actionKeys, result.deliveries, message);
     }
 
     return result;
   }
 
-  const editResult = await editTelegramMessage(message, existingMessages);
+  const editResult = await editTelegramMessage(message, existingMessages, {
+    replyMarkup: actionKeyboard
+  });
 
   if (editResult.ok) {
+    await rememberCallMessageState(callMessageKeys, actionKeys, existingMessages, message);
+
     return editResult;
   }
 
@@ -1069,6 +1090,22 @@ function getCallMessageKeys(call: NormalizedCall) {
   }
 
   return [...new Set(keys)];
+}
+
+function getCallActionKeys(callMessageKeys: string[]) {
+  return callMessageKeys.map((key) => createHash("sha256").update(key).digest("base64url").slice(0, 24));
+}
+
+async function rememberCallMessageState(
+  callMessageKeys: string[],
+  actionKeys: string[],
+  deliveries: TelegramDelivery[],
+  text: string
+) {
+  await Promise.all([
+    ...callMessageKeys.map((key) => rememberCallMessage(key, deliveries, editableMessageWindowMs, text)),
+    ...actionKeys.map((key) => rememberCallMessage(getCallActionStoreKey(key), deliveries, callActionRecordWindowMs, text))
+  ]);
 }
 
 async function getExistingCallMessages(keys: string[]) {
