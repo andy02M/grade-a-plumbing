@@ -68,6 +68,7 @@ export async function recordCallStatistic(input: CallStatisticInput) {
 export async function recordCallStatisticsBatch(inputs: CallStatisticInput[]) {
   const stats = normalizeStats(await getStoredJson<Partial<CallStats>>(statisticsKind, statisticsKey, statisticsStoreTtlMs));
   let recorded = 0;
+  let recentCallsUpdated = false;
 
   for (const input of inputs) {
     const eventTime = parseCallDate(input.timestamp);
@@ -75,6 +76,8 @@ export async function recordCallStatisticsBatch(inputs: CallStatisticInput[]) {
     const isNewCall = await claimRecentAlert(`statistics:${identity}`, statisticsStoreTtlMs);
 
     if (!isNewCall) {
+      mergeRecentCall(stats, input, eventTime, identity);
+      recentCallsUpdated = true;
       continue;
     }
 
@@ -82,7 +85,7 @@ export async function recordCallStatisticsBatch(inputs: CallStatisticInput[]) {
     recorded += 1;
   }
 
-  if (recorded > 0) {
+  if (recorded > 0 || recentCallsUpdated) {
     await setStoredJson(statisticsKind, statisticsKey, stats, statisticsStoreTtlMs);
   }
 
@@ -144,6 +147,13 @@ function applyCallStatistic(stats: CallStats, input: CallStatisticInput, eventTi
   increment(stats.byHour, parts.hour);
   increment(stats.byWeekday, parts.weekday);
   increment(stats.byDateHour, `${parts.dateKey}:${parts.hour}`);
+
+  mergeRecentCall(stats, input, eventTime, identity);
+
+  return stats;
+}
+
+function mergeRecentCall(stats: CallStats, input: CallStatisticInput, eventTime: Date, identity: string) {
   stats.recentCalls = [
     {
       callerId: input.customerNumber || "Unknown / private",
@@ -153,7 +163,9 @@ function applyCallStatistic(stats: CallStats, input: CallStatisticInput, eventTi
       startedAt: eventTime.toISOString()
     },
     ...stats.recentCalls.filter((call) => call.identity !== identity)
-  ].slice(0, 12);
+  ]
+    .sort(compareRecentCallsDescending)
+    .slice(0, 12);
 
   return stats;
 }
@@ -273,11 +285,11 @@ function formatStatisticsMessage(stats: CallStats, view: CallStatisticsView) {
     ...barChartLines,
     "",
     "====================================",
-    "🧾 RECENT CALLS",
+    "🧾 RECENT CALLS - NEWEST FIRST",
     ...recentCallLines,
     "",
     "====================================",
-    `🔄 UPDATED: ${formatMelbourneTimestamp(stats.updatedAt)}`,
+    `🔄 UPDATED: ${formatMelbourneUpdateTimestamp(now.toISOString())}`,
     "===================================="
   ].join("\n");
 }
@@ -385,7 +397,10 @@ function getRecentCallLines(calls: RecentCall[]) {
     return ["No calls recorded yet."];
   }
 
-  return calls.slice(0, 6).map((call) => `• ${formatMelbourneTimestamp(call.startedAt)} - ${formatPhoneNumber(call.callerId)}`);
+  return [...calls]
+    .sort(compareRecentCallsDescending)
+    .slice(0, 6)
+    .map((call) => `• ${formatMelbourneTimestamp(call.startedAt)} - ${formatPhoneNumber(call.callerId)}`);
 }
 
 function normalizeStats(value: Partial<CallStats> | null): CallStats {
@@ -395,7 +410,7 @@ function normalizeStats(value: Partial<CallStats> | null): CallStats {
     byHour: normalizeRecord(value?.byHour),
     byWeekday: normalizeRecord(value?.byWeekday),
     firstRecordedAt: typeof value?.firstRecordedAt === "string" ? value.firstRecordedAt : new Date().toISOString(),
-    recentCalls: Array.isArray(value?.recentCalls) ? value.recentCalls.filter(isRecentCall) : [],
+    recentCalls: Array.isArray(value?.recentCalls) ? value.recentCalls.filter(isRecentCall).sort(compareRecentCallsDescending) : [],
     totalCalls: typeof value?.totalCalls === "number" ? value.totalCalls : 0,
     updatedAt: typeof value?.updatedAt === "string" ? value.updatedAt : new Date().toISOString()
   };
@@ -427,6 +442,10 @@ function isRecentCall(value: unknown): value is RecentCall {
     typeof call.provider === "string" &&
     typeof call.startedAt === "string"
   );
+}
+
+function compareRecentCallsDescending(a: RecentCall, b: RecentCall) {
+  return parseCallDate(b.startedAt).getTime() - parseCallDate(a.startedAt).getTime();
 }
 
 function getStoredDeliveries(value: StatisticsMessageRecord | null) {
@@ -537,6 +556,20 @@ function formatMelbourneTimestamp(value: string) {
     dateStyle: "medium",
     timeStyle: "short",
     timeZone: melbourneTimeZone
+  }).format(date);
+}
+
+function formatMelbourneUpdateTimestamp(value: string) {
+  const date = parseCallDate(value);
+
+  return new Intl.DateTimeFormat("en-AU", {
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    month: "short",
+    second: "2-digit",
+    timeZone: melbourneTimeZone,
+    year: "numeric"
   }).format(date);
 }
 
