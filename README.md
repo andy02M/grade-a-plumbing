@@ -153,14 +153,14 @@ TELEGRAM_STATISTICS_CHAT_ID=your_telegram_group_id
 Telegram button clicks are handled by [app/api/telegram/call-actions/route.ts](./app/api/telegram/call-actions/route.ts). After deployment, set the bot webhook to:
 
 ```txt
-https://gradeaplumbing.store/api/telegram/call-actions?secret=your_telegram_action_secret
+https://www.gradeaplumbing.store/api/telegram/call-actions?secret=your_telegram_action_secret
 ```
 
 Example PowerShell command:
 
 ```powershell
 $token = "YOUR_TELEGRAM_BOT_TOKEN"
-$webhookUrl = "https://gradeaplumbing.store/api/telegram/call-actions?secret=YOUR_TELEGRAM_ACTION_SECRET"
+$webhookUrl = "https://www.gradeaplumbing.store/api/telegram/call-actions?secret=YOUR_TELEGRAM_ACTION_SECRET"
 Invoke-RestMethod "https://api.telegram.org/bot$token/setWebhook?url=$([uri]::EscapeDataString($webhookUrl))&allowed_updates=$([uri]::EscapeDataString('["callback_query"]'))"
 ```
 
@@ -209,13 +209,13 @@ https://your-live-domain.com/api/call-alert?secret=your_webhook_secret&status=1&
 To backfill the Statistics topic from Vapi call history, open this once after deployment. This example imports calls from 7 July 2026 to the end of 19 July 2026 Melbourne time:
 
 ```txt
-https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20
+https://www.gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20
 ```
 
 To preview the backfill before writing to the Statistics topic, add `dryRun=1`:
 
 ```txt
-https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20&dryRun=1
+https://www.gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20&dryRun=1
 ```
 
 The dry run returns `importableCallRows`, `uniqueImportableCalls`, and `duplicateCallRowsIgnored`. The import writes only unique Vapi call IDs, so the Telegram "new call" and "call complete" notifications are not counted as separate calls.
@@ -223,13 +223,13 @@ The dry run returns `importableCallRows`, `uniqueImportableCalls`, and `duplicat
 To force the Statistics topic dashboard to post or refresh without importing new calls, use:
 
 ```txt
-https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&refresh=1
+https://www.gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&refresh=1
 ```
 
 The Statistics dashboard includes Telegram buttons for `Refresh`, `Today`, `7 Days`, `30 Days`, and `All Time`. Each view edits the same dashboard message and shows a by-hour bar chart so you can see what time calls come in most often. Button clicks use the same Telegram webhook as the call outcome buttons:
 
 ```txt
-https://gradeaplumbing.store/api/telegram/call-actions?secret=your_telegram_action_secret
+https://www.gradeaplumbing.store/api/telegram/call-actions?secret=your_telegram_action_secret
 ```
 
 After deploying button changes, run the refresh URL once so the existing Statistics message receives the new buttons.
