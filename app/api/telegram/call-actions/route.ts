@@ -119,8 +119,8 @@ export async function POST(request: Request) {
   const storeKey = getCallActionStoreKey(parsedAction.actionKey);
   const record = await getCallMessageRecord(storeKey, callActionRecordWindowMs);
   const fallbackDelivery = getFallbackDelivery(callbackQuery);
-  const deliveries = record?.deliveries.length ? record.deliveries : fallbackDelivery ? [fallbackDelivery] : [];
-  const baseText = record?.text || callbackQuery.message?.text || "Grade A Plumbing call alert";
+  const deliveries = fallbackDelivery ? [fallbackDelivery] : record?.deliveries.length ? record.deliveries : [];
+  const baseText = callbackQuery.message?.text || record?.text || "Grade A Plumbing call alert";
   const relatedCallMessageKeys = record?.callMessageKeys ?? [];
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
