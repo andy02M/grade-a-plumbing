@@ -1,10 +1,15 @@
 import type { TelegramDelivery } from "@/lib/telegram";
 
 export type StoredCallMessage = {
+  callMessageKeys?: string[];
   deliveries: TelegramDelivery[];
   status?: string;
   text?: string;
   storedAt: number;
+};
+
+type CallMessageMetadata = {
+  callMessageKeys?: string[];
 };
 
 type RedisResponse<T> =
@@ -55,9 +60,16 @@ export async function rememberRecentAlert(key: string, ttlMs: number) {
   memoryRecentAlerts.set(key, Date.now());
 }
 
-export async function rememberCallMessage(key: string, deliveries: TelegramDelivery[], ttlMs: number, text?: string) {
-  const existingRecord = text === undefined ? await getCallMessageRecord(key, ttlMs) : null;
+export async function rememberCallMessage(
+  key: string,
+  deliveries: TelegramDelivery[],
+  ttlMs: number,
+  text?: string,
+  metadata: CallMessageMetadata = {}
+) {
+  const existingRecord = await getCallMessageRecord(key, ttlMs);
   const payload: StoredCallMessage = {
+    callMessageKeys: normalizeStringList(metadata.callMessageKeys ?? existingRecord?.callMessageKeys),
     deliveries,
     status: existingRecord?.status,
     text: text ?? existingRecord?.text,
@@ -155,6 +167,7 @@ function parseStoredCallMessage(value: string | null) {
     }
 
     return {
+      callMessageKeys: normalizeStringList(parsedValue.callMessageKeys),
       deliveries: parsedValue.deliveries.filter(isTelegramDelivery),
       status: typeof parsedValue.status === "string" ? parsedValue.status : undefined,
       text: typeof parsedValue.text === "string" ? parsedValue.text : undefined,
@@ -185,6 +198,16 @@ function isTelegramDelivery(value: unknown): value is TelegramDelivery {
   const delivery = value as Partial<TelegramDelivery>;
 
   return typeof delivery.chatId === "string" && typeof delivery.messageId === "number";
+}
+
+function normalizeStringList(value: unknown) {
+  if (!Array.isArray(value)) {
+    return undefined;
+  }
+
+  const items = value.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
+
+  return items.length ? [...new Set(items)] : undefined;
 }
 
 async function redisCommand<T>(command: Array<string | number>) {

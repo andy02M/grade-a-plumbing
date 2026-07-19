@@ -121,6 +121,7 @@ export async function POST(request: Request) {
   const fallbackDelivery = getFallbackDelivery(callbackQuery);
   const deliveries = record?.deliveries.length ? record.deliveries : fallbackDelivery ? [fallbackDelivery] : [];
   const baseText = record?.text || callbackQuery.message?.text || "Grade A Plumbing call alert";
+  const relatedCallMessageKeys = record?.callMessageKeys ?? [];
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
@@ -145,13 +146,18 @@ export async function POST(request: Request) {
         })
       : { ok: true as const };
   const repostDeliveries = repostResult.ok && "deliveries" in repostResult ? repostResult.deliveries ?? [] : [];
+  const currentDeliveries = repostDeliveries.length ? repostDeliveries : deliveries;
 
-  await rememberCallMessage(
-    storeKey,
-    repostDeliveries.length ? repostDeliveries : deliveries,
-    callActionRecordWindowMs,
-    updatedText
-  );
+  await Promise.all([
+    rememberCallMessage(storeKey, currentDeliveries, callActionRecordWindowMs, updatedText, {
+      callMessageKeys: relatedCallMessageKeys
+    }),
+    ...relatedCallMessageKeys.map((key) =>
+      rememberCallMessage(key, currentDeliveries, callActionRecordWindowMs, updatedText, {
+        callMessageKeys: relatedCallMessageKeys
+      })
+    )
+  ]);
 
   let deletedOriginal = true;
 

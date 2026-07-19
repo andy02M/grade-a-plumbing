@@ -1138,8 +1138,16 @@ async function rememberCallMessageState(
   text: string
 ) {
   await Promise.all([
-    ...callMessageKeys.map((key) => rememberCallMessage(key, deliveries, editableMessageWindowMs, text)),
-    ...actionKeys.map((key) => rememberCallMessage(getCallActionStoreKey(key), deliveries, callActionRecordWindowMs, text))
+    ...callMessageKeys.map((key) =>
+      rememberCallMessage(key, deliveries, editableMessageWindowMs, text, {
+        callMessageKeys
+      })
+    ),
+    ...actionKeys.map((key) =>
+      rememberCallMessage(getCallActionStoreKey(key), deliveries, callActionRecordWindowMs, text, {
+        callMessageKeys
+      })
+    )
   ]);
 }
 
