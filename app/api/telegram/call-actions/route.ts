@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import {
+  buildCallActionKeyboard,
   getCallActionDestinationLabel,
   getCallActionLabel,
   getCallActionStoreKey,
@@ -124,6 +125,7 @@ export async function POST(request: Request) {
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
   const updatedText = formatHandledAlertText(baseText, actionLabel, destinationLabel, handlerName);
+  const actionKeyboard = buildCallActionKeyboard(parsedAction.actionKey);
   const editResult = deliveries.length
     ? await editTelegramMessage(updatedText, deliveries, {
         replyMarkup: {
@@ -132,16 +134,24 @@ export async function POST(request: Request) {
       })
     : { ok: false as const, error: "Original Telegram message was not available." };
 
-  await rememberCallMessage(storeKey, deliveries, callActionRecordWindowMs, updatedText);
-
   const sourceChatId = getSourceChatId(callbackQuery);
   const topicId = getCallActionTopicId(parsedAction.action);
+  const repostText = formatTopicAlertText(updatedText, actionLabel, destinationLabel);
   const repostResult =
     sourceChatId && typeof topicId === "number"
-      ? await sendTelegramMessage(formatTopicAlertText(updatedText, actionLabel, destinationLabel), [sourceChatId], {
-          messageThreadId: topicId
+      ? await sendTelegramMessage(repostText, [sourceChatId], {
+          messageThreadId: topicId,
+          replyMarkup: actionKeyboard
         })
       : { ok: true as const };
+  const repostDeliveries = repostResult.ok && "deliveries" in repostResult ? repostResult.deliveries ?? [] : [];
+
+  await rememberCallMessage(
+    storeKey,
+    repostDeliveries.length ? repostDeliveries : deliveries,
+    callActionRecordWindowMs,
+    updatedText
+  );
 
   let deletedOriginal = true;
 
@@ -177,7 +187,7 @@ export async function POST(request: Request) {
     destination: destinationLabel,
     destinationTopicId: topicId ?? null,
     editedOriginal: editResult.ok,
-    repostDeliveries: repostResult.ok && "deliveries" in repostResult ? repostResult.deliveries ?? [] : [],
+    repostDeliveries,
     repostedToTopic: Boolean(topicId)
   });
 }
