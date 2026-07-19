@@ -65,12 +65,24 @@ export async function recordCallStatisticsBatch(inputs: CallStatisticInput[]) {
 
   if (recorded > 0) {
     await setStoredJson(statisticsKind, statisticsKey, stats, statisticsStoreTtlMs);
-    await updateStatisticsMessage(stats);
   }
+
+  const telegram = await updateStatisticsMessage(stats);
 
   return {
     recorded,
     skipped: inputs.length - recorded,
+    telegram,
+    totalCalls: stats.totalCalls
+  };
+}
+
+export async function refreshCallStatisticsMessage() {
+  const stats = normalizeStats(await getStoredJson<Partial<CallStats>>(statisticsKind, statisticsKey, statisticsStoreTtlMs));
+  const telegram = await updateStatisticsMessage(stats);
+
+  return {
+    telegram,
     totalCalls: stats.totalCalls
   };
 }
@@ -104,7 +116,11 @@ async function updateStatisticsMessage(stats: CallStats) {
   const chatIds = getStatisticsChatIds();
 
   if (typeof topicId !== "number" || !chatIds.length) {
-    return;
+    return {
+      attempted: false,
+      error: "Statistics topic ID or statistics chat ID is not configured.",
+      ok: false
+    };
   }
 
   const text = formatStatisticsMessage(stats);
@@ -120,7 +136,11 @@ async function updateStatisticsMessage(stats: CallStats) {
 
     if (editResult.ok) {
       await rememberStatisticsMessage(existingDeliveries, text);
-      return;
+      return {
+        attempted: true,
+        mode: "edit",
+        ok: true
+      };
     }
 
     console.error("Telegram statistics message edit failed", editResult.error);
@@ -132,12 +152,23 @@ async function updateStatisticsMessage(stats: CallStats) {
 
   if (!sendResult.ok) {
     console.error("Telegram statistics message failed", sendResult.error);
-    return;
+    return {
+      attempted: true,
+      error: sendResult.error,
+      mode: "send",
+      ok: false
+    };
   }
 
   if (sendResult.deliveries?.length) {
     await rememberStatisticsMessage(sendResult.deliveries, text);
   }
+
+  return {
+    attempted: true,
+    mode: "send",
+    ok: true
+  };
 }
 
 async function rememberStatisticsMessage(deliveries: TelegramDelivery[], text: string) {
@@ -403,13 +434,18 @@ function plural(value: number) {
 }
 
 function getStatisticsChatIds() {
-  return (
-    process.env.TELEGRAM_STATISTICS_CHAT_ID ??
-    process.env.TELEGRAM_GROUP_ID ??
-    process.env.TELEGRAM_CHAT_ID ??
-    ""
-  )
+  const configuredChatIds = process.env.TELEGRAM_STATISTICS_CHAT_ID ?? process.env.TELEGRAM_GROUP_ID ?? "";
+  const fallbackChatIds = (process.env.TELEGRAM_CHAT_ID ?? "")
     .split(",")
     .map((chatId) => chatId.trim())
     .filter(Boolean);
+
+  if (configuredChatIds) {
+    return configuredChatIds
+      .split(",")
+      .map((chatId) => chatId.trim())
+      .filter(Boolean);
+  }
+
+  return fallbackChatIds.filter((chatId) => chatId.startsWith("-"));
 }

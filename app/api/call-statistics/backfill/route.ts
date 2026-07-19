@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { recordCallStatisticsBatch, type CallStatisticInput } from "@/lib/call-statistics";
+import {
+  recordCallStatisticsBatch,
+  refreshCallStatisticsMessage,
+  type CallStatisticInput
+} from "@/lib/call-statistics";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -31,6 +35,18 @@ export async function GET(request: Request) {
   }
 
   const url = new URL(request.url);
+  const refreshOnly = url.searchParams.get("refresh") === "1";
+
+  if (refreshOnly) {
+    const result = await refreshCallStatisticsMessage();
+
+    return NextResponse.json({
+      ok: true,
+      refreshed: true,
+      ...result
+    });
+  }
+
   const from = url.searchParams.get("from")?.trim() || defaultFromDate;
   const to = url.searchParams.get("to")?.trim() || defaultToDate;
   const dryRun = url.searchParams.get("dryRun") === "1";

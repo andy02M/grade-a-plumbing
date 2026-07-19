@@ -218,6 +218,12 @@ To preview the backfill before writing to the Statistics topic, add `dryRun=1`:
 https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20&dryRun=1
 ```
 
+To force the Statistics topic dashboard to post or refresh without importing new calls, use:
+
+```txt
+https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&refresh=1
+```
+
 Recommended Vapi setup:
 
 - Add the webhook URL above as the assistant/server URL for call notifications.
