@@ -75,7 +75,8 @@ async function sendTelegramTextToChat(
   chatId: string,
   text: string,
   options: TelegramMessageOptions,
-  attemptedMigration = false
+  attemptedMigration = false,
+  attemptedWithoutThread = false
 ) {
   const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
     method: "POST",
@@ -94,7 +95,21 @@ async function sendTelegramTextToChat(
   const migratedChatId = getMigratedChatId(data);
 
   if (!response.ok && migratedChatId && !attemptedMigration) {
-    return sendTelegramTextToChat(botToken, migratedChatId, text, options, true);
+    return sendTelegramTextToChat(botToken, migratedChatId, text, options, true, attemptedWithoutThread);
+  }
+
+  if (!response.ok && shouldRetryWithoutMessageThread(data, chatId, options) && !attemptedWithoutThread) {
+    return sendTelegramTextToChat(
+      botToken,
+      chatId,
+      text,
+      {
+        ...options,
+        messageThreadId: undefined
+      },
+      attemptedMigration,
+      true
+    );
   }
 
   return {
@@ -306,6 +321,22 @@ function getMigratedChatId(data: TelegramSendMessageResponse) {
   const migratedChatId = data.parameters?.migrate_to_chat_id;
 
   return typeof migratedChatId === "number" ? String(migratedChatId) : "";
+}
+
+function shouldRetryWithoutMessageThread(
+  data: TelegramSendMessageResponse,
+  chatId: string,
+  options: TelegramMessageOptions
+) {
+  if (typeof options.messageThreadId !== "number") {
+    return false;
+  }
+
+  if (chatId.trim().startsWith("-")) {
+    return false;
+  }
+
+  return (data.description ?? "").toLowerCase().includes("message thread not found");
 }
 
 function getTelegramChatIds() {
