@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import {
+  getCallActionDestinationLabel,
   getCallActionLabel,
   getCallActionStoreKey,
   getCallActionTopicId,
@@ -121,7 +122,8 @@ export async function POST(request: Request) {
   const baseText = record?.text || callbackQuery.message?.text || "Grade A Plumbing call alert";
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
-  const updatedText = formatHandledAlertText(baseText, actionLabel, handlerName);
+  const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
+  const updatedText = formatHandledAlertText(baseText, actionLabel, destinationLabel, handlerName);
   const editResult = deliveries.length
     ? await editTelegramMessage(updatedText, deliveries, {
         replyMarkup: {
@@ -136,13 +138,16 @@ export async function POST(request: Request) {
   const topicId = getCallActionTopicId(parsedAction.action);
   const repostResult =
     sourceChatId && typeof topicId === "number"
-      ? await sendTelegramMessage(formatTopicAlertText(updatedText, actionLabel), [sourceChatId], {
+      ? await sendTelegramMessage(formatTopicAlertText(updatedText, actionLabel, destinationLabel), [sourceChatId], {
           messageThreadId: topicId
         })
       : { ok: true as const };
 
+  let deletedOriginal = true;
+
   if (repostResult.ok && shouldDeleteHandledCallAlert() && deliveries.length) {
     const deleteResult = await deleteTelegramMessages(deliveries);
+    deletedOriginal = deleteResult.ok;
 
     if (!deleteResult.ok) {
       console.error("Telegram handled call delete failed", deleteResult.error);
@@ -151,7 +156,9 @@ export async function POST(request: Request) {
 
   await answerTelegramCallbackQuery(
     callbackQuery.id,
-    topicId ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}.` : `Marked as ${actionLabel}. Topic not configured.`
+    topicId
+      ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}. Moved to ${destinationLabel}.`
+      : `Marked as ${actionLabel}. Topic not configured.`
   );
 
   if (!editResult.ok) {
@@ -166,7 +173,11 @@ export async function POST(request: Request) {
   return NextResponse.json({
     ok: true,
     action: parsedAction.action,
+    deletedOriginal,
+    destination: destinationLabel,
+    destinationTopicId: topicId ?? null,
     editedOriginal: editResult.ok,
+    repostDeliveries: repostResult.ok && "deliveries" in repostResult ? repostResult.deliveries ?? [] : [],
     repostedToTopic: Boolean(topicId)
   });
 }
@@ -215,13 +226,14 @@ function getSourceChatId(callbackQuery: TelegramCallbackQuery) {
   return chatId === undefined ? "" : String(chatId);
 }
 
-function formatHandledAlertText(text: string, actionLabel: string, handlerName: string) {
+function formatHandledAlertText(text: string, actionLabel: string, destinationLabel: string, handlerName: string) {
   return [
     removeExistingOutcomeBlock(text),
     "",
-    "📌 CALL OUTCOME",
+    "📌 CALL ACTION",
     alertDivider,
-    `${actionLabel.toUpperCase()}`,
+    `✅ OUTCOME: ${actionLabel.toUpperCase()}`,
+    `📂 MOVED TO: ${destinationLabel}`,
     handlerName ? `👤 UPDATED BY: ${handlerName}` : "",
     `🕒 UPDATED: ${formatTimestamp(new Date().toISOString())}`,
     alertDivider
@@ -230,9 +242,10 @@ function formatHandledAlertText(text: string, actionLabel: string, handlerName: 
     .join("\n");
 }
 
-function formatTopicAlertText(text: string, actionLabel: string) {
+function formatTopicAlertText(text: string, actionLabel: string, destinationLabel: string) {
   return [
     actionLabel.toUpperCase(),
+    `📂 ${destinationLabel}`,
     alertDivider,
     "",
     text
@@ -240,10 +253,16 @@ function formatTopicAlertText(text: string, actionLabel: string) {
 }
 
 function removeExistingOutcomeBlock(text: string) {
-  const marker = "\n\n📌 CALL OUTCOME";
+  const legacyMarker = "\n\n📌 CALL OUTCOME";
+  const marker = "\n\n📌 CALL ACTION";
   const markerIndex = text.indexOf(marker);
+  const legacyMarkerIndex = text.indexOf(legacyMarker);
 
-  return markerIndex >= 0 ? text.slice(0, markerIndex).trimEnd() : text.trimEnd();
+  if (markerIndex >= 0) {
+    return text.slice(0, markerIndex).trimEnd();
+  }
+
+  return legacyMarkerIndex >= 0 ? text.slice(0, legacyMarkerIndex).trimEnd() : text.trimEnd();
 }
 
 function formatTelegramUser(user: TelegramCallbackQuery["from"]) {

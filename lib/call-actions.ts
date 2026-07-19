@@ -117,6 +117,18 @@ export function getCallActionLabel(action: CallActionStatus) {
   return `${status.emoji} ${status.label}`;
 }
 
+export function getCallActionDestinationLabel(action: CallActionStatus) {
+  if (action === "booked") {
+    return "02 Booked";
+  }
+
+  if (action === "not_interested" || action === "wrong_number") {
+    return "04 Closed / Not Suitable";
+  }
+
+  return "03 Follow Up Required";
+}
+
 export function getCallActionTopicId(action: CallActionStatus) {
   const status = callActionStatuses[action];
 
