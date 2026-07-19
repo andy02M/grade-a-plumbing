@@ -2,7 +2,7 @@ import { getStatisticsTopicId } from "@/lib/call-actions";
 import { claimRecentAlert, getStoredJson, setStoredJson } from "@/lib/call-alert-store";
 import { editTelegramMessage, sendTelegramMessage, type TelegramDelivery } from "@/lib/telegram";
 
-type CallStatisticInput = {
+export type CallStatisticInput = {
   callId: string;
   customerNumber: string;
   provider: string;
@@ -41,15 +41,41 @@ const statisticsKey = "call-volume";
 const statisticsMessageKey = "telegram-message";
 
 export async function recordCallStatistic(input: CallStatisticInput) {
-  const eventTime = parseCallDate(input.timestamp);
-  const identity = getCallIdentity(input, eventTime);
-  const isNewCall = await claimRecentAlert(`statistics:${identity}`, statisticsStoreTtlMs);
+  const result = await recordCallStatisticsBatch([input]);
 
-  if (!isNewCall) {
-    return;
+  return result.recorded;
+}
+
+export async function recordCallStatisticsBatch(inputs: CallStatisticInput[]) {
+  const stats = normalizeStats(await getStoredJson<Partial<CallStats>>(statisticsKind, statisticsKey, statisticsStoreTtlMs));
+  let recorded = 0;
+
+  for (const input of inputs) {
+    const eventTime = parseCallDate(input.timestamp);
+    const identity = getCallIdentity(input, eventTime);
+    const isNewCall = await claimRecentAlert(`statistics:${identity}`, statisticsStoreTtlMs);
+
+    if (!isNewCall) {
+      continue;
+    }
+
+    applyCallStatistic(stats, input, eventTime, identity);
+    recorded += 1;
   }
 
-  const stats = normalizeStats(await getStoredJson<Partial<CallStats>>(statisticsKind, statisticsKey, statisticsStoreTtlMs));
+  if (recorded > 0) {
+    await setStoredJson(statisticsKind, statisticsKey, stats, statisticsStoreTtlMs);
+    await updateStatisticsMessage(stats);
+  }
+
+  return {
+    recorded,
+    skipped: inputs.length - recorded,
+    totalCalls: stats.totalCalls
+  };
+}
+
+function applyCallStatistic(stats: CallStats, input: CallStatisticInput, eventTime: Date, identity: string) {
   const parts = getMelbourneDateParts(eventTime);
 
   stats.totalCalls += 1;
@@ -70,8 +96,7 @@ export async function recordCallStatistic(input: CallStatisticInput) {
     ...stats.recentCalls.filter((call) => call.identity !== identity)
   ].slice(0, 12);
 
-  await setStoredJson(statisticsKind, statisticsKey, stats, statisticsStoreTtlMs);
-  await updateStatisticsMessage(stats);
+  return stats;
 }
 
 async function updateStatisticsMessage(stats: CallStats) {

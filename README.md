@@ -206,6 +206,18 @@ To check whether the live deployment can fetch a specific Vapi call and see its 
 https://your-live-domain.com/api/call-alert?secret=your_webhook_secret&status=1&callId=your_vapi_call_id
 ```
 
+To backfill the Statistics topic from Vapi call history, open this once after deployment. This example imports calls from 7 July 2026 to the end of 19 July 2026 Melbourne time:
+
+```txt
+https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20
+```
+
+To preview the backfill before writing to the Statistics topic, add `dryRun=1`:
+
+```txt
+https://gradeaplumbing.store/api/call-statistics/backfill?secret=your_webhook_secret&from=2026-07-07&to=2026-07-20&dryRun=1
+```
+
 Recommended Vapi setup:
 
 - Add the webhook URL above as the assistant/server URL for call notifications.
