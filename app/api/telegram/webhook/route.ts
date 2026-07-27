@@ -90,6 +90,10 @@ function validateTelegramSecret(request: Request) {
 async function handleCommand(chatId: string, text: string) {
   const command = text.split(/\s+/)[0]?.toLowerCase() || "";
 
+  if (!command.startsWith("/")) {
+    return null;
+  }
+
   if (command === "/start") {
     return [
       `Connected to ${site.name}.`,
@@ -140,7 +144,7 @@ async function handleCommand(chatId: string, text: string) {
     return triggerDeploy();
   }
 
-  return "Unknown command. Send /help for available commands.";
+  return null;
 }
 
 async function sendTestCallAlert(chatId: string) {
