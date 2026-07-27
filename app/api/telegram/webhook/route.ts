@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
 import { handleTelegramCallbackUpdate, type TelegramCallbackUpdate } from "@/app/api/telegram/call-actions/route";
+import { buildCallActionKeyboard, getCallActionStoreKey } from "@/lib/call-actions";
+import { rememberCallMessage } from "@/lib/call-alert-store";
 import { site } from "@/lib/site";
-import { sendTelegramMessageToChat } from "@/lib/telegram";
+import { sendTelegramMessage, sendTelegramMessageToChat } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const testCallRecordWindowMs = 14 * 24 * 60 * 60 * 1000;
 
 type TelegramUpdate = TelegramCallbackUpdate & {
   message?: TelegramMessage;
@@ -18,6 +22,7 @@ type TelegramMessage = {
     username?: string;
     first_name?: string;
   };
+  message_thread_id?: number;
   text?: string;
 };
 
@@ -55,8 +60,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, ignored: true });
   }
 
-  const reply = await handleCommand(String(chatId), text);
-  await sendTelegramMessageToChat(chatId, reply);
+  const result = await handleCommand(String(chatId), text, message?.message_thread_id);
+
+  if (result) {
+    await sendTelegramMessageToChat(chatId, result);
+  }
 
   return NextResponse.json({ ok: true });
 }
@@ -79,7 +87,7 @@ function validateTelegramSecret(request: Request) {
   return null;
 }
 
-async function handleCommand(chatId: string, text: string) {
+async function handleCommand(chatId: string, text: string, messageThreadId?: number) {
   const command = text.split(/\s+/)[0]?.toLowerCase() || "";
 
   if (command === "/start") {
@@ -101,6 +109,7 @@ async function handleCommand(chatId: string, text: string) {
       "Grade A Plumbing commands:",
       "/start - show this chat ID",
       "/status - check the website bot connection",
+      "/testcall - post a fresh test call alert with action buttons",
       "/deploy - trigger a Vercel deploy hook when configured"
     ].join("\n");
   }
@@ -123,11 +132,67 @@ async function handleCommand(chatId: string, text: string) {
     ].join("\n");
   }
 
+  if (command === "/testcall") {
+    return sendTestCallAlert(chatId, messageThreadId);
+  }
+
   if (command === "/deploy") {
     return triggerDeploy();
   }
 
   return "Unknown command. Send /help for available commands.";
+}
+
+async function sendTestCallAlert(chatId: string, messageThreadId?: number) {
+  const actionKey = `test-${Date.now().toString(36)}`;
+  const callMessageKey = `TelegramTest:${actionKey}`;
+  const text = [
+    "🟦🟪🟩🟦🟪🟩🟦🟪🟩",
+    "====================================",
+    "🎮 GRADE A PLUMBING ALERTS",
+    "📲 TEST CUSTOMER CALL RECEIVED",
+    "====================================",
+    "",
+    "🟢 CALL STATUS: TEST",
+    "🤖 ASSISTANT: MAX",
+    "🔧 SERVICE TYPE: PLUMBING ENQUIRY",
+    "",
+    "====================================",
+    "📞 CALLER ID: +61400000000",
+    "📱 BEST CONTACT: Test customer",
+    `🕒 STARTED: ${formatMelbourneTimestamp(new Date().toISOString())}`,
+    "====================================",
+    "",
+    "🎯 TEST DETAILS",
+    "Use the buttons below to test Follow Up, Closed, dashboard counts, and status moving.",
+    "",
+    "====================================",
+    "🟦🟩🟦 TEST CALL ACTIVE 🟦🟩🟦",
+    "===================================="
+  ].join("\n");
+
+  const result = await sendTelegramMessage(text, [chatId], {
+    messageThreadId,
+    replyMarkup: buildCallActionKeyboard(actionKey)
+  });
+
+  if (!result.ok) {
+    console.error("Telegram test call alert failed", result.error);
+    return "Could not create the test call alert. Check Vercel logs.";
+  }
+
+  if (result.deliveries?.length) {
+    await Promise.all([
+      rememberCallMessage(callMessageKey, result.deliveries, testCallRecordWindowMs, text, {
+        callMessageKeys: [callMessageKey]
+      }),
+      rememberCallMessage(getCallActionStoreKey(actionKey), result.deliveries, testCallRecordWindowMs, text, {
+        callMessageKeys: [callMessageKey]
+      })
+    ]);
+  }
+
+  return null;
 }
 
 function isAllowedChat(chatId: string) {
@@ -155,4 +220,14 @@ async function triggerDeploy() {
   }
 
   return "Deploy triggered. Vercel should start building the latest GitHub version now.";
+}
+
+function formatMelbourneTimestamp(value: string) {
+  const date = new Date(value);
+
+  return new Intl.DateTimeFormat("en-AU", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Australia/Melbourne"
+  }).format(date);
 }
