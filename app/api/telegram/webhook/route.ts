@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
+import { handleTelegramCallbackUpdate, type TelegramCallbackUpdate } from "@/app/api/telegram/call-actions/route";
 import { site } from "@/lib/site";
 import { sendTelegramMessageToChat } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type TelegramUpdate = {
+type TelegramUpdate = TelegramCallbackUpdate & {
   message?: TelegramMessage;
   edited_message?: TelegramMessage;
 };
@@ -41,6 +42,11 @@ export async function POST(request: Request) {
   }
 
   const update = (await request.json()) as TelegramUpdate;
+
+  if (update.callback_query) {
+    return handleTelegramCallbackUpdate(update);
+  }
+
   const message = update.message ?? update.edited_message;
   const chatId = message?.chat?.id;
   const text = message?.text?.trim() ?? "";

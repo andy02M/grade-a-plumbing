@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import {
   buildCallActionKeyboard,
+  buildCallActionMainKeyboard,
+  buildCallActionSubmenuKeyboard,
   getCallActionDestinationLabel,
   getCallActionLabel,
   getCallActionStoreKey,
@@ -8,6 +10,7 @@ import {
   getCallTopicDiagnostics,
   getConfiguredCallActionTopics,
   parseCallActionData,
+  parseCallActionMenuData,
   shouldDeleteHandledCallAlert
 } from "@/lib/call-actions";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
@@ -26,7 +29,7 @@ export const dynamic = "force-dynamic";
 const alertDivider = "====================================";
 const callActionRecordWindowMs = 14 * 24 * 60 * 60 * 1000;
 
-type TelegramUpdate = {
+export type TelegramCallbackUpdate = {
   callback_query?: TelegramCallbackQuery;
 };
 
@@ -75,7 +78,12 @@ export async function POST(request: Request) {
     return authError;
   }
 
-  const update = (await request.json()) as TelegramUpdate;
+  const update = (await request.json()) as TelegramCallbackUpdate;
+
+  return handleTelegramCallbackUpdate(update);
+}
+
+export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdate) {
   const callbackQuery = update.callback_query;
 
   if (!callbackQuery) {
@@ -106,6 +114,40 @@ export async function POST(request: Request) {
       ok: true,
       statisticsAction: parsedStatisticsAction.type,
       view: parsedStatisticsAction.view
+    });
+  }
+
+  const parsedMenuAction = parseCallActionMenuData(callbackQuery.data);
+
+  if (parsedMenuAction) {
+    const storeKey = getCallActionStoreKey(parsedMenuAction.actionKey);
+    const record = await getCallMessageRecord(storeKey, callActionRecordWindowMs);
+    const fallbackDelivery = getFallbackDelivery(callbackQuery);
+    const deliveries = fallbackDelivery ? [fallbackDelivery] : record?.deliveries.length ? record.deliveries : [];
+    const baseText = callbackQuery.message?.text || record?.text || "Grade A Plumbing call alert";
+    const replyMarkup =
+      parsedMenuAction.menu === "main"
+        ? buildCallActionMainKeyboard(parsedMenuAction.actionKey)
+        : buildCallActionSubmenuKeyboard(parsedMenuAction.menu, parsedMenuAction.actionKey);
+    const editResult = deliveries.length
+      ? await editTelegramMessage(baseText, deliveries, {
+          replyMarkup
+        })
+      : { ok: false as const, error: "Original Telegram message was not available." };
+
+    await answerTelegramCallbackQuery(
+      callbackQuery.id,
+      parsedMenuAction.menu === "main" ? "Back to main actions." : "Choose the final outcome."
+    );
+
+    if (!editResult.ok) {
+      console.error("Telegram call menu edit failed", editResult.error);
+      return NextResponse.json({ error: editResult.error }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      ok: true,
+      actionMenu: parsedMenuAction.menu
     });
   }
 
