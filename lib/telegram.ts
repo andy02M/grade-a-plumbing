@@ -248,6 +248,38 @@ export async function deleteTelegramMessages(deliveries: TelegramDelivery[]): Pr
   return { ok: true };
 }
 
+export async function sendTelegramMessageToChat(chatId: string | number, text: string): Promise<TelegramResult> {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+
+  if (!botToken) {
+    return {
+      ok: false,
+      error: "Telegram bot token is not configured."
+    };
+  }
+
+  const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: chatId,
+      disable_web_page_preview: true,
+      text: text.slice(0, 3900)
+    })
+  });
+
+  if (!response.ok) {
+    return {
+      ok: false,
+      error: await response.text()
+    };
+  }
+
+  return { ok: true };
+}
+
 export async function sendTelegramAudio(audioUrl: string, caption: string): Promise<TelegramResult> {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatIds = getTelegramChatIds();
