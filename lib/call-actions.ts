@@ -111,6 +111,7 @@ export const callActionStatuses = {
 
 export type CallActionStatus = keyof typeof callActionStatuses;
 export type CallActionMenu = "main" | "follow_up" | "closed";
+export type CallActionDestination = "booked" | "follow_up" | "closed";
 
 const defaultTopicIds = {
   booked: 4,
@@ -253,15 +254,60 @@ export function getCallActionLabel(action: CallActionStatus) {
 }
 
 export function getCallActionDestinationLabel(action: CallActionStatus) {
-  if (action === "booked") {
+  const destination = getCallActionDestination(action);
+
+  if (destination === "booked") {
     return "02 Booked";
   }
 
-  if (["duplicate", "not_interested", "out_of_area", "spam", "wrong_number"].includes(action)) {
+  if (destination === "closed") {
     return "04 Closed / Not Suitable";
   }
 
   return "03 Follow Up Required";
+}
+
+export function getCallActionDestination(action: CallActionStatus): CallActionDestination {
+  if (action === "booked") {
+    return "booked";
+  }
+
+  if (["duplicate", "not_interested", "out_of_area", "spam", "wrong_number"].includes(action)) {
+    return "closed";
+  }
+
+  return "follow_up";
+}
+
+export function getCallActionDashboardActions(destination: CallActionDestination) {
+  const actions: Record<CallActionDestination, CallActionStatus[]> = {
+    booked: ["booked"],
+    closed: ["not_interested", "wrong_number", "spam", "out_of_area", "duplicate"],
+    follow_up: [
+      "call_back",
+      "no_answer",
+      "texted_customer",
+      "quote_needed",
+      "quote_sent",
+      "waiting_photos",
+      "later_not_urgent",
+      "needs_parts",
+      "reschedule",
+      "urgent_job"
+    ]
+  };
+
+  return actions[destination];
+}
+
+export function getCallActionDestinationTopicId(destination: CallActionDestination) {
+  const representativeActions: Record<CallActionDestination, CallActionStatus> = {
+    booked: "booked",
+    closed: "not_interested",
+    follow_up: "call_back"
+  };
+
+  return getCallActionTopicId(representativeActions[destination]);
 }
 
 export function getCallActionTopicId(action: CallActionStatus) {

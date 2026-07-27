@@ -11,8 +11,10 @@ import {
   getConfiguredCallActionTopics,
   parseCallActionData,
   parseCallActionMenuData,
+  parseCallActionStatus,
   shouldDeleteHandledCallAlert
 } from "@/lib/call-actions";
+import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
 import { parseCallStatisticsActionData, refreshCallStatisticsMessage } from "@/lib/call-statistics";
 import {
@@ -164,6 +166,7 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const deliveries = fallbackDelivery ? [fallbackDelivery] : record?.deliveries.length ? record.deliveries : [];
   const baseText = callbackQuery.message?.text || record?.text || "Grade A Plumbing call alert";
   const relatedCallMessageKeys = record?.callMessageKeys ?? [];
+  const previousAction = parseCallActionStatus(record?.status);
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
@@ -192,14 +195,24 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
 
   await Promise.all([
     rememberCallMessage(storeKey, currentDeliveries, callActionRecordWindowMs, updatedText, {
-      callMessageKeys: relatedCallMessageKeys
+      callMessageKeys: relatedCallMessageKeys,
+      status: parsedAction.action
     }),
     ...relatedCallMessageKeys.map((key) =>
       rememberCallMessage(key, currentDeliveries, callActionRecordWindowMs, updatedText, {
-        callMessageKeys: relatedCallMessageKeys
+        callMessageKeys: relatedCallMessageKeys,
+        status: parsedAction.action
       })
     )
   ]);
+
+  if (sourceChatId) {
+    await recordCallActionForDashboard({
+      action: parsedAction.action,
+      chatId: sourceChatId,
+      previousAction: previousAction ?? undefined
+    });
+  }
 
   let deletedOriginal = true;
 

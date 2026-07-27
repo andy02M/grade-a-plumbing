@@ -10,6 +10,7 @@ export type StoredCallMessage = {
 
 type CallMessageMetadata = {
   callMessageKeys?: string[];
+  status?: string;
 };
 
 type RedisResponse<T> =
@@ -71,7 +72,7 @@ export async function rememberCallMessage(
   const payload: StoredCallMessage = {
     callMessageKeys: normalizeStringList(metadata.callMessageKeys ?? existingRecord?.callMessageKeys),
     deliveries,
-    status: existingRecord?.status,
+    status: metadata.status ?? existingRecord?.status,
     text: text ?? existingRecord?.text,
     storedAt: Date.now()
   };
