@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { handleTelegramCallbackUpdate, type TelegramCallbackUpdate } from "@/app/api/telegram/call-actions/route";
-import { buildCallActionKeyboard, getCallActionStoreKey } from "@/lib/call-actions";
+import { buildCallActionKeyboard, getCallActionStoreKey, getNewCallsTopicId } from "@/lib/call-actions";
 import { rememberCallMessage } from "@/lib/call-alert-store";
 import { site } from "@/lib/site";
 import { sendTelegramMessage, sendTelegramMessageToChat } from "@/lib/telegram";
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, ignored: true });
   }
 
-  const result = await handleCommand(String(chatId), text, message?.message_thread_id);
+  const result = await handleCommand(String(chatId), text);
 
   if (result) {
     await sendTelegramMessageToChat(chatId, result);
@@ -87,7 +87,7 @@ function validateTelegramSecret(request: Request) {
   return null;
 }
 
-async function handleCommand(chatId: string, text: string, messageThreadId?: number) {
+async function handleCommand(chatId: string, text: string) {
   const command = text.split(/\s+/)[0]?.toLowerCase() || "";
 
   if (command === "/start") {
@@ -133,7 +133,7 @@ async function handleCommand(chatId: string, text: string, messageThreadId?: num
   }
 
   if (command === "/testcall") {
-    return sendTestCallAlert(chatId, messageThreadId);
+    return sendTestCallAlert(chatId);
   }
 
   if (command === "/deploy") {
@@ -143,7 +143,7 @@ async function handleCommand(chatId: string, text: string, messageThreadId?: num
   return "Unknown command. Send /help for available commands.";
 }
 
-async function sendTestCallAlert(chatId: string, messageThreadId?: number) {
+async function sendTestCallAlert(chatId: string) {
   const actionKey = `test-${Date.now().toString(36)}`;
   const callMessageKey = `TelegramTest:${actionKey}`;
   const text = [
@@ -172,7 +172,7 @@ async function sendTestCallAlert(chatId: string, messageThreadId?: number) {
   ].join("\n");
 
   const result = await sendTelegramMessage(text, [chatId], {
-    messageThreadId,
+    messageThreadId: getNewCallsTopicId(),
     replyMarkup: buildCallActionKeyboard(actionKey)
   });
 
