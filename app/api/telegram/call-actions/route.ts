@@ -12,7 +12,8 @@ import {
   parseCallActionData,
   parseCallActionMenuData,
   parseCallActionStatus,
-  shouldDeleteHandledCallAlert
+  shouldDeleteHandledCallAlert,
+  type CallActionStatus
 } from "@/lib/call-actions";
 import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
@@ -172,6 +173,7 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
   const updatedText = formatHandledAlertText(baseText, actionLabel, destinationLabel, handlerName);
   const actionKeyboard = buildCallActionKeyboard(parsedAction.actionKey);
+  const shouldDeleteWithoutRepost = shouldDeleteCallActionWithoutRepost(parsedAction.action);
   const editResult = deliveries.length
     ? await editTelegramMessage(updatedText, deliveries, {
         replyMarkup: {
@@ -184,14 +186,14 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const topicId = getCallActionTopicId(parsedAction.action);
   const repostText = formatTopicAlertText(updatedText, actionLabel, destinationLabel);
   const repostResult =
-    sourceChatId && typeof topicId === "number"
+    !shouldDeleteWithoutRepost && sourceChatId && typeof topicId === "number"
       ? await sendTelegramMessage(repostText, [sourceChatId], {
           messageThreadId: topicId,
           replyMarkup: actionKeyboard
         })
       : { ok: true as const };
   const repostDeliveries = repostResult.ok && "deliveries" in repostResult ? repostResult.deliveries ?? [] : [];
-  const currentDeliveries = repostDeliveries.length ? repostDeliveries : deliveries;
+  const currentDeliveries = shouldDeleteWithoutRepost ? [] : repostDeliveries.length ? repostDeliveries : deliveries;
 
   await Promise.all([
     rememberCallMessage(storeKey, currentDeliveries, callActionRecordWindowMs, updatedText, {
@@ -215,10 +217,20 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   }
 
   let deletedOriginal = true;
+  let deleteError = "";
 
-  if (repostResult.ok && shouldDeleteHandledCallAlert() && deliveries.length) {
+  if (shouldDeleteWithoutRepost && deliveries.length) {
     const deleteResult = await deleteTelegramMessages(deliveries);
     deletedOriginal = deleteResult.ok;
+    deleteError = deleteResult.ok ? "" : deleteResult.error;
+
+    if (!deleteResult.ok) {
+      console.error("Telegram unwanted call delete failed", deleteResult.error);
+    }
+  } else if (repostResult.ok && shouldDeleteHandledCallAlert() && deliveries.length) {
+    const deleteResult = await deleteTelegramMessages(deliveries);
+    deletedOriginal = deleteResult.ok;
+    deleteError = deleteResult.ok ? "" : deleteResult.error;
 
     if (!deleteResult.ok) {
       console.error("Telegram handled call delete failed", deleteResult.error);
@@ -227,7 +239,11 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
 
   await answerTelegramCallbackQuery(
     callbackQuery.id,
-    topicId
+    shouldDeleteWithoutRepost
+      ? deletedOriginal
+        ? `Deleted as ${actionLabel.replace(/^[^\w]+/, "")}.`
+        : `Marked as ${actionLabel.replace(/^[^\w]+/, "")}; could not delete alert.`
+      : topicId
       ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}. Moved to ${destinationLabel}.`
       : `Marked as ${actionLabel}. Topic not configured.`
   );
@@ -248,8 +264,9 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     destination: destinationLabel,
     destinationTopicId: topicId ?? null,
     editedOriginal: editResult.ok,
+    deleteError,
     repostDeliveries,
-    repostedToTopic: Boolean(topicId)
+    repostedToTopic: !shouldDeleteWithoutRepost && Boolean(topicId)
   });
 }
 
@@ -295,6 +312,10 @@ function getSourceChatId(callbackQuery: TelegramCallbackQuery) {
   const chatId = callbackQuery.message?.chat?.id;
 
   return chatId === undefined ? "" : String(chatId);
+}
+
+function shouldDeleteCallActionWithoutRepost(action: CallActionStatus) {
+  return action === "not_interested" || action === "spam";
 }
 
 function formatHandledAlertText(text: string, actionLabel: string, destinationLabel: string, handlerName: string) {
