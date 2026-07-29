@@ -8,7 +8,7 @@ import {
 } from "@/lib/call-actions";
 import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
 import { getBookedCallActionItemsOlderThan, rememberCallActionItem, type CallActionItem } from "@/lib/call-action-items";
-import { rememberCallMessage } from "@/lib/call-alert-store";
+import { getCallMessageRecordsByStatus, rememberCallMessage } from "@/lib/call-alert-store";
 import { deleteTelegramMessages, sendTelegramMessage } from "@/lib/telegram";
 
 export const runtime = "nodejs";
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
   }
 
   const cutoffMs = Date.now() - bookedAgeLimitMs;
-  const staleBookedItems = await getBookedCallActionItemsOlderThan(cutoffMs);
+  const staleBookedItems = await getStaleBookedItems(cutoffMs);
   const results = [];
 
   for (const item of staleBookedItems) {
@@ -43,6 +43,46 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   return GET(request);
+}
+
+async function getStaleBookedItems(cutoffMs: number) {
+  const itemsByActionKey = new Map<string, CallActionItem>();
+
+  for (const item of await getBookedCallActionItemsOlderThan(cutoffMs)) {
+    itemsByActionKey.set(item.actionKey, item);
+  }
+
+  const storedBookedRecords = await getCallMessageRecordsByStatus({
+    keyPrefix: "action:",
+    status: "booked",
+    ttlMs: callActionRecordWindowMs
+  });
+
+  for (const { key, record } of storedBookedRecords) {
+    const updatedAt = record.storedAt;
+
+    if (updatedAt > cutoffMs) {
+      continue;
+    }
+
+    const actionKey = key.replace(/^action:/, "");
+
+    if (!actionKey || itemsByActionKey.has(actionKey)) {
+      continue;
+    }
+
+    itemsByActionKey.set(actionKey, {
+      actionKey,
+      callMessageKeys: record.callMessageKeys,
+      chatId: record.deliveries[0]?.chatId,
+      deliveries: record.deliveries,
+      status: "booked",
+      text: record.text ?? "Grade A Plumbing call alert",
+      updatedAt: new Date(record.storedAt).toISOString()
+    });
+  }
+
+  return [...itemsByActionKey.values()];
 }
 
 async function closeBookedItem(item: CallActionItem) {

@@ -104,6 +104,35 @@ export async function getCallMessageRecord(key: string, ttlMs: number) {
   return memoryCallMessages.get(key) ?? null;
 }
 
+export async function getCallMessageRecordsByStatus(options: {
+  keyPrefix: string;
+  status: string;
+  ttlMs: number;
+}) {
+  const redisPattern = buildKey("message", `${options.keyPrefix}*`);
+  const redisKeysResult = await redisCommand<string[]>(["KEYS", redisPattern]);
+
+  if (redisKeysResult.ok) {
+    const records = await Promise.all(
+      redisKeysResult.value.map(async (redisKey) => {
+        const redisResult = await redisCommand<string | null>(["GET", redisKey]);
+        const record = redisResult.ok ? parseStoredCallMessage(redisResult.value) : null;
+        const key = redisKey.replace(buildKey("message", ""), "");
+
+        return record?.status === options.status ? { key, record } : null;
+      })
+    );
+
+    return records.filter((record): record is NonNullable<typeof record> => Boolean(record));
+  }
+
+  pruneMemoryCallMessages(options.ttlMs);
+
+  return Array.from(memoryCallMessages.entries())
+    .filter(([key, record]) => key.startsWith(options.keyPrefix) && record.status === options.status)
+    .map(([key, record]) => ({ key, record }));
+}
+
 export async function rememberCallMessageStatus(key: string, ttlMs: number, status: string, text: string) {
   const existingRecord = await getCallMessageRecord(key, ttlMs);
 
