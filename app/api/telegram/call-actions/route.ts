@@ -16,6 +16,7 @@ import {
   type CallActionStatus
 } from "@/lib/call-actions";
 import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
+import { rememberCallActionItem } from "@/lib/call-action-items";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
 import { parseCallStatisticsActionData, refreshCallStatisticsMessage } from "@/lib/call-statistics";
 import {
@@ -199,6 +200,14 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     rememberCallMessage(storeKey, currentDeliveries, callActionRecordWindowMs, updatedText, {
       callMessageKeys: relatedCallMessageKeys,
       status: parsedAction.action
+    }),
+    rememberCallActionItem({
+      actionKey: parsedAction.actionKey,
+      callMessageKeys: relatedCallMessageKeys,
+      chatId: sourceChatId || undefined,
+      deliveries: currentDeliveries,
+      status: parsedAction.action,
+      text: updatedText
     }),
     ...relatedCallMessageKeys.map((key) =>
       rememberCallMessage(key, currentDeliveries, callActionRecordWindowMs, updatedText, {

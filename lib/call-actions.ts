@@ -106,6 +106,12 @@ export const callActionStatuses = {
     emoji: "🔁",
     label: "Duplicate",
     topicEnvNames: ["TELEGRAM_TOPIC_CLOSED", "TELEGRAM_CLOSED_THREAD_ID", "TELEGRAM_TOPIC_DUPLICATE", "TELEGRAM_DUPLICATE_THREAD_ID"]
+  },
+  auto_closed: {
+    callbackLabel: "Auto Closed",
+    emoji: "AUTO",
+    label: "Auto Closed",
+    topicEnvNames: ["TELEGRAM_TOPIC_CLOSED", "TELEGRAM_CLOSED_THREAD_ID", "TELEGRAM_TOPIC_AUTO_CLOSED", "TELEGRAM_AUTO_CLOSED_THREAD_ID"]
   }
 } as const;
 
@@ -133,7 +139,8 @@ const defaultTopicIds = {
   texted_customer: 6,
   urgent_job: 6,
   waiting_photos: 6,
-  wrong_number: 8
+  wrong_number: 8,
+  auto_closed: 8
 } as const;
 
 export function buildCallActionKeyboard(actionKey: string): TelegramInlineKeyboardMarkup {
@@ -272,7 +279,7 @@ export function getCallActionDestination(action: CallActionStatus): CallActionDe
     return "booked";
   }
 
-  if (["duplicate", "not_interested", "out_of_area", "spam", "wrong_number"].includes(action)) {
+  if (["auto_closed", "duplicate", "not_interested", "out_of_area", "spam", "wrong_number"].includes(action)) {
     return "closed";
   }
 
@@ -282,7 +289,7 @@ export function getCallActionDestination(action: CallActionStatus): CallActionDe
 export function getCallActionDashboardActions(destination: CallActionDestination) {
   const actions: Record<CallActionDestination, CallActionStatus[]> = {
     booked: ["booked"],
-    closed: ["not_interested", "wrong_number", "spam", "out_of_area", "duplicate"],
+    closed: ["not_interested", "wrong_number", "spam", "out_of_area", "duplicate", "auto_closed"],
     follow_up: [
       "call_back",
       "no_answer",
@@ -363,7 +370,8 @@ export function getCallTopicDiagnostics() {
     texted_customer: getCallActionTopicId("texted_customer"),
     urgent_job: getCallActionTopicId("urgent_job"),
     waiting_photos: getCallActionTopicId("waiting_photos"),
-    wrong_number: getCallActionTopicId("wrong_number")
+    wrong_number: getCallActionTopicId("wrong_number"),
+    auto_closed: getCallActionTopicId("auto_closed")
   };
 }
 
