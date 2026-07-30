@@ -18,6 +18,14 @@ import {
 import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
 import { rememberCallActionItem } from "@/lib/call-action-items";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
+import {
+  buildMissingDetailsKeyboard,
+  getFillableFieldLabel,
+  getFillableFieldPlaceholder,
+  getMissingFillableFields,
+  parseFillDetailsActionData,
+  rememberPendingCallFill
+} from "@/lib/call-fill-details";
 import { parseCallStatisticsActionData, refreshCallStatisticsMessage } from "@/lib/call-statistics";
 import {
   answerTelegramCallbackQuery,
@@ -51,6 +59,7 @@ type TelegramCallbackQuery = {
       id?: number | string;
     };
     message_id?: number;
+    message_thread_id?: number;
     text?: string;
   };
 };
@@ -155,6 +164,57 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     });
   }
 
+  const parsedFillAction = parseFillDetailsActionData(callbackQuery.data);
+
+  if (parsedFillAction) {
+    const sourceChatId = getSourceChatId(callbackQuery);
+    const userId = callbackQuery.from?.id ? String(callbackQuery.from.id) : "";
+    const fieldLabel = getFillableFieldLabel(parsedFillAction.field);
+
+    if (!sourceChatId || !userId) {
+      await answerTelegramCallbackQuery(callbackQuery.id, "Could not start fill-in. Try again.");
+      return NextResponse.json({ ok: true, ignored: true });
+    }
+
+    const promptResult = await sendTelegramMessage(
+      `Reply with the ${fieldLabel} for this booked call.`,
+      [sourceChatId],
+      {
+        messageThreadId: callbackQuery.message?.message_thread_id,
+        replyMarkup: {
+          force_reply: true,
+          input_field_placeholder: getFillableFieldPlaceholder(parsedFillAction.field),
+          selective: true
+        }
+      }
+    );
+    const promptDelivery = promptResult.ok ? promptResult.deliveries?.[0] : undefined;
+
+    await rememberPendingCallFill({
+      actionKey: parsedFillAction.actionKey,
+      chatId: sourceChatId,
+      field: parsedFillAction.field,
+      messageThreadId: callbackQuery.message?.message_thread_id,
+      promptMessageId: promptDelivery?.messageId,
+      userId
+    });
+
+    await answerTelegramCallbackQuery(
+      callbackQuery.id,
+      promptResult.ok ? `Reply with ${fieldLabel}.` : "Could not send fill-in prompt."
+    );
+
+    if (!promptResult.ok) {
+      console.error("Telegram fill-in prompt failed", promptResult.error);
+      return NextResponse.json({ error: promptResult.error }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      ok: true,
+      fillField: parsedFillAction.field
+    });
+  }
+
   const parsedAction = parseCallActionData(callbackQuery.data);
 
   if (!parsedAction) {
@@ -172,8 +232,11 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
+  const missingFillableFields = parsedAction.action === "booked" ? getMissingFillableFields(baseText) : [];
   const updatedText = formatHandledAlertText(baseText, actionLabel, destinationLabel, handlerName);
-  const actionKeyboard = buildCallActionKeyboard(parsedAction.actionKey);
+  const actionKeyboard = missingFillableFields.length
+    ? buildMissingDetailsKeyboard(parsedAction.actionKey, missingFillableFields)
+    : buildCallActionKeyboard(parsedAction.actionKey);
   const shouldDeleteWithoutRepost = shouldDeleteCallActionWithoutRepost(parsedAction.action);
   const editResult = deliveries.length
     ? await editTelegramMessage(updatedText, deliveries, {
@@ -252,6 +315,8 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
       ? deletedOriginal
         ? `Deleted as ${actionLabel.replace(/^[^\w]+/, "")}.`
         : `Marked as ${actionLabel.replace(/^[^\w]+/, "")}; could not delete alert.`
+      : missingFillableFields.length
+      ? `Booked. ${missingFillableFields.length} detail${missingFillableFields.length === 1 ? "" : "s"} can be filled in.`
       : topicId
       ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}. Moved to ${destinationLabel}.`
       : `Marked as ${actionLabel}. Topic not configured.`

@@ -12,10 +12,16 @@ export type TelegramInlineKeyboardMarkup = {
   >;
 };
 
+export type TelegramForceReplyMarkup = {
+  force_reply: true;
+  input_field_placeholder?: string;
+  selective?: boolean;
+};
+
 type TelegramMessageOptions = {
   disableWebPagePreview?: boolean;
   messageThreadId?: number;
-  replyMarkup?: TelegramInlineKeyboardMarkup | null;
+  replyMarkup?: TelegramInlineKeyboardMarkup | TelegramForceReplyMarkup | null;
 };
 
 type TelegramResult =

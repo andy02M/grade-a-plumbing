@@ -1,9 +1,19 @@
 import { NextResponse } from "next/server";
 import { handleTelegramCallbackUpdate, type TelegramCallbackUpdate } from "@/app/api/telegram/call-actions/route";
-import { buildCallActionKeyboard, getCallActionStoreKey, getNewCallsTopicId } from "@/lib/call-actions";
-import { rememberCallMessage } from "@/lib/call-alert-store";
+import { buildCallActionKeyboard, getCallActionStoreKey, getNewCallsTopicId, parseCallActionStatus } from "@/lib/call-actions";
+import { rememberCallActionItem } from "@/lib/call-action-items";
+import { getCallMessageRecord, rememberCallMessage } from "@/lib/call-alert-store";
+import {
+  applyFilledCallDetail,
+  buildMissingDetailsKeyboard,
+  clearPendingCallFill,
+  getActionStatusFromText,
+  getFillableFieldLabel,
+  getMissingFillableFields,
+  getPendingCallFill
+} from "@/lib/call-fill-details";
 import { site } from "@/lib/site";
-import { sendTelegramMessage, sendTelegramMessageToChat } from "@/lib/telegram";
+import { editTelegramMessage, sendTelegramMessage, sendTelegramMessageToChat } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,6 +31,9 @@ type TelegramMessage = {
     title?: string;
     username?: string;
     first_name?: string;
+  };
+  from?: {
+    id?: number;
   };
   message_thread_id?: number;
   text?: string;
@@ -60,6 +73,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, ignored: true });
   }
 
+  const fillResult = await handlePendingFillReply(String(chatId), message, text);
+
+  if (fillResult.handled) {
+    return NextResponse.json({ ok: fillResult.ok });
+  }
+
   const result = await handleCommand(String(chatId), text);
 
   if (result) {
@@ -67,6 +86,87 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ ok: true });
+}
+
+async function handlePendingFillReply(chatId: string, message: TelegramMessage | undefined, text: string) {
+  const userId = message?.from?.id ? String(message.from.id) : "";
+
+  if (!userId || !text || text.startsWith("/")) {
+    return {
+      handled: false,
+      ok: true
+    };
+  }
+
+  const pendingFill = await getPendingCallFill(chatId, userId);
+
+  if (!pendingFill) {
+    return {
+      handled: false,
+      ok: true
+    };
+  }
+
+  const storeKey = getCallActionStoreKey(pendingFill.actionKey);
+  const record = await getCallMessageRecord(storeKey, testCallRecordWindowMs);
+
+  await clearPendingCallFill(chatId, userId);
+
+  if (!record?.deliveries.length) {
+    await sendTelegramMessage("I could not find the booked alert to update. Please use the call buttons again.", [chatId], {
+      messageThreadId: pendingFill.messageThreadId ?? message?.message_thread_id
+    });
+
+    return {
+      handled: true,
+      ok: false
+    };
+  }
+
+  const updatedText = applyFilledCallDetail(record.text ?? "Grade A Plumbing call alert", pendingFill.field, text);
+  const missingFields = getMissingFillableFields(updatedText);
+  const replyMarkup = missingFields.length
+    ? buildMissingDetailsKeyboard(pendingFill.actionKey, missingFields)
+    : buildCallActionKeyboard(pendingFill.actionKey);
+  const editResult = await editTelegramMessage(updatedText, record.deliveries, {
+    replyMarkup
+  });
+  const relatedCallMessageKeys = record.callMessageKeys ?? [];
+  const status = parseCallActionStatus(record.status) ?? getActionStatusFromText(updatedText) ?? "booked";
+
+  await Promise.all([
+    rememberCallMessage(storeKey, record.deliveries, testCallRecordWindowMs, updatedText, {
+      callMessageKeys: relatedCallMessageKeys,
+      status
+    }),
+    rememberCallActionItem({
+      actionKey: pendingFill.actionKey,
+      callMessageKeys: relatedCallMessageKeys,
+      chatId,
+      deliveries: record.deliveries,
+      status,
+      text: updatedText
+    }),
+    ...relatedCallMessageKeys.map((key) =>
+      rememberCallMessage(key, record.deliveries, testCallRecordWindowMs, updatedText, {
+        callMessageKeys: relatedCallMessageKeys,
+        status
+      })
+    )
+  ]);
+
+  await sendTelegramMessage(`${getFillableFieldLabel(pendingFill.field)} updated.`, [chatId], {
+    messageThreadId: pendingFill.messageThreadId ?? message?.message_thread_id
+  });
+
+  if (!editResult.ok) {
+    console.error("Telegram filled detail edit failed", editResult.error);
+  }
+
+  return {
+    handled: true,
+    ok: editResult.ok
+  };
 }
 
 function validateTelegramSecret(request: Request) {
