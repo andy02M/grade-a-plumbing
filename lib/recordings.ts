@@ -28,7 +28,7 @@ export function verifyRecordingAccessToken(callId: string, token: string) {
   return expectedBuffer.length === providedBuffer.length && timingSafeEqual(expectedBuffer, providedBuffer);
 }
 
-export async function fetchVapiMonoRecording(callId: string) {
+export async function fetchVapiMonoRecording(callId: string, range?: string | null) {
   const privateKey = getVapiPrivateKey();
 
   if (!privateKey) {
@@ -37,7 +37,8 @@ export async function fetchVapiMonoRecording(callId: string) {
 
   return fetch(`${vapiApiBaseUrl}/call/${encodeURIComponent(callId)}/mono-recording`, {
     headers: {
-      Authorization: `Bearer ${privateKey}`
+      Authorization: `Bearer ${privateKey}`,
+      ...(range ? { Range: range } : {})
     },
     cache: "no-store",
     redirect: "follow"
