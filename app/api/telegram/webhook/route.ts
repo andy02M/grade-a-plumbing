@@ -5,11 +5,10 @@ import { rememberCallActionItem } from "@/lib/call-action-items";
 import { getCallMessageRecord, rememberCallMessage } from "@/lib/call-alert-store";
 import {
   applyFilledCallDetail,
-  buildMissingDetailsKeyboard,
+  buildBookedDetailsKeyboard,
   clearPendingCallFill,
   getActionStatusFromText,
   getFillableFieldLabel,
-  getMissingFillableFields,
   getPendingCallFill
 } from "@/lib/call-fill-details";
 import { site } from "@/lib/site";
@@ -124,15 +123,13 @@ async function handlePendingFillReply(chatId: string, message: TelegramMessage |
   }
 
   const updatedText = applyFilledCallDetail(record.text ?? "Grade A Plumbing call alert", pendingFill.field, text);
-  const missingFields = getMissingFillableFields(updatedText);
-  const replyMarkup = missingFields.length
-    ? buildMissingDetailsKeyboard(pendingFill.actionKey, missingFields)
-    : buildCallActionKeyboard(pendingFill.actionKey);
+  const status = parseCallActionStatus(record.status) ?? getActionStatusFromText(updatedText) ?? "booked";
+  const replyMarkup =
+    status === "booked" ? buildBookedDetailsKeyboard(pendingFill.actionKey, updatedText) : buildCallActionKeyboard(pendingFill.actionKey);
   const editResult = await editTelegramMessage(updatedText, record.deliveries, {
     replyMarkup
   });
   const relatedCallMessageKeys = record.callMessageKeys ?? [];
-  const status = parseCallActionStatus(record.status) ?? getActionStatusFromText(updatedText) ?? "booked";
 
   await Promise.all([
     rememberCallMessage(storeKey, record.deliveries, testCallRecordWindowMs, updatedText, {

@@ -7,7 +7,13 @@ import {
 import { getStoredJson, setStoredJson } from "@/lib/call-alert-store";
 import type { TelegramInlineKeyboardMarkup } from "@/lib/telegram";
 
-export type FillableCallField = "address_suburb" | "issue" | "name" | "phone" | "urgency";
+export type FillableCallField =
+  | "address_suburb"
+  | "attending_plumber"
+  | "booked_time"
+  | "call_out_fee"
+  | "issue"
+  | "name";
 
 export type PendingCallFill = {
   actionKey: string;
@@ -23,12 +29,35 @@ const pendingTtlMs = 2 * 60 * 60 * 1000;
 const manualDetailsStart = "TEAM FILLED DETAILS";
 const manualDetailsEnd = "END TEAM FILLED DETAILS";
 const alertDivider = "====================================";
+const requiredBookedFields: FillableCallField[] = [
+  "name",
+  "issue",
+  "address_suburb",
+  "booked_time",
+  "attending_plumber",
+  "call_out_fee"
+];
 
 const fillableFieldConfig: Record<FillableCallField, { label: string; missingMatchers: RegExp[]; placeholder: string }> = {
   address_suburb: {
     label: "Address / suburb",
     missingMatchers: [/address\s*\/\s*suburb/i],
     placeholder: "e.g. 12 Smith St, Richmond"
+  },
+  attending_plumber: {
+    label: "Attending Plumber",
+    missingMatchers: [/attending plumber/i],
+    placeholder: "e.g. Andy"
+  },
+  booked_time: {
+    label: "Booked Time",
+    missingMatchers: [/booked time/i, /appointment time/i],
+    placeholder: "e.g. Tomorrow 9am"
+  },
+  call_out_fee: {
+    label: "Call-out fee",
+    missingMatchers: [/call-?out fee/i],
+    placeholder: "e.g. $0, $99, quoted"
   },
   issue: {
     label: "Plumbing issue",
@@ -39,51 +68,25 @@ const fillableFieldConfig: Record<FillableCallField, { label: string; missingMat
     label: "Name",
     missingMatchers: [/^name$/i, /customer name/i],
     placeholder: "e.g. Sarah"
-  },
-  phone: {
-    label: "Best contact",
-    missingMatchers: [/^phone$/i, /best contact/i, /contact number/i],
-    placeholder: "e.g. 0412 345 678"
-  },
-  urgency: {
-    label: "Urgency",
-    missingMatchers: [/urgency/i],
-    placeholder: "e.g. today, urgent, this week"
   }
 };
 
 export function getMissingFillableFields(text: string) {
-  const lines = text.split(/\r?\n/);
-  const missingSectionLines: string[] = [];
-  let inMissingSection = false;
+  const manualDetails = getManualDetails(text);
 
-  for (const line of lines) {
-    if (line.toUpperCase().includes("STILL NEEDED")) {
-      inMissingSection = true;
-      continue;
-    }
-
-    if (inMissingSection && line.trim() === "") {
-      break;
-    }
-
-    if (inMissingSection) {
-      missingSectionLines.push(line);
-    }
-  }
-
-  return (Object.keys(fillableFieldConfig) as FillableCallField[]).filter((field) => {
+  return requiredBookedFields.filter((field) => {
     const config = fillableFieldConfig[field];
 
-    return missingSectionLines.some((line) => config.missingMatchers.some((matcher) => matcher.test(cleanLine(line))));
+    return !manualDetails.has(config.label);
   });
 }
 
-export function buildMissingDetailsKeyboard(actionKey: string, missingFields: FillableCallField[]): TelegramInlineKeyboardMarkup {
-  const fillRows = missingFields.map((field) => [
+export function buildBookedDetailsKeyboard(actionKey: string, text: string): TelegramInlineKeyboardMarkup {
+  const missingFields = new Set(getMissingFillableFields(text));
+  const fillRows = requiredBookedFields.map((field) => [
     {
       callback_data: `gapfill:${field}:${actionKey}`,
-      text: `Fill ${fillableFieldConfig[field].label}`
+      text: `${missingFields.has(field) ? "Fill" : "Edit"} ${fillableFieldConfig[field].label}`
     }
   ]);
 
@@ -93,6 +96,29 @@ export function buildMissingDetailsKeyboard(actionKey: string, missingFields: Fi
       ...buildCallActionKeyboard(actionKey).inline_keyboard
     ]
   };
+}
+
+export function applyAutofilledBookedDetails(text: string) {
+  const existingManualDetails = getManualDetails(text);
+  const extractedDetails = extractDetailsFromAlert(text);
+  const detailsToAdd = new Map<string, string>();
+
+  for (const field of requiredBookedFields) {
+    const label = fillableFieldConfig[field].label;
+    const value = extractedDetails.get(field);
+
+    if (value && !existingManualDetails.has(label)) {
+      detailsToAdd.set(label, value);
+    }
+  }
+
+  if (!detailsToAdd.size) {
+    return text;
+  }
+
+  return [removeManualDetailsBlock(text), formatManualDetails(new Map([...existingManualDetails, ...detailsToAdd]))]
+    .filter(Boolean)
+    .join("\n\n");
 }
 
 export function parseFillDetailsActionData(value: string | undefined) {
@@ -257,6 +283,55 @@ function formatManualDetails(details: Map<string, string>) {
     alertDivider,
     manualDetailsEnd
   ].join("\n");
+}
+
+function extractDetailsFromAlert(text: string) {
+  const details = new Map<FillableCallField, string>();
+  const lines = text.split(/\r?\n/);
+
+  for (const line of lines) {
+    const labelAndValue = parseLabelAndValue(line);
+
+    if (!labelAndValue) {
+      continue;
+    }
+
+    const [label, value] = labelAndValue;
+
+    if (!value || /^not provided$/i.test(value)) {
+      continue;
+    }
+
+    if (/\bcustomer\b|\bname\b/i.test(label)) {
+      details.set("name", value);
+    } else if (/\bissue\b|\bservice\b/i.test(label)) {
+      details.set("issue", value);
+    } else if (/\blocation\b|\baddress\b|\bsuburb\b/i.test(label)) {
+      details.set("address_suburb", value);
+    } else if (/\bpreferred\b|\bbooked time\b|\bappointment time\b/i.test(label)) {
+      details.set("booked_time", value);
+    } else if (/\bplumber\b|\btechnician\b/i.test(label)) {
+      details.set("attending_plumber", value);
+    } else if (/\bcall-?out fee\b|\bfee\b/i.test(label)) {
+      details.set("call_out_fee", value);
+    }
+  }
+
+  return details;
+}
+
+function parseLabelAndValue(line: string): [string, string] | null {
+  const cleanedLine = cleanLine(line);
+  const separatorIndex = cleanedLine.indexOf(":");
+
+  if (separatorIndex < 0) {
+    return null;
+  }
+
+  const label = cleanedLine.slice(0, separatorIndex).trim();
+  const value = cleanedLine.slice(separatorIndex + 1).trim();
+
+  return label && value ? [label, value] : null;
 }
 
 function removeMissingFieldLine(text: string, field: FillableCallField) {

@@ -19,7 +19,8 @@ import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
 import { rememberCallActionItem } from "@/lib/call-action-items";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
 import {
-  buildMissingDetailsKeyboard,
+  applyAutofilledBookedDetails,
+  buildBookedDetailsKeyboard,
   getFillableFieldLabel,
   getFillableFieldPlaceholder,
   getMissingFillableFields,
@@ -232,10 +233,11 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
-  const missingFillableFields = parsedAction.action === "booked" ? getMissingFillableFields(baseText) : [];
-  const updatedText = formatHandledAlertText(baseText, actionLabel, destinationLabel, handlerName);
-  const actionKeyboard = missingFillableFields.length
-    ? buildMissingDetailsKeyboard(parsedAction.actionKey, missingFillableFields)
+  const bookedBaseText = parsedAction.action === "booked" ? applyAutofilledBookedDetails(baseText) : baseText;
+  const updatedText = formatHandledAlertText(bookedBaseText, actionLabel, destinationLabel, handlerName);
+  const missingFillableFields = parsedAction.action === "booked" ? getMissingFillableFields(updatedText) : [];
+  const actionKeyboard = parsedAction.action === "booked"
+    ? buildBookedDetailsKeyboard(parsedAction.actionKey, updatedText)
     : buildCallActionKeyboard(parsedAction.actionKey);
   const shouldDeleteWithoutRepost = shouldDeleteCallActionWithoutRepost(parsedAction.action);
   const editResult = deliveries.length
