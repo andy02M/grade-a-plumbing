@@ -3,23 +3,6 @@ export type PlumberEtaResult = {
   mapsEnabled: boolean;
 };
 
-type AddressValidationResponse = {
-  result?: {
-    address?: {
-      formattedAddress?: string;
-    };
-    geocode?: {
-      placeId?: string;
-    };
-    verdict?: {
-      addressComplete?: boolean;
-      hasInferredComponents?: boolean;
-      hasReplacedComponents?: boolean;
-      validationGranularity?: string;
-    };
-  };
-};
-
 type DistanceMatrixResponse = {
   destination_addresses?: string[];
   error_message?: string;
@@ -31,10 +14,6 @@ type DistanceMatrixResponse = {
         value?: number;
       };
       duration?: {
-        text?: string;
-        value?: number;
-      };
-      duration_in_traffic?: {
         text?: string;
         value?: number;
       };
@@ -52,7 +31,6 @@ type Plumber = {
 };
 
 const googleMapsApiBaseUrl = "https://maps.googleapis.com/maps/api";
-const googleAddressValidationUrl = "https://addressvalidation.googleapis.com/v1:validateAddress";
 
 const plumbers: Plumber[] = [
   {
@@ -227,7 +205,7 @@ export async function getPlumberEtaLines(locationInput: string): Promise<Plumber
   }
 
   try {
-    const validation = await validateAddress(locationInput, apiKey);
+    const validation = await geocodeAddress(locationInput, apiKey);
     const destination = validation.placeId ? `place_id:${validation.placeId}` : validation.formattedAddress || locationInput;
     const etaResults = await getDistanceMatrix(destination, apiKey);
     const sortedResults = etaResults
@@ -272,45 +250,6 @@ export async function getPlumberEtaLines(locationInput: string): Promise<Plumber
   }
 }
 
-async function validateAddress(locationInput: string, apiKey: string) {
-  const response = await fetch(`${googleAddressValidationUrl}?key=${encodeURIComponent(apiKey)}`, {
-    body: JSON.stringify({
-      address: {
-        addressLines: [normalizeAustralianLocation(locationInput)],
-        regionCode: "AU"
-      }
-    }),
-    cache: "no-store",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    method: "POST"
-  });
-
-  if (!response.ok) {
-    return geocodeAddress(locationInput, apiKey);
-  }
-
-  const data = (await response.json()) as AddressValidationResponse;
-  const verdict = data.result?.verdict;
-  const formattedAddress = data.result?.address?.formattedAddress ?? "";
-  const placeId = data.result?.geocode?.placeId ?? "";
-
-  if (!formattedAddress && !placeId) {
-    return geocodeAddress(locationInput, apiKey);
-  }
-
-  return {
-    formattedAddress,
-    needsConfirmation:
-      !verdict?.addressComplete ||
-      Boolean(verdict.hasInferredComponents) ||
-      Boolean(verdict.hasReplacedComponents) ||
-      verdict.validationGranularity === "OTHER",
-    placeId
-  };
-}
-
 async function geocodeAddress(locationInput: string, apiKey: string) {
   const url = new URL(`${googleMapsApiBaseUrl}/geocode/json`);
   url.searchParams.set("address", normalizeAustralianLocation(locationInput));
@@ -352,11 +291,9 @@ async function getDistanceMatrix(destination: string, apiKey: string) {
   const url = new URL(`${googleMapsApiBaseUrl}/distancematrix/json`);
   url.searchParams.set("origins", plumbers.map((plumber) => plumber.origin).join("|"));
   url.searchParams.set("destinations", destination);
-  url.searchParams.set("departure_time", "now");
   url.searchParams.set("key", apiKey);
   url.searchParams.set("mode", "driving");
   url.searchParams.set("region", "au");
-  url.searchParams.set("traffic_model", "best_guess");
   url.searchParams.set("units", "metric");
 
   const response = await fetch(url, {
@@ -378,8 +315,8 @@ async function getDistanceMatrix(destination: string, apiKey: string) {
 
     return {
       distanceText: element?.distance?.text,
-      durationText: element?.duration_in_traffic?.text ?? element?.duration?.text,
-      durationValue: element?.duration_in_traffic?.value ?? element?.duration?.value,
+      durationText: element?.duration?.text,
+      durationValue: element?.duration?.value,
       status: element?.status
     };
   });
