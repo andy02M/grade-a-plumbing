@@ -41,7 +41,7 @@ const plumbers: Plumber[] = [
   },
   {
     name: "Jak",
-    origin: "Melbourne VIC, Australia",
+    origin: "Craigieburn VIC, Australia",
     region: "Everywhere",
     serviceArea: "everywhere"
   },
@@ -196,7 +196,7 @@ export async function getPlumberEtaLines(locationInput: string): Promise<Plumber
   if (!apiKey) {
     return {
       lines: [
-        "GOOGLE MAPS CHECK:",
+        "🟨📍 ADDRESS CHECK",
         "Google Maps API key is not configured yet.",
         ""
       ],
@@ -235,7 +235,7 @@ export async function getPlumberEtaLines(locationInput: string): Promise<Plumber
 
     return {
       lines: [
-        "GOOGLE MAPS CHECK:",
+        "🟥📍 ADDRESS CHECK",
         "Could not confirm address or calculate ETA right now.",
         ""
       ],
@@ -330,14 +330,14 @@ function formatEtaSummary(address: string, needsConfirmation: boolean, results: 
   const best = results.find((result) => result.status === "OK" && result.durationText) ?? results[0];
 
   return [
-    "📍 ADDRESS CHECK",
-    `Matched: ${address}`,
-    needsConfirmation ? "Confirm address before dispatch." : "",
+    "🟩📍 ADDRESS CHECK",
+    `✅ Matched: ${address}`,
+    needsConfirmation ? "🟨 Confirm address before dispatch." : "",
     "",
-    "🚗 ETA GUIDE",
-    best ? `Best: ${formatCompactEta(best)}` : "",
-    ...formatEtaGroup("Usual area", usualArea.filter((result) => result !== best)),
-    ...formatEtaGroup("Outside usual area", outsideArea.filter((result) => result !== best)),
+    "🟦🚗 ETA GUIDE",
+    best ? `🟢 Best: ${formatCompactEta(best)}` : "",
+    ...formatEtaGroup("🟢 Usual area", usualArea.filter((result) => result !== best)),
+    ...formatEtaGroup("🟠 Outside usual area", outsideArea.filter((result) => result !== best)),
     ""
   ].filter(Boolean);
 }

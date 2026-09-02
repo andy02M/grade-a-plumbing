@@ -465,14 +465,14 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage, context: 
 
 function formatStartedAlert(call: NormalizedCall) {
   const lines = [
-    "🚰 Grade A Plumbing",
-    "📲 New call in progress",
+    "🟦🚰 Grade A Plumbing",
+    "🟢📲 New call in progress",
     "",
-    `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    "Best contact: Max is asking now",
-    `Started: ${formatTimestamp(call.timestamp)}`,
+    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    "📱 Best contact: Max is asking now",
+    `🕒 Started: ${formatTimestamp(call.timestamp)}`,
     "",
-    "Collecting: name, issue, address, urgency, preferred time"
+    "🟦 Collecting: name, issue, address, urgency, preferred time"
   ];
 
   return formatAlertLines(lines);
@@ -480,14 +480,14 @@ function formatStartedAlert(call: NormalizedCall) {
 
 function formatMissedAlert(call: NormalizedCall) {
   const lines = [
-    "🚰 Grade A Plumbing",
+    "🟥🚰 Grade A Plumbing",
     "🚨 Missed / failed call",
     "",
-    `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `Best contact: ${formatBestContactNumber(call)}`,
-    `Time: ${formatTimestamp(call.timestamp)}`,
+    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 Best contact: ${formatBestContactNumber(call)}`,
+    `🕒 Time: ${formatTimestamp(call.timestamp)}`,
     "",
-    "Action: Call customer back as soon as possible."
+    "🔴 Action: Call customer back as soon as possible."
   ];
 
   return formatAlertLines(lines);
@@ -508,16 +508,16 @@ function formatCompletedAlert(call: NormalizedCall, context: AlertContext) {
 function formatCallbackRequiredAlert(call: NormalizedCall, context: AlertContext) {
   const missingFields = getMissingLeadFields(call);
   const lines = [
-    "🚰 Grade A Plumbing",
+    "🟨🚰 Grade A Plumbing",
     "⚠️ Callback required",
     "",
-    `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `Best contact: ${formatBestContactNumber(call)}`,
-    `Time: ${formatTimestamp(call.timestamp)}`,
+    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 Best contact: ${formatBestContactNumber(call)}`,
+    `🕒 Time: ${formatTimestamp(call.timestamp)}`,
     "",
-    "Reason: Call ended but booking details are missing.",
-    `Still needed: ${missingFields.map(formatMissingField).join(", ")}`,
-    "Action: Check availability, then call customer back.",
+    "🟡 Reason: Call ended but booking details are missing.",
+    `🔴 Still needed: ${missingFields.map(formatMissingField).join(", ")}`,
+    "🎯 Action: Check availability, then call customer back.",
     "",
     ...context.plumberEtaLines,
     ...formatRecordingLines(call)
@@ -530,17 +530,17 @@ function formatLeadCapturedAlert(call: NormalizedCall, context: AlertContext) {
   const lead = call.lead;
   const location = [lead.address, lead.suburbLocation].filter(Boolean).join(" - ");
   const lines = [
-    "🚰 Grade A Plumbing",
+    "🟩🚰 Grade A Plumbing",
     "✅ New plumbing lead",
     "",
-    `Customer: ${lead.customerName}`,
-    `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `Best contact: ${formatBestContactNumber(call)}`,
-    location ? `Location: ${location}` : "",
-    `Issue: ${lead.issueSummary || lead.serviceNeeded}`,
-    `Urgency: ${lead.urgency}`,
-    lead.preferredTime ? `Preferred: ${lead.preferredTime}` : "",
-    `Next: ${lead.nextAction || "Review the lead and follow up."}`,
+    `👤 Customer: ${lead.customerName}`,
+    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 Best contact: ${formatBestContactNumber(call)}`,
+    location ? `📍 Location: ${location}` : "",
+    `🔧 Issue: ${lead.issueSummary || lead.serviceNeeded}`,
+    `🚦 Urgency: ${lead.urgency}`,
+    lead.preferredTime ? `🕒 Preferred: ${lead.preferredTime}` : "",
+    `🎯 Next: ${lead.nextAction || "Review the lead and follow up."}`,
     "",
     ...context.plumberEtaLines,
     ...formatRecordingLines(call)
@@ -553,14 +553,14 @@ function formatNonJobCompletedAlert(call: NormalizedCall) {
   const lead = call.lead;
   const issue = lead.issueSummary || lead.serviceNeeded || "No plumbing job requested.";
   const lines = [
-    "🚰 Grade A Plumbing",
+    "⬜🚰 Grade A Plumbing",
     "ℹ️ Call completed - no job",
     "",
-    lead.customerName ? `Customer: ${lead.customerName}` : "",
-    `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `Best contact: ${formatBestContactNumber(call)}`,
+    lead.customerName ? `👤 Customer: ${lead.customerName}` : "",
+    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+    `📱 Best contact: ${formatBestContactNumber(call)}`,
     "",
-    `Reason: ${issue}`,
+    `📝 Reason: ${issue}`,
     "",
     ...formatRecordingLines(call)
   ];
