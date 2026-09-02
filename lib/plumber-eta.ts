@@ -326,9 +326,8 @@ type EtaLineResult = {
 };
 
 function formatEtaSummary(address: string, needsConfirmation: boolean, results: EtaLineResult[]) {
-  const usualArea = results.filter((result) => result.serviceMatch);
-  const outsideArea = results.filter((result) => !result.serviceMatch);
   const best = results.find((result) => result.status === "OK" && result.durationText) ?? results[0];
+  const remainingResults = best ? results.filter((result) => result !== best) : results;
 
   return [
     "🟩🟦🟩 MAPS & ETA 🟩🟦🟩",
@@ -339,22 +338,18 @@ function formatEtaSummary(address: string, needsConfirmation: boolean, results: 
     "",
     "🚗 ETA GUIDE",
     best ? `🟢 Best: ${formatCompactEta(best)}` : "",
-    ...formatEtaGroup("🟢 Usual area", usualArea.filter((result) => result !== best)),
-    ...formatEtaGroup("🟠 Outside usual area", outsideArea.filter((result) => result !== best)),
+    ...formatEtaList(remainingResults),
     etaDivider,
     ""
   ].filter(Boolean);
 }
 
-function formatEtaGroup(label: string, results: EtaLineResult[]) {
+function formatEtaList(results: EtaLineResult[]) {
   if (!results.length) {
     return [];
   }
 
-  return [
-    `${label}:`,
-    ...chunkItems(results.map(formatCompactEta), 2).map((items) => `- ${items.join(" | ")}`)
-  ];
+  return chunkItems(results.map(formatCompactEta), 2).map((items) => `- ${items.join(" | ")}`);
 }
 
 function formatCompactEta(result: EtaLineResult) {
