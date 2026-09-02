@@ -8,6 +8,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const testCallRecordWindowMs = 14 * 24 * 60 * 60 * 1000;
+const testDivider = "====================================";
 
 export async function GET(request: Request) {
   const authError = validateTestSecret(request);
@@ -22,21 +23,22 @@ export async function GET(request: Request) {
   const callMessageKey = `TelegramMapsTest:${actionKey}`;
   const eta = await getPlumberEtaLines(address);
   const text = [
-    "🟩🚰 Grade A Plumbing",
-    "✅ Google Maps ETA test",
-    "",
-    "👤 Customer: Test Customer",
-    "📞 Caller: +61400000000",
-    "📱 Best contact: +61400000000",
-    `📍 Location: ${address}`,
-    "🔧 Issue: Leaking tap under kitchen sink",
-    "🚦 Urgency: Today",
-    "🕒 Preferred: Today after 2pm",
-    `🧪 Tested: ${formatMelbourneTimestamp(new Date().toISOString())}`,
-    "",
+    ...formatTestHeader("🟩🟦🟩🟩🟦🟩🟩🟦🟩", "🚰 GRADE A PLUMBING", "✅ GOOGLE MAPS ETA TEST"),
+    ...formatTestSection("👤 CUSTOMER", [
+      "Name: Test Customer",
+      "Caller: +61400000000",
+      "Best contact: +61400000000",
+      `Location: ${address}`
+    ]),
+    ...formatTestSection("🔧 JOB DETAILS", [
+      "Issue: Leaking tap under kitchen sink",
+      "Urgency: Today",
+      "Preferred: Today after 2pm",
+      `Tested: ${formatMelbourneTimestamp(new Date().toISOString())}`
+    ]),
     ...eta.lines,
-    "🎯 Next: Tap Booked to test the required booking-detail flow."
-  ].join("\n");
+    ...formatTestSection("🎯 NEXT ACTION", ["Tap Booked to test the required booking-detail flow."])
+  ].filter((line, index, array) => line !== "" || (Boolean(array[index - 1]) && array[index - 1] !== "")).join("\n");
 
   const result = await sendTelegramMessage(text, undefined, {
     messageThreadId: getNewCallsTopicId(),
@@ -93,4 +95,18 @@ function formatMelbourneTimestamp(value: string) {
     timeStyle: "short",
     timeZone: "Australia/Melbourne"
   }).format(date);
+}
+
+function formatTestHeader(symbols: string, title: string, status: string) {
+  return [symbols, title, status, symbols];
+}
+
+function formatTestSection(title: string, rows: string[]) {
+  const filteredRows = rows.filter(Boolean);
+
+  if (!filteredRows.length) {
+    return [];
+  }
+
+  return ["", title, testDivider, ...filteredRows];
 }

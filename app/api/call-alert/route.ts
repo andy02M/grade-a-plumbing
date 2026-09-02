@@ -465,14 +465,13 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage, context: 
 
 function formatStartedAlert(call: NormalizedCall) {
   const lines = [
-    "🟦🚰 Grade A Plumbing",
-    "🟢📲 New call in progress",
-    "",
-    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    "📱 Best contact: Max is asking now",
-    `🕒 Started: ${formatTimestamp(call.timestamp)}`,
-    "",
-    "🟦 Collecting: name, issue, address, urgency, preferred time"
+    ...formatAlertHeader("🟦🟪🟩🟦🟪🟩🟦🟪🟩", "🚰 GRADE A PLUMBING", "📲 NEW CALL IN PROGRESS"),
+    ...formatSection("📞 CUSTOMER", [
+      `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+      "Best contact: Max is asking now",
+      `Started: ${formatTimestamp(call.timestamp)}`
+    ]),
+    ...formatSection("🟦 MAX IS COLLECTING", ["Name", "Plumbing issue", "Address / suburb", "Urgency", "Preferred booking time"])
   ];
 
   return formatAlertLines(lines);
@@ -480,14 +479,13 @@ function formatStartedAlert(call: NormalizedCall) {
 
 function formatMissedAlert(call: NormalizedCall) {
   const lines = [
-    "🟥🚰 Grade A Plumbing",
-    "🚨 Missed / failed call",
-    "",
-    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `📱 Best contact: ${formatBestContactNumber(call)}`,
-    `🕒 Time: ${formatTimestamp(call.timestamp)}`,
-    "",
-    "🔴 Action: Call customer back as soon as possible."
+    ...formatAlertHeader("🟥🟧🟨🟥🟧🟨🟥🟧🟨", "🚰 GRADE A PLUMBING", "🚨 MISSED / FAILED CALL"),
+    ...formatSection("📞 CUSTOMER", [
+      `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+      `Best contact: ${formatBestContactNumber(call)}`,
+      `Time: ${formatTimestamp(call.timestamp)}`
+    ]),
+    ...formatSection("🎯 NEXT ACTION", ["🔴 Call customer back as soon as possible."])
   ];
 
   return formatAlertLines(lines);
@@ -508,19 +506,19 @@ function formatCompletedAlert(call: NormalizedCall, context: AlertContext) {
 function formatCallbackRequiredAlert(call: NormalizedCall, context: AlertContext) {
   const missingFields = getMissingLeadFields(call);
   const lines = [
-    "🟨🚰 Grade A Plumbing",
-    "⚠️ Callback required",
-    "",
-    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `📱 Best contact: ${formatBestContactNumber(call)}`,
-    `🕒 Time: ${formatTimestamp(call.timestamp)}`,
-    "",
-    "🟡 Reason: Call ended but booking details are missing.",
-    `🔴 Still needed: ${missingFields.map(formatMissingField).join(", ")}`,
-    "🎯 Action: Check availability, then call customer back.",
-    "",
+    ...formatAlertHeader("🟨🟧🟥🟨🟧🟥🟨🟧🟥", "🚰 GRADE A PLUMBING", "⚠️ CALLBACK REQUIRED"),
+    ...formatSection("📞 CUSTOMER", [
+      `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+      `Best contact: ${formatBestContactNumber(call)}`,
+      `Time: ${formatTimestamp(call.timestamp)}`
+    ]),
+    ...formatSection("🧩 MISSING DETAILS", [
+      "🟡 Call ended but booking details are missing.",
+      ...missingFields.map((field) => `🔴 ${formatMissingField(field)}`)
+    ]),
     ...context.plumberEtaLines,
-    ...formatRecordingLines(call)
+    ...formatRecordingLines(call),
+    ...formatSection("🎯 NEXT ACTION", ["Check availability, then call customer back."])
   ];
 
   return formatAlertLines(lines);
@@ -530,20 +528,21 @@ function formatLeadCapturedAlert(call: NormalizedCall, context: AlertContext) {
   const lead = call.lead;
   const location = [lead.address, lead.suburbLocation].filter(Boolean).join(" - ");
   const lines = [
-    "🟩🚰 Grade A Plumbing",
-    "✅ New plumbing lead",
-    "",
-    `👤 Customer: ${lead.customerName}`,
-    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `📱 Best contact: ${formatBestContactNumber(call)}`,
-    location ? `📍 Location: ${location}` : "",
-    `🔧 Issue: ${lead.issueSummary || lead.serviceNeeded}`,
-    `🚦 Urgency: ${lead.urgency}`,
-    lead.preferredTime ? `🕒 Preferred: ${lead.preferredTime}` : "",
-    `🎯 Next: ${lead.nextAction || "Review the lead and follow up."}`,
-    "",
+    ...formatAlertHeader("🟩🟦🟩🟩🟦🟩🟩🟦🟩", "🚰 GRADE A PLUMBING", "✅ NEW PLUMBING LEAD"),
+    ...formatSection("👤 CUSTOMER", [
+      `Name: ${lead.customerName}`,
+      `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+      `Best contact: ${formatBestContactNumber(call)}`,
+      location ? `Location: ${location}` : ""
+    ]),
+    ...formatSection("🔧 JOB DETAILS", [
+      `Issue: ${lead.issueSummary || lead.serviceNeeded}`,
+      `Urgency: ${lead.urgency}`,
+      lead.preferredTime ? `Preferred: ${lead.preferredTime}` : ""
+    ]),
     ...context.plumberEtaLines,
-    ...formatRecordingLines(call)
+    ...formatRecordingLines(call),
+    ...formatSection("🎯 NEXT ACTION", [lead.nextAction || "Review the lead and follow up."])
   ];
 
   return formatAlertLines(lines);
@@ -553,15 +552,13 @@ function formatNonJobCompletedAlert(call: NormalizedCall) {
   const lead = call.lead;
   const issue = lead.issueSummary || lead.serviceNeeded || "No plumbing job requested.";
   const lines = [
-    "⬜🚰 Grade A Plumbing",
-    "ℹ️ Call completed - no job",
-    "",
-    lead.customerName ? `👤 Customer: ${lead.customerName}` : "",
-    `📞 Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
-    `📱 Best contact: ${formatBestContactNumber(call)}`,
-    "",
-    `📝 Reason: ${issue}`,
-    "",
+    ...formatAlertHeader("⬜🟦⬜⬜🟦⬜⬜🟦⬜", "🚰 GRADE A PLUMBING", "ℹ️ CALL COMPLETED - NO JOB"),
+    ...formatSection("👤 CUSTOMER", [
+      lead.customerName ? `Name: ${lead.customerName}` : "",
+      `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+      `Best contact: ${formatBestContactNumber(call)}`
+    ]),
+    ...formatSection("📝 REASON", [issue]),
     ...formatRecordingLines(call)
   ];
 
@@ -607,7 +604,9 @@ function formatLeadSnapshot(call: NormalizedCall) {
 function formatRecordingLines(call: NormalizedCall) {
   const recordingLink = getPublicRecordingUrl(call);
 
-  return recordingLink ? ["🎧 Recording:", recordingLink, ""] : call.recordingUrl ? ["🎧 Recording:", call.recordingUrl, ""] : [];
+  const link = recordingLink || call.recordingUrl;
+
+  return link ? formatSection("🎧 RECORDING", [link]) : [];
 }
 
 function formatAlertLines(lines: string[]) {
@@ -615,6 +614,20 @@ function formatAlertLines(lines: string[]) {
     .filter((line, index, array) => line !== "" || (Boolean(array[index - 1]) && array[index - 1] !== ""))
     .join("\n")
     .trim();
+}
+
+function formatAlertHeader(symbols: string, title: string, status: string) {
+  return [symbols, title, status, symbols];
+}
+
+function formatSection(title: string, rows: string[]) {
+  const filteredRows = rows.filter(Boolean);
+
+  if (!filteredRows.length) {
+    return [];
+  }
+
+  return ["", title, alertDivider, ...filteredRows];
 }
 
 function getPublicRecordingUrl(call: NormalizedCall) {

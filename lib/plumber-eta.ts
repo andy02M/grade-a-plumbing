@@ -31,6 +31,7 @@ type Plumber = {
 };
 
 const googleMapsApiBaseUrl = "https://maps.googleapis.com/maps/api";
+const etaDivider = "====================================";
 
 const plumbers: Plumber[] = [
   {
@@ -330,14 +331,17 @@ function formatEtaSummary(address: string, needsConfirmation: boolean, results: 
   const best = results.find((result) => result.status === "OK" && result.durationText) ?? results[0];
 
   return [
-    "🟩📍 ADDRESS CHECK",
+    "🟩🟦🟩 MAPS & ETA 🟩🟦🟩",
+    etaDivider,
+    "📍 ADDRESS CHECK",
     `✅ Matched: ${address}`,
     needsConfirmation ? "🟨 Confirm address before dispatch." : "",
     "",
-    "🟦🚗 ETA GUIDE",
+    "🚗 ETA GUIDE",
     best ? `🟢 Best: ${formatCompactEta(best)}` : "",
     ...formatEtaGroup("🟢 Usual area", usualArea.filter((result) => result !== best)),
     ...formatEtaGroup("🟠 Outside usual area", outsideArea.filter((result) => result !== best)),
+    etaDivider,
     ""
   ].filter(Boolean);
 }
