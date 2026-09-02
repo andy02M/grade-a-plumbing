@@ -49,6 +49,7 @@ type TelegramMessage = {
   from?: {
     id?: number;
   };
+  message_id?: number;
   message_thread_id?: number;
   text?: string;
 };
@@ -123,13 +124,28 @@ async function handlePendingFillReply(chatId: string, message: TelegramMessage |
 
   const storeKey = getCallActionStoreKey(pendingFill.actionKey);
   const record = await getCallMessageRecord(storeKey, testCallRecordWindowMs);
+  const replyWasInSourceChat = chatId === pendingFill.chatId;
+  const staffReplyDelivery =
+    replyWasInSourceChat && typeof message?.message_id === "number"
+      ? [{ chatId, messageId: message.message_id }]
+      : [];
 
   await clearPendingCallFill(chatId, userId);
 
+  if (staffReplyDelivery.length) {
+    const deleteResult = await deleteTelegramMessages(staffReplyDelivery);
+
+    if (!deleteResult.ok) {
+      console.error("Telegram staff fill reply delete failed", deleteResult.error);
+    }
+  }
+
   if (!record?.deliveries.length) {
-    await sendTelegramMessage("I could not find the booked alert to update. Please use the call buttons again.", [chatId], {
-      messageThreadId: pendingFill.messageThreadId ?? message?.message_thread_id
-    });
+    await sendTelegramMessage(
+      "I could not find the booked alert to update. Please use the call buttons again.",
+      [replyWasInSourceChat ? userId : chatId],
+      replyWasInSourceChat ? {} : { messageThreadId: pendingFill.messageThreadId ?? message?.message_thread_id }
+    );
 
     return {
       handled: true,
@@ -191,7 +207,7 @@ async function handlePendingFillReply(chatId: string, message: TelegramMessage |
     moveResult.moved
       ? "Booking details complete. The call has been moved to 02 Booked."
       : `${getFillableFieldLabel(pendingFill.field)} updated.${missingFields.length ? ` ${missingFields.length} still required.` : ""}`,
-    [chatId]
+    [replyWasInSourceChat ? userId : chatId]
   );
 
   if (!editResult.ok) {

@@ -223,17 +223,11 @@ export async function getPlumberEtaLines(locationInput: string): Promise<Plumber
       });
 
     return {
-      lines: [
-        "GOOGLE MAPS CHECK:",
-        validation.formattedAddress
-          ? `Matched: ${validation.formattedAddress}`
-          : "Could not confidently match this address.",
-        validation.needsConfirmation ? "Confirm address with the customer before dispatch." : "",
-        "",
-        "PLUMBER ETA ESTIMATES:",
-        ...sortedResults.map(formatEtaLine),
-        ""
-      ].filter(Boolean),
+      lines: formatEtaSummary(
+        validation.formattedAddress || locationInput,
+        validation.needsConfirmation,
+        sortedResults
+      ),
       mapsEnabled: true
     };
   } catch (error) {
@@ -322,18 +316,66 @@ async function getDistanceMatrix(destination: string, apiKey: string) {
   });
 }
 
-function formatEtaLine(result: {
+type EtaLineResult = {
   distanceText?: string;
   durationText?: string;
   plumber: Plumber;
   serviceMatch: boolean;
   status?: string;
-}) {
-  const regionLabel = result.serviceMatch ? "in service area" : `outside usual ${result.plumber.region}`;
-  const eta = result.status === "OK" && result.durationText ? result.durationText : "ETA unavailable";
-  const distance = result.distanceText ? `, ${result.distanceText}` : "";
+};
 
-  return `- ${result.plumber.name}: ${eta}${distance} (${regionLabel})`;
+function formatEtaSummary(address: string, needsConfirmation: boolean, results: EtaLineResult[]) {
+  const usualArea = results.filter((result) => result.serviceMatch);
+  const outsideArea = results.filter((result) => !result.serviceMatch);
+  const best = results.find((result) => result.status === "OK" && result.durationText) ?? results[0];
+
+  return [
+    "📍 ADDRESS CHECK",
+    `Matched: ${address}`,
+    needsConfirmation ? "Confirm address before dispatch." : "",
+    "",
+    "🚗 ETA GUIDE",
+    best ? `Best: ${formatCompactEta(best)}` : "",
+    ...formatEtaGroup("Usual area", usualArea.filter((result) => result !== best)),
+    ...formatEtaGroup("Outside usual area", outsideArea.filter((result) => result !== best)),
+    ""
+  ].filter(Boolean);
+}
+
+function formatEtaGroup(label: string, results: EtaLineResult[]) {
+  if (!results.length) {
+    return [];
+  }
+
+  return [
+    `${label}:`,
+    ...chunkItems(results.map(formatCompactEta), 2).map((items) => `- ${items.join(" | ")}`)
+  ];
+}
+
+function formatCompactEta(result: EtaLineResult) {
+  const eta = result.status === "OK" && result.durationText ? result.durationText : "ETA unavailable";
+  const distance = result.distanceText ? ` / ${formatDistance(result.distanceText)}` : "";
+
+  return `${result.plumber.name} ${formatDuration(eta)}${distance}`;
+}
+
+function formatDuration(value: string) {
+  return value.replace(/\bhours?\b/g, "hr").replace(/\bmins?\b/g, "min");
+}
+
+function formatDistance(value: string) {
+  return value.replace(/\.0 km\b/g, " km");
+}
+
+function chunkItems<T>(items: T[], size: number) {
+  const chunks: T[][] = [];
+
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+
+  return chunks;
 }
 
 function isServiceAreaMatch(plumber: Plumber, addressText: string) {

@@ -22,27 +22,20 @@ export async function GET(request: Request) {
   const callMessageKey = `TelegramMapsTest:${actionKey}`;
   const eta = await getPlumberEtaLines(address);
   const text = [
-    "🟩🟦🟩🟩🟦🟩🟩🟦🟩",
-    "🎮 GRADE A PLUMBING ALERTS",
-    "✅ GOOGLE MAPS ETA TEST CALL",
-    "====================================",
+    "🚰 Grade A Plumbing",
+    "✅ Google Maps ETA test",
     "",
-    "👤 CUSTOMER: Test Customer",
-    "📲 CALLER ID: +61400000000",
-    "📱 BEST CONTACT: +61400000000",
-    `📍 LOCATION: ${address}`,
-    "🔧 ISSUE: Leaking tap under kitchen sink",
-    "🚦 URGENCY: Today",
-    "🕒 PREFERRED: Today after 2pm",
-    `🧪 TESTED: ${formatMelbourneTimestamp(new Date().toISOString())}`,
+    "Customer: Test Customer",
+    "Caller: +61400000000",
+    "Best contact: +61400000000",
+    `Location: ${address}`,
+    "Issue: Leaking tap under kitchen sink",
+    "Urgency: Today",
+    "Preferred: Today after 2pm",
+    `Tested: ${formatMelbourneTimestamp(new Date().toISOString())}`,
     "",
     ...eta.lines,
-    "🎯 NEXT STEP:",
-    "Tap Booked to test the required booking-detail fill flow.",
-    "",
-    "====================================",
-    "🟩🟦🟩 READY FOR TESTING 🟩🟦🟩",
-    "===================================="
+    "Next: Tap Booked to test the required booking-detail flow."
   ].join("\n");
 
   const result = await sendTelegramMessage(text, undefined, {

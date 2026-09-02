@@ -328,7 +328,7 @@ function extractDetailsFromAlert(text: string) {
 
     const [label, value] = labelAndValue;
 
-    if (!value || /^not provided$/i.test(value)) {
+    if (!value || /^(not provided|unknown)$/i.test(value)) {
       continue;
     }
 
