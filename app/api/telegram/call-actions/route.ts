@@ -23,7 +23,6 @@ import {
   buildBookedDetailsKeyboard,
   getFillableFieldLabel,
   getFillableFieldPlaceholder,
-  getMissingFillableFields,
   parseFillDetailsActionData,
   rememberPendingCallFill
 } from "@/lib/call-fill-details";
@@ -244,55 +243,11 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
   const bookedBaseText = parsedAction.action === "booked" ? applyAutofilledBookedDetails(baseText) : baseText;
   const handledText = formatHandledAlertText(bookedBaseText, actionLabel, destinationLabel, handlerName);
-  const pendingBookedText =
-    parsedAction.action === "booked" ? formatPendingBookedAlertText(bookedBaseText, handlerName) : handledText;
-  const missingFillableFields = parsedAction.action === "booked" ? getMissingFillableFields(pendingBookedText) : [];
-  const updatedText = parsedAction.action === "booked" && missingFillableFields.length ? pendingBookedText : handledText;
+  const updatedText = handledText;
   const actionKeyboard = parsedAction.action === "booked"
     ? buildBookedDetailsKeyboard(parsedAction.actionKey, updatedText)
     : buildCallActionKeyboard(parsedAction.actionKey);
   const shouldDeleteWithoutRepost = shouldDeleteCallActionWithoutRepost(parsedAction.action);
-
-  if (parsedAction.action === "booked" && missingFillableFields.length) {
-    const sourceChatId = getSourceChatId(callbackQuery);
-    const editResult = deliveries.length
-      ? await editTelegramMessage(updatedText, deliveries, {
-          replyMarkup: actionKeyboard
-        })
-      : { ok: false as const, error: "Original Telegram message was not available." };
-
-    await Promise.all([
-      rememberCallMessage(storeKey, deliveries, callActionRecordWindowMs, updatedText, {
-        callMessageKeys: relatedCallMessageKeys,
-        status: previousAction ?? undefined
-      }),
-      ...relatedCallMessageKeys.map((key) =>
-        rememberCallMessage(key, deliveries, callActionRecordWindowMs, updatedText, {
-          callMessageKeys: relatedCallMessageKeys,
-          status: previousAction ?? undefined
-        })
-      )
-    ]);
-
-    await answerTelegramCallbackQuery(
-      callbackQuery.id,
-      `Complete ${missingFillableFields.length} booking detail${missingFillableFields.length === 1 ? "" : "s"} first.`
-    );
-
-    if (!editResult.ok) {
-      console.error("Telegram booked checklist edit failed", editResult.error);
-      return NextResponse.json({ error: editResult.error }, { status: 500 });
-    }
-
-    return NextResponse.json({
-      ok: true,
-      action: parsedAction.action,
-      awaitingBookedDetails: true,
-      chatId: sourceChatId,
-      missingFillableFields,
-      repostedToTopic: false
-    });
-  }
 
   const editResult = deliveries.length
     ? await editTelegramMessage(updatedText, deliveries, {
@@ -371,8 +326,6 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
       ? deletedOriginal
         ? `Deleted as ${actionLabel.replace(/^[^\w]+/, "")}.`
         : `Marked as ${actionLabel.replace(/^[^\w]+/, "")}; could not delete alert.`
-      : missingFillableFields.length
-      ? `Booked. ${missingFillableFields.length} detail${missingFillableFields.length === 1 ? "" : "s"} can be filled in.`
       : topicId
       ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}. Moved to ${destinationLabel}.`
       : `Marked as ${actionLabel}. Topic not configured.`
@@ -458,23 +411,6 @@ function formatHandledAlertText(text: string, actionLabel: string, destinationLa
     `📂 MOVED TO: ${destinationLabel}`,
     handlerName ? `👤 UPDATED BY: ${handlerName}` : "",
     `🕒 UPDATED: ${formatTimestamp(new Date().toISOString())}`,
-    alertDivider
-  ]
-    .filter(Boolean)
-    .join("\n");
-}
-
-function formatPendingBookedAlertText(text: string, handlerName: string) {
-  const missingFields = getMissingFillableFields(text);
-
-  return [
-    removeExistingOutcomeBlock(text),
-    "",
-    "ðŸ“Œ BOOKING DETAILS REQUIRED",
-    alertDivider,
-    `â³ STATUS: Waiting for ${missingFields.length} required booking detail${missingFields.length === 1 ? "" : "s"}`,
-    handlerName ? `ðŸ‘¤ STARTED BY: ${handlerName}` : "",
-    `ðŸ•’ UPDATED: ${formatTimestamp(new Date().toISOString())}`,
     alertDivider
   ]
     .filter(Boolean)
