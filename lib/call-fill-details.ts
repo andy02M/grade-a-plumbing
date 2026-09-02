@@ -29,6 +29,7 @@ const pendingTtlMs = 2 * 60 * 60 * 1000;
 const manualDetailsStart = "TEAM FILLED DETAILS";
 const manualDetailsEnd = "END TEAM FILLED DETAILS";
 const alertDivider = "====================================";
+const pendingBookedMarker = "BOOKING DETAILS REQUIRED";
 const requiredBookedFields: FillableCallField[] = [
   "name",
   "issue",
@@ -170,6 +171,22 @@ export function applyFilledCallDetail(text: string, field: FillableCallField, va
   return [baseWithDetail, parts.actionBlock].filter(Boolean).join("\n\n");
 }
 
+export function formatCompletedBookedText(text: string) {
+  return [
+    removePendingBookedBlock(text),
+    "",
+    "CALL ACTION",
+    alertDivider,
+    "OUTCOME: BOOKED",
+    "MOVED TO: 02 Booked",
+    "UPDATED BY: Booking details completed",
+    `UPDATED: ${formatTimestamp(new Date().toISOString())}`,
+    alertDivider
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
 export function getActionStatusFromText(text: string): CallActionStatus | undefined {
   const outcomeLine = text.split(/\r?\n/).find((line) => line.toUpperCase().includes("OUTCOME:"));
 
@@ -199,7 +216,7 @@ function parseFillableCallField(value: string | undefined): FillableCallField | 
 }
 
 function getPendingFillKey(chatId: string, userId: string) {
-  return `${chatId}:${userId}`;
+  return userId || chatId;
 }
 
 function isPendingCallFill(value: unknown): value is PendingCallFill {
@@ -273,6 +290,19 @@ function removeManualDetailsBlock(text: string) {
   }
 
   return `${text.slice(0, startIndex).trimEnd()}\n${text.slice(endIndex + manualDetailsEnd.length).trimStart()}`.trim();
+}
+
+function removePendingBookedBlock(text: string) {
+  const markerIndex = text.indexOf(pendingBookedMarker);
+
+  if (markerIndex < 0) {
+    return text.trimEnd();
+  }
+
+  const blockStart = text.lastIndexOf("\n\n", markerIndex);
+  const startIndex = blockStart >= 0 ? blockStart : markerIndex;
+
+  return text.slice(0, startIndex).trimEnd();
 }
 
 function formatManualDetails(details: Map<string, string>) {
@@ -378,4 +408,14 @@ function cleanLine(line: string) {
     .replace(/[^\p{L}\p{N}/: ]/gu, "")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function formatTimestamp(value: string) {
+  const date = new Date(value);
+
+  return new Intl.DateTimeFormat("en-AU", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Australia/Melbourne"
+  }).format(date);
 }

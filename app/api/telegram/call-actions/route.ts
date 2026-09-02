@@ -177,11 +177,18 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
       return NextResponse.json({ ok: true, ignored: true });
     }
 
+    await rememberPendingCallFill({
+      actionKey: parsedFillAction.actionKey,
+      chatId: sourceChatId,
+      field: parsedFillAction.field,
+      messageThreadId: callbackQuery.message?.message_thread_id,
+      userId
+    });
+
     const promptResult = await sendTelegramMessage(
       `Reply with the ${fieldLabel} for this booked call.`,
-      [sourceChatId],
+      [userId],
       {
-        messageThreadId: callbackQuery.message?.message_thread_id,
         replyMarkup: {
           force_reply: true,
           input_field_placeholder: getFillableFieldPlaceholder(parsedFillAction.field),
@@ -191,23 +198,25 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     );
     const promptDelivery = promptResult.ok ? promptResult.deliveries?.[0] : undefined;
 
-    await rememberPendingCallFill({
-      actionKey: parsedFillAction.actionKey,
-      chatId: sourceChatId,
-      field: parsedFillAction.field,
-      messageThreadId: callbackQuery.message?.message_thread_id,
-      promptMessageId: promptDelivery?.messageId,
-      userId
-    });
+    if (promptDelivery?.messageId) {
+      await rememberPendingCallFill({
+        actionKey: parsedFillAction.actionKey,
+        chatId: sourceChatId,
+        field: parsedFillAction.field,
+        messageThreadId: callbackQuery.message?.message_thread_id,
+        promptMessageId: promptDelivery.messageId,
+        userId
+      });
+    }
 
     await answerTelegramCallbackQuery(
       callbackQuery.id,
-      promptResult.ok ? `Reply with ${fieldLabel}.` : "Could not send fill-in prompt."
+      promptResult.ok ? `I sent you a private prompt for ${fieldLabel}.` : "Open the bot privately, press Start, then tap this again."
     );
 
     if (!promptResult.ok) {
       console.error("Telegram fill-in prompt failed", promptResult.error);
-      return NextResponse.json({ error: promptResult.error }, { status: 500 });
+      return NextResponse.json({ ok: true, promptSent: false, error: promptResult.error });
     }
 
     return NextResponse.json({
@@ -234,12 +243,57 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
   const bookedBaseText = parsedAction.action === "booked" ? applyAutofilledBookedDetails(baseText) : baseText;
-  const updatedText = formatHandledAlertText(bookedBaseText, actionLabel, destinationLabel, handlerName);
-  const missingFillableFields = parsedAction.action === "booked" ? getMissingFillableFields(updatedText) : [];
+  const handledText = formatHandledAlertText(bookedBaseText, actionLabel, destinationLabel, handlerName);
+  const pendingBookedText =
+    parsedAction.action === "booked" ? formatPendingBookedAlertText(bookedBaseText, handlerName) : handledText;
+  const missingFillableFields = parsedAction.action === "booked" ? getMissingFillableFields(pendingBookedText) : [];
+  const updatedText = parsedAction.action === "booked" && missingFillableFields.length ? pendingBookedText : handledText;
   const actionKeyboard = parsedAction.action === "booked"
     ? buildBookedDetailsKeyboard(parsedAction.actionKey, updatedText)
     : buildCallActionKeyboard(parsedAction.actionKey);
   const shouldDeleteWithoutRepost = shouldDeleteCallActionWithoutRepost(parsedAction.action);
+
+  if (parsedAction.action === "booked" && missingFillableFields.length) {
+    const sourceChatId = getSourceChatId(callbackQuery);
+    const editResult = deliveries.length
+      ? await editTelegramMessage(updatedText, deliveries, {
+          replyMarkup: actionKeyboard
+        })
+      : { ok: false as const, error: "Original Telegram message was not available." };
+
+    await Promise.all([
+      rememberCallMessage(storeKey, deliveries, callActionRecordWindowMs, updatedText, {
+        callMessageKeys: relatedCallMessageKeys,
+        status: previousAction ?? undefined
+      }),
+      ...relatedCallMessageKeys.map((key) =>
+        rememberCallMessage(key, deliveries, callActionRecordWindowMs, updatedText, {
+          callMessageKeys: relatedCallMessageKeys,
+          status: previousAction ?? undefined
+        })
+      )
+    ]);
+
+    await answerTelegramCallbackQuery(
+      callbackQuery.id,
+      `Complete ${missingFillableFields.length} booking detail${missingFillableFields.length === 1 ? "" : "s"} first.`
+    );
+
+    if (!editResult.ok) {
+      console.error("Telegram booked checklist edit failed", editResult.error);
+      return NextResponse.json({ error: editResult.error }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      ok: true,
+      action: parsedAction.action,
+      awaitingBookedDetails: true,
+      chatId: sourceChatId,
+      missingFillableFields,
+      repostedToTopic: false
+    });
+  }
+
   const editResult = deliveries.length
     ? await editTelegramMessage(updatedText, deliveries, {
         replyMarkup: {
@@ -404,6 +458,23 @@ function formatHandledAlertText(text: string, actionLabel: string, destinationLa
     `📂 MOVED TO: ${destinationLabel}`,
     handlerName ? `👤 UPDATED BY: ${handlerName}` : "",
     `🕒 UPDATED: ${formatTimestamp(new Date().toISOString())}`,
+    alertDivider
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+function formatPendingBookedAlertText(text: string, handlerName: string) {
+  const missingFields = getMissingFillableFields(text);
+
+  return [
+    removeExistingOutcomeBlock(text),
+    "",
+    "ðŸ“Œ BOOKING DETAILS REQUIRED",
+    alertDivider,
+    `â³ STATUS: Waiting for ${missingFields.length} required booking detail${missingFields.length === 1 ? "" : "s"}`,
+    handlerName ? `ðŸ‘¤ STARTED BY: ${handlerName}` : "",
+    `ðŸ•’ UPDATED: ${formatTimestamp(new Date().toISOString())}`,
     alertDivider
   ]
     .filter(Boolean)

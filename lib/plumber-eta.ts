@@ -1,0 +1,424 @@
+export type PlumberEtaResult = {
+  lines: string[];
+  mapsEnabled: boolean;
+};
+
+type AddressValidationResponse = {
+  result?: {
+    address?: {
+      formattedAddress?: string;
+    };
+    geocode?: {
+      placeId?: string;
+    };
+    verdict?: {
+      addressComplete?: boolean;
+      hasInferredComponents?: boolean;
+      hasReplacedComponents?: boolean;
+      validationGranularity?: string;
+    };
+  };
+};
+
+type DistanceMatrixResponse = {
+  destination_addresses?: string[];
+  error_message?: string;
+  origin_addresses?: string[];
+  rows?: Array<{
+    elements?: Array<{
+      distance?: {
+        text?: string;
+        value?: number;
+      };
+      duration?: {
+        text?: string;
+        value?: number;
+      };
+      duration_in_traffic?: {
+        text?: string;
+        value?: number;
+      };
+      status?: string;
+    }>;
+  }>;
+  status?: string;
+};
+
+type Plumber = {
+  name: string;
+  origin: string;
+  region: string;
+  serviceArea: "bendigo" | "caulfield" | "everywhere" | "melton" | "narre_warren" | "north_west";
+};
+
+const googleMapsApiBaseUrl = "https://maps.googleapis.com/maps/api";
+const googleAddressValidationUrl = "https://addressvalidation.googleapis.com/v1:validateAddress";
+
+const plumbers: Plumber[] = [
+  {
+    name: "Jamil",
+    origin: "Craigieburn VIC, Australia",
+    region: "Everywhere",
+    serviceArea: "everywhere"
+  },
+  {
+    name: "Jak",
+    origin: "Melbourne VIC, Australia",
+    region: "Everywhere",
+    serviceArea: "everywhere"
+  },
+  {
+    name: "James",
+    origin: "Caulfield VIC, Australia",
+    region: "Caulfield Region",
+    serviceArea: "caulfield"
+  },
+  {
+    name: "Adam",
+    origin: "Craigieburn VIC, Australia",
+    region: "Everywhere",
+    serviceArea: "everywhere"
+  },
+  {
+    name: "Kamil",
+    origin: "Essendon VIC, Australia",
+    region: "North and West Suburbs",
+    serviceArea: "north_west"
+  },
+  {
+    name: "Akash",
+    origin: "Melton VIC, Australia",
+    region: "Melton Region",
+    serviceArea: "melton"
+  },
+  {
+    name: "Tap On Plumber Bendigo",
+    origin: "Bendigo VIC, Australia",
+    region: "Bendigo",
+    serviceArea: "bendigo"
+  },
+  {
+    name: "Rahim",
+    origin: "Narre Warren VIC, Australia",
+    region: "Narre Warren Region",
+    serviceArea: "narre_warren"
+  },
+  {
+    name: "Dean",
+    origin: "Narre Warren VIC, Australia",
+    region: "Narre Warren Region",
+    serviceArea: "narre_warren"
+  },
+  {
+    name: "Peter Carr Plumbing",
+    origin: "Bendigo VIC, Australia",
+    region: "Bendigo",
+    serviceArea: "bendigo"
+  }
+];
+
+const regionSuburbs: Record<Exclude<Plumber["serviceArea"], "everywhere">, string[]> = {
+  bendigo: [
+    "bendigo",
+    "eaglehawk",
+    "epsom",
+    "flora hill",
+    "golden square",
+    "kangaroo flat",
+    "kennington",
+    "long gully",
+    "maiden gully",
+    "strathdale",
+    "white hills"
+  ],
+  caulfield: [
+    "balaclava",
+    "bentleigh",
+    "brighton",
+    "caulfield",
+    "caulfield east",
+    "caulfield north",
+    "caulfield south",
+    "carnegie",
+    "elsternwick",
+    "glen huntly",
+    "malvern",
+    "ormond",
+    "st kilda"
+  ],
+  melton: [
+    "bacchus marsh",
+    "burnside",
+    "caroline springs",
+    "deer park",
+    "harkness",
+    "kurunjang",
+    "melton",
+    "melton south",
+    "melton west",
+    "rockbank",
+    "ravenhall",
+    "taylors hill",
+    "toolern vale"
+  ],
+  narre_warren: [
+    "beaconsfield",
+    "berwick",
+    "clyde",
+    "cranbourne",
+    "dandenong",
+    "endeavour hills",
+    "hallam",
+    "hampton park",
+    "narre warren",
+    "pakenham",
+    "rowville"
+  ],
+  north_west: [
+    "airport west",
+    "altona",
+    "ascot vale",
+    "avondale heights",
+    "braybrook",
+    "brunswick",
+    "coburg",
+    "craigieburn",
+    "deer park",
+    "essendon",
+    "footscray",
+    "glenroy",
+    "keilor",
+    "maribyrnong",
+    "moonee ponds",
+    "niddrie",
+    "pascoe vale",
+    "preston",
+    "reservoir",
+    "st albans",
+    "strathmore",
+    "sunbury",
+    "sunshine",
+    "sydenham",
+    "taylors lakes",
+    "thomastown",
+    "werribee"
+  ]
+};
+
+export async function getPlumberEtaLines(locationInput: string): Promise<PlumberEtaResult> {
+  const apiKey = getGoogleMapsApiKey();
+
+  if (!locationInput.trim()) {
+    return {
+      lines: [],
+      mapsEnabled: Boolean(apiKey)
+    };
+  }
+
+  if (!apiKey) {
+    return {
+      lines: [
+        "GOOGLE MAPS CHECK:",
+        "Google Maps API key is not configured yet.",
+        ""
+      ],
+      mapsEnabled: false
+    };
+  }
+
+  try {
+    const validation = await validateAddress(locationInput, apiKey);
+    const destination = validation.placeId ? `place_id:${validation.placeId}` : validation.formattedAddress || locationInput;
+    const etaResults = await getDistanceMatrix(destination, apiKey);
+    const sortedResults = etaResults
+      .map((eta, index) => ({
+        ...eta,
+        plumber: plumbers[index],
+        serviceMatch: isServiceAreaMatch(plumbers[index], validation.formattedAddress || locationInput)
+      }))
+      .sort((a, b) => {
+        if (a.serviceMatch !== b.serviceMatch) {
+          return a.serviceMatch ? -1 : 1;
+        }
+
+        return (a.durationValue ?? Number.MAX_SAFE_INTEGER) - (b.durationValue ?? Number.MAX_SAFE_INTEGER);
+      });
+
+    return {
+      lines: [
+        "GOOGLE MAPS CHECK:",
+        validation.formattedAddress
+          ? `Matched: ${validation.formattedAddress}`
+          : "Could not confidently match this address.",
+        validation.needsConfirmation ? "Confirm address with the customer before dispatch." : "",
+        "",
+        "PLUMBER ETA ESTIMATES:",
+        ...sortedResults.map(formatEtaLine),
+        ""
+      ].filter(Boolean),
+      mapsEnabled: true
+    };
+  } catch (error) {
+    console.error("Google Maps plumber ETA failed", error);
+
+    return {
+      lines: [
+        "GOOGLE MAPS CHECK:",
+        "Could not confirm address or calculate ETA right now.",
+        ""
+      ],
+      mapsEnabled: true
+    };
+  }
+}
+
+async function validateAddress(locationInput: string, apiKey: string) {
+  const response = await fetch(`${googleAddressValidationUrl}?key=${encodeURIComponent(apiKey)}`, {
+    body: JSON.stringify({
+      address: {
+        addressLines: [normalizeAustralianLocation(locationInput)],
+        regionCode: "AU"
+      }
+    }),
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: "POST"
+  });
+
+  if (!response.ok) {
+    return geocodeAddress(locationInput, apiKey);
+  }
+
+  const data = (await response.json()) as AddressValidationResponse;
+  const verdict = data.result?.verdict;
+  const formattedAddress = data.result?.address?.formattedAddress ?? "";
+  const placeId = data.result?.geocode?.placeId ?? "";
+
+  if (!formattedAddress && !placeId) {
+    return geocodeAddress(locationInput, apiKey);
+  }
+
+  return {
+    formattedAddress,
+    needsConfirmation:
+      !verdict?.addressComplete ||
+      Boolean(verdict.hasInferredComponents) ||
+      Boolean(verdict.hasReplacedComponents) ||
+      verdict.validationGranularity === "OTHER",
+    placeId
+  };
+}
+
+async function geocodeAddress(locationInput: string, apiKey: string) {
+  const url = new URL(`${googleMapsApiBaseUrl}/geocode/json`);
+  url.searchParams.set("address", normalizeAustralianLocation(locationInput));
+  url.searchParams.set("components", "country:AU|administrative_area:VIC");
+  url.searchParams.set("key", apiKey);
+  url.searchParams.set("region", "au");
+
+  const response = await fetch(url, {
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`Google geocoding failed: ${response.status}`);
+  }
+
+  const data = (await response.json()) as {
+    results?: Array<{
+      formatted_address?: string;
+      partial_match?: boolean;
+      place_id?: string;
+      types?: string[];
+    }>;
+    status?: string;
+  };
+  const result = data.results?.[0];
+
+  if (data.status !== "OK" || !result) {
+    throw new Error(`Google geocoding status: ${data.status ?? "UNKNOWN"}`);
+  }
+
+  return {
+    formattedAddress: result.formatted_address ?? "",
+    needsConfirmation: Boolean(result.partial_match) || Boolean(result.types?.includes("plus_code")),
+    placeId: result.place_id ?? ""
+  };
+}
+
+async function getDistanceMatrix(destination: string, apiKey: string) {
+  const url = new URL(`${googleMapsApiBaseUrl}/distancematrix/json`);
+  url.searchParams.set("origins", plumbers.map((plumber) => plumber.origin).join("|"));
+  url.searchParams.set("destinations", destination);
+  url.searchParams.set("departure_time", "now");
+  url.searchParams.set("key", apiKey);
+  url.searchParams.set("mode", "driving");
+  url.searchParams.set("region", "au");
+  url.searchParams.set("traffic_model", "best_guess");
+  url.searchParams.set("units", "metric");
+
+  const response = await fetch(url, {
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`Google distance matrix failed: ${response.status}`);
+  }
+
+  const data = (await response.json()) as DistanceMatrixResponse;
+
+  if (data.status !== "OK") {
+    throw new Error(`Google distance matrix status: ${data.status ?? "UNKNOWN"} ${data.error_message ?? ""}`.trim());
+  }
+
+  return plumbers.map((_, index) => {
+    const element = data.rows?.[index]?.elements?.[0];
+
+    return {
+      distanceText: element?.distance?.text,
+      durationText: element?.duration_in_traffic?.text ?? element?.duration?.text,
+      durationValue: element?.duration_in_traffic?.value ?? element?.duration?.value,
+      status: element?.status
+    };
+  });
+}
+
+function formatEtaLine(result: {
+  distanceText?: string;
+  durationText?: string;
+  plumber: Plumber;
+  serviceMatch: boolean;
+  status?: string;
+}) {
+  const regionLabel = result.serviceMatch ? "in service area" : `outside usual ${result.plumber.region}`;
+  const eta = result.status === "OK" && result.durationText ? result.durationText : "ETA unavailable";
+  const distance = result.distanceText ? `, ${result.distanceText}` : "";
+
+  return `- ${result.plumber.name}: ${eta}${distance} (${regionLabel})`;
+}
+
+function isServiceAreaMatch(plumber: Plumber, addressText: string) {
+  if (plumber.serviceArea === "everywhere") {
+    return true;
+  }
+
+  const normalizedAddress = addressText.toLowerCase();
+
+  return regionSuburbs[plumber.serviceArea].some((suburb) => normalizedAddress.includes(suburb));
+}
+
+function normalizeAustralianLocation(locationInput: string) {
+  const normalizedInput = locationInput.trim();
+
+  if (/\b(australia|vic|victoria)\b/i.test(normalizedInput)) {
+    return normalizedInput;
+  }
+
+  return `${normalizedInput}, VIC, Australia`;
+}
+
+function getGoogleMapsApiKey() {
+  return process.env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_SERVER_API_KEY || "";
+}

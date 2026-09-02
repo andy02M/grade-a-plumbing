@@ -16,6 +16,7 @@ import {
   rememberRecentAlert
 } from "@/lib/call-alert-store";
 import { recordCallStatistic } from "@/lib/call-statistics";
+import { getPlumberEtaLines } from "@/lib/plumber-eta";
 import { createRecordingLink } from "@/lib/recordings";
 import { site } from "@/lib/site";
 import { editTelegramMessage, sendTelegramMessage, type TelegramDelivery } from "@/lib/telegram";
@@ -65,6 +66,9 @@ type LeadDetails = {
 };
 
 type AlertStage = "started" | "completed" | "missed" | "recording" | "ignored";
+type AlertContext = {
+  plumberEtaLines: string[];
+};
 
 const dedupeWindowMs = 10 * 60 * 1000;
 const editableMessageWindowMs = 2 * 60 * 60 * 1000;
@@ -92,6 +96,7 @@ export async function GET(request: Request) {
       hasStatisticsChatId: Boolean(
         process.env.TELEGRAM_STATISTICS_CHAT_ID ?? process.env.TELEGRAM_GROUP_ID ?? process.env.TELEGRAM_CHAT_ID
       ),
+      hasGoogleMapsApiKey: Boolean(process.env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_SERVER_API_KEY),
       hasVapiPrivateKey: Boolean(getVapiPrivateKey())
     };
 
@@ -219,7 +224,8 @@ export async function POST(request: Request) {
 }
 
 async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
-  const message = formatCallAlert(call, alertStage);
+  const alertContext = await buildAlertContext(call);
+  const message = formatCallAlert(call, alertStage, alertContext);
   const callMessageKeys = getCallMessageKeys(call);
   const actionKeys = getCallActionKeys(callMessageKeys);
   const actionKeyboard = buildCallActionKeyboard(actionKeys[0]);
@@ -437,7 +443,15 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
   };
 }
 
-function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
+async function buildAlertContext(call: NormalizedCall): Promise<AlertContext> {
+  const location = getCallLocationInput(call);
+
+  return {
+    plumberEtaLines: location ? (await getPlumberEtaLines(location)).lines : []
+  };
+}
+
+function formatCallAlert(call: NormalizedCall, alertStage: AlertStage, context: AlertContext) {
   if (alertStage === "started") {
     return formatStartedAlert(call);
   }
@@ -446,7 +460,7 @@ function formatCallAlert(call: NormalizedCall, alertStage: AlertStage) {
     return formatMissedAlert(call);
   }
 
-  return formatCompletedAlert(call);
+  return formatCompletedAlert(call, context);
 }
 
 function formatStartedAlert(call: NormalizedCall) {
@@ -510,19 +524,19 @@ function formatMissedAlert(call: NormalizedCall) {
   return lines.join("\n");
 }
 
-function formatCompletedAlert(call: NormalizedCall) {
+function formatCompletedAlert(call: NormalizedCall, context: AlertContext) {
   if (isNonJobLead(call)) {
     return formatNonJobCompletedAlert(call);
   }
 
   if (getMissingLeadFields(call).length) {
-    return formatCallbackRequiredAlert(call);
+    return formatCallbackRequiredAlert(call, context);
   }
 
-  return formatLeadCapturedAlert(call);
+  return formatLeadCapturedAlert(call, context);
 }
 
-function formatCallbackRequiredAlert(call: NormalizedCall) {
+function formatCallbackRequiredAlert(call: NormalizedCall, context: AlertContext) {
   const missingFields = getMissingLeadFields(call);
   const lines = [
     "🟨🟧🟥🟨🟧🟥🟨🟧🟥",
@@ -543,6 +557,7 @@ function formatCallbackRequiredAlert(call: NormalizedCall) {
     "🎯 ACTION:",
     "Check availability, then call customer back.",
     "",
+    ...context.plumberEtaLines,
     ...formatRecordingLines(call),
     alertDivider,
     "🚨 ACTION NEEDED",
@@ -552,7 +567,7 @@ function formatCallbackRequiredAlert(call: NormalizedCall) {
   return lines.filter((line, index, array) => !(line === "" && array[index - 1] === "")).join("\n");
 }
 
-function formatLeadCapturedAlert(call: NormalizedCall) {
+function formatLeadCapturedAlert(call: NormalizedCall, context: AlertContext) {
   const lead = call.lead;
   const location = [lead.address, lead.suburbLocation].filter(Boolean).join(" - ");
   const lines = [
@@ -573,6 +588,7 @@ function formatLeadCapturedAlert(call: NormalizedCall) {
     "🎯 NEXT STEP:",
     lead.nextAction || "Review the lead and follow up.",
     "",
+    ...context.plumberEtaLines,
     ...formatRecordingLines(call),
     alertDivider,
     "🟩🟦🟩 READY FOR FOLLOW UP 🟩🟦🟩",
@@ -652,6 +668,10 @@ function formatRecordingLines(call: NormalizedCall) {
 
 function getPublicRecordingUrl(call: NormalizedCall) {
   return createRecordingLink(call.baseUrl, call.callId);
+}
+
+function getCallLocationInput(call: NormalizedCall) {
+  return [call.lead.address, call.lead.suburbLocation].filter(Boolean).join(", ").trim();
 }
 
 function formatMissingField(field: string) {

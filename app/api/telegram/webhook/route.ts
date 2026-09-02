@@ -1,18 +1,33 @@
 import { NextResponse } from "next/server";
 import { handleTelegramCallbackUpdate, type TelegramCallbackUpdate } from "@/app/api/telegram/call-actions/route";
-import { buildCallActionKeyboard, getCallActionStoreKey, getNewCallsTopicId, parseCallActionStatus } from "@/lib/call-actions";
+import {
+  buildCallActionKeyboard,
+  getCallActionStoreKey,
+  getCallActionTopicId,
+  getNewCallsTopicId,
+  parseCallActionStatus
+} from "@/lib/call-actions";
+import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
 import { rememberCallActionItem } from "@/lib/call-action-items";
 import { getCallMessageRecord, rememberCallMessage } from "@/lib/call-alert-store";
 import {
   applyFilledCallDetail,
   buildBookedDetailsKeyboard,
   clearPendingCallFill,
+  formatCompletedBookedText,
   getActionStatusFromText,
   getFillableFieldLabel,
+  getMissingFillableFields,
   getPendingCallFill
 } from "@/lib/call-fill-details";
 import { site } from "@/lib/site";
-import { editTelegramMessage, sendTelegramMessage, sendTelegramMessageToChat } from "@/lib/telegram";
+import {
+  deleteTelegramMessages,
+  editTelegramMessage,
+  sendTelegramMessage,
+  sendTelegramMessageToChat,
+  type TelegramDelivery
+} from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -122,39 +137,62 @@ async function handlePendingFillReply(chatId: string, message: TelegramMessage |
     };
   }
 
-  const updatedText = applyFilledCallDetail(record.text ?? "Grade A Plumbing call alert", pendingFill.field, text);
-  const status = parseCallActionStatus(record.status) ?? getActionStatusFromText(updatedText) ?? "booked";
+  const filledText = applyFilledCallDetail(record.text ?? "Grade A Plumbing call alert", pendingFill.field, text);
+  const status = parseCallActionStatus(record.status) ?? getActionStatusFromText(filledText) ?? "booked";
+  const missingFields = status === "booked" ? getMissingFillableFields(filledText) : [];
+  const updatedText = status === "booked" && missingFields.length === 0 ? formatCompletedBookedText(filledText) : filledText;
   const replyMarkup =
     status === "booked" ? buildBookedDetailsKeyboard(pendingFill.actionKey, updatedText) : buildCallActionKeyboard(pendingFill.actionKey);
-  const editResult = await editTelegramMessage(updatedText, record.deliveries, {
-    replyMarkup
-  });
+  const shouldFinalizeBookedFromNewCalls =
+    status === "booked" && missingFields.length === 0 && pendingFill.messageThreadId === getNewCallsTopicId();
+  const bookedTopicId = getCallActionTopicId("booked");
+  const moveResult =
+    shouldFinalizeBookedFromNewCalls && typeof bookedTopicId === "number"
+      ? await moveCompletedBookingToBookedTopic(pendingFill.chatId, bookedTopicId, updatedText, pendingFill.actionKey, record.deliveries)
+      : { deliveries: record.deliveries, moved: false };
+  const editResult = moveResult.moved
+    ? { ok: true as const }
+    : await editTelegramMessage(updatedText, record.deliveries, {
+        replyMarkup
+      });
   const relatedCallMessageKeys = record.callMessageKeys ?? [];
 
   await Promise.all([
-    rememberCallMessage(storeKey, record.deliveries, testCallRecordWindowMs, updatedText, {
+    rememberCallMessage(storeKey, moveResult.deliveries, testCallRecordWindowMs, updatedText, {
       callMessageKeys: relatedCallMessageKeys,
       status
     }),
-    rememberCallActionItem({
-      actionKey: pendingFill.actionKey,
-      callMessageKeys: relatedCallMessageKeys,
-      chatId,
-      deliveries: record.deliveries,
-      status,
-      text: updatedText
-    }),
+    moveResult.moved || status !== "booked" || pendingFill.messageThreadId !== getNewCallsTopicId()
+      ? rememberCallActionItem({
+          actionKey: pendingFill.actionKey,
+          callMessageKeys: relatedCallMessageKeys,
+          chatId: pendingFill.chatId,
+          deliveries: moveResult.deliveries,
+          status,
+          text: updatedText
+        })
+      : Promise.resolve(),
     ...relatedCallMessageKeys.map((key) =>
-      rememberCallMessage(key, record.deliveries, testCallRecordWindowMs, updatedText, {
+      rememberCallMessage(key, moveResult.deliveries, testCallRecordWindowMs, updatedText, {
         callMessageKeys: relatedCallMessageKeys,
         status
       })
-    )
+    ),
+    moveResult.moved
+      ? recordCallActionForDashboard({
+          action: "booked",
+          chatId: pendingFill.chatId,
+          previousAction: parseCallActionStatus(record.status) ?? undefined
+        })
+      : Promise.resolve()
   ]);
 
-  await sendTelegramMessage(`${getFillableFieldLabel(pendingFill.field)} updated.`, [chatId], {
-    messageThreadId: pendingFill.messageThreadId ?? message?.message_thread_id
-  });
+  await sendTelegramMessage(
+    moveResult.moved
+      ? "Booking details complete. The call has been moved to 02 Booked."
+      : `${getFillableFieldLabel(pendingFill.field)} updated.${missingFields.length ? ` ${missingFields.length} still required.` : ""}`,
+    [chatId]
+  );
 
   if (!editResult.ok) {
     console.error("Telegram filled detail edit failed", editResult.error);
@@ -163,6 +201,38 @@ async function handlePendingFillReply(chatId: string, message: TelegramMessage |
   return {
     handled: true,
     ok: editResult.ok
+  };
+}
+
+async function moveCompletedBookingToBookedTopic(
+  chatId: string,
+  bookedTopicId: number,
+  text: string,
+  actionKey: string,
+  oldDeliveries: TelegramDelivery[]
+) {
+  const sendResult = await sendTelegramMessage(text, [chatId], {
+    messageThreadId: bookedTopicId,
+    replyMarkup: buildBookedDetailsKeyboard(actionKey, text)
+  });
+
+  if (!sendResult.ok) {
+    console.error("Telegram completed booking repost failed", sendResult.error);
+    return {
+      deliveries: oldDeliveries,
+      moved: false
+    };
+  }
+
+  const deleteResult = await deleteTelegramMessages(oldDeliveries);
+
+  if (!deleteResult.ok) {
+    console.error("Telegram completed booking original delete failed", deleteResult.error);
+  }
+
+  return {
+    deliveries: sendResult.deliveries?.length ? sendResult.deliveries : oldDeliveries,
+    moved: Boolean(sendResult.deliveries?.length)
   };
 }
 
