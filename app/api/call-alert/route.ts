@@ -15,6 +15,7 @@ import {
   rememberCallMessage,
   rememberRecentAlert
 } from "@/lib/call-alert-store";
+import { isCallerNumberBlocked } from "@/lib/call-block-list";
 import { recordCallStatistic } from "@/lib/call-statistics";
 import { getPlumberEtaLines } from "@/lib/plumber-eta";
 import { createRecordingLink } from "@/lib/recordings";
@@ -190,6 +191,10 @@ export async function POST(request: Request) {
     const payload = await parsePayload(request);
     const call = normalizeCallPayload(payload, request);
     const alertStage = getAlertStage(call);
+    if (await isCallerNumberBlocked(call.customerNumber)) {
+      return NextResponse.json({ ok: true, ignored: true, blockedCaller: true });
+    }
+
     const dedupeKey = `${call.provider}:${call.callId || call.customerNumber}:${alertStage}`;
     const recordingPollKey = getRecordingPollKey(call, alertStage);
 

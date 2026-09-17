@@ -15,6 +15,7 @@ import {
   shouldDeleteHandledCallAlert,
   type CallActionStatus
 } from "@/lib/call-actions";
+import { blockCallerNumber, extractCallerNumberFromAlertText, formatBlockedCallerNumber } from "@/lib/call-block-list";
 import { recordCallActionForDashboard } from "@/lib/call-action-dashboard";
 import { rememberCallActionItem } from "@/lib/call-action-items";
 import { getCallMessageRecord, hasDurableCallAlertStore, rememberCallMessage } from "@/lib/call-alert-store";
@@ -241,9 +242,28 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
+  const blockedCaller =
+    parsedAction.action === "block_caller"
+      ? await blockCallerNumber(extractCallerNumberFromAlertText(baseText))
+      : { blocked: false, normalizedNumber: "" };
+
+  if (parsedAction.action === "block_caller" && !blockedCaller.blocked) {
+    await answerTelegramCallbackQuery(callbackQuery.id, "Could not block: no caller number found.");
+
+    return NextResponse.json({
+      ok: true,
+      action: parsedAction.action,
+      blockedCaller: false,
+      error: "No caller number found."
+    });
+  }
+
   const bookedBaseText = parsedAction.action === "booked" ? applyAutofilledBookedDetails(baseText) : baseText;
   const handledText = formatHandledAlertText(bookedBaseText, actionLabel, destinationLabel, handlerName);
-  const updatedText = handledText;
+  const updatedText =
+    parsedAction.action === "block_caller"
+      ? formatBlockedCallerAlertText(handledText, blockedCaller.normalizedNumber)
+      : handledText;
   const actionKeyboard = parsedAction.action === "booked"
     ? buildBookedDetailsKeyboard(parsedAction.actionKey, updatedText)
     : buildCallActionKeyboard(parsedAction.actionKey);
@@ -326,6 +346,8 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
       ? deletedOriginal
         ? `Deleted as ${actionLabel.replace(/^[^\w]+/, "")}.`
         : `Marked as ${actionLabel.replace(/^[^\w]+/, "")}; could not delete alert.`
+      : parsedAction.action === "block_caller"
+      ? `Blocked ${formatBlockedCallerNumber(blockedCaller.normalizedNumber)}. Future alerts ignored.`
       : topicId
       ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}. Moved to ${destinationLabel}.`
       : `Marked as ${actionLabel}. Topic not configured.`
@@ -426,6 +448,19 @@ function formatTopicAlertText(text: string, actionLabel: string, destinationLabe
     text
   ].join("\n");
 }
+
+function formatBlockedCallerAlertText(text: string, normalizedNumber: string) {
+  return [
+    text,
+    "",
+    "🚷 BLOCKED CALLER",
+    alertDivider,
+    `NUMBER: ${formatBlockedCallerNumber(normalizedNumber)}`,
+    "Future alerts from this caller will be ignored.",
+    alertDivider
+  ].join("\n");
+}
+
 
 function removeExistingOutcomeBlock(text: string) {
   const legacyMarker = "\n\n📌 CALL OUTCOME";

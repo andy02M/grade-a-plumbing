@@ -95,6 +95,12 @@ export const callActionStatuses = {
     label: "Spam",
     topicEnvNames: ["TELEGRAM_TOPIC_CLOSED", "TELEGRAM_CLOSED_THREAD_ID", "TELEGRAM_TOPIC_SPAM", "TELEGRAM_SPAM_THREAD_ID"]
   },
+  block_caller: {
+    callbackLabel: "Block Caller",
+    emoji: "🚷",
+    label: "Block Caller",
+    topicEnvNames: ["TELEGRAM_TOPIC_CLOSED", "TELEGRAM_CLOSED_THREAD_ID", "TELEGRAM_TOPIC_BLOCK_CALLER", "TELEGRAM_BLOCK_CALLER_THREAD_ID"]
+  },
   out_of_area: {
     callbackLabel: "Out of Area",
     emoji: "📍",
@@ -135,6 +141,7 @@ const defaultTopicIds = {
   quote_sent: 6,
   reschedule: 6,
   spam: 8,
+  block_caller: 8,
   statistics: 16,
   texted_customer: 6,
   urgent_job: 6,
@@ -169,12 +176,13 @@ export function buildCallActionSubmenuKeyboard(menu: Exclude<CallActionMenu, "ma
         ],
         [
           buildActionButton("spam", actionKey),
-          buildActionButton("out_of_area", actionKey)
+          buildActionButton("block_caller", actionKey)
         ],
         [
-          buildActionButton("duplicate", actionKey),
-          buildMenuButton("main", actionKey)
-        ]
+          buildActionButton("out_of_area", actionKey),
+          buildActionButton("duplicate", actionKey)
+        ],
+        [buildMenuButton("main", actionKey)]
       ]
     };
   }
@@ -205,7 +213,6 @@ export function buildCallActionSubmenuKeyboard(menu: Exclude<CallActionMenu, "ma
     ]
   };
 }
-
 export function parseCallActionData(value: string | undefined) {
   const parts = (value ?? "").split(":");
 
@@ -279,7 +286,7 @@ export function getCallActionDestination(action: CallActionStatus): CallActionDe
     return "booked";
   }
 
-  if (["auto_closed", "duplicate", "not_interested", "out_of_area", "spam", "wrong_number"].includes(action)) {
+  if (["auto_closed", "block_caller", "duplicate", "not_interested", "out_of_area", "spam", "wrong_number"].includes(action)) {
     return "closed";
   }
 
@@ -289,7 +296,7 @@ export function getCallActionDestination(action: CallActionStatus): CallActionDe
 export function getCallActionDashboardActions(destination: CallActionDestination) {
   const actions: Record<CallActionDestination, CallActionStatus[]> = {
     booked: ["booked"],
-    closed: ["not_interested", "wrong_number", "spam", "out_of_area", "duplicate", "auto_closed"],
+    closed: ["not_interested", "wrong_number", "spam", "block_caller", "out_of_area", "duplicate", "auto_closed"],
     follow_up: [
       "call_back",
       "no_answer",
@@ -366,6 +373,7 @@ export function getCallTopicDiagnostics() {
     quote_sent: getCallActionTopicId("quote_sent"),
     reschedule: getCallActionTopicId("reschedule"),
     spam: getCallActionTopicId("spam"),
+    block_caller: getCallActionTopicId("block_caller"),
     statistics: getStatisticsTopicId(),
     texted_customer: getCallActionTopicId("texted_customer"),
     urgent_job: getCallActionTopicId("urgent_job"),
