@@ -1,126 +1,137 @@
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { ButtonLink } from "@/components/ButtonLink";
-import { CoreLocationCards } from "@/components/CoreLocationCards";
+import Link from "next/link";
+import type { Metadata } from "next";
 import { CTASection } from "@/components/CTASection";
-import { Hero } from "@/components/Hero";
 import { Icon } from "@/components/Icon";
-import { ServiceAreaGrid } from "@/components/ServiceAreaGrid";
-import { site, suburbGroups } from "@/lib/site";
-import { breadcrumbSchema, createMetadata, JsonLd, localBusinessSchema } from "@/lib/seo";
-
-export const metadata = createMetadata({
-  title: "Plumber Melbourne, St Kilda, South Melbourne & Richmond | Grade A Plumbing",
-  description:
-    "Looking for a plumber in Melbourne, St Kilda, South Melbourne, or Richmond? Grade A Plumbing services inner Melbourne suburbs for emergency plumbing, blocked drains, hot water repairs, and commercial plumbing.",
-  path: "/service-areas",
-  keywords: [
-    "plumber Melbourne",
-    "plumber St Kilda",
-    "plumber South Melbourne",
-    "plumber Richmond",
-    "emergency plumber South Melbourne",
-    "blocked drains St Kilda"
-  ]
-});
-
-export default function ServiceAreasPage() {
+import { getRequestLocation } from "@/lib/location-request";
+import { locations } from "@/lib/locations";
+import { services, serviceUrl } from "@/lib/seo-services";
+export async function generateMetadata(): Promise<Metadata> {
+  const l = await getRequestLocation();
+  return {
+    title: `Plumbing Service Areas Near ${l.location} | Grade A Plumbing`,
+    description: `Check Grade A Plumbing service coverage in ${l.location} and surrounding Victorian suburbs.`,
+    alternates: { canonical: `${l.website}/service-areas/` },
+  };
+}
+export default async function ServiceAreasPage() {
+  const l = await getRequestLocation();
+  const nearby = l.nearbySuburbs.length ? l.nearbySuburbs : [l.location];
   return (
     <>
-      <JsonLd
-        data={[
-          localBusinessSchema(),
-          {
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: "Melbourne Plumbing Service Areas",
-            description:
-              "Suburb directory for Grade A Plumbing service areas across Melbourne VIC and surrounding suburbs.",
-            url: `${site.baseUrl}/service-areas`,
-            about: suburbGroups.map((group) => group.region)
-          },
-          breadcrumbSchema([
-            { name: "Home", href: "/" },
-            { name: "Service Areas", href: "/service-areas" }
-          ])
-        ]}
-      />
-      <Breadcrumbs
-        items={[
-          { name: "Home", href: "/" },
-          { name: "Service Areas", href: "/service-areas" }
-        ]}
-      />
-      <Hero
-        badge="Melbourne plumbing service areas"
-        text="Grade A Plumbing services Melbourne CBD, St Kilda, South Melbourne, Richmond, and surrounding suburbs across inner, north, west, east, and south east Melbourne."
-        title="Plumber Melbourne, St Kilda, South Melbourne and Richmond"
-      >
-        <div className="rounded-md border border-blue-100 bg-white p-6 shadow-soft">
-          <span className="grid h-12 w-12 place-items-center rounded-md bg-brand-blue text-white">
-            <Icon name="home" />
-          </span>
-          <h2 className="mt-5 font-display text-2xl font-black text-brand-navy">
-            Not sure if we service your suburb?
+      <section className="relative overflow-hidden bg-brand-navy px-4 py-20 text-white sm:px-6 lg:px-8">
+        <div className="hero-mesh absolute inset-0" />
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_.8fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[.2em] text-blue-100">
+              Local coverage
+            </p>
+            <h1 className="mt-5 font-display text-6xl font-bold uppercase leading-[.88]">
+              Plumbing service areas near {l.location}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-blue-50/85">
+              Check the configured service areas below, or contact us with your
+              suburb and plumbing issue to confirm availability.
+            </p>
+          </div>
+          <div className="glass-surface rounded-[2rem] p-6 text-brand-navy">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-brand-blue text-white">
+              <Icon name="home" />
+            </span>
+            <h2 className="mt-5 font-display text-3xl font-bold uppercase leading-none">
+              Not sure about your suburb?
+            </h2>
+            <p className="mt-4 leading-7 text-slate-600">
+              Send your address area and a short description of the work. We
+              will confirm the appropriate next step.
+            </p>
+            <Link
+              className="mt-6 inline-flex rounded-full bg-brand-blue px-5 py-3 font-black text-white"
+              href="/contact/"
+            >
+              Check availability
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section className="py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-sm font-bold uppercase tracking-[.2em] text-brand-blue">
+            Closest coverage
+          </p>
+          <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[.9] text-brand-navy">
+            Areas around {l.location}
           </h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
-            Call or send a quote request with your suburb and the plumbing issue. We will confirm availability and the clearest next step.
-          </p>
-          <div className="mt-6 grid gap-3 sm:flex">
-            <ButtonLink className="gap-2" href={site.phoneHref}>
-              <Icon name="phone" className="h-4 w-4" />
-              Call Now
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
-              Request Quote
-            </ButtonLink>
-          </div>
-        </div>
-      </Hero>
-
-      <section className="bg-brand-mist py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-brand-blue">
-              Core inner-Melbourne areas
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-black tracking-normal text-brand-navy sm:text-4xl">
-              Popular inner-Melbourne plumbing service areas
-            </h2>
-            <p className="mt-5 text-base leading-8 text-slate-600">
-              If you are searching for a plumber in Melbourne, St Kilda, South Melbourne, or Richmond, these are some of the main inner-Melbourne areas we service for emergency plumbing, blocked drains, hot water repairs, and local plumbing enquiries.
-            </p>
-          </div>
-          <div className="mt-10">
-            <CoreLocationCards />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {nearby.map((area) => (
+              <article
+                className="glass-surface rounded-[1.5rem] p-5"
+                key={area}
+              >
+                <p className="font-display text-2xl font-bold uppercase text-brand-navy">
+                  {area}
+                </p>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  Contact Grade A Plumbing to confirm service availability for
+                  this area.
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-
-      <section className="py-16">
+      <section className="bg-white/55 py-20 backdrop-blur">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-brand-blue">
-              Suburb directory
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-black tracking-normal text-brand-navy sm:text-4xl">
-              Melbourne suburbs we service
-            </h2>
-            <p className="mt-5 text-base leading-8 text-slate-600">
-              Browse our main service regions below. Each suburb is listed clearly so local customers can quickly check coverage.
-            </p>
+          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[.2em] text-brand-blue">
+                Across Victoria
+              </p>
+              <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[.9] text-brand-navy">
+                Grade A location network
+              </h2>
+              <p className="mt-5 leading-8 text-slate-600">
+                Browse every Grade A Plumbing storefront and its local service
+                information. Each location has its own contact and coverage page.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {locations.map((item) => (
+                <Link
+                  className={`rounded-full border px-4 py-2 text-sm font-semibold ${item.slug === l.slug ? "border-brand-blue bg-brand-blue text-white" : "border-blue-100 bg-white text-brand-navy"}`}
+                  href={`${item.website}/`}
+                  key={item.slug}
+                >
+                  {item.location}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="mt-10">
-            <ServiceAreaGrid />
-          </div>
-          <p className="mt-8 rounded-md border border-blue-100 bg-white p-5 font-semibold text-brand-charcoal shadow-sm">
-            If your suburb is not listed, contact us to check availability.
-          </p>
         </div>
       </section>
-
+      <section className="py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-sm font-bold uppercase tracking-[.2em] text-brand-blue">
+            Services
+          </p>
+          <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[.9] text-brand-navy">
+            What we can help with
+          </h2>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map((service) => (
+              <Link
+                key={service.slug}
+                href={serviceUrl(service.slug)}
+                className="glass-surface rounded-[1.25rem] p-5 font-bold text-brand-navy hover:text-brand-blue"
+              >
+                {service.label} →
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
       <CTASection
-        text="Call Grade A Plumbing or request a free quote with your suburb and service details."
-        title="Need a plumber in Melbourne, St Kilda, South Melbourne or Richmond?"
+        title={`Need a plumber near ${l.location}?`}
+        text="Call Grade A Plumbing or request a quote with your suburb and service details."
       />
     </>
   );

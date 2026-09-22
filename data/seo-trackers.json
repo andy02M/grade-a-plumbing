@@ -1,0 +1,7 @@
+{
+  "citations": [],
+  "citationFields": ["directory","url","location","businessName","phone","website","submissionStatus","liveUrl","dateSubmitted","lastChecked","notes"],
+  "citationStatuses": ["Not Started","Submitted","Pending","Live","Rejected","Needs Update"],
+  "backlinks": [],
+  "backlinkFields": ["sourceDomain","sourceUrl","targetUrl","anchorText","type","industryRelevance","locationRelevance","dateAcquired","relationship","status"]
+}

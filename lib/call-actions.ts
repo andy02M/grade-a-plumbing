@@ -7,6 +7,12 @@ export const callActionStatuses = {
     label: "Booked",
     topicEnvNames: ["TELEGRAM_TOPIC_BOOKED", "TELEGRAM_BOOKED_THREAD_ID"]
   },
+  calling_customer: {
+    callbackLabel: "Calling Customer",
+    emoji: "📞",
+    label: "Calling Customer",
+    topicEnvNames: ["TELEGRAM_TOPIC_NEW_CALLS", "TELEGRAM_NEW_CALLS_THREAD_ID"]
+  },
   call_back: {
     callbackLabel: "Call Back",
     emoji: "📞",
@@ -128,6 +134,7 @@ export type CallActionDestination = "booked" | "follow_up" | "closed";
 const defaultTopicIds = {
   booked: 4,
   call_back: 6,
+  calling_customer: 2,
   closed: 8,
   duplicate: 8,
   follow_up: 6,
@@ -157,6 +164,7 @@ export function buildCallActionKeyboard(actionKey: string): TelegramInlineKeyboa
 export function buildCallActionMainKeyboard(actionKey: string): TelegramInlineKeyboardMarkup {
   return {
     inline_keyboard: [
+      [buildActionButton("calling_customer", actionKey)],
       [buildActionButton("booked", actionKey)],
       [
         buildMenuButton("follow_up", actionKey),
@@ -360,6 +368,7 @@ export function getCallTopicDiagnostics() {
   return {
     booked: getCallActionTopicId("booked"),
     call_back: getCallActionTopicId("call_back"),
+    calling_customer: getCallActionTopicId("calling_customer"),
     closed: defaultTopicIds.closed,
     duplicate: getCallActionTopicId("duplicate"),
     follow_up: defaultTopicIds.follow_up,

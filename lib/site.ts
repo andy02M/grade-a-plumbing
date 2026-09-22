@@ -3,7 +3,7 @@ const whatsAppMessage = "Hi Grade A Plumbing, I need help with a plumbing issue 
 
 export const site = {
   name: "Grade A Plumbing",
-  baseUrl: "https://gradeaplumbing.com.au",
+  baseUrl: "https://melbourne.gradeaplumbing.store",
   phone: "03 4421 6259",
   phoneHref: "tel:0344216259",
   email: "support@gradeaplumbing.store",
@@ -13,10 +13,10 @@ export const site = {
   calendlyUrl: "https://calendly.com/gradeaplumbing-support/30min",
   calendlyEmbedUrl:
     "https://calendly.com/gradeaplumbing-support/30min?hide_event_type_details=1&hide_gdpr_banner=1",
-  serviceArea: "Melbourne VIC, St Kilda, South Melbourne, Richmond, and surrounding suburbs",
-  location: "Melbourne, Victoria, Australia",
+  serviceArea: "Melbourne and surrounding Victorian suburbs",
+  location: "Melbourne",
   description:
-    "Fast, reliable plumbing services across Melbourne, St Kilda, South Melbourne, Richmond, and surrounding suburbs for homes, businesses, and emergency callouts."
+    "Local residential, commercial and emergency plumbing services across Melbourne and surrounding suburbs."
 } as const;
 
 export const brandAssets = {
@@ -276,11 +276,9 @@ export const coreServiceLocations = [
 
 export const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Emergency Plumbing", href: "/emergency-plumbing-melbourne" },
-  { label: "Blocked Drains", href: "/blocked-drains-melbourne" },
-  { label: "Hot Water", href: "/hot-water-repairs-melbourne" },
-  { label: "Commercial Plumbing", href: "/commercial-plumbing-melbourne" },
-  { label: "Service Areas", href: "/service-areas" },
+  { label: "Blocked Drains", href: "/blocked-drains/" },
+  { label: "Hot Water", href: "/hot-water/" },
+  { label: "Emergency", href: "/emergency-plumber/" },
   { label: "Contact", href: "/contact" }
 ] as const;
 
@@ -515,3 +513,5 @@ export type BreadcrumbItem = {
   name: string;
   href: string;
 };
+
+

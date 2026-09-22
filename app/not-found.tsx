@@ -1,33 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ButtonLink";
-import { site } from "@/lib/site";
 import { Icon } from "@/components/Icon";
-
-export default function NotFound() {
-  return (
-    <section className="bg-brand-mist py-20">
-      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-        <span className="mx-auto grid h-14 w-14 place-items-center rounded-md bg-brand-blue text-white">
-          <Icon name="pipe" />
-        </span>
-        <h1 className="mt-6 font-display text-4xl font-black text-brand-navy">Page not found</h1>
-        <p className="mt-4 text-base leading-8 text-slate-600">
-          This page is not available. You can return home, call Grade A Plumbing, or request a quote.
-        </p>
-        <div className="mt-8 grid gap-3 sm:flex sm:justify-center">
-          <ButtonLink href="/">Back Home</ButtonLink>
-          <ButtonLink className="gap-2" href={site.phoneHref} variant="secondary">
-            <Icon name="phone" className="h-4 w-4" />
-            Call Now
-          </ButtonLink>
-        </div>
-        <p className="mt-6 text-sm text-slate-500">
-          Looking for service areas?{" "}
-          <Link className="font-bold text-brand-blue" href="/service-areas">
-            View Melbourne suburbs
-          </Link>
-        </p>
-      </div>
-    </section>
-  );
-}
+import { brandAssets,site } from "@/lib/site";
+export default function NotFound(){return <section className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8"><div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(23,184,212,.18),transparent_30%),radial-gradient(circle_at_top_right,rgba(7,88,214,.14),transparent_36%)]"/><div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-sm font-bold uppercase tracking-[.24em] text-brand-blue">Error 404</p><h1 className="mt-4 font-display text-6xl font-bold uppercase leading-[.86] text-brand-navy">This pipe leads nowhere</h1><p className="mt-6 text-lg leading-8 text-slate-600">The page is not available, but you can return home, explore plumbing services or request help.</p><div className="mt-8 flex flex-wrap gap-3"><ButtonLink href="/">Back Home</ButtonLink><ButtonLink className="gap-2" href={site.phoneHref} variant="secondary"><Icon name="phone" className="h-4 w-4"/>Call Now</ButtonLink></div><Link className="mt-7 inline-flex font-bold text-brand-blue" href="/service-areas/">View service areas →</Link></div><div className="overflow-hidden rounded-[2rem] shadow-soft"><Image src={brandAssets.repairWork.src} alt={brandAssets.repairWork.alt} width={brandAssets.repairWork.width} height={brandAssets.repairWork.height} className="h-auto w-full object-cover"/></div></div></section>}

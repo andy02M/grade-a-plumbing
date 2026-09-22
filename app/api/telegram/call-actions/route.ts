@@ -8,6 +8,7 @@ import {
   getCallActionStoreKey,
   getCallActionTopicId,
   getCallTopicDiagnostics,
+  getNewCallsTopicId,
   getConfiguredCallActionTopics,
   parseCallActionData,
   parseCallActionMenuData,
@@ -258,6 +259,18 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     });
   }
 
+  if (parsedAction.action === "calling_customer") {
+    return handleCallingCustomerAction({
+      actionKey: parsedAction.actionKey,
+      baseText,
+      callbackQuery,
+      deliveries,
+      handlerName,
+      previousAction,
+      relatedCallMessageKeys,
+      storeKey
+    });
+  }
   const bookedBaseText = parsedAction.action === "booked" ? applyAutofilledBookedDetails(baseText) : baseText;
   const handledText = formatHandledAlertText(bookedBaseText, actionLabel, destinationLabel, handlerName);
   const updatedText =
@@ -375,6 +388,66 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   });
 }
 
+async function handleCallingCustomerAction(options: {
+  actionKey: string;
+  baseText: string;
+  callbackQuery: TelegramCallbackQuery;
+  deliveries: TelegramDelivery[];
+  handlerName: string;
+  previousAction: CallActionStatus | null;
+  relatedCallMessageKeys: string[];
+  storeKey: string;
+}) {
+  const threadId = options.callbackQuery.message?.message_thread_id;
+
+  if (typeof threadId === "number" && threadId !== getNewCallsTopicId()) {
+    await answerTelegramCallbackQuery(options.callbackQuery.id, "Use this on calls in 01 New Calls.");
+
+    return NextResponse.json({
+      ok: true,
+      action: "calling_customer",
+      ignored: true,
+      reason: "Not in New Calls topic."
+    });
+  }
+
+  const updatedText = formatCallingCustomerAlertText(options.baseText, options.handlerName);
+  const editResult = options.deliveries.length
+    ? await editTelegramMessage(updatedText, options.deliveries, {
+        replyMarkup: buildCallActionKeyboard(options.actionKey)
+      })
+    : { ok: false as const, error: "Original Telegram message was not available." };
+
+  if (!editResult.ok) {
+    await answerTelegramCallbackQuery(options.callbackQuery.id, "Could not mark as calling. Try again.");
+    console.error("Telegram calling customer edit failed", editResult.error);
+    return NextResponse.json({ error: editResult.error }, { status: 500 });
+  }
+
+  await Promise.all([
+    rememberCallMessage(options.storeKey, options.deliveries, callActionRecordWindowMs, updatedText, {
+      callMessageKeys: options.relatedCallMessageKeys,
+      status: options.previousAction ?? undefined
+    }),
+    ...options.relatedCallMessageKeys.map((key) =>
+      rememberCallMessage(key, options.deliveries, callActionRecordWindowMs, updatedText, {
+        callMessageKeys: options.relatedCallMessageKeys,
+        status: options.previousAction ?? undefined
+      })
+    )
+  ]);
+
+  await answerTelegramCallbackQuery(
+    options.callbackQuery.id,
+    `${options.handlerName || "Team member"} is calling this customer.`
+  );
+
+  return NextResponse.json({
+    ok: true,
+    action: "calling_customer",
+    editedOriginal: true
+  });
+}
 function validateActionSecret(request: Request) {
   const expectedSecret = getExpectedActionSecret();
 
@@ -423,9 +496,48 @@ function shouldDeleteCallActionWithoutRepost(action: CallActionStatus) {
   return action === "not_interested" || action === "spam";
 }
 
+function formatCallingCustomerAlertText(text: string, handlerName: string) {
+  return insertCallingCustomerBlockNearTop(
+    removeExistingCallingBlock(removeExistingOutcomeBlock(text)),
+    formatCallingCustomerBlock(handlerName)
+  );
+}
+
+function formatCallingCustomerBlock(handlerName: string) {
+  return [
+    "📞 CUSTOMER BEING CALLED",
+    alertDivider,
+    `👤 CALLING: ${handlerName || "Team member"}`,
+    `🕒 STARTED: ${formatTimestamp(new Date().toISOString())}`,
+    "⚠️ Please avoid duplicate calls until this changes.",
+    alertDivider
+  ].join("\n");
+}
+
+function insertCallingCustomerBlockNearTop(text: string, block: string) {
+  const lines = text.split(/\r?\n/);
+  const headerEndIndex = findAlertHeaderEndIndex(lines);
+
+  if (headerEndIndex < 0) {
+    return [text.trimEnd(), "", block].join("\n");
+  }
+
+  const before = lines.slice(0, headerEndIndex + 1).join("\n").trimEnd();
+  const after = lines.slice(headerEndIndex + 1).join("\n").trimStart();
+
+  return [before, "", block, after ? `\n${after}` : ""].join("\n").trimEnd();
+}
+
+function findAlertHeaderEndIndex(lines: string[]) {
+  if (lines.length >= 4 && lines[0].trim() && lines[0].trim() === lines[3].trim()) {
+    return 3;
+  }
+
+  return -1;
+}
 function formatHandledAlertText(text: string, actionLabel: string, destinationLabel: string, handlerName: string) {
   return [
-    removeExistingOutcomeBlock(text),
+    removeExistingCallingBlock(removeExistingOutcomeBlock(text)),
     "",
     "📌 CALL ACTION",
     alertDivider,
@@ -462,6 +574,53 @@ function formatBlockedCallerAlertText(text: string, normalizedNumber: string) {
 }
 
 
+function removeExistingCallingBlock(text: string) {
+  const lines = text.split(/\r?\n/);
+  const markerIndex = lines.findIndex((line) => cleanCallingLine(line) === "CUSTOMER BEING CALLED");
+
+  if (markerIndex < 0) {
+    return text.trimEnd();
+  }
+
+  let endIndex = markerIndex + 1;
+  let dividerCount = 0;
+
+  while (endIndex < lines.length) {
+    const cleanedLine = cleanCallingLine(lines[endIndex]);
+
+    if (cleanedLine.includes("PLEASE AVOID DUPLICATE CALLS")) {
+      endIndex += 1;
+
+      if (lines[endIndex]?.trim() === alertDivider) {
+        endIndex += 1;
+      }
+
+      break;
+    }
+
+    if (lines[endIndex].trim() === alertDivider) {
+      dividerCount += 1;
+
+      if (dividerCount === 2) {
+        endIndex += 1;
+        break;
+      }
+    }
+
+    endIndex += 1;
+  }
+
+  return [...lines.slice(0, markerIndex), ...lines.slice(endIndex)].join("\n").trim();
+}
+
+function cleanCallingLine(line: string) {
+  return line
+    .replace(/^#+\s*/, "")
+    .replace(/[^\p{L}\p{N} ]/gu, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toUpperCase();
+}
 function removeExistingOutcomeBlock(text: string) {
   const legacyMarker = "\n\n📌 CALL OUTCOME";
   const marker = "\n\n📌 CALL ACTION";

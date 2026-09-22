@@ -14,3 +14,9 @@ yarn-error.log*
 .DS_Store
 data/quotes.json
 .env*
+oauth-client.json
+.gmb-browser-profile
+.gmb-browser-state
+artifacts/
+oauth-*.png
+profile-create-*.png

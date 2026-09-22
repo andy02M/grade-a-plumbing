@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+.env*
+.gmb-browser-profile
+.gmb-browser-state
+oauth-client.json
+oauth-*.png
+artifacts
+scripts
+docs
+*.tsbuildinfo

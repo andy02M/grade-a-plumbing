@@ -5,10 +5,25 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "gmb:discover": "node scripts/gmb-discover.mjs",
+    "gmb:browser-post": "node scripts/gmb-browser-post.mjs",
+    "gmb:browser-verify": "node scripts/gmb-browser-verify.mjs",
+    "gmb:browser-verify-all": "node scripts/gmb-browser-verify-all.mjs",
+    "gmb:browser-worker": "node scripts/browser-worker.mjs",
+    "gmb:browser-manual": "node scripts/browser-worker-manual-server.mjs",
+    "test:gmb-profile-flow": "node scripts/test-browser-profile-create.mjs",
+    "gmb:oauth": "node scripts/gmb-oauth.mjs",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate",
+    "test": "node --test scripts/seo-architecture.test.mjs",
+    "seo:audit": "node scripts/seo-content-audit.mjs"
   },
   "dependencies": {
+    "@prisma/client": "^6.17.1",
     "next": "^16.2.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
@@ -18,7 +33,9 @@
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.6",
     "autoprefixer": "10.4.21",
+    "playwright": "^1.63.0",
     "postcss": "^8.5.14",
+    "prisma": "^6.17.1",
     "tailwindcss": "3.4.17",
     "typescript": "5.8.3"
   },

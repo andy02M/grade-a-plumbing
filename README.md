@@ -2,6 +2,102 @@
 
 Premium, SEO optimised plumbing website for Grade A Plumbing in Melbourne, Victoria.
 
+## Automatic Google Business Profile posts
+
+The protected `/api/gmb/daily-post` route publishes one location-relevant post per day from 13 September through 31 December 2026. It rotates the supplied service areas and confirmed website services. Redis stores each Google post ID and prevents duplicate publishing.
+
+### Required Vercel environment variables
+
+```text
+CRON_SECRET=
+GOOGLE_GBP_CLIENT_ID=
+GOOGLE_GBP_CLIENT_SECRET=
+GOOGLE_GBP_REFRESH_TOKEN=
+GOOGLE_GBP_ACCOUNT_ID=
+GOOGLE_GBP_LOCATION_ID=
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+```
+
+The existing `KV_REST_API_URL` and `KV_REST_API_TOKEN` aliases also work for Redis. Keep OAuth values encrypted in Vercel and never commit them.
+
+### One-time Google connection
+
+1. Obtain Google Business Profile API approval and enable Google My Business API, My Business Account Management API and My Business Business Information API.
+2. Create a Google OAuth Web Application client with the `business.manage` scope.
+3. Add `http://127.0.0.1:53682/oauth2callback` as an authorized redirect URI.
+4. In PowerShell, set `GOOGLE_GBP_CLIENT_ID` and `GOOGLE_GBP_CLIENT_SECRET` for the current terminal.
+5. Run `npm run gmb:oauth`, open the displayed URL, sign in as the Grade A Plumbing profile owner and save the returned refresh token.
+6. Set all three OAuth values in the current terminal and run `npm run gmb:discover`.
+7. For `accounts/123`, save `123` as `GOOGLE_GBP_ACCOUNT_ID`. For `locations/456`, save `456` as `GOOGLE_GBP_LOCATION_ID`.
+8. Add all required variables to Vercel's Production environment and redeploy.
+
+### Preview and live test
+
+Preview without publishing:
+
+```text
+GET /api/gmb/daily-post?date=2026-09-13&dryRun=1
+Authorization: Bearer CRON_SECRET
+```
+
+Publish that date's post:
+
+```text
+POST /api/gmb/daily-post?date=2026-09-13
+Authorization: Bearer CRON_SECRET
+```
+
+A successful live request returns `published: true` and Google's post resource name. Repeating the request returns `reason: already-published`. Vercel runs the job at 23:00 UTC, which is 9:00 am AEST or 10:00 am AEDT.
+
+### Browser fallback while Google API approval is pending
+
+If Google has the Business Profile API project on 0 QPM, the project also includes a supervised Playwright fallback. It opens the Google Business Profile web UI and uses the same daily campaign calendar to draft or publish today's post. The fallback selects Google's `Call now` button so the published update includes the profile phone number.
+
+Run a safe dry run first:
+
+```bash
+npm run gmb:browser-post
+```
+
+When the visible browser opens, sign in to the Google account manually if Google asks. The script does not bypass Google login, CAPTCHA, or account verification prompts. The dedicated browser profile is saved in `.gmb-browser-profile`, so the daily task can reuse that session.
+
+For the first login/setup run on Windows:
+
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File ".\scripts\gmb-browser-login.ps1"
+```
+
+To publish live after you have tested the draft flow:
+
+```bash
+GMB_BROWSER_DRY_RUN=false npm run gmb:browser-post
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:GMB_BROWSER_DRY_RUN="false"; npm run gmb:browser-post
+```
+
+Optional settings:
+
+- `GMB_POST_DATE=2026-09-13` posts a specific campaign date.
+- `GMB_BROWSER_CHANNEL=msedge` uses installed Microsoft Edge. This is the default because it is more reliable on this Windows machine than Playwright's bundled Chromium.
+- `GMB_BROWSER_LOCATION_NAME="Grade A Plumbing Melbourne"` chooses the Business Profile row to open.
+- `GMB_BROWSER_PROFILE_DIR=".gmb-browser-profile"` controls the saved browser session folder.
+- `GMB_BROWSER_KEEP_OPEN=true` leaves the browser open after the run.
+
+Successful live runs are recorded in `.gmb-browser-state/YYYY-MM-DD.json` so the same day is not posted twice unless that file is removed deliberately.
+
+To run it every day from this Windows machine at 9:00 am, create a Windows Task Scheduler task:
+
+```powershell
+schtasks /Create /TN "Grade A Plumbing GMB Browser Post" /SC DAILY /ST 09:00 /TR "powershell.exe -ExecutionPolicy Bypass -File `"$PWD\scripts\run-gmb-browser-post.ps1`""
+```
+
+The computer must be on, connected to the internet, and able to use the saved browser session. If Google asks for verification, the task will stop and the visible browser will need manual attention.
+
 ## Tech Stack
 
 - Next.js App Router

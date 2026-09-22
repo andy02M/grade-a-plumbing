@@ -1,88 +1,146 @@
 import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ButtonLink";
 import { ContactForm } from "@/components/ContactForm";
-import { CoreLocationCards } from "@/components/CoreLocationCards";
 import { CTASection } from "@/components/CTASection";
+import { CustomerReviews } from "@/components/CustomerReviews";
 import { FAQ } from "@/components/FAQ";
-import { Icon } from "@/components/Icon";
-import { ServiceAreaGrid } from "@/components/ServiceAreaGrid";
+import { Icon, type IconName } from "@/components/Icon";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TrustBadge } from "@/components/TrustBadge";
 import { WorkShowcase } from "@/components/WorkShowcase";
+import { getRequestLocation } from "@/lib/location-request";
+import { JsonLd } from "@/lib/seo";
+import { services, serviceUrl } from "@/lib/seo-services";
 import {
   brandAssets,
-  homepageFaqs,
-  primaryServices,
   processSteps,
   site,
   trustBadges,
-  whyChooseUs
+  whyChooseUs,
 } from "@/lib/site";
-import {
-  breadcrumbSchema,
-  createMetadata,
-  faqSchema,
-  JsonLd,
-  localBusinessSchema,
-  serviceSchema
-} from "@/lib/seo";
+import { formatStorefrontAddress } from "@/lib/storefronts";
 
-export const metadata = createMetadata({
-  title: "Grade A Plumbing Melbourne | Local Plumber Melbourne VIC",
-  description:
-    "Grade A Plumbing provides reliable plumbing services across Melbourne, St Kilda, South Melbourne, and Richmond for emergency callouts, blocked drains, hot water repairs, commercial plumbing, leaks, burst pipes, and maintenance.",
-  path: "/",
-  keywords: [
-    "plumber Melbourne",
-    "plumbing Melbourne",
-    "Grade A Plumbing",
-    "emergency plumber Melbourne",
-    "blocked drains Melbourne",
-    "plumber St Kilda",
-    "plumber South Melbourne",
-    "plumber Richmond"
-  ]
-});
+const serviceIcons: Record<string, IconName> = {
+  "blocked-drains": "drain",
+  "sewer-repairs": "pipe",
+  "pipe-relining": "wrench",
+  "hot-water": "water",
+  "emergency-plumber": "alert",
+  "burst-pipe-repair": "pipe",
+  "gas-plumbing": "flame",
+  "commercial-plumbing": "building",
+};
 
-export default function HomePage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const location = await getRequestLocation();
+  const title = `Plumber ${location.location} | Local & Emergency Plumbing | Grade A Plumbing`;
+  const description = `Need a local plumber in ${location.location}? Grade A Plumbing provides drain, hot water, emergency, gas and commercial plumbing services.`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `${location.website}/` },
+    openGraph: {
+      title,
+      description,
+      url: `${location.website}/`,
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
+
+export default async function HomePage() {
+  const location = await getRequestLocation();
+  const areas = location.nearbySuburbs.length
+    ? location.nearbySuburbs
+    : [location.location];
+  const intro =
+    location.localIntroduction ??
+    `Reliable residential and commercial plumbing services in ${location.location}, with help for blocked drains, hot water faults, leaks and urgent plumbing enquiries.`;
+  const faq = location.localFaqs?.length
+    ? location.localFaqs
+    : [
+        {
+          question: `What plumbing services are available in ${location.location}?`,
+          answer:
+            "Grade A Plumbing handles enquiries for blocked drains, sewer repairs, pipe relining, hot water, burst pipes, gas plumbing, commercial plumbing and urgent plumbing problems.",
+        },
+        {
+          question: `Do you service properties near ${location.location}?`,
+          answer: `Yes. Contact us with your suburb and we will confirm current service availability near ${location.location}.`,
+        },
+        {
+          question: "Can I request a quote before work begins?",
+          answer:
+            "Tell us what is happening and we will explain the appropriate assessment and pricing process before work proceeds wherever possible.",
+        },
+      ];
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "Plumber"],
+      "@id": `${location.website}/#business`,
+      name: location.name,
+      url: location.website,
+      ...(location.phone ? { telephone: location.phone } : {}),
+      email: site.email,
+      image: `${location.website}${brandAssets.heroBanner.src}`,
+      logo: `${location.website}${brandAssets.logo.src}`,
+      priceRange: "$$",
+      ...(location.address
+        ? { address: { "@type": "PostalAddress", ...location.address } }
+        : {}),
+      areaServed: areas.map((name) => ({
+        "@type": "Place",
+        name: `${name}, VIC`,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+  ];
+
   return (
     <>
-      <JsonLd
-        data={[
-          localBusinessSchema(),
-          ...primaryServices.slice(0, 4).map((service) =>
-            serviceSchema({
-              name: service.title,
-              description: service.description,
-              path: service.href,
-              serviceType: service.title
-            })
-          ),
-          faqSchema(homepageFaqs),
-          breadcrumbSchema([{ name: "Home", href: "/" }])
-        ]}
-      />
-
+      <JsonLd data={schemas} />
       <section className="relative overflow-hidden px-4 pb-20 pt-6 sm:px-6 lg:px-8">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(23,184,212,0.16),transparent_30%),radial-gradient(circle_at_top_right,rgba(7,88,214,0.12),transparent_36%)]" aria-hidden="true" />
+        <div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(23,184,212,0.18),transparent_30%),radial-gradient(circle_at_top_right,rgba(7,88,214,0.14),transparent_36%)]"
+          aria-hidden="true"
+        />
         <div className="relative mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div className="max-w-xl py-6 lg:py-12">
               <span className="inline-flex rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold uppercase tracking-[0.18em] text-brand-blue shadow-sm">
-                Melbourne Plumbing Services
+                {location.location} plumbing services
               </span>
               <h1 className="mt-6 font-display text-5xl font-bold uppercase leading-[0.88] tracking-[0.03em] text-brand-navy sm:text-6xl lg:text-7xl">
-                Grade A Plumbing Melbourne
+                Local Plumber in {location.location}
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-                Fast, reliable plumbing services across Melbourne, St Kilda, South Melbourne, Richmond, and surrounding suburbs for homes, businesses, and emergency callouts.
+                {intro}
               </p>
-              <div className="mt-8 grid gap-3 sm:flex">
-                <ButtonLink className="gap-2" href={site.phoneHref}>
+              <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
+                <ButtonLink
+                  className="gap-2"
+                  href={location.phoneHref ?? site.phoneHref}
+                >
                   <Icon name="phone" className="h-4 w-4" />
                   Call Now
                 </ButtonLink>
-                <ButtonLink className="gap-2" href="/contact#book-appointment" variant="secondary">
+                <ButtonLink
+                  className="gap-2"
+                  href="/contact#book-appointment"
+                  variant="secondary"
+                >
                   <Icon name="clock" className="h-4 w-4" />
                   Book Appointment
                 </ButtonLink>
@@ -96,7 +154,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-
             <div className="relative pb-10 lg:pb-16">
               <div className="overflow-hidden rounded-[2rem] border border-white/60 bg-white shadow-soft">
                 <Image
@@ -104,6 +161,7 @@ export default function HomePage() {
                   className="h-auto w-full object-cover"
                   height={brandAssets.heroBanner.height}
                   priority
+                  sizes="(min-width: 1024px) 58vw, 100vw"
                   src={brandAssets.heroBanner.src}
                   width={brandAssets.heroBanner.width}
                 />
@@ -115,13 +173,14 @@ export default function HomePage() {
                   </span>
                   <div>
                     <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
-                      Fast response
+                      Tell us what you need
                     </p>
                     <h2 className="mt-2 font-display text-4xl font-bold uppercase leading-none text-brand-navy">
                       Request a Free Quote
                     </h2>
                     <p className="mt-3 text-sm leading-7 text-slate-600">
-                      Need urgent plumbing help in Melbourne? Call Grade A Plumbing now.
+                      Send your details and a short description of the plumbing
+                      issue.
                     </p>
                   </div>
                 </div>
@@ -131,17 +190,19 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-
           <div className="glass-surface mt-8 grid gap-3 rounded-[1.5rem] p-4 text-brand-charcoal sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["clock", "Fast response"],
-              ["alert", "Emergency help"],
-              ["pipe", "Melbourne wide"],
-              ["building", "Residential and commercial"]
+              ["phone", "Easy to contact"],
+              ["alert", "Urgent enquiries"],
+              ["pipe", `${location.location} service`],
+              ["building", "Residential and commercial"],
             ].map(([icon, label]) => (
-              <div className="flex items-center gap-3 rounded-xl px-2 py-2" key={label}>
+              <div
+                className="flex items-center gap-3 rounded-xl px-2 py-2"
+                key={label}
+              >
                 <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-brand-blue shadow-sm">
-                  <Icon name={icon as "clock"} className="h-5 w-5" />
+                  <Icon name={icon as IconName} className="h-5 w-5" />
                 </span>
                 <span className="font-semibold">{label}</span>
               </div>
@@ -150,15 +211,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/60 bg-white/75 py-4 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm font-bold text-brand-charcoal sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-          <span>Need urgent plumbing help in Melbourne? Call Grade A Plumbing now.</span>
-          <a className="inline-flex items-center gap-2 text-brand-blue hover:text-blue-700" href={site.phoneHref}>
-            <Icon name="phone" className="h-4 w-4" />
-            {site.phone}
-          </a>
-        </div>
-      </section>
+      <CustomerReviews />
+
+      {location.address && (
+        <section className="border-y border-blue-100 bg-white/70 py-10">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
+                {location.location} storefront
+              </p>
+              <h2 className="mt-2 font-display text-3xl font-bold uppercase text-brand-navy">
+                Visit or contact our local team
+              </h2>
+              <p className="mt-2 text-slate-600">{formatStorefrontAddress(location.address)}</p>
+            </div>
+            <ButtonLink href="/contact/" variant="secondary">Contact this location</ButtonLink>
+          </div>
+        </section>
+      )}
 
       <section className="py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
@@ -168,6 +238,7 @@ export default function HomePage() {
                 alt={brandAssets.team.alt}
                 className="h-auto w-full object-cover"
                 height={brandAssets.team.height}
+                sizes="(min-width: 1024px) 36vw, 100vw"
                 src={brandAssets.team.src}
                 width={brandAssets.team.width}
               />
@@ -176,32 +247,39 @@ export default function HomePage() {
               <Image
                 alt={brandAssets.logo.alt}
                 className="h-20 w-20 rounded-xl bg-white p-2 shadow-sm"
-                height={brandAssets.logo.height}
+                height={80}
                 src={brandAssets.logo.src}
-                width={brandAssets.logo.width}
+                width={80}
               />
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.18em] text-brand-blue">
-                  Quality you can trust
+                  Grade A Plumbing
                 </p>
                 <p className="mt-2 text-sm leading-7 text-slate-600">
-                  Clean branding, real team photography, and actual service visuals now anchor the site.
+                  Local plumbing support backed by real team and project
+                  photography.
                 </p>
               </div>
             </div>
           </div>
-
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">Melbourne based</p>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
+              Why choose us
+            </p>
             <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.9] tracking-[0.03em] text-brand-navy sm:text-6xl">
-              Real team. Real work. Strong first impression.
+              Practical plumbing help for {location.location} properties
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
-              These assets give the site something it was missing: actual company presence. Grade A Plumbing now looks like a real service business with a branded vehicle, a recognisable team, and on-site work that people can immediately trust.
+              From the first call through to the final check, our focus is clear
+              communication, careful work and a sensible next step for the
+              problem in front of us.
             </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {whyChooseUs.map((item) => (
-                <div className="glass-surface flex items-start gap-3 rounded-[1.25rem] p-4" key={item}>
+                <div
+                  className="glass-surface flex items-start gap-3 rounded-[1.25rem] p-4"
+                  key={item}
+                >
                   <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-blue text-white">
                     <Icon name="check" className="h-4 w-4" />
                   </span>
@@ -214,6 +292,7 @@ export default function HomePage() {
                 alt={brandAssets.landscapePlumber.alt}
                 className="h-auto w-full object-cover"
                 height={brandAssets.landscapePlumber.height}
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 src={brandAssets.landscapePlumber.src}
                 width={brandAssets.landscapePlumber.width}
               />
@@ -226,28 +305,33 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
             <div className="max-w-2xl">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">What we offer</p>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
+                What we offer
+              </p>
               <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.9] tracking-[0.03em] text-brand-navy sm:text-6xl">
-                Plumbing support with a cleaner, stronger visual feel.
+                Plumbing services in {location.location}
               </h2>
               <p className="mt-5 text-base leading-8 text-slate-600">
-                The service pages still drive leads, but the site now looks more established and polished. The updated font system also fits the van branding better than the older serif direction.
+                Dedicated service pages explain the problems we help with, the
+                likely next steps and related plumbing options.
               </p>
             </div>
             <div className="glass-surface rounded-[1.5rem] p-5">
               <p className="text-sm leading-7 text-slate-600">
-                You call, we assess the issue, explain the likely cause, and give you a clear next step. That could be emergency plumbing, blocked drain work, hot water repairs, commercial support, or general plumbing maintenance.
+                Call for an urgent issue or request a quote online. Include your
+                suburb and any useful photos so we can understand what is
+                happening.
               </p>
             </div>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {primaryServices.map((service) => (
+            {services.map((service) => (
               <ServiceCard
-                description={service.description}
-                href={service.href}
-                icon={service.icon}
-                key={service.title}
-                title={service.title}
+                description={service.description(location.location)}
+                href={serviceUrl(service.slug)}
+                icon={serviceIcons[service.slug]}
+                key={service.slug}
+                title={`${service.label} ${location.location}`}
               />
             ))}
           </div>
@@ -257,48 +341,38 @@ export default function HomePage() {
       <WorkShowcase
         actionHref="/contact"
         actionLabel="Request a Free Quote"
-        description="Real photos from recent hot water, bathroom, kitchen, toilet, and drainage work help visitors see the standard of finish they can expect from Grade A Plumbing across Melbourne."
-        limit={10}
-        note="If your plumbing issue looks similar, send through a quote request and include a photo. That usually makes it easier to explain the job and the likely next step."
-        title="See the kind of plumbing work we complete in Melbourne homes"
+        description="Genuine project photography helps visitors understand the range and finish of plumbing work completed by Grade A Plumbing."
+        limit={7}
+        note="Have a similar plumbing job? Include a photo with your quote request so we can better understand the work before calling you back."
+        title={`Recent plumbing work for homes and businesses near ${location.location}`}
       />
 
       <section className="relative overflow-hidden bg-brand-navy py-20 text-white">
         <div className="absolute inset-0 opacity-20" aria-hidden="true">
           <div className="h-full w-full bg-water-grid bg-[length:24px_24px]" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">Service area</p>
-              <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.9] tracking-[0.03em] sm:text-6xl">
-                Melbourne suburbs and surrounding areas
-              </h2>
-              <p className="mt-5 text-base leading-8 text-blue-50/85">
-                We service Melbourne CBD, St Kilda, South Melbourne, Richmond, and surrounding suburbs across inner, north, west, east, and south east Melbourne.
-              </p>
-              <p className="mt-4 font-semibold text-white">If your suburb is not listed, contact us to check availability.</p>
-            </div>
-            <ServiceAreaGrid />
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white/55 py-20 backdrop-blur">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
-              Local plumber searches
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:px-8">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">
+              Service area
             </p>
-            <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.9] tracking-[0.03em] text-brand-navy sm:text-6xl">
-              Plumber Melbourne, St Kilda, South Melbourne and Richmond
+            <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.9] tracking-[0.03em] sm:text-6xl">
+              Areas we service near {location.location}
             </h2>
-            <p className="mt-5 text-base leading-8 text-slate-600">
-              These are some of the inner-Melbourne areas we regularly service for emergency plumbing, blocked drains, hot water repairs, leaks, and commercial plumbing support.
+            <p className="mt-5 text-base leading-8 text-blue-50/85">
+              We service the surrounding suburbs listed here. Contact us with
+              your address and plumbing issue to confirm current availability.
             </p>
           </div>
-          <div className="mt-10">
-            <CoreLocationCards />
+          <div className="grid gap-3 sm:grid-cols-2">
+            {areas.map((area) => (
+              <div
+                key={area}
+                className="rounded-[1.25rem] border border-white/15 bg-white/10 px-5 py-4 font-semibold backdrop-blur"
+              >
+                {area}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -306,19 +380,28 @@ export default function HomePage() {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">Our process</p>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
+              Our process
+            </p>
             <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.9] tracking-[0.03em] text-brand-navy sm:text-6xl">
-              A simple plumbing process from first call to final check
+              A clear process from first contact to final check
             </h2>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {processSteps.map((step, index) => (
-              <article className="glass-surface rounded-[1.5rem] p-5" key={step.title}>
-                <span className="text-sm font-bold uppercase tracking-[0.24em] text-brand-blue">0{index + 1}</span>
+              <article
+                className="glass-surface rounded-[1.5rem] p-5"
+                key={step.title}
+              >
+                <span className="text-sm font-bold uppercase tracking-[0.24em] text-brand-blue">
+                  0{index + 1}
+                </span>
                 <h3 className="mt-5 font-display text-3xl font-bold uppercase leading-tight text-brand-navy">
                   {step.title}
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-slate-600">{step.text}</p>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  {step.text}
+                </p>
               </article>
             ))}
           </div>
@@ -328,18 +411,20 @@ export default function HomePage() {
       <section className="bg-white/55 py-20 backdrop-blur">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">FAQs</p>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
+              FAQs
+            </p>
             <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.9] tracking-[0.03em] text-brand-navy sm:text-6xl">
-              Melbourne plumbing questions
+              {location.location} plumbing questions
             </h2>
           </div>
-          <FAQ items={homepageFaqs} />
+          <FAQ items={faq} />
         </div>
       </section>
 
       <CTASection
-        text="Call Grade A Plumbing or request a free quote today."
-        title="Need a reliable plumber in Melbourne?"
+        text={`Call Grade A Plumbing or request a quote for plumbing services in ${location.location}.`}
+        title={`Need a plumber in ${location.location}?`}
       />
     </>
   );

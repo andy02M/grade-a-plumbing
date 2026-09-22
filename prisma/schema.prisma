@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum GoogleAccountStatus {
+  CONNECTED
+  NEEDS_REAUTH
+  REVOKED
+}
+
+enum BusinessProfileStatus {
+  VERIFIED
+  VERIFICATION_REQUIRED
+  SUSPENDED
+  UNKNOWN
+}
+
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  PAUSED
+  COMPLETE
+}
+
+enum PostStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+  FAILED
+  SKIPPED
+}
+
+model Workspace {
+  id              String          @id @default(cuid())
+  name            String
+  slug            String          @unique
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  users           WorkspaceUser[]
+  googleAccounts  GoogleAccount[]
+  businessProfiles BusinessProfile[]
+  campaigns       Campaign[]
+}
+
+model User {
+  id          String          @id @default(cuid())
+  email       String          @unique
+  name        String?
+  image       String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  workspaces  WorkspaceUser[]
+}
+
+model WorkspaceUser {
+  id          String      @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        AccountRole @default(OWNER)
+  createdAt   DateTime    @default(now())
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+}
+
+model GoogleAccount {
+  id                    String              @id @default(cuid())
+  workspaceId           String
+  googleSub             String
+  email                 String
+  name                  String?
+  picture               String?
+  encryptedRefreshToken String
+  status                GoogleAccountStatus @default(CONNECTED)
+  connectedAt           DateTime            @default(now())
+  lastSyncedAt          DateTime?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  workspace             Workspace           @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  businessProfiles      BusinessProfile[]
+
+  @@unique([workspaceId, googleSub])
+  @@unique([workspaceId, email])
+}
+
+model BusinessProfile {
+  id              String                @id @default(cuid())
+  workspaceId     String
+  googleAccountId String
+  googleName      String
+  locationId      String?
+  title           String
+  address         String?
+  phone           String?
+  websiteUrl      String?
+  status          BusinessProfileStatus @default(UNKNOWN)
+  selected        Boolean               @default(true)
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  workspace       Workspace             @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  googleAccount   GoogleAccount         @relation(fields: [googleAccountId], references: [id], onDelete: Cascade)
+  postTargets     CampaignPostTarget[]
+
+  @@unique([workspaceId, googleName])
+}
+
+model Campaign {
+  id          String         @id @default(cuid())
+  workspaceId String
+  name        String
+  timezone    String         @default("Australia/Melbourne")
+  status      CampaignStatus @default(DRAFT)
+  startsAt    DateTime?
+  endsAt      DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  workspace   Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  posts       CampaignPost[]
+}
+
+model CampaignPost {
+  id            String               @id @default(cuid())
+  campaignId    String
+  scheduledFor  DateTime
+  summary       String
+  url           String?
+  ctaType       String               @default("CALL")
+  status        PostStatus           @default(SCHEDULED)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  campaign      Campaign             @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  targets       CampaignPostTarget[]
+  publishLogs   PublishLog[]
+}
+
+model CampaignPostTarget {
+  id                String          @id @default(cuid())
+  campaignPostId    String
+  businessProfileId String
+  status            PostStatus      @default(SCHEDULED)
+  remotePostName    String?
+  lastError         String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  campaignPost      CampaignPost    @relation(fields: [campaignPostId], references: [id], onDelete: Cascade)
+  businessProfile   BusinessProfile @relation(fields: [businessProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignPostId, businessProfileId])
+}
+
+model PublishLog {
+  id             String       @id @default(cuid())
+  campaignPostId String
+  level          String       @default("info")
+  message        String
+  details        Json?
+  createdAt      DateTime     @default(now())
+  campaignPost   CampaignPost @relation(fields: [campaignPostId], references: [id], onDelete: Cascade)
+}
