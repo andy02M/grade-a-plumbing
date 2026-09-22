@@ -214,7 +214,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <CustomerReviews />
+      <CustomerReviews locationSlug={location.slug} />
 
       {(location.address || mapsUrl) && (
         <section className="border-y border-blue-100 bg-white/70 py-10">
