@@ -1,4 +1,5 @@
 import { generatedNearbySuburbs } from "./generated-nearby-suburbs";
+import { googleBusinessProfiles, type GoogleBusinessProfile } from "./google-business-profiles";
 import { storefronts, type StorefrontAddress } from "./storefronts";
 
 export type LocationTier = 1 | 2 | 3;
@@ -15,6 +16,7 @@ export type LocationConfig = {
   phoneHref?: string;
   postcode?: string;
   address?: StorefrontAddress;
+  googleBusinessProfile?: GoogleBusinessProfile;
   nearbySuburbs: string[];
   localIntroduction?: string;
   localProblems?: string[];
@@ -104,7 +106,8 @@ export const locations: LocationConfig[] = profiles.map((name) => {
     phone: "03 4421 6259",
     phoneHref: "tel:0344216259",
     nearbySuburbs: generatedNearbySuburbs[location] ?? [],
-    address: storefronts[slug]
+    address: storefronts[slug],
+    googleBusinessProfile: googleBusinessProfiles[slug]
   };
   if (location === "Coburg") return { ...base, ...coburgOverrides };
   if (location === "Greenvale") return { ...base, ...greenvaleOverrides };

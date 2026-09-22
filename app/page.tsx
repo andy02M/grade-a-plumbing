@@ -21,6 +21,7 @@ import {
   whyChooseUs,
 } from "@/lib/site";
 import { formatStorefrontAddress } from "@/lib/storefronts";
+import { publicMapsUrl } from "@/lib/google-business-profiles";
 
 const serviceIcons: Record<string, IconName> = {
   "blocked-drains": "drain",
@@ -53,6 +54,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const location = await getRequestLocation();
+  const mapsUrl = publicMapsUrl(location.googleBusinessProfile);
   const areas = location.nearbySuburbs.length
     ? location.nearbySuburbs
     : [location.location];
@@ -89,6 +91,7 @@ export default async function HomePage() {
       image: `${location.website}${brandAssets.heroBanner.src}`,
       logo: `${location.website}${brandAssets.logo.src}`,
       priceRange: "$$",
+      ...(mapsUrl ? { hasMap: mapsUrl } : {}),
       ...(location.address
         ? { address: { "@type": "PostalAddress", ...location.address } }
         : {}),
@@ -213,7 +216,7 @@ export default async function HomePage() {
 
       <CustomerReviews />
 
-      {location.address && (
+      {(location.address || mapsUrl) && (
         <section className="border-y border-blue-100 bg-white/70 py-10">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div>
@@ -223,9 +226,16 @@ export default async function HomePage() {
               <h2 className="mt-2 font-display text-3xl font-bold uppercase text-brand-navy">
                 Visit or contact our local team
               </h2>
-              <p className="mt-2 text-slate-600">{formatStorefrontAddress(location.address)}</p>
+              {location.address ? (
+                <p className="mt-2 text-slate-600">{formatStorefrontAddress(location.address)}</p>
+              ) : (
+                <p className="mt-2 text-slate-600">Serving {location.location} and nearby suburbs.</p>
+              )}
             </div>
-            <ButtonLink href="/contact/" variant="secondary">Contact this location</ButtonLink>
+            <div className="flex flex-wrap gap-3">
+              {mapsUrl && <ButtonLink href={mapsUrl} variant="secondary">View on Google Maps</ButtonLink>}
+              <ButtonLink href="/contact/" variant="secondary">Contact this location</ButtonLink>
+            </div>
           </div>
         </section>
       )}
