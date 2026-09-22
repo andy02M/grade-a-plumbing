@@ -10,10 +10,10 @@ export function CustomerReviews() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-brand-blue">Customer feedback</p>
-            <h2 id="customer-reviews-title" className="mt-2 font-display text-3xl font-black text-brand-navy sm:text-4xl">Five-star reviews from our customers</h2>
+            <p className="font-sans text-sm font-bold uppercase tracking-[0.14em] text-brand-blue">Customer feedback</p>
+            <h2 id="customer-reviews-title" className="mt-2 font-sans text-3xl font-bold leading-tight tracking-[-0.025em] text-brand-navy sm:text-4xl">Five-star reviews from our customers</h2>
           </div>
-          <p className="text-sm text-slate-500">Reviews supplied from the Grade A Plumbing Google Business Profile</p>
+          <p className="font-sans text-sm leading-6 text-slate-500">Reviews supplied from the Grade A Plumbing Google Business Profile</p>
         </div>
         <div className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-5" aria-label="Customer reviews">
           {customerReviews.map((review) => (
