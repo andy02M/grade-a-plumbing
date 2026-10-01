@@ -72,7 +72,7 @@ test("every unique location has nearby suburb data", () => {
 });
 test("phone and email actions use verified targets", () => {
   const site = readFileSync(new URL("../lib/site.ts", import.meta.url), "utf8");
-  assert.match(site, /phoneHref: "tel:0344216259"/);
+  assert.match(site, /phoneHref: "tel:0258375457"/);
   assert.match(site, /email: "support@gradeaplumbing\.store"/);
   assert.match(site, /emailHref: "mailto:support@gradeaplumbing\.store"/);
 });

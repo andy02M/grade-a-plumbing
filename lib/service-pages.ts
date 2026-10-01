@@ -112,7 +112,7 @@ export const emergencyPlumbingPage: ServicePageContent = {
     {
       question: "Do you help with blocked drains after hours?",
       answer:
-        "Emergency availability depends on scheduling and demand. Call 03 4421 6259 and we will confirm the soonest available option."
+        "Emergency availability depends on scheduling and demand. Call (02) 5837 5457 and we will confirm the soonest available option."
     },
     {
       question: "What should I do if I smell gas?",

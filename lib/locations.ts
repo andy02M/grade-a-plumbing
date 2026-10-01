@@ -103,8 +103,8 @@ export const locations: LocationConfig[] = profiles.map((name) => {
     website: `https://${slug}.gradeaplumbing.store`,
     state: "VIC",
     tier: location === "Melbourne" ? 2 : 3,
-    phone: "03 4421 6259",
-    phoneHref: "tel:0344216259",
+    phone: "(02) 5837 5457",
+    phoneHref: "tel:0258375457",
     nearbySuburbs: generatedNearbySuburbs[location] ?? [],
     address: storefronts[slug],
     googleBusinessProfile: googleBusinessProfiles[slug]

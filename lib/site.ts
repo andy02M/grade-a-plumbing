@@ -4,8 +4,8 @@ const whatsAppMessage = "Hi Grade A Plumbing, I need help with a plumbing issue 
 export const site = {
   name: "Grade A Plumbing",
   baseUrl: "https://melbourne.gradeaplumbing.store",
-  phone: "03 4421 6259",
-  phoneHref: "tel:0344216259",
+  phone: "(02) 5837 5457",
+  phoneHref: "tel:0258375457",
   email: "support@gradeaplumbing.store",
   emailHref: "mailto:support@gradeaplumbing.store",
   whatsAppNumber,
@@ -429,7 +429,7 @@ export const homepageFaqs = [
   {
     question: "How fast can a plumber arrive in Melbourne?",
     answer:
-      "Response times depend on your suburb, traffic, current bookings, and the urgency of the plumbing issue. Call Grade A Plumbing on 03 4421 6259 and we will give you the clearest available timing."
+      "Response times depend on your suburb, traffic, current bookings, and the urgency of the plumbing issue. Call Grade A Plumbing on (02) 5837 5457 and we will give you the clearest available timing."
   },
   {
     question: "Do you offer emergency plumbing?",
