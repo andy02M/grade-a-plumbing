@@ -61,6 +61,14 @@ source-linked property guidance and local FAQs. Twelve locations now have resear
 guidance; 70 configured locations remain outside this dataset. No new host or
 service indexing permission was added.
 
+Third location batch completed on 1 October: Richmond, Altona and Box Hill.
+Distinct introductions, descriptions, practical guidance and visible/schema FAQs
+cover public-land excavation, private connections and easements respectively.
+Official council sources are linked. Regression checks now reject repeated
+paragraphs, questions and descriptions and invalid related-service slugs.
+Fifteen configured locations have researched guidance; 67 remain. Recorded
+addresses remain unverified; no indexing gate or expansion permission changed.
+
 ## Stage 4: publisher reliability and measurement
 
 Implemented: curated official source retrieval with response/content checks and

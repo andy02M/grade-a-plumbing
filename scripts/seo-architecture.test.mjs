@@ -17,7 +17,7 @@ test("location readiness accounts for every target without silently expanding ho
  assert.equal(report.summary.targets, 100);
  assert.equal(report.summary.configured, 82);
  assert.equal(report.summary.expansionTargets, 18);
- assert.equal(report.summary.sourceLinkedLocalGuidance, 12);
+ assert.equal(report.summary.sourceLinkedLocalGuidance, 15);
  assert.equal(report.summary.incompleteRecordedAddresses, 2);
  assert.ok(report.inventory.every(item => item.expansionApproved === false));
  assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
@@ -60,6 +60,31 @@ test("second location batch has distinct introductions and meta descriptions", (
  const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
  assert.match(home, /localGuidance\[location.slug\]\?\.metaDescription/);
  assert.match(home, /localGuidance\[location.slug\]\?\.introduction/);
+});
+test("third location batch has distinct customer-facing content and valid service links", () => {
+ const guidance = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
+ const descriptions = new Set();
+ const paragraphs = new Set();
+ const questions = new Set();
+ for (const [slug, entry] of Object.entries(guidance)) {
+  if (entry.metaDescription) {
+   assert.ok(!descriptions.has(entry.metaDescription), slug);
+   descriptions.add(entry.metaDescription);
+   assert.ok(entry.metaDescription.length <= 190, slug);
+  }
+  for (const paragraph of entry.paragraphs) {
+   assert.ok(!paragraphs.has(paragraph), slug); paragraphs.add(paragraph);
+  }
+  for (const faq of entry.faqs) {
+   assert.ok(!questions.has(faq.question), slug); questions.add(faq.question);
+  }
+  for (const service of entry.relatedServices) {
+   assert.ok(["blocked-drains", "hot-water", "emergency-plumbing", "sewer-repairs", "pipe-relining", "gas-plumbing", "commercial-plumbing", "leak-detection"].includes(service), `${slug}: ${service}`);
+  }
+ }
+ for (const slug of ["richmond", "altona", "boxhill"]) {
+  assert.ok(guidance[slug].introduction && guidance[slug].metaDescription);
+ }
 });
 test("complete supplied profile register preserves separate Melbourne profiles", () => {
  const records = JSON.parse(readFileSync(new URL("../data/google-business-register.json", import.meta.url), "utf8"));

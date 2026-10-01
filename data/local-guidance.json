@@ -1,4 +1,52 @@
 {
+  "richmond": {
+    "heading": "Clarify public-land excavation before agreeing to a connection",
+    "checkedDate": "2026-10-01",
+    "introduction": "Request plumbing help in Richmond for leaks, hot water and drainage. If a proposed repair crosses into a road or footpath, discuss access, the work boundary and approval responsibilities first.",
+    "metaDescription": "Need a plumber in Richmond? Discuss leaks, hot water and drains, with Yarra guidance on permissions for excavation into roads, footpaths and Council land.",
+    "paragraphs": [
+      "Yarra requires permission for excavation into roads, footpaths or Council land, including new stormwater and water services. For a Richmond connection enquiry, tell the assessor whether the proposed route extends outside the property rather than assuming a plumbing booking includes permission to excavate.",
+      "Council also identifies additional stormwater approvals and requests existing-service information with the application. Share any plans and approval references you hold, and ask who will establish the work boundary and obtain the necessary permissions. This guidance does not determine the requirements for an individual property."
+    ],
+    "faqs": [
+      {"question": "Can a Richmond plumbing booking authorise footpath excavation?", "answer": "No. Yarra requires permission to excavate into roads, footpaths or Council land. Confirm the scope and approval responsibilities before agreeing to that work."},
+      {"question": "What should I prepare for work outside my property boundary?", "answer": "Provide available plans, approval references and details of the proposed connection. Yarra's road-opening guidance also requests existing-service information; confirm the current requirements with Council."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [{"title": "Yarra City Council: road or footpath opening", "url": "https://www.yarracity.vic.gov.au/planning-and-building/building-yarra/building-permits-and-inspections/road-footpath-opening"}]
+  },
+  "altona": {
+    "heading": "Identify the private connection before reporting a drainage fault",
+    "checkedDate": "2026-10-01",
+    "introduction": "Discuss plumbing assistance in Altona for drains, leaks or hot water. For an overflow, describe where water appears and whether the affected asset is on the property or in public land.",
+    "metaDescription": "Request plumbing help in Altona for drains, leaks and hot water. Understand Hobsons Bay's distinction between private connections and Council stormwater assets.",
+    "paragraphs": [
+      "Hobsons Bay explains that owners are responsible for stormwater drainage on their property and the section connecting it to the Council drain. Council manages drainage from the legal point of discharge. A pipe outside the fence is therefore not automatically a Council repair responsibility.",
+      "For an Altona drainage enquiry, describe the overflow location, affected fixtures and whether the issue occurs during rainfall. Share connection records if available and ask the assessment to distinguish a private connection problem from a public asset issue. Do not use the location of visible water alone to diagnose a buried fault."
+    ],
+    "faqs": [
+      {"question": "Who maintains the stormwater connection from an Altona property?", "answer": "Hobsons Bay assigns the property's stormwater drainage and its connection to the Council drain to the owner. Confirm the legal discharge point and asset ownership for the property."},
+      {"question": "What information helps define an Altona drainage assessment?", "answer": "Explain where water appears, which fixtures are affected and whether rainfall changes the problem. Available connection records can help frame the assessment, but do not prove the fault."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [{"title": "Hobsons Bay City Council: stormwater drainage", "url": "https://www.hobsonsbay.vic.gov.au/Services/Roads-and-transport/Stormwater-drainage"}]
+  },
+  "boxhill": {
+    "heading": "Check easement permissions even when a drain is not visible",
+    "checkedDate": "2026-10-01",
+    "introduction": "Request plumbing help in Box Hill for drainage, leaks and hot water faults. For a proposed drainage alteration near an easement, provide title information and explain what work is intended.",
+    "metaDescription": "Need a plumber in Box Hill? Discuss drains, leaks or hot water, and check Whitehorse guidance on drainage easements before planning an alteration.",
+    "paragraphs": [
+      "Whitehorse notes that not every drainage easement contains a drain, but installing a drain or building over a drainage easement requires Council permission. For a Box Hill alteration, an apparently empty strip of land should not be treated as evidence that no approval is needed.",
+      "Provide any title or easement documents and describe the proposed route, access and structures. Ask which permissions must be resolved before work begins. For a blocked public stormwater drain, Whitehorse provides reporting channels; distinguish that report from booking assessment of private property drainage."
+    ],
+    "faqs": [
+      {"question": "Does an empty drainage easement mean I can install a drain?", "answer": "No. Whitehorse says some easements do not contain drains, but installing a drain or building over a drainage easement requires Council permission. Check the property's requirements."},
+      {"question": "How do I distinguish a public drain report from a private plumbing enquiry?", "answer": "Describe the affected asset and location. Whitehorse provides channels to report blocked Council stormwater drains; a private property fault needs a separately defined assessment."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "Whitehorse City Council: drainage and easements", "url": "https://www.whitehorse.vic.gov.au/planning-building/do-i-need-permit/drainage-and-easements"}]
+  },
   "fitzroy": {
     "heading": "Check responsibility for drainage beneath a footpath",
     "checkedDate": "2026-10-01",
