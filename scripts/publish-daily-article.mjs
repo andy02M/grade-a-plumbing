@@ -1,0 +1,41 @@
+import { readFile, writeFile, readdir } from "node:fs/promises";
+const read = async p => JSON.parse(await readFile(p,"utf8"));
+const p=Object.fromEntries(new Intl.DateTimeFormat("en-CA",{timeZone:"Australia/Sydney",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+const today=p.year+"-"+p.month+"-"+p.day;
+if(today>"2026-12-31") process.exit(0);
+const verify=process.argv.includes("--verify");
+if(!verify&&process.env.MANUAL_RUN!=="true"&&p.hour!=="09") process.exit(0);
+const files=(await readdir("data")).filter(f=>/^article-calendar-\d+\.json$/.test(f)).sort();
+const lists=await Promise.all(files.map(f=>read("data/"+f)));
+const brief=lists.flat().find(r=>r.date===today);
+if(!brief) throw new Error("No brief for today.");
+const generated=await read("data/generated-articles.json");
+const url="https://melbourne.gradeaplumbing.store/blog/"+brief.slug+"/";
+if(verify){
+ if(brief.status==="planned"&&!generated.some(a=>a.slug===brief.slug)) process.exit(0);
+ if(brief.status==="published") process.exit(0);
+ for(let i=0;i<40;i++){try{const r=await fetch(url,{signal:AbortSignal.timeout(10000)});const h=await r.text();if(r.ok&&h.includes(brief.slug)&&h.includes('rel="canonical"')){brief.status="published";brief.publishedUrl=url;for(let n=0;n<files.length;n++)await writeFile("data/"+files[n],JSON.stringify(lists[n])+"\n");console.log("Verified "+url);process.exit(0);}}catch{}await new Promise(r=>setTimeout(r,15000));}
+ throw new Error("Live deployment not verified.");
+}
+if(brief.status==="published"||generated.some(a=>a.slug===brief.slug||a.publishedDate===today)) process.exit(0);
+if(!process.env.GEMINI_API_KEY) throw new Error("Set GEMINI_API_KEY in GitHub Actions secrets.");
+const publicTopics=["How Long Does a Hot Water System Last?","Why Drains Keep Blocking","Sewer Repair vs Pipe Relining","Before Booking a Plumber in Coburg: Photos, Access and Questions to Prepare",...generated.map(a=>a.title)];
+const services=["blocked-drains","sewer-repairs","pipe-relining","hot-water","emergency-plumber","burst-pipe-repair","gas-plumbing","commercial-plumbing"];
+const prompt="Write 1200–2000 words for Grade A Plumbing as JSON with metaTitle,metaDescription,excerpt,sections:[{heading,paragraphs:[string]}],faq:[{question,answer}],relatedServices:[string],relatedArticles:[]. Title: "+brief.title+". Target: "+brief.targetKeyword+". Avoid overlapping these public article topics: "+JSON.stringify(publicTopics)+". Service slugs: "+JSON.stringify(services)+". Plain text only. Provide useful symptoms, professional assessment options and preparation. No invented local facts, jobs, reviews, addresses, prices, qualifications or arrival times. No hazardous DIY, precise legal thresholds, statistics or medical advice. Do not promise rankings. Finish with CTA (02) 5837 5457 and support@gradeaplumbing.store.";
+const model=process.env.GEMINI_MODEL||"gemini-2.5-flash";
+const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(model)+":generateContent",{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":process.env.GEMINI_API_KEY},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{responseMimeType:"application/json",maxOutputTokens:12000}}),signal:AbortSignal.timeout(180000)});
+if(!r.ok)throw new Error("Gemini HTTP "+r.status+"; check key, quota and model.");
+const result=await r.json();
+const a=JSON.parse(result.candidates?.[0]?.content?.parts?.map(p=>p.text||"").join("")||"null");
+if(!a||!Array.isArray(a.sections)||a.sections.length<5||!Array.isArray(a.faq))throw new Error("Incomplete article.");
+for(const s of a.sections)if(typeof s.heading!=="string"||!Array.isArray(s.paragraphs)||!s.paragraphs.every(p=>typeof p==="string"))throw new Error("Invalid section.");
+for(const f of a.faq)if(typeof f.question!=="string"||typeof f.answer!=="string")throw new Error("Invalid FAQ.");
+for(const k of ["metaTitle","metaDescription","excerpt"])if(typeof a[k]!=="string"||!a[k].trim())throw new Error("Missing metadata.");
+const text=a.sections.flatMap(s=>s.paragraphs).join(" ");const count=text.split(/\s+/).length;
+if(count<1200||count>2200||/<\/?[a-z][^>]*>/i.test(text))throw new Error("Invalid length or HTML.");
+if(!Array.isArray(a.relatedServices)||a.relatedServices.some(s=>!services.includes(s)))throw new Error("Invalid links.");
+a.relatedArticles=[];
+Object.assign(a,{title:brief.title,slug:brief.slug,author:"Grade A Plumbing",publishedDate:today,locationSlugs:[brief.locationSlug],status:"published"});
+generated.push(a);await writeFile("data/generated-articles.json",JSON.stringify(generated,null,2)+"\n");
+brief.status="awaiting-deployment";for(let n=0;n<files.length;n++)await writeFile("data/"+files[n],JSON.stringify(lists[n])+"\n");
+console.log("Prepared "+count+" words: "+url);
