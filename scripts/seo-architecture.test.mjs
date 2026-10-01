@@ -236,7 +236,7 @@ test("quote form posts to validated email handler", () => {
   );
   assert.match(form, /fetch\("\/api\/quote"/);
   assert.match(route, /RESEND_API_KEY/);
-  assert.match(route, /to: \[site\.email\]/);
+  assert.match(route, /to: \[site\.email, "zenn@gradeaplumbing\.store"\]/);
   for (const field of ["name", "phone", "suburb", "service"])
     assert.match(route, new RegExp(`payload\\.${field}`));
 });

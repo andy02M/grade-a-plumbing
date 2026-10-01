@@ -124,7 +124,7 @@ async function sendQuoteEmail(submission: StoredQuote) {
     },
     body: JSON.stringify({
       from: process.env.QUOTE_FROM_EMAIL ?? "Grade A Plumbing Quotes <onboarding@resend.dev>",
-      to: [site.email],
+      to: [site.email, "zenn@gradeaplumbing.store"],
       reply_to: submission.email || undefined,
       subject: `New free quote request from ${submission.name}`,
       text: [
