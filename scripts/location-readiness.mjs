@@ -79,6 +79,10 @@ export function unconfiguredHost(host) {
   return loadConfig(resolve(root, "lib/locations.ts")).isUnconfiguredLocationHost(host);
 }
 
+export function readSeoConfiguration(relativePath) {
+  return loadConfig(resolve(root, relativePath));
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const report = locationReadiness();
   if (process.argv.includes("--live-expansion")) {

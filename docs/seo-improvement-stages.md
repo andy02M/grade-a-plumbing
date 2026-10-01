@@ -57,7 +57,22 @@ advice does not by itself make a page or a new location ready for indexation.
 
 ## Stage 4: publisher reliability and measurement
 
-Require verified source material, related-article links, semantic intent review
-and a skip gate for weak drafts. Add missed-run detection and stronger deployment
-verification. Establish Search Console and enquiry baselines when access exists.
-Unresolved email-secret configuration must not be reported as working delivery.
+Implemented: curated official source retrieval with response/content checks and
+source hashes, supporting citations, valid related guides, deterministic duplicate
+and reuse checks, and separate model reviews before and after writing. Unsupported
+drafts are held rather than padded or published. Reviews are automated checks,
+not independent expert fact-checks or a guarantee of accuracy.
+
+The publisher records missed dates without backdating a catch-up batch, supports
+later same-day recovery and rechecks outstanding deployments. Live verification
+requires the exact editorial canonical, visible headline and body, article schema,
+publication/update dates, and no noindex directives. The workflow commits only
+article data, calendar state and the publication log. Manual verification-only
+runs can test sources and existing publication without generating another article.
+
+Repository baseline collection is available with `npm run seo:baseline`. Search
+Console, enquiries and field Core Web Vitals remain unknown until authorised
+account data is available; they are never presented as zero or invented scores.
+The GitHub secret inventory contains GEMINI_API_KEY but not RESEND_API_KEY.
+Failure/hold jobs therefore remain visible in Actions, but the requested failure
+email delivery is not configured or verified.

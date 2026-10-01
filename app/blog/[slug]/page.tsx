@@ -118,6 +118,7 @@ export default async function ArticlePage({
                   {p}
                 </p>
               ))}
+              {s.sourceUrls?.length ? <p className="mt-4 text-sm leading-6 text-slate-600">Supporting guidance: {s.sourceUrls.map((url,index) => { const source=a.sources?.find(item=>item.url===url); return source ? <span key={url}>{index ? " · " : ""}<a className="text-brand-blue underline underline-offset-4" href={url}>{source.title}</a></span> : null; })}</p> : null}
             </section>
           ))}
           {a.faq.length > 0 && (

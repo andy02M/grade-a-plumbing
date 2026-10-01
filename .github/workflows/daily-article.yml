@@ -2,7 +2,14 @@ name: Daily plumbing article
 on:
   schedule:
     - cron: '0 22,23 * * *'
+    # A recovery check only; it cannot create a second article for the same day.
+    - cron: '0 2 * * *'
   workflow_dispatch:
+    inputs:
+      verification_only:
+        description: 'Test sources, project checks and the existing live article without generating content'
+        type: boolean
+        default: false
 permissions:
   contents: write
 concurrency:
@@ -11,41 +18,68 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - name: Check Sydney publishing window and outstanding deployments
+        id: readiness
+        env:
+          MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
+          VERIFY_ONLY: ${{ inputs.verification_only || false }}
+        run: node scripts/publish-daily-article.mjs --preflight
+      - name: Smoke-test official source access without generating content
+        if: inputs.verification_only == true
+        run: node scripts/publish-daily-article.mjs --check-sources
       - name: Verify Gemini key and model access
+        if: steps.readiness.outputs.should_generate == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
         run: node scripts/publish-daily-article.mjs --check-key
-      - name: Generate today's article
+      - name: Prepare article or record editorial hold
+        id: prepare
+        if: steps.readiness.outputs.should_run == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
+          VERIFY_ONLY: ${{ inputs.verification_only || false }}
         run: node scripts/publish-daily-article.mjs
-      - run: npm run typecheck && npm test && node --test scripts/plan-article.test.mjs && npm run build
+      - if: steps.readiness.outputs.should_run == 'true'
+        run: npm run typecheck && npm test && npm run build
       - name: Publish to GitHub and Vercel
+        if: steps.readiness.outputs.should_run == 'true'
         run: |
-          if git diff --quiet -- data/generated-articles.json data/article-calendar-*.json; then exit 0; fi
+          if git diff --quiet -- data/generated-articles.json data/article-calendar-*.json data/article-publication-log.json; then exit 0; fi
           git config user.name 'Grade A Plumbing publisher'
           git config user.email 'publisher@users.noreply.github.com'
-          git add data/generated-articles.json data/article-calendar-*.json
-          git commit -m 'Publish daily plumbing guide'
+          git add data/generated-articles.json data/article-calendar-*.json data/article-publication-log.json
+          git commit -m 'Record daily article preparation and editorial checks'
+          git pull --rebase origin main
           git push origin HEAD:main
+      - name: Flag editorial holds and retry-required failures
+        if: steps.prepare.outputs.outcome == 'held' || steps.prepare.outputs.outcome == 'failed'
+        run: |
+          echo 'No new article published. The reason is recorded in the calendar and publication log.'
+          exit 1
       - name: Verify live article
+        if: steps.readiness.outputs.should_run == 'true'
+        env:
+          VERIFY_ONLY: ${{ inputs.verification_only || false }}
         run: node scripts/publish-daily-article.mjs --verify
       - name: Record verified publication
         run: |
-          if git diff --quiet -- data/article-calendar-*.json; then exit 0; fi
+          if git diff --quiet -- data/article-calendar-*.json data/article-publication-log.json; then exit 0; fi
           git config user.name 'Grade A Plumbing publisher'
           git config user.email 'publisher@users.noreply.github.com'
-          git add data/article-calendar-*.json
+          git add data/article-calendar-*.json data/article-publication-log.json
           git commit -m 'Record verified article deployment'
+          git pull --rebase origin main
           git push origin HEAD:main

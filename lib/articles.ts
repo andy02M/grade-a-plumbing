@@ -1,4 +1,4 @@
-export type Article = { title:string; slug:string; metaTitle:string; metaDescription:string; author:string; publishedDate:string; updatedDate?:string; heroImage?:string; heroImageAlt?:string; excerpt:string; sections:{heading:string;paragraphs:string[]}[]; relatedServices:string[]; relatedArticles:string[]; locationSlugs?:string[]; sources?:{title:string;url:string}[]; faq:{question:string;answer:string}[]; status:"draft"|"published" };
+export type Article = { title:string; slug:string; metaTitle:string; metaDescription:string; author:string; publishedDate:string; updatedDate?:string; heroImage?:string; heroImageAlt?:string; excerpt:string; sections:{heading:string;paragraphs:string[];sourceUrls?:string[]}[]; relatedServices:string[]; relatedArticles:string[]; locationSlugs?:string[]; sources?:{title:string;url:string;checkedDate?:string}[]; faq:{question:string;answer:string}[]; status:"draft"|"published" };
 import { hotWaterGuide } from './hot-water-guide';
 import { blockedDrainsGuide } from './blocked-drains-guide';
 import { sewerRepairGuide } from './sewer-repair-guide';
