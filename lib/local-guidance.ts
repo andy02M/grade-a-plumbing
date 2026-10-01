@@ -1,6 +1,8 @@
 import records from "@/data/local-guidance.json";
 
 export type LocalGuidance = {
+  introduction?: string;
+  metaDescription?: string;
   heading: string;
   checkedDate: string;
   paragraphs: string[];

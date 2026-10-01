@@ -52,10 +52,10 @@ without Gemini generation.
 
 ## Alerts and measurement limitations
 
-As checked on 1 October 2026, GitHub has GEMINI_API_KEY but no RESEND_API_KEY.
-The existing failure-email workflow cannot deliver alerts without that dependency.
-No email test was sent and no successful email delivery is claimed. Failures and
-holds remain recorded in Actions and the repository publication log.
+The initial missing RESEND_API_KEY was resolved on 1 October 2026. GitHub's test
+email workflow succeeded and the user confirmed receipt at andys1stalt@gmail.com.
+Failure email delivery is configured and tested. Failures and holds also remain
+recorded in Actions and the repository publication log.
 
 `npm run seo:baseline` reports observable repository content and coverage only.
 Search Console impressions, clicks, CTR, query/page positions and Google indexed

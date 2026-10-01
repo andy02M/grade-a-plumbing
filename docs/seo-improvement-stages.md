@@ -55,6 +55,12 @@ verification and complete expansion content. No new premises, hours or qualifica
 details were invented. No service indexing gate was removed. Source-linked practical
 advice does not by itself make a page or a new location ready for indexation.
 
+Second batch completed on 1 October: Fitzroy, Williamstown, Blackburn, Thornbury,
+Craigieburn and Moorabbin. Each has distinct introductions, meta descriptions,
+source-linked property guidance and local FAQs. Twelve locations now have researched
+guidance; 70 configured locations remain outside this dataset. No new host or
+service indexing permission was added.
+
 ## Stage 4: publisher reliability and measurement
 
 Implemented: curated official source retrieval with response/content checks and
@@ -73,6 +79,6 @@ runs can test sources and existing publication without generating another articl
 Repository baseline collection is available with `npm run seo:baseline`. Search
 Console, enquiries and field Core Web Vitals remain unknown until authorised
 account data is available; they are never presented as zero or invented scores.
-The GitHub secret inventory contains GEMINI_API_KEY but not RESEND_API_KEY.
-Failure/hold jobs therefore remain visible in Actions, but the requested failure
-email delivery is not configured or verified.
+RESEND_API_KEY was subsequently saved in GitHub. The test email workflow passed
+and the user confirmed receipt on 1 October 2026. Failure email delivery is now
+configured and tested; the initial missing-secret limitation is resolved.

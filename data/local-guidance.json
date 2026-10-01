@@ -1,4 +1,100 @@
 {
+  "fitzroy": {
+    "heading": "Check responsibility for drainage beneath a footpath",
+    "checkedDate": "2026-10-01",
+    "introduction": "Request plumbing help in Fitzroy for drains, leaks and hot water faults. For drainage near a footpath, clarify the connection and assessment scope before agreeing to work.",
+    "metaDescription": "Need a plumber in Fitzroy? Discuss drains, leaks or hot water faults, prepare access details and learn what Yarra says about private stormwater connections.",
+    "paragraphs": [
+      "Yarra City Council explains that a property's stormwater outlet remains private infrastructure up to its legal point of discharge, including pipework beneath a footpath. For a Fitzroy enquiry, do not assume every pipe outside the fence is Council-maintained.",
+      "Describe the affected drain and provide available connection records. Yarra offers a reporting channel for blocked or flooded public stormwater assets. Confirm ownership and access before approving work; a visible overflow does not establish which asset has failed."
+    ],
+    "faqs": [
+      {"question": "Is a stormwater pipe under a Fitzroy footpath automatically public?", "answer": "No. Yarra says a property's stormwater outlet up to its legal discharge point is private infrastructure, including sections beneath the footpath. Check the specific connection."},
+      {"question": "Where do I report a blocked public stormwater asset?", "answer": "Yarra provides an online reporting channel on its stormwater guidance page. Distinguish public infrastructure from the property's private connection before deciding who should investigate."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "Yarra City Council: stormwater drains and discharge points", "url": "https://www.yarracity.vic.gov.au/planning-and-building/building-yarra/stormwater-drains-and-legal-point-discharge"}]
+  },
+  "williamstown": {
+    "heading": "An approved discharge point does not prove the existing connection",
+    "checkedDate": "2026-10-01",
+    "introduction": "Discuss plumbing assessment in Williamstown for drainage, hot water and leaks. Existing drainage records help explain the property, but do not replace checking its actual connection.",
+    "metaDescription": "Request plumbing help in Williamstown for drains, hot water or leaks. Find Hobsons Bay guidance on approved discharge points and existing drainage connections.",
+    "paragraphs": [
+      "Hobsons Bay's discharge report identifies where stormwater should go, but Council says it does not establish where a property's existing drainage actually connects. For a Williamstown investigation, keep the approved destination separate from the question of what is on site.",
+      "Share the report, earlier findings and safely accessible photographs when discussing a blockage or alteration. Ask whether the proposed assessment will establish the existing route. An approval record alone should not be presented as proof of a buried connection or a diagnosis."
+    ],
+    "faqs": [
+      {"question": "Does a Hobsons Bay report confirm my current stormwater route?", "answer": "Council says its report identifies the approved discharge location, not where existing private drains actually connect. Site assessment may still be needed."},
+      {"question": "What should I ask before a Williamstown drainage investigation?", "answer": "Ask which question the assessment will answer: restoring flow, checking an existing connection or planning an alteration. Provide available reports without assuming they establish the fault."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [{"title": "Hobsons Bay City Council: stormwater drainage", "url": "https://www.hobsonsbay.vic.gov.au/Services/Roads-and-transport/Stormwater-drainage"}]
+  },
+  "blackburn": {
+    "heading": "Separate a drainage report, design approval and works permission",
+    "checkedDate": "2026-10-01",
+    "introduction": "Request a plumbing assessment in Blackburn for drains, leaks or hot water. When changing stormwater drainage, explain the proposed work and which Council documents you already hold.",
+    "metaDescription": "Need plumbing help in Blackburn? Discuss drains, leaks and hot water, with Whitehorse guidance explaining drainage reports, design checks and works permission.",
+    "paragraphs": [
+      "Whitehorse distinguishes a stormwater discharge report, drainage design assessment where required, and permission to undertake drainage works. Council expressly says the discharge report alone does not authorise the work. This distinction matters when discussing a Blackburn repair or changed connection.",
+      "Provide the documents you actually hold and describe what is proposed. Ask which approval questions remain unresolved before agreeing to excavation or a new route. Keep fault diagnosis separate from authorisation: knowing why a drain backs up does not settle the permission process."
+    ],
+    "faqs": [
+      {"question": "Does a Whitehorse discharge report permit drainage works?", "answer": "No. Council says the report alone does not authorise works and describes separate design and drainage-permit stages where applicable."},
+      {"question": "Which documents should I share for a Blackburn drainage alteration?", "answer": "Share the discharge report, any approved design and works permission you hold. Identify missing documents rather than assuming one application covers every stage."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "Whitehorse City Council: drainage and easements", "url": "https://www.whitehorse.vic.gov.au/planning-building/do-i-need-permit/drainage-and-easements"}]
+  },
+  "thornbury": {
+    "heading": "Prepare the proposed works description and site plan",
+    "checkedDate": "2026-10-01",
+    "introduction": "Discuss plumbing help in Thornbury for drains, leaks and hot water. If the enquiry involves a changed stormwater connection, provide the proposed scope and any existing site plans.",
+    "metaDescription": "Request plumbing help in Thornbury for drains, leaks or hot water. Prepare site plans and proposed works details using Darebin's stormwater application guidance.",
+    "paragraphs": [
+      "Darebin's discharge application asks for a description of proposed building works and a site plan. For a Thornbury connection enquiry, these documents help distinguish an intended change from an assessment of an existing fault.",
+      "Council also directs applicants needing permission to connect to its road-opening permit process. Explain whether the scope may extend beyond the property boundary, and confirm the relevant process with Council. Do not treat an enquiry, connection recommendation or drainage clearance as permission to open a road or footpath."
+    ],
+    "faqs": [
+      {"question": "What does Darebin request with a discharge application?", "answer": "Its published instructions request the proposed building-work description and a site plan. Check the current application guidance for the property."},
+      {"question": "Can a drainage enquiry authorise road-opening work?", "answer": "No. Darebin points applicants needing connection permission to a separate road-opening permit process. Clarify the work scope and approvals before proceeding."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [{"title": "Darebin City Council: stormwater legal point of discharge", "url": "https://www.darebin.vic.gov.au/Planning-and-building/Building-and-renovations/Building-step-1-gather-information/Types-of-building-permits/Non-building-applications-and-permits/Stormwater-legal-point-of-discharge"}]
+  },
+  "craigieburn": {
+    "heading": "Request asset details when a connection point is not enough",
+    "checkedDate": "2026-10-01",
+    "introduction": "Request plumbing help in Craigieburn for drains, hot water and leaks. For drainage changes, explain whether you need fault assessment, connection information or details of adjoining Council assets.",
+    "metaDescription": "Need a plumber in Craigieburn? Discuss drains, leaks and hot water, with Hume guidance on the difference between discharge information and drainage asset details.",
+    "paragraphs": [
+      "Hume offers separate information about a legal discharge point and existing Council drainage assets. Asset details can cover matters such as pipe depth and boundary offsets; the discharge-point permit does not itself supply those measurements.",
+      "For a Craigieburn enquiry involving a proposed route or adjoining infrastructure, state which records are available and what remains unknown. Ask which information is relevant before design or excavation is agreed. Council asset details should not be mistaken for a complete plan of private internal pipework."
+    ],
+    "faqs": [
+      {"question": "Does Hume's discharge permit include pipe depths and offsets?", "answer": "Hume says those measurements are separate stormwater asset information, rather than part of the discharge-point permit."},
+      {"question": "Do Council asset records map every private drain in Craigieburn?", "answer": "No. Hume distinguishes Council infrastructure information from internal private stormwater plans. Explain which records you hold and ask what the proposed assessment still needs to establish."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "Hume City Council: stormwater asset details and connections", "url": "https://www.hume.vic.gov.au/Building-and-Planning/Building-and-Renovations/Stormwater-Connection-Points-and-Drainage-Asset-Details"}]
+  },
+  "moorabbin": {
+    "heading": "Distinguish permanent connections from construction discharge",
+    "checkedDate": "2026-10-01",
+    "introduction": "Discuss plumbing help in Moorabbin for drains, hot water, leaks or commercial premises. Tell us whether drainage work concerns an existing fault, a new connection or construction-site water.",
+    "metaDescription": "Request plumbing help in Moorabbin for drains, hot water or commercial premises. Find Kingston guidance on permanent connections and temporary construction discharge.",
+    "paragraphs": [
+      "Kingston publishes separate processes for a permanent stormwater connection and temporary discharge during construction. Its guidance says construction surface water or groundwater cannot simply be pumped into the stormwater network without the appropriate process.",
+      "For a Moorabbin site enquiry, explain the origin of the water and whether the proposal is temporary or permanent. Provide available approvals and identify who manages the site. Confirm the applicable process with the relevant authority rather than assuming an existing drainage connection authorises construction dewatering."
+    ],
+    "faqs": [
+      {"question": "Is construction discharge covered by a normal stormwater connection?", "answer": "Do not assume so. Kingston describes a separate temporary discharge process for construction water. Check the proposal with the relevant authority."},
+      {"question": "What should a Moorabbin site manager explain when enquiring?", "answer": "Describe the water source, intended temporary or permanent arrangement, available approvals and authorised site contact. These details help define the appropriate assessment."}
+    ],
+    "relatedServices": ["commercial-plumbing", "blocked-drains"],
+    "sources": [{"title": "City of Kingston: stormwater requirements for developers", "url": "https://www.kingston.vic.gov.au/property/property-management/drains-and-stormwater/stormwater-requirements-for-developers"}]
+  },
   "mornington": {
     "heading": "Check the wastewater connection before planning alterations",
     "checkedDate": "2026-10-01",

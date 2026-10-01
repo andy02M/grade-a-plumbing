@@ -2,7 +2,7 @@
 
 Checked 1 October 2026. This is a configuration and supplied-register baseline, not a Google indexing report or independent premises verification.
 
-101 supplied profiles cover 100 targets; 82 website locations are configured and 18 remain expansion candidates. Six existing locations now have source-linked local guidance. No expansion candidate is approved for publication by this report.
+101 supplied profiles cover 100 targets; 82 website locations are configured and 18 remain expansion candidates. Twelve existing locations now have source-linked local guidance. No expansion candidate is approved for publication by this report.
 
 Address labels below describe recorded data only. All premises still require independent validation. Service indexing describes the existing application gate, not actual Google index status.
 
@@ -23,7 +23,7 @@ Address labels below describe recorded data only. All premises still require ind
 | epping | Yes | Active | Street only; incomplete | Not added | Indexable |
 | footscray | Yes | Active | Present; unverified | Not added | Indexable |
 | glenwaverley | Yes | Active | Present; unverified | Not added | Indexable |
-| fitzroy | Yes | Active | Absent | Not added | Noindex / not configured |
+| fitzroy | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | boxhill | Yes | Active | Present; unverified | Not added | Indexable |
 | hawthorn | Yes | Active | Present; unverified | Not added | Indexable |
 | essendon | Yes | Active | Present; unverified | Not added | Indexable |
@@ -35,17 +35,17 @@ Address labels below describe recorded data only. All premises still require ind
 | frankston | Yes | Pending | Present; unverified | Not added | Indexable |
 | kew | Yes | Active | Present; unverified | Not added | Indexable |
 | carolinesprings | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
-| williamstown | Yes | Active | Absent | Not added | Noindex / not configured |
+| williamstown | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | kensington | Yes | Suspended | Absent | Not added | Noindex / not configured |
-| blackburn | Yes | Active | Absent | Not added | Noindex / not configured |
-| thornbury | Yes | Active | Absent | Not added | Noindex / not configured |
-| craigieburn | Yes | Active | Absent | Not added | Noindex / not configured |
+| blackburn | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
+| thornbury | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
+| craigieburn | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | northmelbourne | Yes | Active | Absent | Not added | Noindex / not configured |
 | berwick | Yes | Active | Absent | Not added | Noindex / not configured |
 | hopperscrossing | Yes | Appeal Pending | Absent | Not added | Noindex / not configured |
 | altona | Yes | Active | Absent | Not added | Noindex / not configured |
 | bentleigh | Yes | Verification Submitted | Absent | Not added | Noindex / not configured |
-| moorabbin | Yes | Active | Absent | Not added | Noindex / not configured |
+| moorabbin | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | bundoora | Yes | Active | Absent | Not added | Noindex / not configured |
 | preston | Yes | Active | Present; unverified | Not added | Indexable |
 | doncaster | Yes | Active | Absent | Not added | Noindex / not configured |

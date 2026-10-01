@@ -17,7 +17,7 @@ test("location readiness accounts for every target without silently expanding ho
  assert.equal(report.summary.targets, 100);
  assert.equal(report.summary.configured, 82);
  assert.equal(report.summary.expansionTargets, 18);
- assert.equal(report.summary.sourceLinkedLocalGuidance, 6);
+ assert.equal(report.summary.sourceLinkedLocalGuidance, 12);
  assert.equal(report.summary.incompleteRecordedAddresses, 2);
  assert.ok(report.inventory.every(item => item.expansionApproved === false));
  assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
@@ -47,6 +47,19 @@ test("local guidance FAQs are visible and included in homepage schema", () => {
  assert.match(home, /mainEntity: faq.map/);
  assert.match(home, /<FAQ items=\{faq\}/);
  assert.doesNotMatch(home, /Recent plumbing work for homes and businesses near/);
+});
+test("second location batch has distinct introductions and meta descriptions", () => {
+ const guidance = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
+ const descriptions = new Set();
+ for (const slug of ["fitzroy", "williamstown", "blackburn", "thornbury", "craigieburn", "moorabbin"]) {
+  const entry = guidance[slug];
+  assert.ok(entry.introduction && entry.metaDescription);
+  assert.ok(!descriptions.has(entry.metaDescription)); descriptions.add(entry.metaDescription);
+  assert.ok(entry.metaDescription.length <= 190);
+ }
+ const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+ assert.match(home, /localGuidance\[location.slug\]\?\.metaDescription/);
+ assert.match(home, /localGuidance\[location.slug\]\?\.introduction/);
 });
 test("complete supplied profile register preserves separate Melbourne profiles", () => {
  const records = JSON.parse(readFileSync(new URL("../data/google-business-register.json", import.meta.url), "utf8"));

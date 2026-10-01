@@ -40,7 +40,7 @@ const serviceIcons: Record<string, IconName> = {
 export async function generateMetadata(): Promise<Metadata> {
   const location = await getRequestLocation();
   const title = `Plumber ${location.location} | Local & Emergency Plumbing | Grade A Plumbing`;
-  const description = `Need a local plumber in ${location.location}? Grade A Plumbing provides drain, hot water, emergency, gas and commercial plumbing services.`;
+  const description = localGuidance[location.slug]?.metaDescription ?? `Need a local plumber in ${location.location}? Grade A Plumbing provides drain, hot water, emergency, gas and commercial plumbing services.`;
   return {
     title,
     description,
@@ -63,6 +63,7 @@ export default async function HomePage() {
     : [location.location];
   const intro =
     location.localIntroduction ??
+    localGuidance[location.slug]?.introduction ??
     `Reliable residential and commercial plumbing services in ${location.location}, with help for blocked drains, hot water faults, leaks and urgent plumbing enquiries.`;
   const defaultFaq = location.localFaqs?.length
     ? location.localFaqs
