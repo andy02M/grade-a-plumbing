@@ -30,10 +30,30 @@ Prioritise Active-register locations whose services remain noindex.
 
 ## Stage 3: location evidence and measured expansion
 
-Research public premises details and keep unresolved facts absent. Add genuinely
-useful local material where supported. Prepare the 18 additional locations only
-after content, Maps destination and hosting are checked. Preserve all existing
-subdomains and URLs. Do not create invented case studies or suburb-swapped copies.
+Implemented first evidence-backed batch on 1 October 2026: distinct local guidance,
+official source links and matching visible/schema FAQs for Mornington, Caroline
+Springs, Sunbury, Northcote, Camberwell and Werribee. Advice uses council/retailer
+information, not invented local jobs, fault prevalence or storefront claims.
+Source URLs and check dates are retained in `data/local-guidance.json`.
+
+All 100 targets now have a reproducible readiness inventory (`npm run seo:locations`).
+It distinguishes supplied profile status from independent verification, recorded
+addresses from verified premises, and content coverage from indexing readiness.
+It identifies two street-only addresses (Epping and Narre Warren), 42 active-profile
+locations with service noindex and 18 unconfigured expansion targets.
+
+Read-only live probes of all 18 expansion hosts found HTTP 200 Melbourne fallback
+pages with Melbourne canonicals, not genuine matching suburb pages. The request
+resolver now returns not-found for unconfigured wildcard suburb hosts instead.
+All 82 configured subdomains and existing paths, www/apex behaviour, development
+and Vercel previews remain unchanged. New hosts require deliberate configuration;
+they are not added to sitemaps. The project-gallery heading no longer attributes
+shared photographs to every suburb without job-location evidence.
+
+Remaining: local research for the other existing locations, independent storefront
+verification and complete expansion content. No new premises, hours or qualification
+details were invented. No service indexing gate was removed. Source-linked practical
+advice does not by itself make a page or a new location ready for indexation.
 
 ## Stage 4: publisher reliability and measurement
 

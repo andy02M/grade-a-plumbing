@@ -23,6 +23,8 @@ import {
 } from "@/lib/site";
 import { formatStorefrontAddress } from "@/lib/storefronts";
 import { publicMapsUrl } from "@/lib/google-business-profiles";
+import { LocalGuidanceSection } from "@/components/LocalGuidanceSection";
+import { localGuidance } from "@/lib/local-guidance";
 
 const serviceIcons: Record<string, IconName> = {
   "blocked-drains": "drain",
@@ -62,7 +64,7 @@ export default async function HomePage() {
   const intro =
     location.localIntroduction ??
     `Reliable residential and commercial plumbing services in ${location.location}, with help for blocked drains, hot water faults, leaks and urgent plumbing enquiries.`;
-  const faq = location.localFaqs?.length
+  const defaultFaq = location.localFaqs?.length
     ? location.localFaqs
     : [
         {
@@ -80,6 +82,7 @@ export default async function HomePage() {
             "Tell us what is happening and we will explain the appropriate assessment and pricing process before work proceeds wherever possible.",
         },
       ];
+  const faq = [...defaultFaq, ...(localGuidance[location.slug]?.faqs ?? [])];
   const schemas = [
     {
       "@context": "https://schema.org",
@@ -356,8 +359,10 @@ export default async function HomePage() {
         description="Genuine project photography helps visitors understand the range and finish of plumbing work completed by Grade A Plumbing."
         limit={7}
         note="Have a similar plumbing job? Include a photo with your quote request so we can better understand the work before calling you back."
-        title={`Recent plumbing work for homes and businesses near ${location.location}`}
+        title="Grade A Plumbing project gallery"
       />
+
+      <LocalGuidanceSection slug={location.slug} location={location.location} />
 
       <section className="relative overflow-hidden bg-brand-navy py-20 text-white">
         <div className="absolute inset-0 opacity-20" aria-hidden="true">

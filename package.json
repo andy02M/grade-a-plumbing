@@ -20,7 +20,8 @@
     "db:studio": "prisma studio",
     "postinstall": "prisma generate",
     "test": "node --test scripts/seo-architecture.test.mjs",
-    "seo:audit": "node scripts/seo-content-audit.mjs"
+    "seo:audit": "node scripts/seo-content-audit.mjs",
+    "seo:locations": "node scripts/location-readiness.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.17.1",

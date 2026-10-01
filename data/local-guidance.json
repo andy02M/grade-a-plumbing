@@ -1,0 +1,89 @@
+{
+  "mornington": {
+    "heading": "Check the wastewater connection before planning alterations",
+    "checkedDate": "2026-10-01",
+    "paragraphs": [
+      "For a Mornington property, establish whether wastewater goes to mains sewer or an onsite treatment system before discussing an extension or fixture changes. Mornington Peninsula Shire directs owners to South East Water to check sewer availability. This is a property-specific check, not a claim that every home in Mornington uses septic treatment.",
+      "The Shire publishes an approval process for installing or altering onsite wastewater systems. If that applies to your property, bring existing plans and approvals to the enquiry and confirm the proposed changes with the Shire before work is agreed. Tell us what system you have and what has changed; a drainage symptom alone does not establish the repair required."
+    ],
+    "faqs": [
+      {"question": "How do I check whether my Mornington property has sewer available?", "answer": "Mornington Peninsula Shire directs property owners to South East Water for sewer availability. Check the individual property rather than assuming its connection from the suburb name."},
+      {"question": "What should I provide for plumbing alterations involving onsite wastewater?", "answer": "Share existing system plans, approvals and the proposed fixture or building changes. The Shire's install-or-alter guidance is the starting point for checking which approvals apply; an enquiry is not an approval to proceed."}
+    ],
+    "relatedServices": ["sewer-repairs", "blocked-drains"],
+    "sources": [{"title": "Mornington Peninsula Shire: wastewater system permits", "url": "https://www.mornpen.vic.gov.au/Services/Environment/Water/Wastewater-and-sewage/Wastewater-Septic-tank-permits"}]
+  },
+  "carolinesprings": {
+    "heading": "A discharge certificate is not a complete private drain plan",
+    "checkedDate": "2026-10-01",
+    "paragraphs": [
+      "When discussing stormwater changes at a Caroline Springs property, Melton City Council's legal point of discharge information helps identify the approved connection and its conditions. The Council explains that its certificate does not show the exact layout, depth or material of internal drainage. A certificate and a private drain investigation therefore answer different questions.",
+      "Provide any certificate, property plans and earlier inspection findings with your enquiry. Explain whether the problem is a roof-water drain, an overflowing fixture or water entering from elsewhere. Avoid approving a replacement route on the assumption that a connection certificate locates every buried pipe; the actual site and proposed scope still need assessment."
+    ],
+    "faqs": [
+      {"question": "Does Melton's discharge certificate locate all drains at my Caroline Springs home?", "answer": "No. Council says it identifies the approved discharge point and conditions, but not the exact internal drainage layout, materials or depths. Additional property records or assessment may be needed."},
+      {"question": "Which records help with a Caroline Springs stormwater enquiry?", "answer": "Send any discharge certificate, site plans and previous investigation report, and explain when the problem occurs. Those records provide context but do not prove the cause of a blockage."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "Melton City Council: stormwater discharge information", "url": "https://www.melton.vic.gov.au/Services/Building-Planning-Transport/Engineering/Engineering-applications"}]
+  },
+  "sunbury": {
+    "heading": "Separate Council drainage records from private pipework",
+    "checkedDate": "2026-10-01",
+    "paragraphs": [
+      "Hume City Council provides an interactive stormwater map for checking Council drainage assets and a property's legal point of discharge where that information is on file. For a Sunbury enquiry, this can help explain the public network around the site, but it should not be treated as a survey of the property's private drains.",
+      "Council directs people seeking internal private stormwater plans to its building-information process. If you already have those plans, share them alongside the symptoms and accessible photographs. Ask which records are still needed before changing a connection or planning excavation. Stormwater and sewage use separate systems; describe which fixtures or outdoor drains are affected rather than calling every issue a sewer blockage."
+    ],
+    "faqs": [
+      {"question": "Can Hume's stormwater map show every drain at a Sunbury property?", "answer": "No. Council describes it as information about its network and legal discharge points where held on file. It directs requests for internal private stormwater plans to its building-information process."},
+      {"question": "Should I describe outdoor rainwater pooling as a sewer fault?", "answer": "Explain exactly where and when the water appears instead. Hume distinguishes stormwater from sewage; identifying the affected system is part of deciding what assessment is needed."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [{"title": "Hume City Council: stormwater connections and asset details", "url": "https://www.hume.vic.gov.au/Building-and-Planning/Building-and-Renovations/Stormwater-Connection-Points-and-Drainage-Asset-Details"}]
+  },
+  "northcote": {
+    "heading": "Check easements before building over drainage",
+    "checkedDate": "2026-10-01",
+    "paragraphs": [
+      "For proposed building works around drainage at a Northcote property, check the title and site plans before assuming the work can proceed. Darebin City Council explains that building over or near an easement or Council drain can require permission. Its guidance includes Council drains with implied easement protection, so a title alone may not resolve every question.",
+      "Darebin asks applicants to contact its engineering team before applying so the easement status can be checked. Bring the proposed works description and available plans to a plumbing discussion. Keep the permission question separate from diagnosing an existing blocked drain: a blockage does not itself establish that a new structure, excavation or altered connection is authorised."
+    ],
+    "faqs": [
+      {"question": "Who should I ask about building near a Council drain in Northcote?", "answer": "Darebin's building-over-easements guidance directs applicants to its engineering team before applying. Supply the property details and proposed works so the Council can explain the relevant consent process."},
+      {"question": "Does clearing a blockage approve later building over the drain?", "answer": "No. Diagnosing or clearing a drainage fault is separate from checking easement status and obtaining any required consent for proposed building work."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [{"title": "Darebin City Council: building over easements and drains", "url": "https://www.darebin.vic.gov.au/Planning-and-building/Building-and-renovations/Building-step-1-gather-information/Types-of-building-permits/Non-building-applications-and-permits/Building-over-easements-and-drains"}]
+  },
+  "camberwell": {
+    "heading": "Locate easements and access pits before planning work",
+    "checkedDate": "2026-10-01",
+    "paragraphs": [
+      "For a Camberwell drain enquiry involving access or future landscaping, Boroondara's guidance distinguishes registered easements on a land title from implied easements that are not listed there. It also explains that access pits are used to reach underground sewers or drains. An apparently clear patch of ground is not evidence that no drainage asset is present.",
+      "The Council points owners to title records and Before You Dig information, and to a qualified plumber for locating pits that are not visible. Share existing records and explain any paving, decking or access restrictions when booking an assessment. Check the Council's guidance before landscaping or building around an access pit; do not remove covers or excavate merely to gather enquiry photographs."
+    ],
+    "faqs": [
+      {"question": "Does a Camberwell land title show every easement?", "answer": "Boroondara distinguishes registered easements from implied easements, which are not listed on the title. Check its guidance and the relevant asset information rather than relying on the title alone."},
+      {"question": "What if a drainage access pit is not visible?", "answer": "Boroondara advises using Before You Dig information and a qualified plumber to help find hidden pits. Explain the access restrictions during your enquiry instead of attempting exploratory excavation yourself."}
+    ],
+    "relatedServices": ["blocked-drains", "pipe-relining"],
+    "sources": [{"title": "City of Boroondara: finding easements and access pits", "url": "https://www.boroondara.vic.gov.au/services/planning-and-building/easements/find-easements-and-access-pits-your-property"}]
+  },
+  "werribee": {
+    "heading": "Confirm the stormwater destination before redesigning drainage",
+    "checkedDate": "2026-10-01",
+    "paragraphs": [
+      "Wyndham City provides a legal point of discharge information service identifying where stormwater leaves a property and enters Council drainage infrastructure. For a Werribee alteration, establish that destination before discussing a new drainage route. This is different from determining the location or cause of a blocked sewer.",
+      "Give the property address, any existing discharge information and the proposed change when discussing the work. If wastewater is backing up, describe the affected fixtures instead and check the relevant water retailer's fault guidance. Greater Western Water publishes separate blocked-sewer advice; confirm the retailer for the particular property rather than treating Council stormwater information as sewer approval."
+    ],
+    "faqs": [
+      {"question": "Where can I obtain discharge information for a Werribee property?", "answer": "Use Wyndham City's legal point of discharge information service for the specific property. Check its current application instructions before planning a changed stormwater connection."},
+      {"question": "Is stormwater discharge information also a sewer repair approval?", "answer": "No. Stormwater connection information and a wastewater fault are different matters. Describe the symptoms and check the relevant water retailer's guidance before deciding which assessment or approval applies."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [
+      {"title": "Wyndham City: legal point of discharge information", "url": "https://www.wyndham.vic.gov.au/services/building/other-related-permits-and-applications/apply-legal-point-discharge-information"},
+      {"title": "Greater Western Water: fixing a blocked sewer", "url": "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer"}
+    ]
+  }
+}

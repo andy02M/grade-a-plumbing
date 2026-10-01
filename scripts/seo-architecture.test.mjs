@@ -3,6 +3,51 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
+import { locationReadiness, unconfiguredHost } from "./location-readiness.mjs";
+test("unknown wildcard hosts cannot silently resolve to Melbourne", () => {
+ for (const item of locationReadiness().inventory) {
+  assert.equal(unconfiguredHost(new URL(item.targetUrl).hostname), !item.configured);
+ }
+ for (const host of ["www.gradeaplumbing.store", "gradeaplumbing.store", "localhost:3000", "preview.vercel.app", "COBURG.GRADEAPLUMBING.STORE:443"]) assert.equal(unconfiguredHost(host), false);
+ assert.equal(unconfiguredHost("not-a-location.gradeaplumbing.store"), true);
+ assert.match(readFileSync(new URL("../lib/location-request.ts", import.meta.url), "utf8"), /if \(isUnconfiguredLocationHost\(host\)\) notFound\(\)/);
+});
+test("location readiness accounts for every target without silently expanding hosts", () => {
+ const report = locationReadiness();
+ assert.equal(report.summary.targets, 100);
+ assert.equal(report.summary.configured, 82);
+ assert.equal(report.summary.expansionTargets, 18);
+ assert.equal(report.summary.sourceLinkedLocalGuidance, 6);
+ assert.equal(report.summary.incompleteRecordedAddresses, 2);
+ assert.ok(report.inventory.every(item => item.expansionApproved === false));
+ assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
+ assert.equal(report.inventory.find(item => item.slug === "melbourne").suppliedProfiles.length, 2);
+});
+test("local guidance is distinct, sourced and limited to configured locations", () => {
+ const guidance = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
+ const configured = new Set(locationReadiness().inventory.filter(item => item.configured).map(item => item.slug));
+ const headings = new Set();
+ for (const [slug, entry] of Object.entries(guidance)) {
+  assert.ok(configured.has(slug));
+  assert.ok(!headings.has(entry.heading)); headings.add(entry.heading);
+  assert.equal(entry.checkedDate, "2026-10-01");
+  assert.ok(entry.paragraphs.length >= 2 && entry.faqs.length >= 2);
+  assert.ok(entry.relatedServices.length && entry.sources.length);
+  for (const source of entry.sources) {
+   const url = new URL(source.url);
+   assert.equal(url.protocol, "https:");
+   assert.ok(url.hostname.endsWith(".vic.gov.au") || url.hostname === "www.gww.com.au");
+  }
+ }
+});
+test("local guidance FAQs are visible and included in homepage schema", () => {
+ const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+ assert.match(home, /localGuidance\[location.slug\]\?\.faqs/);
+ assert.match(home, /<LocalGuidanceSection/);
+ assert.match(home, /mainEntity: faq.map/);
+ assert.match(home, /<FAQ items=\{faq\}/);
+ assert.doesNotMatch(home, /Recent plumbing work for homes and businesses near/);
+});
 test("complete supplied profile register preserves separate Melbourne profiles", () => {
  const records = JSON.parse(readFileSync(new URL("../data/google-business-register.json", import.meta.url), "utf8"));
  assert.equal(records.length, 101);

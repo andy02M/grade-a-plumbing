@@ -126,5 +126,11 @@ export function getLocationFromHost(host?: string | null) {
   return getLocationBySlug(slug);
 }
 
+export function isUnconfiguredLocationHost(host?: string | null) {
+  const cleanHost = (host ?? "").split(":")[0].toLowerCase();
+  if (!cleanHost.endsWith(".gradeaplumbing.store") || cleanHost === "www.gradeaplumbing.store") return false;
+  return !locations.some(location => location.hostname === cleanHost);
+}
+
 
 
