@@ -1,4 +1,5 @@
 import type { LocationConfig } from "./locations";
+import { serviceEditorial } from "./service-editorial";
 
 export type ServiceDefinition = {
   slug: string;
@@ -36,6 +37,12 @@ export const services: ServiceDefinition[] = [
 ];
 
 export const serviceBySlug = new Map(services.map(item => [item.slug, item]));
+for (const definition of services) {
+  const editorial = serviceEditorial[definition.slug];
+  if (!editorial) continue;
+  definition.sections = [...definition.sections, ...editorial.sections];
+  definition.faqs = location => [...commonFaq(definition.label, location), ...editorial.faqs];
+}
 
 export function serviceUrl(serviceSlug: string) { return `/${serviceSlug}/`; }
 export function locationHasService(location: LocationConfig) {

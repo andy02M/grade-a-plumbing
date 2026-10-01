@@ -3,6 +3,33 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
+test("complete supplied profile register preserves separate Melbourne profiles", () => {
+ const records = JSON.parse(readFileSync(new URL("../data/google-business-register.json", import.meta.url), "utf8"));
+ assert.equal(records.length, 101);
+ assert.equal(new Set(records.map(record => record.locationSlug)).size, 100);
+ assert.equal(records.filter(record => record.status === "Active").length, 78);
+ const melbourne = records.filter(record => record.locationSlug === "melbourne");
+ assert.equal(melbourne.length, 2);
+ assert.notEqual(melbourne[0].mapsUrl, melbourne[1].mapsUrl);
+ assert.equal(records.find(record => record.locationSlug === "thomastown").status, "Suspended");
+ assert.equal(records.find(record => record.locationSlug === "mornington").status, "Active");
+});
+test("each service has distinct practical explanations and FAQs", () => {
+ const source = readFileSync(new URL("../lib/service-editorial.ts", import.meta.url), "utf8");
+ const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+ const context = { exports: {} }; runInNewContext(output, context);
+ const entries = Object.values(context.exports.serviceEditorial);
+ assert.equal(entries.length, 8);
+ const questions = new Set();
+ for (const entry of entries) {
+  assert.ok(entry.sections.length >= 2 && entry.faqs.length >= 2);
+  for (const faq of entry.faqs) { assert.ok(!questions.has(faq.question)); questions.add(faq.question); }
+ }
+});
+test("dashboard shell is excluded from search and services link to editorial host", () => {
+ assert.match(readFileSync(new URL("../app/dashboard/page.tsx", import.meta.url), "utf8"), /index:\s*false/);
+ assert.match(readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8"), /site\.baseUrl.*\/blog\//);
+});
 test("upgraded public guides meet the long-form editorial baseline", () => {
  const slugs = new Set();
  for (const file of ["hot-water-guide", "blocked-drains-guide", "sewer-repair-guide", "coburg-booking-article"]) {

@@ -16,6 +16,7 @@ import {
 } from "@/lib/seo-services";
 import { JsonLd } from "@/lib/seo";
 import { brandAssets, site } from "@/lib/site";
+import { publishedArticles } from "@/lib/articles";
 
 const serviceImages: Record<string, { src: string; alt: string }> = {
   "blocked-drains": {
@@ -98,6 +99,10 @@ export default async function MoneyPage({
       src: brandAssets.serviceVan.src,
       alt: brandAssets.serviceVan.alt,
     };
+  const guides = publishedArticles
+    .filter((article) => article.relatedServices.includes(slug))
+    .sort((a, b) => Number(Boolean(b.locationSlugs?.includes(location.slug))) - Number(Boolean(a.locationSlugs?.includes(location.slug))))
+    .slice(0, 3);
   const schema = [
     {
       "@context": "https://schema.org",
@@ -290,6 +295,20 @@ export default async function MoneyPage({
                   </Link>
                 ))}
               </div>
+              {guides.length > 0 && (
+                <div className="mt-8">
+                  <h3 className="text-xl font-bold text-brand-navy">Helpful customer guides</h3>
+                  <ul className="mt-4 space-y-3">
+                    {guides.map((article) => (
+                      <li key={article.slug}>
+                        <Link className="font-semibold text-brand-blue underline underline-offset-4" href={`${site.baseUrl}/blog/${article.slug}/`}>
+                          {article.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div>
               <p className="text-sm font-bold uppercase tracking-[.2em] text-brand-blue">

@@ -1,0 +1,59 @@
+type ServiceEditorial = { sections: { title: string; text: string }[]; faqs: { question: string; answer: string }[] };
+export const serviceEditorial: Record<string, ServiceEditorial> = {
+ "blocked-drains": {
+  sections: [
+   { title: "Information that helps a drain assessment", text: "Explain which fixtures are affected, when the symptoms started and whether the drain has been cleared before. Previous reports or accessible photographs can help establish the investigation needed. A single slow sink and several fixtures backing up are different starting points; neither confirms a cause without assessment. Tell the attending professional about any drain-cleaning products already used." },
+   { title: "Restoring flow and investigating recurrence", text: "Ask whether the proposed visit is intended to restore flow, prepare for inspection or investigate a recurring problem. Where camera inspection is suitable, clarify what can be inspected and what findings will be supplied. Clearing a blockage does not necessarily correct a separate pipe fault. Confirm which work is included and how further investigation or repair would be approved." }
+  ],
+  faqs: [{ question: "Does a recurring blockage always need new pipes?", answer: "No. The cause, location and condition need assessment. Ask for evidence explaining whether another clearance, investigation or a particular repair is appropriate." }, { question: "What should I explain when booking a drain visit?", answer: "Give the affected fixtures, recurrence history, access restrictions and whether wastewater is overflowing. Do not recreate an overflow to demonstrate the fault. Call about an active overflow rather than waiting for an email response." }]
+ },
+ "sewer-repairs": {
+  sections: [
+   { title: "Define the affected section before repair", text: "A repair recommendation should explain what has been identified, where it is located and which conditions remain uncertain. Ask whether available inspection findings cover the entire proposed work area. A visible overflow does not establish ownership or the full extent of a fault. Shared drainage and public assets may require different approval and reporting arrangements from private pipework." },
+   { title: "Compare complete repair scopes", text: "Ask which section is being repaired, what access is required and whether preparation, reinstatement and completion checks are included. A headline price may exclude work needed around the pipe itself. If additional damage is discovered, agree how the revised recommendation and any variation will be communicated before work outside the approved scope proceeds." }
+  ],
+  faqs: [{ question: "Who authorises work on shared sewer pipework?", answer: "The ownership and management arrangement must be established. A rental provider, building manager, owners corporation or water retailer may need to be involved; do not assume the person occupying the property can authorise every repair." }, { question: "What records should I request after sewer repair?", answer: "Ask for a clear description of the completed scope, any relevant inspection findings, follow-up recommendations and required completion documents. Keep those records for future assessment." }]
+ },
+ "pipe-relining": {
+  sections: [
+   { title: "Assess suitability rather than assume no-dig", text: "Relining is not a universal solution to every damaged drain. Ask how inspection findings support the proposed method, whether the pipe can be prepared and how access or branch connections will be managed. Marketing terms should not replace a defined repair scope. If suitability is uncertain, establish the further investigation needed before approving installation." },
+   { title: "Understand access and completion requirements", text: "Reduced excavation does not necessarily mean no access openings, preparation or disruption. Compare the full proposal with alternatives, including enabling work and reinstatement where relevant. Ask what records will demonstrate the treated section and how any warranty is defined. A quoted warranty period alone is not evidence that a method fits the condition of your pipe." }
+  ],
+  faqs: [{ question: "Can a relining quote be compared by price per metre?", answer: "Not reliably unless the scopes match. Preparation, inspection, access, connections and reinstatement can differ. Compare inclusions, exclusions and contingencies before choosing." }, { question: "Is excavation always avoidable with relining?", answer: "No such assumption should be made. The contractor should identify expected access work and explain any conditions that may require a different approach." }]
+ },
+ "hot-water": {
+  sections: [
+   { title: "Describe the system and symptoms", text: "Provide the accessible brand and model details, whether all outlets are affected and when performance changed. Mention leaks or previous repairs without assuming the complete unit has failed. A photograph may help explain access, but it does not replace inspection. Do not open electrical covers or change internal controls to gather booking information." },
+   { title: "Plan repair or replacement around the property", text: "Ask what the confirmed fault is and what a proposed repair would address. For replacement, compare household demand, installation space, access and any other trade work involved. Check whether removal, disposal and commissioning are included. Model-specific maintenance and installation requirements should guide decisions rather than a universal age rule or an unsupported claim about energy savings." }
+  ],
+  faqs: [{ question: "Does no hot water mean replacement is necessary?", answer: "Not automatically. Assessment should distinguish a component, connection or supply issue from deterioration of the unit before comparing repair with replacement." }, { question: "Which information helps with a replacement enquiry?", answer: "Share the existing model, household usage, equipment location and access restrictions. In rentals or shared buildings, explain who can approve the work and coordinate interruptions." }]
+ },
+ "emergency-plumber": {
+  sections: [
+   { title: "Lead with the immediate problem", text: "Explain whether water is still escaping, whether wastewater is overflowing and whether anyone is at the property. Do not delay contact while collecting photographs. Describe hazards and access restrictions so the urgency and appropriate assistance can be discussed. An enquiry does not itself guarantee attendance within a particular time; confirm current arrangements during the call." },
+   { title: "Agree the assessment and authority to proceed", text: "Identify the contact person at the property and who can approve work. An urgent assessment may reveal a different problem or require coordination with another professional. Ask what the initial visit covers, how proposed work will be explained and how additional scope is approved. Keep the outcome and follow-up information after immediate concerns have been addressed." }
+  ],
+  faqs: [{ question: "Should I email about an active plumbing overflow?", answer: "Call to discuss an active overflow rather than relying on an email response. If there is immediate danger, obtain appropriate emergency assistance; a plumbing booking is not a substitute for emergency services." }, { question: "Can you diagnose an urgent fault from a photo?", answer: "Photos provide context but cannot confirm every hidden fault or safety issue. Explain the symptoms first and ask what assessment is appropriate." }]
+ },
+ "burst-pipe-repair": {
+  sections: [
+   { title: "Report visible water without guessing its origin", text: "Give the location of the water, when it appeared and whether it is continuing. Water visible in one room does not necessarily identify the failed section. Explain any pressure changes or recent work, and provide safely accessible photographs if available. Avoid opening walls, entering hazardous spaces or approaching water near electrical equipment to locate the source." },
+   { title: "Clarify access and reinstatement", text: "Ask how the fault will be located and what access may be needed before the repair scope can be confirmed. The pipe repair and restoration of surrounding finishes can be separate tasks. Discuss those inclusions and exclusions, especially in rentals or managed buildings. Keep a record of the repair location and any recommendations for follow-up assessment." }
+  ],
+  faqs: [{ question: "Will a pipe repair include restoring walls or flooring?", answer: "Do not assume so. Ask which access and reinstatement work is included and whether another trade is required. Confirm the agreed scope before proceeding." }, { question: "Can a wet patch confirm a burst pipe?", answer: "It is a symptom, not a complete diagnosis. Inspection may be needed to identify the source and determine an appropriate repair." }]
+ },
+ "gas-plumbing": {
+  sections: [
+   { title: "A suspected gas emergency is not a routine booking", text: "Energy Safe Victoria directs gas emergencies to the emergency number on your gas bill. Follow the relevant authority’s safety instructions and call emergency services where there is immediate danger. Do not investigate a suspected leak by operating appliances or attempting pipe repairs. Routine enquiry forms and email are not an emergency reporting channel." },
+   { title: "Define the planned gas work", text: "For a non-emergency enquiry, explain the appliance or pipework involved, access restrictions and the purpose of the proposed work. Ask which appropriately authorised practitioner will assess it and which documentation applies. A new connection or appliance change may require checks beyond the visible fitting; clarify the assessment, scope and approval process rather than assuming a simple swap." }
+  ],
+  faqs: [{ question: "Can I book a gas leak investigation through email?", answer: "For a suspected gas emergency, contact the emergency authority using the number on your gas bill and follow its instructions. Do not wait for a routine email enquiry to be answered." }, { question: "How do I check a practitioner is authorised for gas work?", answer: "Use the Building and Plumbing Commission’s practitioner information and check the relevant work class. Ask about applicable completion documents without relying only on a general description such as qualified plumber." }]
+ },
+ "commercial-plumbing": {
+  sections: [
+   { title: "Prepare a site-specific enquiry", text: "Explain the type of premises, affected fixtures, operating hours and who can provide access. Mention site inductions, parking or loading restrictions and whether the services are shared. Distinguish the person requesting the visit from the person approving expenditure. These details help define the assessment without assuming every business has the same operating requirements." },
+   { title: "Coordinate interruptions and maintenance decisions", text: "Ask whether the assessment may require a service interruption and how staff, tenants or customers will be informed. Confirm which work is approved, what remains uncertain and who receives updates. After the visit, keep the findings and discuss any justified follow-up. Maintenance recommendations should follow the property’s needs and actual findings, not a generic package applied to every site." }
+  ],
+  faqs: [{ question: "What should building management provide before a visit?", answer: "Give access instructions, the authorised contact, relevant earlier reports and known shared-service arrangements. Confirm how any interruption or additional work will be approved." }, { question: "Can work always happen outside trading hours?", answer: "Do not assume availability or a particular arrangement. Explain the operational restriction during booking and ask what options and scope can be confirmed." }]
+ }
+};
