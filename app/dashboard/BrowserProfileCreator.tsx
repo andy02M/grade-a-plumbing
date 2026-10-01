@@ -41,6 +41,7 @@ const attributeLabels = [
   "Offers repair services",
   "Cash only",
   "Accepts credit cards",
+  "Credit cards",
   "American Express",
   "China Union Pay",
   "Diners Club",
@@ -65,6 +66,7 @@ const blank: ProfileSettings = {
   state: "VIC",
   postalCode: "",
   serviceAreas: [],
+  serviceAreaSuggestionLocation: "VIC, Australia",
   days: [...days],
   opens: "00:00",
   closes: "23:59",
@@ -326,17 +328,28 @@ export function BrowserProfileCreator({
           </>
         )}
         {settings.businessType !== "STOREFRONT" && (
-          <label className="auto-field">
-            <span>Service areas — one suburb per line (maximum 20)</span>
-            <textarea
-              rows={7}
-              value={areas}
-              onChange={(e) => setAreas(e.target.value)}
-            />
-            <small>
-              {areas.split("\n").filter((v) => v.trim()).length}/20 areas
-            </small>
-          </label>
+          <>
+            <label className="auto-field">
+              <span>Service-area suggestion location</span>
+              <input
+                value={settings.serviceAreaSuggestionLocation || ""}
+                placeholder="VIC, Australia"
+                onChange={(e) => update("serviceAreaSuggestionLocation", e.target.value)}
+              />
+              <small>Every Google suggestion must match this state/region and country.</small>
+            </label>
+            <label className="auto-field">
+              <span>Service areas — one suburb per line (maximum 20)</span>
+              <textarea
+                rows={7}
+                value={areas}
+                onChange={(e) => setAreas(e.target.value)}
+              />
+              <small>
+                {areas.split("\n").filter((v) => v.trim()).length}/20 areas
+              </small>
+            </label>
+          </>
         )}
         <div className="auto-form-grid">
           <label className="auto-field">

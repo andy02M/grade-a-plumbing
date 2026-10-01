@@ -12,6 +12,8 @@ const startDate = String(values.start || "");
 const endDate = String(values.end || "");
 const apply = values.apply === true;
 const syncMissing = values.syncMissing === true || values["sync-missing"] === true;
+const visible = values.visible === true;
+const singleTemplate = values.single === true;
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
   throw new Error("Use --start=YYYY-MM-DD --end=YYYY-MM-DD and optionally --apply.");
@@ -19,13 +21,25 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDat
 
 const context = await chromium.launchPersistentContext(path.join(root, ".gmb-browser-profile"), {
   channel: "msedge",
-  headless: true
+  headless: !visible,
+  ...(visible ? { viewport: null, args: ["--start-maximized"] } : {})
 });
 
 try {
   const page = await context.newPage();
   await page.goto(`${app}/dashboard`, { waitUntil: "domcontentloaded" });
   if (!page.url().startsWith(`${app}/dashboard`)) throw new Error("The GMB AutoPilot dashboard session has expired. Sign in again.");
+  if (visible) {
+    const deadline = Date.now() + 5 * 60_000;
+    while (Date.now() < deadline) {
+      const authenticated = await page.evaluate(async () => {
+        const response = await fetch("/api/automation/session", { cache: "no-store" });
+        return response.ok && Boolean((await response.json()).authenticated);
+      }).catch(() => false);
+      if (authenticated) break;
+      await page.waitForTimeout(1000);
+    }
+  }
   const state = await page.evaluate(async () => {
     const response = await fetch("/api/automation/state", { cache: "no-store" });
     const data = await response.json();
@@ -39,6 +53,7 @@ try {
   let selectedTemplates = templates.length ? templates : state.templates;
   if (apply && !selectedTemplates.length) {
     const seeds = [
+      ["24/7 local plumbing help", "Need a local plumber? {{business_name}} provides reliable help with blocked drains, leaking taps, burst pipes, hot water systems and general plumbing repairs. Available 24/7 with clear communication and professional workmanship. Call today for plumbing assistance."],
       ["Trust builder 01 · Bad timing", "Plumbing problems have a gift for terrible timing. {{business_name}} turns up, explains the options clearly, and gets things flowing again—with no mysterious plumber-speak. Need a hand? Give us a call."],
       ["Trust builder 02 · Pipe orchestra", "If your pipes have started their own percussion section, it may be time for a professional audience. {{business_name}} provides clear advice, careful workmanship, and practical plumbing solutions. Call us before the encore."],
       ["Trust builder 03 · Tiny drip", "A tiny drip is just your tap practising to become a bigger invoice. {{business_name}} can inspect the problem, explain what is needed, and fix it properly. Friendly service and straightforward communication—call today."],
@@ -60,7 +75,7 @@ try {
         created.push(data.template);
       }
       return created;
-    }, seeds);
+    }, singleTemplate ? seeds.slice(0, 1) : seeds.slice(1));
   }
   const existingInRange = state.posts.filter(post => {
     const localDate = new Intl.DateTimeFormat("en-CA", { timeZone: post.timezone || state.settings.timezone, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(post.scheduledFor));
@@ -68,6 +83,13 @@ try {
   });
   const report = {
     authenticated: true,
+    accounts: state.accounts.map(account => ({
+      id: account.id,
+      email: account.email,
+      status: account.status,
+      eligibleProfiles: profiles.filter(profile => profile.googleAccountId === account.id).length,
+      activePosts: state.posts.filter(post => post.googleAccountId === account.id && post.status !== "CANCELLED").length,
+    })),
     profiles: profiles.length,
     templates: selectedTemplates.map(template => ({ id: template.id, name: template.name })),
     existingInRange: existingInRange.length,

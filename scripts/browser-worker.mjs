@@ -9,9 +9,41 @@ const app="https://gmb-autopilot-fawn.vercel.app";
 const stateDir=path.join(root,".gmb-browser-state");
 const configPath=path.join(stateDir,"autopilot-worker.json");
 const args=new Set(process.argv.slice(2));
-const visible=args.has("--pair")||args.has("--google-login");
-const context=await chromium.launchPersistentContext(path.join(root,".gmb-browser-profile"),{channel:"msedge",headless:!visible,viewport:{width:1440,height:1000}});
-const page=await context.newPage();page.setDefaultTimeout(15000);
+const requestedAccount=String(process.env.GMB_BROWSER_ACCOUNTS||"").split(",")[0].trim().toLowerCase();
+const accountProfilePath=email=>path.join(
+ root,
+ ".gmb-browser-profiles",
+ crypto.createHash("sha256").update(String(email||"").trim().toLowerCase()).digest("hex").slice(0,24)
+);
+const browserProfilePath=args.has("--sync")
+ ? accountProfilePath(requestedAccount)
+ : path.join(root,".gmb-browser-profile");
+// Account sync must be visible. Google may require an interactive sign-in and a
+// headless retry can be treated as a different/unsupported browser session.
+// Using one persistent, visible context lets the user sign in once and allows
+// the same run to continue importing profiles immediately afterwards.
+const googleScheduleMode=args.has("--google-schedule");
+const visible=args.has("--pair")||args.has("--google-login")||args.has("--sync")||args.has("--verify")||args.has("--visible")||googleScheduleMode;
+async function launchContext(profilePath,isVisible=visible){
+ return await chromium.launchPersistentContext(profilePath,{
+  channel:"msedge",
+  headless:!isVisible,
+  viewport:{width:1440,height:1000},
+  args:["--disable-background-mode"]
+ });
+}
+let context=await launchContext(browserProfilePath);
+let page=await context.newPage();page.setDefaultTimeout(15000);
+let publishingEmail="";
+async function usePublishingAccount(email){
+ const normalized=String(email||"").trim().toLowerCase();
+ if(!normalized)throw new Error("The queued profile has no saved browser account email. Sync profiles again.");
+ if(publishingEmail===normalized)return;
+ await context.close();
+ context=await launchContext(accountProfilePath(normalized),visible);
+ page=await context.newPage();page.setDefaultTimeout(15000);
+ publishingEmail=normalized;
+}
 let config;
 async function rpc(body){
  const response=await fetch(`${app}/api/automation/browser`,{method:"POST",headers:{Authorization:`Bearer ${config.token}`,"Content-Type":"application/json"},body:JSON.stringify(body),signal:AbortSignal.timeout(25000)});
@@ -27,7 +59,13 @@ async function currentGoogleEmail(){
 }
 async function openManager(email){
  await page.goto(`https://business.google.com/locations${email?`?authuser=${encodeURIComponent(email)}`:""}`,{waitUntil:"domcontentloaded"});
- if(new URL(page.url()).hostname==="accounts.google.com")throw new Error("Google needs sign-in or account verification. Open the worker with --google-login.");
+ if(new URL(page.url()).hostname==="accounts.google.com"){
+  // Never collect Google credentials inside Playwright. Google can reject that
+  // automated context as an insecure browser. The manual server sees this
+  // marker, opens ordinary Edge with this same dedicated profile, and resumes
+  // the original sync automatically after the user closes that Edge window.
+  throw new Error(`SECURE_EDGE_SIGNIN_REQUIRED:${email}`);
+ }
  const actual=await currentGoogleEmail();
  if(email&&actual!==email)throw new Error(`Wrong Google account: expected ${email}, found ${actual}. No post was submitted.`);
  await page.getByRole("row").nth(1).waitFor({state:"visible"});
@@ -99,10 +137,61 @@ async function fillComposer(frame,post){
   await frame.getByRole("button",{name:label,exact:true}).waitFor();
  }
 }
+function escapeRegExp(value){return value.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
+function googleScheduleParts(post){
+ const rounded=new Date(post.scheduledFor);
+ rounded.setUTCSeconds(0,0);
+ const remainder=rounded.getUTCMinutes()%30;
+ if(remainder)rounded.setUTCMinutes(rounded.getUTCMinutes()+(30-remainder));
+ const parts=Object.fromEntries(new Intl.DateTimeFormat("en-AU",{
+  timeZone:post.timezone,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"
+ }).formatToParts(rounded).filter(part=>part.type!=="literal").map(part=>[part.type,part.value]));
+ return {date:`${parts.year}-${parts.month}-${parts.day}`,displayDate:`${parts.day}/${parts.month}/${parts.year}`,time:`${parts.hour}:${parts.minute}`,scheduledFor:rounded.toISOString(),
+  label:new Intl.DateTimeFormat("en-AU",{timeZone:post.timezone,day:"numeric",month:"short"}).format(rounded)};
+}
+async function setGoogleSchedule(frame,post){
+ const schedule=googleScheduleParts(post);
+ const switchControl=frame.getByRole("switch",{name:/Schedule(?: this)? post/i}).first();
+ const checkbox=frame.getByRole("checkbox",{name:/Schedule(?: this)? post/i}).first();
+ if(await switchControl.isVisible().catch(()=>false)){
+  if(await switchControl.getAttribute("aria-checked")!=="true")await switchControl.click();
+  if(await switchControl.getAttribute("aria-checked")!=="true")throw new Error("Google's Schedule this post switch did not turn on.");
+ }else if(await checkbox.isVisible().catch(()=>false)){
+  if(!await checkbox.isChecked())await checkbox.check();
+  if(!await checkbox.isChecked())throw new Error("Google's Schedule this post checkbox did not turn on.");
+ }else{
+  const label=frame.getByText(/Schedule this post/i).first();
+  if(!await label.isVisible().catch(()=>false))throw new Error("Google's Schedule this post control was not found.");
+  const row=label.locator("xpath=..");
+  const unlabeledSwitch=row.locator('[role="switch"], input[type="checkbox"], button').last();
+  if(!await unlabeledSwitch.isVisible().catch(()=>false))throw new Error("Google's unlabeled Schedule this post switch was not found in its row.");
+  await unlabeledSwitch.click();
+ }
+ await frame.waitForTimeout(300);
+ const nativeDate=frame.locator('input[type="date"]').first();
+ const nativeTime=frame.locator('input[type="time"]').first();
+ const dateBox=await nativeDate.isVisible().catch(()=>false)?nativeDate:frame.getByRole("textbox",{name:/schedule.*date|date/i}).first();
+ const timeBox=await nativeTime.isVisible().catch(()=>false)?nativeTime:frame.getByRole("combobox",{name:/time/i}).first();
+ if(!await dateBox.isVisible().catch(()=>false)||!await timeBox.isVisible().catch(()=>false))throw new Error("Google's scheduling date or time field was not found.");
+ await dateBox.fill(await nativeDate.isVisible().catch(()=>false)?schedule.date:schedule.displayDate);
+ await timeBox.fill(schedule.time);
+ if(!await nativeTime.isVisible().catch(()=>false)){
+  const option=frame.getByRole("option",{name:new RegExp(`^${escapeRegExp(schedule.time)}$`,"i")}).first();
+  if(!await option.isVisible().catch(()=>false))throw new Error(`Google did not offer the ${schedule.time} time slot.`);
+  await option.click();
+  await timeBox.press("Tab");
+ }
+ const actualDate=await dateBox.inputValue();const actualTime=await timeBox.inputValue();
+ if(!actualDate.includes(schedule.date)&&!actualDate.includes(schedule.displayDate))throw new Error(`Google's scheduled date was not set to ${schedule.displayDate}.`);
+ if(!actualTime.startsWith(schedule.time))throw new Error(`Google's scheduled time was not set to ${schedule.time}.`);
+ if(await timeBox.getAttribute("aria-invalid")==="true")throw new Error(`Google rejected the scheduled time ${schedule.time}.`);
+ return schedule;
+}
 async function publish(job){
  let clicked=false;
  try{
   const frame=await composerFor(job.profile);await fillComposer(frame,job.post);
+  const schedule=googleScheduleMode?await setGoogleSchedule(frame,job.post):null;
   const postButton=frame.getByRole("button",{name:"Post",exact:true});
   if(await postButton.count()!==1)throw new Error("The final Post button could not be identified.");
   clicked=true;await postButton.click();
@@ -115,11 +204,24 @@ async function publish(job){
      if(await skip.count()===1&&await skip.isVisible())await skip.click();
     }
     const confirmation=scope.getByText(/^(Your post (has been |was )?published[.!]?|Post published[.!]?|Your update is live[.!]?)$/i);
-    if(await confirmation.first().isVisible().catch(()=>false))return {status:"PUBLISHED",confirmed:true};
+    if(!googleScheduleMode&&await confirmation.first().isVisible().catch(()=>false))return {status:"PUBLISHED",confirmed:true};
+    // Google's newer composer closes into the "Your posts" list without a
+    // toast. Confirm only when both this post's unique text prefix and a fresh
+    // Published timestamp are visibly present in the same frame.
+    const prefix=job.post.summary.slice(0,70).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    const publishedCopy=scope.getByText(new RegExp(prefix,"i")).first();
+    const recentPublished=scope.getByText(/Published\s+(?:just now|\d+\s+seconds?\s+ago|\d+\s+minutes?\s+ago)/i).first();
+    if(!googleScheduleMode&&await publishedCopy.isVisible().catch(()=>false)&&await recentPublished.isVisible().catch(()=>false))
+     return {status:"PUBLISHED",confirmed:true};
+    if(googleScheduleMode){
+     const scheduled=scope.getByText(new RegExp(`Scheduled\\s+${escapeRegExp(schedule.label)}`,"i")).first();
+     if(await publishedCopy.isVisible().catch(()=>false)&&await scheduled.isVisible().catch(()=>false))
+      return {status:"SUBMITTED",confirmed:true,scheduledForActual:schedule.scheduledFor};
+    }
    }
    await page.waitForTimeout(500);
   }
-  throw new Error("Google did not show an unambiguous publication confirmation. Review the profile before replacing this post.");
+  throw new Error(googleScheduleMode?"Google did not show the matching scheduled post and date. Review the profile before trying again.":"Google did not show an unambiguous publication confirmation. Review the profile before replacing this post.");
  }catch(error){return {status:clicked?"NEEDS_REVIEW":"FAILED",confirmed:false,error:error.message};}
 }
 try {
@@ -154,16 +256,22 @@ try {
   if(requested)config.emails=requested;
   await rpc({action:"heartbeat"});
   let first;
-  for(const email of config.emails){const scan=await scanProfiles(email);const result=await rpc({action:"sync",...scan});console.log(`${email}: ${result.profiles} profiles synced, ${result.verified} verified.`);if(!first)first=scan.profiles.find(p=>p.status==="VERIFIED");}
+  if(args.has("--sync")||args.has("--verify")){
+   for(const email of config.emails){const scan=await scanProfiles(email);const result=await rpc({action:"sync",...scan});console.log(`${email}: ${result.profiles} profiles synced, ${result.verified} verified.`);if(!first)first=scan.profiles.find(p=>p.status==="VERIFIED");}
+  }
   if(args.has("--verify")){
    if(!first)throw new Error("No verified browser profiles available to test.");
    const frame=await composerFor({...first,browserEmail:config.emails[0]});
-   await fillComposer(frame,{summary:"Browser automation preview. This draft is not published.",ctaType:"CALL"});
+   const previewPost={summary:"Browser automation preview. This draft is not published.",ctaType:"CALL",scheduledFor:new Date(Date.now()+86400000).toISOString(),timezone:"Australia/Melbourne"};
+   await fillComposer(frame,previewPost);
+   if(googleScheduleMode)await setGoogleSchedule(frame,previewPost);
    await page.screenshot({path:path.join(stateDir,"browser-composer-preview.png"),fullPage:true});
-   console.log("Verified: exact profile targeting, composer text, and Call now button. The Post button was not clicked.");
+   console.log(`Verified: exact profile targeting, composer text, Call now button${googleScheduleMode?", and Google schedule fields":""}. The Post button was not clicked.`);
   }else if(!args.has("--sync")&&!args.has("--pair")){
-   for(let i=0;i<100;i++){
-    const job=await rpc({action:"claim"});if(!job.post)break;
+   const maxJobs=googleScheduleMode?Math.min(25,Math.max(1,Number(process.env.GMB_GOOGLE_SCHEDULE_LIMIT||10))):100;
+   for(let i=0;i<maxJobs;i++){
+    const job=await rpc({action:googleScheduleMode?"claim-scheduled":"claim"});if(!job.post)break;
+    await usePublishingAccount(job.profile.browserEmail);
     const result=await publish(job);
     const evidence=path.join(stateDir,`post-${job.post.id.replace(/[^a-zA-Z0-9_-]/g,"")}.png`);
     await page.screenshot({path:evidence,fullPage:true}).catch(()=>{});
@@ -173,5 +281,10 @@ try {
    }
   }
  }
-}catch(error){console.error(error.message);process.exitCode=1;}
+}catch(error){
+ await page.screenshot({path:path.join(stateDir,"browser-worker-error.png"),fullPage:true}).catch(()=>{});
+ const diagnosticFrame=page.frames().find(frame=>/\/promote\/updates\/add/.test(frame.url()));
+ if(diagnosticFrame)await fs.writeFile(path.join(stateDir,"browser-worker-error.html"),await diagnosticFrame.content()).catch(()=>{});
+ console.error(error.message);process.exitCode=1;
+}
 finally{await context.close();}

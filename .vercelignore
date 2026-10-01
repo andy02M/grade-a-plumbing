@@ -3,9 +3,11 @@
 node_modules
 .env*
 .gmb-browser-profile
+.gmb-browser-profiles
 .gmb-browser-state
 oauth-client.json
 oauth-*.png
+profile-create-dry-run*.png
 artifacts
 scripts
 docs

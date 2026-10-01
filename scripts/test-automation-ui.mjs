@@ -40,12 +40,15 @@ try {
  await page.getByLabel("Post text",{exact:false}).fill("{{business_name}} can help in {{city}}.");
  await page.getByRole("button",{name:"Save template",exact:true}).click();await page.getByText("Daily service update",{exact:true}).waitFor();
  await page.getByRole("button",{name:/Schedule posts/}).click();
+ await page.getByLabel("Coverage month",{exact:true}).fill("2099-09");
+ await page.getByRole("heading",{name:"Connected GMB schedule coverage"}).waitFor();
  await page.getByRole("button",{name:"Select visible eligible"}).click();
  await page.getByLabel("Daily service update").check();
  await page.getByLabel("First day",{exact:true}).fill("2099-09-14");await page.getByLabel("Last day",{exact:true}).fill("2099-09-30");
  await page.getByRole("button",{name:"Preview selected profiles"}).click();await page.getByText("Example Plumbing can help in Melbourne.",{exact:true}).waitFor();
  await page.getByRole("button",{name:"Schedule selected profiles",exact:true}).click();await page.getByText("17 profile posts saved to the queue. 0 existing slots skipped.").waitFor();
- await page.getByRole("button",{name:"Run browser posts now"}).click();
+ await page.getByLabel("Example Plumbing on 2099-09-14: queued in AutoPilot").waitFor();
+ await page.getByRole("button",{name:"Publish due posts now"}).click();
  await page.getByRole("navigation",{name:"Automation menu"}).getByRole("button",{name:/Create GMB/}).click();
  await page.getByLabel("Google account",{exact:true}).selectOption("test-account");
  await page.getByRole("button",{name:"Load business accounts"}).click();await page.getByText("1 business accounts available.").waitFor();
@@ -63,5 +66,5 @@ try {
  authenticated=false;await page.reload();await page.getByRole("link",{name:/Continue with Google/}).waitFor();
  assert.equal(await page.getByRole("link",{name:/Continue with Google/}).getAttribute("href"),"/api/google/oauth/start?mode=login");
  assert.deepEqual(errors,[]);
- console.log("PASS dashboard navigation, template save, browser-run button, campaign preview/save, account-specific draft save, seven mobile tabs, unauthenticated login, and no browser errors. All API data was isolated test data.");
+ console.log("PASS dashboard navigation, template save, schedule coverage grid, browser-run button, campaign preview/save, account-specific draft save, seven mobile tabs, unauthenticated login, and no browser errors. All API data was isolated test data.");
 } finally {await browser.close();}

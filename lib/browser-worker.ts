@@ -80,15 +80,41 @@ export async function claimBrowserPost(workspaceId:string) {
     return {post:claimed,profile,claim};
   });
 }
+export async function claimGoogleScheduledPost(workspaceId:string) {
+  return withWorkspaceLock(workspaceId,"queue",async()=>{
+    const posts=await listRecords<ScheduledPost>(workspaceId,"posts");
+    const profiles=await listRecords<AutomationProfile>(workspaceId,"profiles");
+    for(const post of posts.filter(p=>p.status==="PUBLISHING"&&p.browserClaim)) {
+      if(Date.now()-Date.parse(post.updatedAt)>10*60000)await putRecord(workspaceId,"posts",post.id,{...post,status:"NEEDS_REVIEW",lastError:"Browser stopped during a Google scheduling attempt. Review the profile before trying again."});
+      else return {post:null};
+    }
+    const cutoff=new Date(Date.now()+2*60000).toISOString();
+    const post=posts.filter(p=>p.status==="SCHEDULED"&&p.scheduledFor>cutoff&&profiles.find(profile=>profile.id===p.profileId)?.transport==="browser").sort((a,b)=>a.scheduledFor.localeCompare(b.scheduledFor))[0];
+    if(!post)return {post:null};
+    const profile=profiles.find(p=>p.id===post.profileId)!;
+    if(!profile.canOperateLocalPost){await putRecord(workspaceId,"posts",post.id,{...post,status:"FAILED",lastError:"Browser profile is not eligible for posting."});return {post:null};}
+    const claim=crypto.randomUUID();
+    const claimed:ScheduledPost={...post,status:"PUBLISHING",attempts:post.attempts+1,browserClaim:claim,updatedAt:new Date().toISOString()};
+    await putRecord(workspaceId,"posts",post.id,claimed);
+    return {post:claimed,profile,claim};
+  });
+}
 export async function completeBrowserPost(workspaceId:string,body:Record<string,unknown>) {
   return withWorkspaceLock(workspaceId,"queue",async()=>{
     const post=await getRecord<ScheduledPost>(workspaceId,"posts",String(body.id));
     if(!post||!post.browserClaim||post.browserClaim!==body.claim)throw new AutomationError("Invalid browser publishing claim.",409);
     if(post.status!=="PUBLISHING")return {ok:true};
-    if(!["PUBLISHED","NEEDS_REVIEW","FAILED"].includes(String(body.status)))throw new AutomationError("Invalid browser result.");
+    if(!["SUBMITTED","PUBLISHED","NEEDS_REVIEW","FAILED"].includes(String(body.status)))throw new AutomationError("Invalid browser result.");
     const status=body.status as ScheduledPost["status"];
-    if(status==="PUBLISHED"&&body.confirmed!==true)throw new AutomationError("Publication must be verified in Google before it can be recorded.");
-    await putRecord(workspaceId,"posts",post.id,{...post,status,updatedAt:new Date().toISOString(),lastError:typeof body.error==="string"?body.error.slice(0,1500):undefined,remoteState:status==="PUBLISHED"?"BROWSER_CONFIRMED":undefined});
+    if((status==="PUBLISHED"||status==="SUBMITTED")&&body.confirmed!==true)throw new AutomationError("Google must visibly confirm the post before it can be recorded.");
+    let scheduledFor=post.scheduledFor;
+    if(status==="SUBMITTED"&&typeof body.scheduledForActual==="string"){
+      const actual=Date.parse(body.scheduledForActual);
+      const original=Date.parse(post.scheduledFor);
+      if(!Number.isFinite(actual)||actual<original||actual-original>=30*60000)throw new AutomationError("Invalid Google scheduled time.");
+      scheduledFor=new Date(actual).toISOString();
+    }
+    await putRecord(workspaceId,"posts",post.id,{...post,scheduledFor,status,updatedAt:new Date().toISOString(),lastError:typeof body.error==="string"?body.error.slice(0,1500):undefined,remoteState:status==="SUBMITTED"?"GOOGLE_SCHEDULED":status==="PUBLISHED"?"BROWSER_CONFIRMED":undefined});
     return {ok:true};
   });
 }
