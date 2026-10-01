@@ -32,6 +32,8 @@ export async function generateMetadata({
       description: a.metaDescription,
       type: "article",
       url,
+      publishedTime: a.publishedDate,
+      modifiedTime: a.updatedDate ?? a.publishedDate,
     },
     robots: l.slug === "melbourne" ? { index: true, follow: true } : { index: false, follow: true },
   };
@@ -73,7 +75,7 @@ export default async function ArticlePage({
               </Link>{" "}
               <span className="mx-2">/</span> {l.location}
             </nav>
-            <h1 className="mt-6 font-display text-5xl font-bold uppercase leading-[.9] sm:text-6xl">
+            <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
               {a.title}
             </h1>
             <p className="mt-6 max-w-3xl text-xl leading-8 text-blue-50/85">
@@ -81,6 +83,7 @@ export default async function ArticlePage({
             </p>
             <p className="mt-6 text-sm font-semibold text-blue-100">
               By {a.author} · Published {a.publishedDate}
+              {a.updatedDate && <> · Updated <time dateTime={a.updatedDate}>{a.updatedDate}</time></>}
             </p>
           </div>
           <div className="overflow-hidden rounded-[2rem] border border-white/15 shadow-2xl">
@@ -97,13 +100,17 @@ export default async function ArticlePage({
       </section>
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_20rem] lg:px-8">
         <article className="min-w-0">
+          <nav aria-label="Article contents" className="mb-8 rounded-2xl border border-blue-100 bg-white p-6">
+            <h2 className="text-lg font-bold text-brand-navy">In this guide</h2>
+            <ul className="mt-3 grid gap-2">{a.sections.map((section,index)=><li key={section.heading}><a className="text-brand-blue hover:underline" href={`#section-${index+1}`}>{section.heading}</a></li>)}</ul>
+          </nav>
           {a.locationSlugs?.length ? <nav aria-label="Locations covered" className="mb-8 rounded-xl bg-blue-50 p-5">{a.locationSlugs.map(slug => { const location = getLocationBySlug(slug); return <a key={slug} href={location.website} className="font-bold text-brand-blue hover:underline">Plumbing services in {location.location} →</a>; })}</nav> : null}
           {a.sections.map((s, index) => (
-            <section className={index ? "mt-14" : ""} key={s.heading}>
+            <section id={`section-${index+1}`} className={`scroll-mt-28 ${index ? "mt-14" : ""}`} key={s.heading}>
               <p className="text-sm font-bold uppercase tracking-[.2em] text-brand-blue">
                 0{index + 1}
               </p>
-              <h2 className="mt-3 font-display text-4xl font-bold uppercase leading-none text-brand-navy sm:text-5xl">
+              <h2 className="mt-3 text-2xl font-bold leading-tight text-brand-navy sm:text-3xl">
                 {s.heading}
               </h2>
               {s.paragraphs.map((p) => (
@@ -127,7 +134,7 @@ export default async function ArticlePage({
             </section>
           )}
           {a.relatedArticles.length > 0 && <section className="mt-12"><h2 className="text-2xl font-bold text-brand-navy">Related plumbing guides</h2><div className="mt-4 grid gap-3">{a.relatedArticles.map(slug => { const article = articleBySlug.get(slug); return article ? <Link key={slug} href={`/blog/${slug}/`} className="text-brand-blue hover:underline">{article.title}</Link> : null; })}</div></section>}
-          {a.slug === "before-booking-a-plumber-in-coburg-photos-access-and-questions-to-prepare" && <section className="mt-12"><h2 className="text-2xl font-bold text-brand-navy">Further reading</h2><div className="mt-4 grid gap-3"><a className="text-brand-blue hover:underline" href="https://www.vba.vic.gov.au/consumers/home-renovation-essentials/engaging-plumber">Building and Plumbing Commission: engaging a plumber</a><a className="text-brand-blue hover:underline" href="https://www.vba.vic.gov.au/plumbing/renewals-other-requirements/compliance-certificates">Plumbing compliance certificates</a><a className="text-brand-blue hover:underline" href="https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs">Consumer Affairs Victoria: rental repairs</a></div></section>}
+          {a.sources?.length ? <section className="mt-12 rounded-2xl bg-blue-50 p-6"><h2 className="text-2xl font-bold text-brand-navy">Sources and further reading</h2><p className="mt-3 text-sm leading-6 text-slate-600">Official guidance supporting the topics discussed. Site assessment and current product instructions take precedence over general information.</p><ul className="mt-4 grid gap-3">{a.sources.map(source=><li key={source.url}><a href={source.url} className="text-brand-blue hover:underline">{source.title}</a></li>)}</ul></section> : null}
         </article>
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <div className="glass-surface rounded-[1.75rem] p-6">
@@ -138,6 +145,8 @@ export default async function ArticlePage({
               Need practical help?
             </h2>
             <div className="mt-6 grid gap-3">
+              <a href={site.phoneHref} className="font-bold text-brand-blue">Call {site.phone}</a>
+              <a href={site.emailHref} className="break-all text-brand-blue hover:underline">{site.email}</a>
               {related.map((s) => (
                 <Link
                   key={s!.slug}

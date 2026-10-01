@@ -1,6 +1,26 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import ts from "typescript";
+import { runInNewContext } from "node:vm";
+test("upgraded public guides meet the long-form editorial baseline", () => {
+ const slugs = new Set();
+ for (const file of ["hot-water-guide", "blocked-drains-guide", "sewer-repair-guide", "coburg-booking-article"]) {
+  const source = readFileSync(new URL(`../lib/${file}.ts`, import.meta.url), "utf8");
+  const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+  const context = { exports: {} }; runInNewContext(output, context);
+  const article = Object.values(context.exports)[0];
+  const body = article.sections.flatMap(section => section.paragraphs).join(" ");
+  const count = body.split(/\s+/).length;
+  assert.ok(count >= 1200 && count <= 2000, `${file}: ${count} words`);
+  assert.equal(article.status, "published");
+  assert.ok(article.updatedDate && article.sources.length >= 2);
+  assert.ok(article.relatedServices.length && article.relatedArticles.length);
+  assert.ok(!slugs.has(article.slug)); slugs.add(article.slug);
+  assert.ok(body.includes("(02) 5837 5457") && body.includes("support@gradeaplumbing.store"));
+  for (const source of article.sources) assert.equal(new URL(source.url).protocol, "https:");
+ }
+});
 const locations = readFileSync(
   new URL("../lib/locations.ts", import.meta.url),
   "utf8",

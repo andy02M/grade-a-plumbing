@@ -7,6 +7,12 @@ export const coburgBookingArticle: Article = {
   "metaDescription": "Prepare for a plumber visit in Coburg with a practical guide to photos, symptoms, access, quotes and questions before plumbing work starts.",
   "author": "Grade A Plumbing",
   "publishedDate": "2026-10-01",
+  "updatedDate": "2026-10-01",
+  "sources": [
+    {"title":"Building and Plumbing Commission: engaging a plumber","url":"https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"},
+    {"title":"Plumbing compliance certificates","url":"https://www.vba.vic.gov.au/plumbing/renewals-other-requirements/compliance-certificates"},
+    {"title":"Consumer Affairs Victoria: rental repairs","url":"https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs"}
+  ],
   "excerpt": "A clear description, useful photos and straightforward access arrangements help a plumber understand your problem. Here is how to prepare for a service visit in Coburg and nearby suburbs.",
   "relatedServices": [
     "blocked-drains",
