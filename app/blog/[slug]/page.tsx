@@ -5,6 +5,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
 import { FAQ } from "@/components/FAQ";
 import { articleBySlug, publishedArticles } from "@/lib/articles";
+import { getLocationBySlug } from "@/lib/locations";
 import { getRequestLocation } from "@/lib/location-request";
 import { serviceBySlug, serviceUrl } from "@/lib/seo-services";
 import { JsonLd } from "@/lib/seo";
@@ -96,6 +97,7 @@ export default async function ArticlePage({
       </section>
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_20rem] lg:px-8">
         <article className="min-w-0">
+          {a.locationSlugs?.length ? <nav aria-label="Locations covered" className="mb-8 rounded-xl bg-blue-50 p-5">{a.locationSlugs.map(slug => { const location = getLocationBySlug(slug); return <a key={slug} href={location.website} className="font-bold text-brand-blue hover:underline">Plumbing services in {location.location} →</a>; })}</nav> : null}
           {a.sections.map((s, index) => (
             <section className={index ? "mt-14" : ""} key={s.heading}>
               <p className="text-sm font-bold uppercase tracking-[.2em] text-brand-blue">
@@ -124,6 +126,8 @@ export default async function ArticlePage({
               </div>
             </section>
           )}
+          {a.relatedArticles.length > 0 && <section className="mt-12"><h2 className="text-2xl font-bold text-brand-navy">Related plumbing guides</h2><div className="mt-4 grid gap-3">{a.relatedArticles.map(slug => { const article = articleBySlug.get(slug); return article ? <Link key={slug} href={`/blog/${slug}/`} className="text-brand-blue hover:underline">{article.title}</Link> : null; })}</div></section>}
+          {a.slug === "before-booking-a-plumber-in-coburg-photos-access-and-questions-to-prepare" && <section className="mt-12"><h2 className="text-2xl font-bold text-brand-navy">Further reading</h2><div className="mt-4 grid gap-3"><a className="text-brand-blue hover:underline" href="https://www.vba.vic.gov.au/consumers/home-renovation-essentials/engaging-plumber">Building and Plumbing Commission: engaging a plumber</a><a className="text-brand-blue hover:underline" href="https://www.vba.vic.gov.au/plumbing/renewals-other-requirements/compliance-certificates">Plumbing compliance certificates</a><a className="text-brand-blue hover:underline" href="https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs">Consumer Affairs Victoria: rental repairs</a></div></section>}
         </article>
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <div className="glass-surface rounded-[1.75rem] p-6">
