@@ -223,10 +223,10 @@ export default async function HomePage() {
           <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">
-                {location.location} storefront
+                {location.location} {location.address ? "storefront" : "local contact"}
               </p>
               <h2 className="mt-2 font-display text-3xl font-bold uppercase text-brand-navy">
-                Visit or contact our local team
+                {location.address ? "Visit or contact our local team" : "Contact our local team"}
               </h2>
               {location.address ? (
                 <p className="mt-2 text-slate-600">{formatStorefrontAddress(location.address)}</p>

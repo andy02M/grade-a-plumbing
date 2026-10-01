@@ -96,7 +96,7 @@ export const locations: LocationConfig[] = profiles.map((name) => {
   const location = name.replace(/^Grade A Plumb(?:er|ing) /, "");
   const slug = locationSlug(location);
   const base: LocationConfig = {
-    name,
+    name: googleBusinessProfiles[slug]?.name ?? name,
     location,
     slug,
     hostname: `${slug}.gradeaplumbing.store`,

@@ -22,7 +22,7 @@ export function CustomerReviews({ locationSlug }: { locationSlug?: string }) {
             <p className="font-sans text-sm font-bold uppercase tracking-[0.14em] text-brand-blue">Customer feedback</p>
             <h2 id="customer-reviews-title" className="mt-2 font-sans text-3xl font-bold leading-tight tracking-[-0.025em] text-brand-navy sm:text-4xl">Reviews from our customers</h2>
           </div>
-          <p className="font-sans text-sm leading-6 text-slate-500">Reviews supplied from the Grade A Plumbing Google Business Profile</p>
+          <p className="font-sans text-sm leading-6 text-slate-500">{local.length ? "Reviews supplied from this location’s Google Business Profile" : "Business-wide Grade A Plumbing reviews; not specific to this suburb"}</p>
         </div>
         <div className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-5" aria-label="Customer reviews">
           {reviews.map((review) => (
