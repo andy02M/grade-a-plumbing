@@ -71,6 +71,20 @@ addresses remain unverified; no indexing gate or expansion permission changed.
 
 ## Stage 4: publisher reliability and measurement
 
+## Network article discovery follow-up — 2 October 2026
+
+Homepage article recommendations now prioritise published guides explicitly
+matching the current suburb, then general guides. An article tagged Melbourne
+and another suburb is not treated as general merely because Melbourne hosts it.
+Unrelated suburb guides no longer fill recommendation slots. Melbourne retains
+network-wide editorial discovery. Drafts and duplicate slugs are excluded, with
+a three-card limit and clear local/general labels. Existing article URLs and
+canonical ownership remain unchanged. Regression tests cover these boundaries.
+This follows Google Search Central's contextual, descriptive crawlable-link
+guidance: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+
+### Publisher reliability and measurement status
+
 Implemented: curated official source retrieval with response/content checks and
 source hashes, supporting citations, valid related guides, deterministic duplicate
 and reuse checks, and separate model reviews before and after writing. Unsupported

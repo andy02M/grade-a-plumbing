@@ -4,6 +4,25 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
 import { locationReadiness, unconfiguredHost } from "./location-readiness.mjs";
+test("homepage article selection excludes unrelated suburb guides and drafts", () => {
+ const source = readFileSync(new URL("../lib/article-selection.ts", import.meta.url), "utf8");
+ const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+ const context = { exports: {} }; runInNewContext(output, context);
+ const select = context.exports.selectLocationArticles;
+ const make = (slug, date, locations, status = "published") => ({slug, publishedDate:date, locationSlugs:locations, status});
+ const catalog = [make("coburg", "2026-10-02", ["melbourne", "coburg"]), make("general", "2026-10-01", ["melbourne"]), make("richmond", "2026-09-20", ["richmond"]), make("unscoped", "2026-09-10", undefined), make("draft", "2026-10-03", ["richmond"], "draft")];
+ assert.equal(JSON.stringify(select(catalog, "richmond").map(a => a.slug)), JSON.stringify(["richmond", "general", "unscoped"]));
+ assert.equal(JSON.stringify(select(catalog, "altona").map(a => a.slug)), JSON.stringify(["general", "unscoped"]));
+ assert.equal(select(catalog, "coburg")[0].slug, "coburg");
+ assert.equal(select(catalog, "melbourne")[0].slug, "coburg");
+ assert.equal(select([...catalog, catalog[1]], "altona").length, 2);
+ assert.equal(select(catalog, "richmond", 1).length, 1);
+ assert.equal(select(catalog, "richmond", 0).length, 0);
+ assert.equal(catalog[0].slug, "coburg");
+ const component = readFileSync(new URL("../components/ArticlesSection.tsx", import.meta.url), "utf8");
+ assert.match(component, /selectLocationArticles\(publishedArticles, locationSlug\)/);
+ assert.match(component, /href=\{`\$\{site\.baseUrl\}\/blog\/\$\{article\.slug\}\//);
+});
 test("unknown wildcard hosts cannot silently resolve to Melbourne", () => {
  for (const item of locationReadiness().inventory) {
   assert.equal(unconfiguredHost(new URL(item.targetUrl).hostname), !item.configured);
