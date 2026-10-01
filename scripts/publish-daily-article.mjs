@@ -1,4 +1,12 @@
 import { readFile, writeFile, readdir } from "node:fs/promises";
+if(process.argv.includes("--check-key")){
+ if(!process.env.GEMINI_API_KEY) throw new Error("Set GEMINI_API_KEY in GitHub Actions secrets.");
+ const model=process.env.GEMINI_MODEL||"gemini-2.5-flash";
+ const response=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(model),{headers:{"x-goog-api-key":process.env.GEMINI_API_KEY},signal:AbortSignal.timeout(30000)});
+ if(!response.ok) throw new Error("Gemini key/model check failed: HTTP "+response.status);
+ console.log("Gemini key and model access verified.");
+ process.exit(0);
+}
 const read = async p => JSON.parse(await readFile(p,"utf8"));
 const p=Object.fromEntries(new Intl.DateTimeFormat("en-CA",{timeZone:"Australia/Sydney",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).map(p=>[p.type,p.value]));
 const today=p.year+"-"+p.month+"-"+p.day;

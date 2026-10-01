@@ -19,6 +19,11 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - name: Verify Gemini key and model access
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+        run: node scripts/publish-daily-article.mjs --check-key
       - name: Generate today's article
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
