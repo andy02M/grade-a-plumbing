@@ -279,6 +279,7 @@ export const navLinks = [
   { label: "Blocked Drains", href: "/blocked-drains/" },
   { label: "Hot Water", href: "/hot-water/" },
   { label: "Emergency", href: "/emergency-plumber/" },
+  { label: "Articles", href: "/blog/" },
   { label: "Contact", href: "/contact" }
 ] as const;
 
