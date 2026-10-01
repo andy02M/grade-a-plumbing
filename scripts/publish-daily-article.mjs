@@ -1,4 +1,5 @@
 import { readFile, writeFile, readdir } from "node:fs/promises";
+import { planBrief } from "./plan-article.mjs";
 if(process.argv.includes("--check-key")){
  if(!process.env.GEMINI_API_KEY) throw new Error("Set GEMINI_API_KEY in GitHub Actions secrets.");
  const model=process.env.GEMINI_MODEL||"gemini-2.5-flash";
@@ -10,14 +11,18 @@ if(process.argv.includes("--check-key")){
 const read = async p => JSON.parse(await readFile(p,"utf8"));
 const p=Object.fromEntries(new Intl.DateTimeFormat("en-CA",{timeZone:"Australia/Sydney",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).map(p=>[p.type,p.value]));
 const today=p.year+"-"+p.month+"-"+p.day;
-if(today>"2026-12-31") process.exit(0);
 const verify=process.argv.includes("--verify");
 if(!verify&&process.env.MANUAL_RUN!=="true"&&p.hour!=="09") process.exit(0);
 const files=(await readdir("data")).filter(f=>/^article-calendar-\d+\.json$/.test(f)).sort();
 const lists=await Promise.all(files.map(f=>read("data/"+f)));
-const brief=lists.flat().find(r=>r.date===today);
-if(!brief) throw new Error("No brief for today.");
 const generated=await read("data/generated-articles.json");
+let brief=lists.flat().find(r=>r.date===today);
+if(!brief&&verify) process.exit(0);
+if(!brief){
+ brief=await planBrief(today,lists.flat(),generated);
+ const nextFile="article-calendar-"+String(files.length+1).padStart(2,"0")+".json";
+ files.push(nextFile);lists.push([brief]);
+}
 const url="https://melbourne.gradeaplumbing.store/blog/"+brief.slug+"/";
 if(verify){
  if(brief.status==="planned"&&!generated.some(a=>a.slug===brief.slug)) process.exit(0);

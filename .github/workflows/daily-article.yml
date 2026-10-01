@@ -30,7 +30,7 @@ jobs:
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
         run: node scripts/publish-daily-article.mjs
-      - run: npm run typecheck && npm test && npm run build
+      - run: npm run typecheck && npm test && node --test scripts/plan-article.test.mjs && npm run build
       - name: Publish to GitHub and Vercel
         run: |
           if git diff --quiet -- data/generated-articles.json data/article-calendar-*.json; then exit 0; fi
