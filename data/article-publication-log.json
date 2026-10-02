@@ -29,5 +29,13 @@
     "slug": "water-leaking-through-a-ceiling-safe-first-steps-and-who-to-call",
     "reason": "Incomplete model response: MAX_TOKENS",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-02",
+    "outcome": "held",
+    "recordedAt": "2026-10-02T04:26:28.195Z",
+    "slug": "water-leaking-through-a-ceiling-safe-first-steps-and-who-to-call",
+    "reason": "Editorial hold: The intent is useful, but the supplied evidence is insufficient to support technical safety and diagnostic guidance for ceiling leaks. The provided sources cover general consumer quoting laws, practitioner licensing, rental repair dispute timelines, and council flood-mapping, leaving immediate physical and electrical safety steps unsupported.",
+    "unavailableSources": []
   }
 ]
