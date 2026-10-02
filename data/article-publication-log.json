@@ -13,5 +13,13 @@
     "slug": "water-leaking-through-a-ceiling-safe-first-steps-and-who-to-call",
     "reason": "Gemini HTTP 404; check key, quota and model.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-02",
+    "outcome": "failed",
+    "recordedAt": "2026-10-02T02:52:30.616Z",
+    "slug": "water-leaking-through-a-ceiling-safe-first-steps-and-who-to-call",
+    "reason": "Gemini HTTP 503 (gemini-3.7-flash): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "unavailableSources": []
   }
 ]
