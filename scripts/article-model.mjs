@@ -1,6 +1,6 @@
 export async function modelJson(prompt, { maxOutputTokens = 2000, env = process.env, fetcher = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)) } = {}) {
   if (!env.GEMINI_API_KEY) throw new Error("Set GEMINI_API_KEY in GitHub Actions secrets.");
-  const model = (env.GEMINI_MODEL || "gemini-2.5-flash").trim().replace(/^models\//, "");
+  const model = (env.GEMINI_MODEL || "gemini-3.8-flash").trim().replace(/^models\//, "");
   if (!/^[a-zA-Z0-9._-]+$/.test(model)) throw new Error("Invalid GEMINI_MODEL: use a model ID, not a URL.");
   let response;
   for (let attempt = 0; attempt < 3; attempt++) {

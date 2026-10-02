@@ -35,7 +35,7 @@ export async function runPublisher({ args=process.argv.slice(2), now=new Date(),
     return;
   }
   if(args.includes("--check-key")) {
-    const result = await model("Return JSON {\"ok\":true}. This is a generation access test, not an article.", {maxOutputTokens:512, fetcher});
+    const result = await model("Return JSON {\"ok\":true}. This is a generation access test, not an article.", {maxOutputTokens:2000, fetcher});
     if(result?.ok !== true) throw new Error("Gemini generation access check returned an unexpected result.");
     console.log("Gemini JSON generation access verified."); return;
   }
