@@ -35,10 +35,9 @@ export async function runPublisher({ args=process.argv.slice(2), now=new Date(),
     return;
   }
   if(args.includes("--check-key")) {
-    if(!process.env.GEMINI_API_KEY) throw new Error("Set GEMINI_API_KEY in GitHub Actions secrets.");
-    const response=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(process.env.GEMINI_MODEL||"gemini-2.5-flash")}`,{headers:{"x-goog-api-key":process.env.GEMINI_API_KEY},signal:AbortSignal.timeout(30000)});
-    if(!response.ok) throw new Error(`Gemini key/model check failed: HTTP ${response.status}`);
-    console.log("Gemini key and model access verified."); return;
+    const result = await model("Return JSON {\"ok\":true}. This is a generation access test, not an article.", {maxOutputTokens:512, fetcher});
+    if(result?.ok !== true) throw new Error("Gemini generation access check returned an unexpected result.");
+    console.log("Gemini JSON generation access verified."); return;
   }
   const files=(await readdir(dataDir)).filter(file=>/^article-calendar-\d+\.json$/.test(file)).sort();
   const lists=await Promise.all(files.map(file=>read(`${dataDir}/${file}`)));
