@@ -15,7 +15,7 @@ test("default model uses the supported Gemini replacement",async()=>{
 });
 test("default availability fallback is bounded and never bypasses quota errors",async()=>{
  const keyEnv={GEMINI_API_KEY:env.GEMINI_API_KEY};let calls=0;
- const result=await modelJson("test",{env:keyEnv,sleep:async()=>{},fetcher:async url=>{calls++;return url.includes('gemini-3.8')?{ok:false,status:503,json:async()=>({error:{message:"High demand"}})}:success();}});assert.equal(result.ok,true);assert.equal(calls,4);
+ const result=await modelJson("test",{env:keyEnv,sleep:async()=>{},fetcher:async url=>{calls++;if(url.includes('gemini-3.8'))return {ok:false,status:503,json:async()=>({error:{message:"High demand"}})};assert.ok(url.includes('gemini-3.1-flash-lite'));return success();}});assert.equal(result.ok,true);assert.equal(calls,4);
  calls=0;await assert.rejects(modelJson("test",{env:keyEnv,sleep:async()=>{},fetcher:async url=>{calls++;assert.ok(url.includes('gemini-3.8'));return {ok:false,status:429,json:async()=>({error:{message:"Quota"}})};}}),/429/);assert.equal(calls,3);
 });
 test("model IDs are normalized and actual JSON generation is used", async()=>{

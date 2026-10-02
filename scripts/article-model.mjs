@@ -16,8 +16,8 @@ export async function modelJson(prompt, { maxOutputTokens = 2000, env = process.
   // Only the maintained default has an automatic, bounded availability fallback.
   // Explicit model choices, authentication, quota and billing failures never switch.
   if (allowFallback && !env.GEMINI_MODEL?.trim() && [404, 500, 502, 503, 504].includes(response.status)) {
-    console.warn(`Gemini ${model} unavailable (HTTP ${response.status}); trying gemini-3.7-flash once with bounded retries.`);
-    return modelJson(prompt, {maxOutputTokens, env:{...env,GEMINI_MODEL:"gemini-3.7-flash"},fetcher,sleep,allowFallback:false});
+    console.warn(`Gemini ${model} unavailable (HTTP ${response.status}); trying gemini-3.1-flash-lite once with bounded retries.`);
+    return modelJson(prompt, {maxOutputTokens, env:{...env,GEMINI_MODEL:"gemini-3.1-flash-lite"},fetcher,sleep,allowFallback:false});
   }
   throw new Error(`Gemini HTTP ${response.status} (${model}): ${detail}`);
   }

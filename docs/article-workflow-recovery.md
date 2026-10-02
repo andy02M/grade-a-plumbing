@@ -11,3 +11,10 @@ The replacement model subsequently returned 503 high-demand errors. The maintain
 Recovery run 36957567240 passed real JSON generation, then the longer article request exhausted availability on both models. The workflow now checks again at 02:00, 04:00, 06:00 and 08:00 UTC, during the Sydney afternoon/evening. Sydney-date locks prevent duplicate daily publication; verified and editorial-held days do not regenerate. Recovery is cloud-hosted and does not require the owner's PC. Today's article remains retry-required unless a later run verifies publication.
 
 Provider reference: https://ai.google.dev/api/generate-content
+
+Availability follow-up: after both full Flash models exhausted capacity, the
+bounded fallback was changed to the stable gemini-3.1-flash-lite model. It supports
+structured JSON outputs, but is lighter; the same draft validation, source checks
+and editorial approval remain mandatory. This is not permission to lower the
+publication standard. No billing or account settings are altered.
+Reference: https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite
