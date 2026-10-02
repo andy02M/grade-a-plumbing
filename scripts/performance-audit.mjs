@@ -6,6 +6,8 @@ const browser = await chromium.launch({headless:true});
 try {
  for (const url of targets) {
   const context = await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:2,isMobile:true,hasTouch:true});
+  // Lab visits must not contaminate production customer measurements.
+  await context.route("**/api/measurement/**", route => route.fulfill({status:204}));
   const page = await context.newPage(); const cdp = await context.newCDPSession(page);
   await cdp.send("Network.enable");
   await cdp.send("Network.emulateNetworkConditions",{offline:false,latency:150,downloadThroughput:200000,uploadThroughput:93750});
