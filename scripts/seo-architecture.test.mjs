@@ -31,6 +31,19 @@ test("unknown wildcard hosts cannot silently resolve to Melbourne", () => {
  assert.equal(unconfiguredHost("not-a-location.gradeaplumbing.store"), true);
  assert.match(readFileSync(new URL("../lib/location-request.ts", import.meta.url), "utf8"), /if \(isUnconfiguredLocationHost\(host\)\) notFound\(\)/);
 });
+test("service guides use both service relevance and location eligibility", () => {
+ const page = readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8");
+ assert.match(page, /selectLocationArticles\(/);
+ assert.match(page, /publishedArticles.filter\(article => article.relatedServices.includes\(slug\)\)/);
+ assert.doesNotMatch(page, /\.sort\(\(a, b\) => Number\(Boolean/);
+});
+test("sitemap dates reflect recorded homepage and editorial changes, not request time", () => {
+ const source = readFileSync(new URL("../app/sitemap.ts", import.meta.url), "utf8");
+ assert.match(source, /localGuidance\[location.slug\]\?\.checkedDate/);
+ assert.match(source, /Math.max\(locationContentUpdated.getTime\(\)/);
+ assert.match(source, /article.updatedDate \?\? article.publishedDate/);
+ assert.doesNotMatch(source, /new Date\(\)|Date.now\(/);
+});
 test("location readiness accounts for every target without silently expanding hosts", () => {
  const report = locationReadiness();
  assert.equal(report.summary.targets, 100);

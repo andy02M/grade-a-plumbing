@@ -1,5 +1,22 @@
 # Staged SEO implementation
 
+## Current completion status — 2 October 2026
+
+All 82 configured homepages now have source-linked local guidance; historical
+batch counts below describe progress at that time. Eighteen expansion candidates
+remain unpublished. Storefront verification and Search Console access remain open.
+
+Service-page recommendations now apply both service relevance and the existing
+location-aware article selector. Unrelated suburb articles cannot fill local
+recommendation slots; the Melbourne editorial host retains network discovery.
+Homepage sitemap dates use recorded local guidance updates, and the blog index
+uses the latest published article update, rather than an obsolete blanket date.
+Other page dates and indexing gates remain unchanged. No fresh timestamps are
+generated merely because a sitemap is requested.
+
+These changes follow Google's descriptive, relevant crawlable-link guidance:
+https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+
 ## Stage 1: register integrity and presentation
 
 The supplied October 2026 register is retained as 101 records covering 100

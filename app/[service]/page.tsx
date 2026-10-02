@@ -17,6 +17,7 @@ import {
 import { JsonLd } from "@/lib/seo";
 import { brandAssets, site } from "@/lib/site";
 import { publishedArticles } from "@/lib/articles";
+import { selectLocationArticles } from "@/lib/article-selection";
 
 const serviceImages: Record<string, { src: string; alt: string }> = {
   "blocked-drains": {
@@ -99,10 +100,10 @@ export default async function MoneyPage({
       src: brandAssets.serviceVan.src,
       alt: brandAssets.serviceVan.alt,
     };
-  const guides = publishedArticles
-    .filter((article) => article.relatedServices.includes(slug))
-    .sort((a, b) => Number(Boolean(b.locationSlugs?.includes(location.slug))) - Number(Boolean(a.locationSlugs?.includes(location.slug))))
-    .slice(0, 3);
+  const guides = selectLocationArticles(
+    publishedArticles.filter(article => article.relatedServices.includes(slug)),
+    location.slug,
+  );
   const schema = [
     {
       "@context": "https://schema.org",
