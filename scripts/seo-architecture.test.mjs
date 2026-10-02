@@ -4,6 +4,22 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
 import { locationReadiness, unconfiguredHost, readSeoConfiguration } from "./location-readiness.mjs";
+test("Search Console duplicate paths redirect without changing canonical or API URLs", async () => {
+ const source = readFileSync(new URL("../next.config.ts", import.meta.url), "utf8");
+ const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+ const context = { exports: {}, process: { cwd: () => "/test" } };
+ runInNewContext(output, context);
+ const config = context.exports.default;
+ const redirects = await config.redirects();
+ for (const page of ["contact", "service-areas"]) {
+  const rule = redirects.find(r => r.source === `/:page(${page}(?!/))`);
+  assert.equal(rule.destination, `/${page}/`);
+  assert.equal(rule.permanent, true);
+  assert.equal(redirects.some(r => r.source === `/${page}/`), false);
+ }
+ assert.equal(config.skipTrailingSlashRedirect, true);
+ assert.equal(redirects.some(r => r.source.startsWith("/api")), false);
+});
 test("homepage article selection excludes unrelated suburb guides and drafts", () => {
  const source = readFileSync(new URL("../lib/article-selection.ts", import.meta.url), "utf8");
  const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;

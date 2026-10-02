@@ -8,6 +8,13 @@ vitals, and server-only accepted quote events. See performance-and-measurement.m
 for the measured baseline, safeguards and hosting-log viewing instructions.
 Instrumentation is not a persistent analytics dashboard or Search Console access.
 
+Search Console Domain ownership and sitemap submission are user-confirmed.
+Supplied exports are now available for baseline and indexing diagnosis; live
+account/API access is not. The two exported duplicate contact/service-area paths
+are consolidated to their existing trailing-slash canonical URLs. See
+search-console-indexing-2026-10-02.md for all eight URL findings and unresolved
+Ballarat Google-selected canonical evidence. No indexing gates are removed.
+
 All 82 configured homepages now have source-linked local guidance; historical
 batch counts below describe progress at that time. Eighteen expansion candidates
 remain unpublished. Storefront verification and Search Console access remain open.
