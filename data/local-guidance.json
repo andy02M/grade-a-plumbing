@@ -1,4 +1,52 @@
 {
+  "berwick": {
+    "heading": "Know what a Casey drainage report leaves out",
+    "checkedDate": "2026-10-02",
+    "introduction": "Request plumbing help in Berwick for leaks, hot water or drainage. Share existing plans when booking a drain assessment, and explain whether the enquiry concerns private pipework or a proposed connection.",
+    "metaDescription": "Need a plumber in Berwick? Discuss leaks, hot water and drains, with Casey guidance on the limits of discharge reports and private drainage records.",
+    "paragraphs": [
+      "Casey's discharge report does not show downpipes or associated internal property stormwater drainage. Council also warns that its drain details are a guide and may differ from as-constructed conditions. For a Berwick investigation, a report should inform questions rather than be treated as a complete map of buried private pipes.",
+      "Provide any report and earlier inspection findings, then ask what the proposed assessment will establish on site. Casey requires an additional report for Council drains on adjoining property or in the road reserve. Identify those information gaps before agreeing to work that depends on a particular pipe route."
+    ],
+    "faqs": [
+      {"question": "Will a Casey discharge report map my Berwick downpipes?", "answer": "No. Casey says its report excludes downpipes and associated internal stormwater drainage. Property assessment may still be needed to establish private pipe routes."},
+      {"question": "Are Council drain measurements proof of the installed arrangement?", "answer": "Casey describes its drain information as a guide that may not show as-constructed conditions. Clarify which details need checking before relying on them for proposed work."}
+    ],
+    "relatedServices": ["blocked-drains", "sewer-repairs"],
+    "sources": [{"title": "City of Casey: legal point of discharge reports", "url": "https://www.casey.vic.gov.au/apply-legal-point-of-discharge-report"}]
+  },
+  "doncaster": {
+    "heading": "Distinguish overland flow from a private pipe blockage",
+    "checkedDate": "2026-10-02",
+    "introduction": "Discuss plumbing help in Doncaster for drains, leaks and hot water. For rainfall-related water problems, describe whether water is backing up from a fixture or arriving across the ground.",
+    "metaDescription": "Request plumbing help in Doncaster for drains, leaks or hot water. Find Manningham guidance on overland flow and private drainage responsibilities.",
+    "paragraphs": [
+      "Manningham explains that heavy rainfall can exceed underground drainage capacity, with excess water following overland routes across roads, reserves and private property. This is a different question from whether a private pipe is blocked; seeing surface water alone does not establish the cause at a Doncaster property.",
+      "Council's guidance separates regional drainage, Council assets and property-owner connections. Describe the water's route from a safe position, affected fixtures and timing relative to rain. Ask whether the assessment concerns a private drain or whether an authority enquiry is also needed. Do not assume clearing a pipe will resolve a broader overland-flow problem."
+    ],
+    "faqs": [
+      {"question": "Does surface flooding in Doncaster prove a blocked private drain?", "answer": "No. Manningham describes overland flow when rainfall exceeds network capacity. Assessment should distinguish that situation from a fault in private pipework."},
+      {"question": "Does Council maintain every drainage connection in Manningham?", "answer": "No. Manningham distinguishes Council and regional assets from property-owner house-drain connections. Confirm the asset involved rather than assigning responsibility from the suburb alone."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "Manningham Council: flooding and drainage FAQs", "url": "https://yoursay.manningham.vic.gov.au/flood-and-water-management/widgets/365752/faqs"}]
+  },
+  "portmelbourne": {
+    "heading": "Locate the discharge point before planning a drainage change",
+    "checkedDate": "2026-10-02",
+    "introduction": "Request plumbing assistance in Port Melbourne for drains, leaks or hot water. Explain whether you need an existing fault assessed, a connection located or advice on a proposed drainage alteration.",
+    "metaDescription": "Need a plumber in Port Melbourne? Discuss drains, leaks and hot water, with Port Phillip guidance on discharge certificates and locating drainage access points.",
+    "paragraphs": [
+      "Port Phillip says a property's drainage access point can connect to a Council drain, kerb or channel. Its discharge certificate identifies the approved destination for rainwater in relation to proposed building work. Do not assume every Port Melbourne property has the same type of outlet or that a general description identifies your connection.",
+      "Council requests a site plan showing existing buildings and proposed works with certificate applications, and offers an enquiry route when an existing drainage point cannot be located. Share available plans and explain what is unknown when booking. Confirm the relevant council for the address; this Port Phillip guidance is not a property-specific approval."
+    ],
+    "faqs": [
+      {"question": "Must a Port Phillip discharge point be an underground pipe?", "answer": "Council describes connections to a drain, kerb or channel. Check the approved arrangement for the property rather than assuming one outlet type."},
+      {"question": "What if I cannot locate my Port Melbourne drainage access point?", "answer": "Port Phillip provides a Drainage Engineer enquiry route on its discharge-point page. Explain the missing information and share available plans; confirm the council responsible for your address."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "City of Port Phillip: stormwater discharge points", "url": "https://www.portphillip.vic.gov.au/planning-and-building/building-and-construction/stormwater-discharge-point-drainage"}]
+  },
   "richmond": {
     "heading": "Clarify public-land excavation before agreeing to a connection",
     "checkedDate": "2026-10-01",

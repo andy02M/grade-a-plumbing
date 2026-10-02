@@ -1,8 +1,8 @@
 # Location readiness baseline
 
-Checked 1 October 2026. This is a configuration and supplied-register baseline, not a Google indexing report or independent premises verification.
+Updated 2 October 2026. This is a configuration and supplied-register baseline, not a Google indexing report or independent premises verification.
 
-101 supplied profiles cover 100 targets; 82 website locations are configured and 18 remain expansion candidates. Fifteen existing locations now have source-linked local guidance. No expansion candidate is approved for publication by this report.
+101 supplied profiles cover 100 targets; 82 website locations are configured and 18 remain expansion candidates. Eighteen existing locations now have source-linked local guidance. No expansion candidate is approved for publication by this report.
 
 Address labels below describe recorded data only. All premises still require independent validation. Service indexing describes the existing application gate, not actual Google index status.
 
@@ -41,21 +41,21 @@ Address labels below describe recorded data only. All premises still require ind
 | thornbury | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | craigieburn | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | northmelbourne | Yes | Active | Absent | Not added | Noindex / not configured |
-| berwick | Yes | Active | Absent | Not added | Noindex / not configured |
+| berwick | Yes | Active | Absent | Checked 2026-10-02 | Noindex / not configured |
 | hopperscrossing | Yes | Appeal Pending | Absent | Not added | Noindex / not configured |
 | altona | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | bentleigh | Yes | Verification Submitted | Absent | Not added | Noindex / not configured |
 | moorabbin | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | bundoora | Yes | Active | Absent | Not added | Noindex / not configured |
 | preston | Yes | Active | Present; unverified | Not added | Indexable |
-| doncaster | Yes | Active | Absent | Not added | Noindex / not configured |
+| doncaster | Yes | Active | Absent | Checked 2026-10-02 | Noindex / not configured |
 | northcote | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | cremorne | Yes | Active | Absent | Not added | Noindex / not configured |
 | werribee | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | camberwell | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | sunbury | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | sunshine | Yes | Active | Absent | Not added | Noindex / not configured |
-| portmelbourne | Yes | Active | Absent | Not added | Noindex / not configured |
+| portmelbourne | Yes | Active | Absent | Checked 2026-10-02 | Noindex / not configured |
 | balwyn | Yes | Active | Absent | Not added | Noindex / not configured |
 | carlton | Yes | Active | Absent | Not added | Noindex / not configured |
 | tarneit | Yes | Active | Absent | Not added | Noindex / not configured |

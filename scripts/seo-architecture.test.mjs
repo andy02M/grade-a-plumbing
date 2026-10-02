@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
-import { locationReadiness, unconfiguredHost } from "./location-readiness.mjs";
+import { locationReadiness, unconfiguredHost, readSeoConfiguration } from "./location-readiness.mjs";
 test("homepage article selection excludes unrelated suburb guides and drafts", () => {
  const source = readFileSync(new URL("../lib/article-selection.ts", import.meta.url), "utf8");
  const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
@@ -36,7 +36,7 @@ test("location readiness accounts for every target without silently expanding ho
  assert.equal(report.summary.targets, 100);
  assert.equal(report.summary.configured, 82);
  assert.equal(report.summary.expansionTargets, 18);
- assert.equal(report.summary.sourceLinkedLocalGuidance, 15);
+ assert.equal(report.summary.sourceLinkedLocalGuidance, 18);
  assert.equal(report.summary.incompleteRecordedAddresses, 2);
  assert.ok(report.inventory.every(item => item.expansionApproved === false));
  assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
@@ -49,7 +49,8 @@ test("local guidance is distinct, sourced and limited to configured locations", 
  for (const [slug, entry] of Object.entries(guidance)) {
   assert.ok(configured.has(slug));
   assert.ok(!headings.has(entry.heading)); headings.add(entry.heading);
-  assert.equal(entry.checkedDate, "2026-10-01");
+  assert.match(entry.checkedDate, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(new Date(`${entry.checkedDate}T00:00:00Z`).toISOString().slice(0, 10), entry.checkedDate);
   assert.ok(entry.paragraphs.length >= 2 && entry.faqs.length >= 2);
   assert.ok(entry.relatedServices.length && entry.sources.length);
   for (const source of entry.sources) {
@@ -85,6 +86,7 @@ test("third location batch has distinct customer-facing content and valid servic
  const descriptions = new Set();
  const paragraphs = new Set();
  const questions = new Set();
+ const validServices = new Set(readSeoConfiguration("lib/seo-services.ts").services.map(service => service.slug));
  for (const [slug, entry] of Object.entries(guidance)) {
   if (entry.metaDescription) {
    assert.ok(!descriptions.has(entry.metaDescription), slug);
@@ -98,10 +100,10 @@ test("third location batch has distinct customer-facing content and valid servic
    assert.ok(!questions.has(faq.question), slug); questions.add(faq.question);
   }
   for (const service of entry.relatedServices) {
-   assert.ok(["blocked-drains", "hot-water", "emergency-plumbing", "sewer-repairs", "pipe-relining", "gas-plumbing", "commercial-plumbing", "leak-detection"].includes(service), `${slug}: ${service}`);
+   assert.ok(validServices.has(service), `${slug}: ${service}`);
   }
  }
- for (const slug of ["richmond", "altona", "boxhill"]) {
+ for (const slug of ["richmond", "altona", "boxhill", "berwick", "doncaster", "portmelbourne"]) {
   assert.ok(guidance[slug].introduction && guidance[slug].metaDescription);
  }
 });

@@ -71,6 +71,17 @@ addresses remain unverified; no indexing gate or expansion permission changed.
 
 ## Stage 4: publisher reliability and measurement
 
+Fourth location batch completed on 2 October: Berwick, Doncaster and Port Melbourne.
+Distinct source-linked guidance explains Casey report limitations, Manningham
+overland flow and Port Phillip discharge-point enquiries. Introductions, descriptions
+and visible/schema FAQs remain property-assessment focused. Port Phillip's official
+search extract was accessible, but direct retrieval returned 429; detailed fees or
+timings were not used. Confirm the responsible council for individual addresses.
+Eighteen configured locations now have researched guidance; 64 remain. No
+storefront evidence was invented and no indexing setting or URL was changed.
+Service links are now checked against the actual configured service catalogue,
+rather than a separate list; source dates must be valid ISO calendar dates.
+
 ## Network article discovery follow-up — 2 October 2026
 
 Homepage article recommendations now prioritise published guides explicitly
