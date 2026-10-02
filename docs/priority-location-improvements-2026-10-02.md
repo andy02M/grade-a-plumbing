@@ -10,6 +10,10 @@ Source: user-supplied Search Performance ZIP, Pages.csv, 30 June–29 September
 | Box Hill | 7,156 | 20 | 0.28% |
 | Kew | 5,989 | 3 | 0.05% |
 | Brunswick | 5,264 | 12 | 0.23% |
+| Hawthorn | 5,075 | 12 | 0.24% |
+| Essendon | 3,833 | 12 | 0.31% |
+| Brighton | 3,558 | 9 | 0.25% |
+| Thornbury | 1,798 | 2 | 0.11% |
 
 Changes: concise service-led titles, enquiry-led descriptions with the supplied
 phone number, clearer introductory booking information, one distinct preparation
@@ -26,7 +30,7 @@ No URLs, canonical targets, indexing gates, storefront claims, reviews, pricing,
 qualifications or response-time promises were added or changed. Service-page
 availability gates remain in place. Google can rewrite snippets independently.
 
-Compare the five exact homepage URLs over equal, complete 28-day windows after
+Compare the nine exact homepage URLs over equal, complete 28-day windows after
 recrawl. Review clicks, impressions, CTR and query/device/country mix together.
 Use an Australia/mobile segment separately where available. Do not infer ranking
 gains from aggregate position or attribute all changes to these edits. Review

@@ -35,6 +35,42 @@
     "answer": "Agree on the initial assessment scope first. If a further repair or changed connection is proposed, ask for the findings, access implications and a separately explained scope and price before authorising that work.",
     "relatedServices": ["blocked-drains", "sewer-repairs", "hot-water"]
   },
+  "hawthorn": {
+    "title": "Plumber Hawthorn | Hot Water & Drains | Grade A Plumbing",
+    "introduction": "Request plumbing assistance in Hawthorn for a hot water fault, leak or blocked drain. Tell Grade A Plumbing whether you need an existing problem assessed or are planning new pipework. We can discuss the next step and confirm availability before booking.",
+    "metaDescription": "Hot water trouble, a leak or blocked drain in Hawthorn? Discuss your plumbing assessment and request a Grade A Plumbing quote. Call (02) 5837 5457.",
+    "bookingGuidance": "For a Hawthorn renovation enquiry, describe which fixtures or drainage routes you intend to change and provide available plans. For an existing fault, explain when it occurs and what has already been investigated. Ask for fault assessment and proposed installation work to be scoped separately so you can compare like-for-like quotes.",
+    "question": "How should I explain a Hawthorn renovation plumbing enquiry?",
+    "answer": "Identify the fixtures being moved or added, share available drawings and distinguish planned changes from existing faults. Ask which investigation is included before an installation proposal is prepared. Confirm access, scope and pricing before authorising work.",
+    "relatedServices": ["hot-water", "blocked-drains", "burst-pipe-repair"]
+  },
+  "brighton": {
+    "title": "Plumber Brighton | Leaks & Hot Water | Grade A Plumbing",
+    "introduction": "Contact Grade A Plumbing about leaks, hot water problems or blocked drains in Brighton. Describe the affected fixtures and whether the enquiry concerns existing pipework or a proposed connection. Confirm the assessment scope and available booking options before proceeding.",
+    "metaDescription": "Need help with leaks, hot water or blocked drains in Brighton? Explain the fault and request a Grade A Plumbing assessment or quote. (02) 5837 5457.",
+    "bookingGuidance": "For a Brighton drainage enquiry, separate the symptoms of an existing blockage from a proposal to connect new pipework. Include earlier inspection findings and any Council correspondence. Ask what the first assessment will establish, and which further work or approval questions would require a separate decision.",
+    "question": "What should a Brighton drainage quote explain before I accept it?",
+    "answer": "Ask which existing pipe section is being assessed, what access is needed and what the quoted work includes. If a new connection is proposed, clarify that scope separately and provide available Council correspondence. An initial enquiry does not establish approval for a connection.",
+    "relatedServices": ["burst-pipe-repair", "hot-water", "blocked-drains"]
+  },
+  "essendon": {
+    "title": "Plumber Essendon | Blocked Drains & Leaks | Grade A Plumbing",
+    "introduction": "For a blocked drain, leaking pipe or hot water enquiry in Essendon, tell Grade A Plumbing where the problem appears and what access is available. We can discuss the assessment required and confirm current availability before arranging a booking.",
+    "metaDescription": "Blocked drain or leak in Essendon? Discuss the affected pipework, access and assessment with Grade A Plumbing. Request a quote on (02) 5837 5457.",
+    "bookingGuidance": "If the affected Essendon pipe may extend towards a footpath or nature strip, flag that location when enquiring. Share available connection records and ask which private section the assessment covers. Before accepting any proposal involving excavation, clarify the ownership, access and permission checks rather than assuming that all outside-boundary work is included.",
+    "question": "What should I explain about outside-boundary drainage work in Essendon?",
+    "answer": "Describe where the affected pipe or overflow appears and share any connection records. Ask who will establish ownership and access, whether permission checks are required and which work is covered by the initial quote. Do not assume a public location means a public pipe.",
+    "relatedServices": ["blocked-drains", "sewer-repairs", "burst-pipe-repair"]
+  },
+  "thornbury": {
+    "title": "Plumber Thornbury | Drains & Hot Water | Grade A Plumbing",
+    "introduction": "Speak with Grade A Plumbing about blocked drains, leaks or hot water faults in Thornbury. Explain the immediate problem, previous work and access arrangements. For a planned drainage alteration, include the proposed changes so the enquiry can be assessed separately from a repair.",
+    "metaDescription": "Plumbing problem in Thornbury? Discuss blocked drains, leaks or hot water faults and request an assessment from Grade A Plumbing. (02) 5837 5457.",
+    "bookingGuidance": "For a Thornbury alteration enquiry, supply a sketch or existing site plan showing the intended work and any area outside the property that could be affected. For a repair, describe the fault history instead of treating a future design as the current diagnosis. Confirm what the assessment includes and what drawings or permission questions remain outstanding.",
+    "question": "Do I need a site plan for every Thornbury plumbing enquiry?",
+    "answer": "Start by describing the problem and access. Existing plans can help where you are proposing a changed drainage route or connection; provide them if available. Ask what documents are needed for the particular scope rather than assuming a routine fault enquiry and a drainage alteration have identical requirements.",
+    "relatedServices": ["blocked-drains", "hot-water", "sewer-repairs"]
+  },
   "epping": {
     "title": "Plumber Epping | Leaks & Hot Water | Grade A Plumbing",
     "introduction": "Need plumbing help in Epping for a leak, blocked drain or hot water problem? Give Grade A Plumbing the property location, affected fixtures and any earlier inspection findings. We can discuss the next assessment step and confirm current booking availability.",
