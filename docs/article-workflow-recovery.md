@@ -18,3 +18,8 @@ structured JSON outputs, but is lighter; the same draft validation, source check
 and editorial approval remain mandatory. This is not permission to lower the
 publication standard. No billing or account settings are altered.
 Reference: https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite
+
+Run 36964329608 reached generation but returned MAX_TOKENS. Editorial JSON now
+has an 8,000-token default budget (previously 2,000, including thinking). A
+truncated result is retried once with a doubled budget capped at 28,000. Partial
+JSON is never parsed or accepted, and a second truncation remains a failed run.

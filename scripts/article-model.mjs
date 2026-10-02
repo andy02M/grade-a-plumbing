@@ -1,4 +1,4 @@
-export async function modelJson(prompt, { maxOutputTokens = 2000, env = process.env, fetcher = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)), allowFallback = true } = {}) {
+export async function modelJson(prompt, { maxOutputTokens = 8000, env = process.env, fetcher = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)), allowFallback = true, allowTokenRetry = true } = {}) {
   if (!env.GEMINI_API_KEY) throw new Error("Set GEMINI_API_KEY in GitHub Actions secrets.");
   const model = (env.GEMINI_MODEL || "gemini-3.8-flash").trim().replace(/^models\//, "");
   if (!/^[a-zA-Z0-9._-]+$/.test(model)) throw new Error("Invalid GEMINI_MODEL: use a model ID, not a URL.");
@@ -17,12 +17,16 @@ export async function modelJson(prompt, { maxOutputTokens = 2000, env = process.
   // Explicit model choices, authentication, quota and billing failures never switch.
   if (allowFallback && !env.GEMINI_MODEL?.trim() && [404, 500, 502, 503, 504].includes(response.status)) {
     console.warn(`Gemini ${model} unavailable (HTTP ${response.status}); trying gemini-3.1-flash-lite once with bounded retries.`);
-    return modelJson(prompt, {maxOutputTokens, env:{...env,GEMINI_MODEL:"gemini-3.1-flash-lite"},fetcher,sleep,allowFallback:false});
+    return modelJson(prompt, {maxOutputTokens, env:{...env,GEMINI_MODEL:"gemini-3.1-flash-lite"},fetcher,sleep,allowFallback:false,allowTokenRetry});
   }
   throw new Error(`Gemini HTTP ${response.status} (${model}): ${detail}`);
   }
   const result = await response.json();
   const candidate = result.candidates?.[0];
+  if (candidate?.finishReason === "MAX_TOKENS" && allowTokenRetry && maxOutputTokens < 28000) {
+    console.warn(`Gemini ${model} response truncated; retrying once with a bounded larger output budget.`);
+    return modelJson(prompt, {maxOutputTokens:Math.min(maxOutputTokens * 2,28000),env:{...env,GEMINI_MODEL:model},fetcher,sleep,allowFallback:false,allowTokenRetry:false});
+  }
   if (candidate?.finishReason && candidate.finishReason !== "STOP") throw new Error(`Incomplete model response: ${candidate.finishReason}`);
   return JSON.parse(candidate?.content?.parts?.map(part=>part.text||"").join("") || "null");
 }
