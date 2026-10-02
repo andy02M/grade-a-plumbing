@@ -54,5 +54,22 @@
         "reason": "HTTP 403 or non-HTML response"
       }
     ]
+  },
+  {
+    "date": "2026-10-02",
+    "outcome": "held",
+    "recordedAt": "2026-10-02T10:25:34.155Z",
+    "slug": "water-leaking-through-a-ceiling-safe-first-steps-and-who-to-call",
+    "reason": "Draft needs substantial editing; do not pad it to a word count.",
+    "unavailableSources": [
+      {
+        "id": "water-electrical-safety",
+        "reason": "HTTP 403 or non-HTML response"
+      },
+      {
+        "id": "storm-flood-building",
+        "reason": "HTTP 403 or non-HTML response"
+      }
+    ]
   }
 ]
