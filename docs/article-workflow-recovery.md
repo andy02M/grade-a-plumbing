@@ -6,4 +6,6 @@ The publisher default now uses that replacement. GEMINI_MODEL remains an explici
 
 No billing or account settings were changed. Editorial holds, source checks, daily duplicate protections, article-only commits and live deployment verification remain in force. These safeguards improve diagnosis and recovery; they cannot guarantee that a third-party API will never fail or that every draft will meet the quality standard.
 
+The replacement model subsequently returned 503 high-demand errors. The maintained default now has one bounded availability fallback to the supported gemini-3.7-flash model. Explicit GEMINI_MODEL overrides are respected; authentication, quota and billing failures never switch models. Both models pass through the same JSON, evidence and editorial gates. Exhausted provider availability still fails honestly and sends the existing notification.
+
 Provider reference: https://ai.google.dev/api/generate-content

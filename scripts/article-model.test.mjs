@@ -6,6 +6,11 @@ const success = () => ({ ok:true, json:async()=>({candidates:[{finishReason:"STO
 test("default model uses the supported Gemini replacement",async()=>{
  await modelJson("test",{env:{GEMINI_API_KEY:env.GEMINI_API_KEY},fetcher:async url=>{assert.ok(url.includes('/gemini-3.8-flash:'));return success();}});
 });
+test("default availability fallback is bounded and never bypasses quota errors",async()=>{
+ const keyEnv={GEMINI_API_KEY:env.GEMINI_API_KEY};let calls=0;
+ const result=await modelJson("test",{env:keyEnv,sleep:async()=>{},fetcher:async url=>{calls++;return url.includes('gemini-3.8')?{ok:false,status:503,json:async()=>({error:{message:"High demand"}})}:success();}});assert.equal(result.ok,true);assert.equal(calls,4);
+ calls=0;await assert.rejects(modelJson("test",{env:keyEnv,sleep:async()=>{},fetcher:async url=>{calls++;assert.ok(url.includes('gemini-3.8'));return {ok:false,status:429,json:async()=>({error:{message:"Quota"}})};}}),/429/);assert.equal(calls,3);
+});
 test("model IDs are normalized and actual JSON generation is used", async()=>{
  const result=await modelJson("test",{env,fetcher:async(url,options)=>{assert.ok(url.endsWith('/models/gemini-2.5-flash:generateContent'));assert.equal(options.method,"POST");return success();}});
  assert.equal(result.ok,true);
