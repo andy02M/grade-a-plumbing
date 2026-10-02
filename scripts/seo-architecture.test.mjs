@@ -36,14 +36,14 @@ test("location readiness accounts for every target without silently expanding ho
  assert.equal(report.summary.targets, 100);
  assert.equal(report.summary.configured, 82);
  assert.equal(report.summary.expansionTargets, 18);
- assert.equal(report.summary.sourceLinkedLocalGuidance, 21);
+ assert.equal(report.summary.sourceLinkedLocalGuidance, 82);
  assert.equal(report.summary.incompleteRecordedAddresses, 2);
  assert.ok(report.inventory.every(item => item.expansionApproved === false));
  assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
  assert.equal(report.inventory.find(item => item.slug === "melbourne").suppliedProfiles.length, 2);
 });
 test("local guidance is distinct, sourced and limited to configured locations", () => {
- const guidance = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
+ const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
  const configured = new Set(locationReadiness().inventory.filter(item => item.configured).map(item => item.slug));
  const headings = new Set();
  for (const [slug, entry] of Object.entries(guidance)) {
@@ -56,7 +56,7 @@ test("local guidance is distinct, sourced and limited to configured locations", 
   for (const source of entry.sources) {
    const url = new URL(source.url);
    assert.equal(url.protocol, "https:");
-   assert.ok(url.hostname.endsWith(".vic.gov.au") || url.hostname === "www.gww.com.au");
+   assert.ok(url.hostname.endsWith(".vic.gov.au") || ["www.gww.com.au", "ablis.business.gov.au", "yoursay.geelongaustralia.com.au"].includes(url.hostname));
   }
  }
 });
@@ -69,7 +69,7 @@ test("local guidance FAQs are visible and included in homepage schema", () => {
  assert.doesNotMatch(home, /Recent plumbing work for homes and businesses near/);
 });
 test("second location batch has distinct introductions and meta descriptions", () => {
- const guidance = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
+ const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
  const descriptions = new Set();
  for (const slug of ["fitzroy", "williamstown", "blackburn", "thornbury", "craigieburn", "moorabbin"]) {
   const entry = guidance[slug];
@@ -81,8 +81,8 @@ test("second location batch has distinct introductions and meta descriptions", (
  assert.match(home, /localGuidance\[location.slug\]\?\.metaDescription/);
  assert.match(home, /localGuidance\[location.slug\]\?\.introduction/);
 });
-test("third location batch has distinct customer-facing content and valid service links", () => {
- const guidance = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
+test("all location batches have distinct customer-facing content and valid service links", () => {
+ const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
  const descriptions = new Set();
  const paragraphs = new Set();
  const questions = new Set();
@@ -105,6 +105,22 @@ test("third location batch has distinct customer-facing content and valid servic
  }
  for (const slug of ["richmond", "altona", "boxhill", "berwick", "doncaster", "portmelbourne", "sunshine", "glenwaverley", "southmorang"]) {
   assert.ok(guidance[slug].introduction && guidance[slug].metaDescription);
+ }
+});
+test("remaining batch covers exactly the previously missing configured locations", () => {
+ const previous = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
+ const rows = JSON.parse(readFileSync(new URL("../data/remaining-local-guidance.json", import.meta.url), "utf8"));
+ const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
+ const expected = locationReadiness().inventory.filter(item => item.configured && !previous[item.slug]).map(item => item.slug).sort();
+ assert.equal(rows.length, 61);
+ assert.deepEqual(rows.map(row => row[0]).sort(), expected);
+ for (const row of rows) {
+  assert.equal(row.length, 8);
+  assert.ok(row.every(value => typeof value === "string" && value.trim()));
+  const entry = guidance[row[0]];
+  assert.equal(entry.checkedDate, "2026-10-02");
+  assert.ok(entry.introduction && entry.metaDescription);
+  assert.ok(entry.metaDescription.length <= 190);
  }
 });
 test("complete supplied profile register preserves separate Melbourne profiles", () => {

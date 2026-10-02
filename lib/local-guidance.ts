@@ -1,4 +1,5 @@
 import records from "@/data/local-guidance.json";
+import { remainingLocalGuidance } from "./remaining-local-guidance";
 
 export type LocalGuidance = {
   introduction?: string;
@@ -12,4 +13,7 @@ export type LocalGuidance = {
 };
 
 // Local authority guidance does not verify a Grade A Plumbing storefront.
-export const localGuidance: Record<string, LocalGuidance> = records;
+for (const slug of Object.keys(remainingLocalGuidance)) {
+  if (slug in records) throw new Error(`Local guidance overlap: ${slug}`);
+}
+export const localGuidance: Record<string, LocalGuidance> = { ...records, ...remainingLocalGuidance };
