@@ -2,7 +2,7 @@
 
 Updated 2 October 2026. This is a configuration and supplied-register baseline, not a Google indexing report or independent premises verification.
 
-101 supplied profiles cover 100 targets; 82 website locations are configured and 18 remain expansion candidates. Eighteen existing locations now have source-linked local guidance. No expansion candidate is approved for publication by this report.
+101 supplied profiles cover 100 targets; 82 website locations are configured and 18 remain expansion candidates. Twenty-one existing locations now have source-linked local guidance. No expansion candidate is approved for publication by this report.
 
 Address labels below describe recorded data only. All premises still require independent validation. Service indexing describes the existing application gate, not actual Google index status.
 
@@ -22,7 +22,7 @@ Address labels below describe recorded data only. All premises still require ind
 | stkilda | Yes | Active | Present; unverified | Not added | Indexable |
 | epping | Yes | Active | Street only; incomplete | Not added | Indexable |
 | footscray | Yes | Active | Present; unverified | Not added | Indexable |
-| glenwaverley | Yes | Active | Present; unverified | Not added | Indexable |
+| glenwaverley | Yes | Active | Present; unverified | Checked 2026-10-02 | Indexable |
 | fitzroy | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | boxhill | Yes | Active | Present; unverified | Checked 2026-10-01 | Indexable |
 | hawthorn | Yes | Active | Present; unverified | Not added | Indexable |
@@ -54,7 +54,7 @@ Address labels below describe recorded data only. All premises still require ind
 | werribee | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | camberwell | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
 | sunbury | Yes | Active | Absent | Checked 2026-10-01 | Noindex / not configured |
-| sunshine | Yes | Active | Absent | Not added | Noindex / not configured |
+| sunshine | Yes | Active | Absent | Checked 2026-10-02 | Noindex / not configured |
 | portmelbourne | Yes | Active | Absent | Checked 2026-10-02 | Noindex / not configured |
 | balwyn | Yes | Active | Absent | Not added | Noindex / not configured |
 | carlton | Yes | Active | Absent | Not added | Noindex / not configured |
@@ -86,7 +86,7 @@ Address labels below describe recorded data only. All premises still require ind
 | seaford | Yes | Pending | Absent | Not added | Noindex / not configured |
 | southyarra | Yes | Pending | Absent | Not added | Noindex / not configured |
 | ascotvale | Yes | Pending | Absent | Not added | Noindex / not configured |
-| southmorang | Yes | Active | Absent | Not added | Noindex / not configured |
+| southmorang | Yes | Active | Absent | Checked 2026-10-02 | Noindex / not configured |
 | coburg | Yes | Active | Absent | Not added | Indexable |
 | keilor | No; expansion held | Pending | Absent | Not added | Noindex / not configured |
 | narrewarren | Yes | Active | Street only; incomplete | Not added | Indexable |

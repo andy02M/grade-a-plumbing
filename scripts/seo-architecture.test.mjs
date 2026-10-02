@@ -36,7 +36,7 @@ test("location readiness accounts for every target without silently expanding ho
  assert.equal(report.summary.targets, 100);
  assert.equal(report.summary.configured, 82);
  assert.equal(report.summary.expansionTargets, 18);
- assert.equal(report.summary.sourceLinkedLocalGuidance, 18);
+ assert.equal(report.summary.sourceLinkedLocalGuidance, 21);
  assert.equal(report.summary.incompleteRecordedAddresses, 2);
  assert.ok(report.inventory.every(item => item.expansionApproved === false));
  assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
@@ -103,7 +103,7 @@ test("third location batch has distinct customer-facing content and valid servic
    assert.ok(validServices.has(service), `${slug}: ${service}`);
   }
  }
- for (const slug of ["richmond", "altona", "boxhill", "berwick", "doncaster", "portmelbourne"]) {
+ for (const slug of ["richmond", "altona", "boxhill", "berwick", "doncaster", "portmelbourne", "sunshine", "glenwaverley", "southmorang"]) {
   assert.ok(guidance[slug].introduction && guidance[slug].metaDescription);
  }
 });

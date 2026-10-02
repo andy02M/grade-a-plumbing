@@ -84,6 +84,13 @@ rather than a separate list; source dates must be valid ISO calendar dates.
 
 ## Network article discovery follow-up — 2 October 2026
 
+Fifth location batch completed on 2 October: Sunshine, Glen Waverley and South
+Morang. Distinct guidance covers detention versus treatment, tank overflow and
+driveway drainage respectively, with checked official council sources, unique
+introductions/descriptions and visible/schema FAQs. Twenty-one configured
+locations now have researched guidance; 61 remain. URLs, storefront records,
+service indexing gates and expansion permissions remain unchanged.
+
 Homepage article recommendations now prioritise published guides explicitly
 matching the current suburb, then general guides. An article tagged Melbourne
 and another suburb is not treated as general merely because Melbourne hosts it.

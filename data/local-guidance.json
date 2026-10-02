@@ -1,4 +1,52 @@
 {
+  "sunshine": {
+    "heading": "Separate detention requirements from stormwater treatment",
+    "checkedDate": "2026-10-02",
+    "introduction": "Discuss plumbing help in Sunshine for drains, leaks and hot water. For a drainage alteration, provide the planning conditions and explain whether the proposal involves storage, treatment or an existing fault.",
+    "metaDescription": "Need a plumber in Sunshine? Discuss drains, leaks and hot water, with Brimbank guidance distinguishing stormwater detention from water-quality treatment.",
+    "paragraphs": [
+      "Brimbank distinguishes on-site detention, which slows stormwater release, from water-sensitive design, which improves water quality. Some developments require both. For a Sunshine enquiry, a tank or treatment device should not be assumed to satisfy every drainage condition just because it stores or handles rainwater.",
+      "Council's drainage design parameters can include discharge rates and detention requirements. Share endorsed plans and conditions, and identify any missing design information before agreeing to an alteration. Brimbank describes separate design and assessment stages; a routine plumbing enquiry is not a substitute for project-specific engineering approval."
+    ],
+    "faqs": [
+      {"question": "Are detention and water-sensitive design the same in Brimbank?", "answer": "No. Brimbank describes detention as controlling stormwater quantity and release, while water-sensitive design addresses quality. A development may need both."},
+      {"question": "What should I provide for a Sunshine detention-system enquiry?", "answer": "Share relevant planning conditions, endorsed plans and Council drainage design parameters. Explain whether you need an existing fault assessed or a proposed alteration reviewed."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "Brimbank City Council: drainage and detention", "url": "https://www.brimbank.vic.gov.au/building-development/infrastructure-roads-and-drainage/drainage-and-detention"}]
+  },
+  "glenwaverley": {
+    "heading": "Include the rainwater tank overflow in the assessment scope",
+    "checkedDate": "2026-10-02",
+    "introduction": "Request plumbing assistance in Glen Waverley for leaks, hot water or drains. If a rainwater tank is involved, describe the overflow and connected drainage as well as the tank itself.",
+    "metaDescription": "Request plumbing help in Glen Waverley for drains, leaks and hot water. Check Monash guidance on rainwater-tank overflow and the legal discharge point.",
+    "paragraphs": [
+      "Monash says rainwater-tank overflow must be directed to the property's stormwater system at the legal point of discharge. For a Glen Waverley tank enquiry, describe where overflow appears and which drainage connection is involved rather than focusing only on storage capacity.",
+      "Provide safely accessible photographs and available installation records. Ask whether the assessment covers the overflow route and associated drain, and confirm property-specific approval requirements with Council where an alteration is proposed. A tank's presence does not establish that its existing overflow connection is correct."
+    ],
+    "faqs": [
+      {"question": "Where should rainwater-tank overflow go in Monash?", "answer": "Monash directs owners to ensure overflow reaches the stormwater system at the property's legal point of discharge. Check the specific connection before planning a change."},
+      {"question": "Does a Glen Waverley tank assessment include the overflow drain?", "answer": "Confirm that in the agreed scope. Describe the overflow symptoms and provide available records so the tank and connected drainage can be considered separately."}
+    ],
+    "relatedServices": ["blocked-drains", "burst-pipe-repair"],
+    "sources": [{"title": "City of Monash: rainwater tanks", "url": "https://www.monash.vic.gov.au/Planning-Development/Building/Do-I-Need-a-Building-Permit/Rainwater-Tanks"}]
+  },
+  "southmorang": {
+    "heading": "Identify driveway drainage and the permissions for adjoining work",
+    "checkedDate": "2026-10-02",
+    "introduction": "Discuss plumbing help in South Morang for leaks, hot water and drains. For driveway pooling, explain the affected pipes or culverts and whether a proposed assessment extends into a nature strip or easement.",
+    "metaDescription": "Need a plumber in South Morang? Discuss drains, leaks and hot water, with Whittlesea guidance on driveway drainage, property reports and works permissions.",
+    "paragraphs": [
+      "Whittlesea says owners are responsible for drainage infrastructure on their driveway, including pipes and culverts. Its property/stormwater report can identify an existing discharge point and Council drain details such as depth and boundary offset. These are useful starting records for a South Morang enquiry, not a diagnosis of why water is pooling.",
+      "Explain whether you are investigating an existing problem or proposing new work. Council identifies separate drainage-plan assessment where required and a works permit for work in a road reserve or Council easement. Clarify the work boundary and approval responsibilities before assuming a private driveway assessment authorises adjoining excavation."
+    ],
+    "faqs": [
+      {"question": "Who looks after driveway pipes and culverts in Whittlesea?", "answer": "Whittlesea assigns drainage infrastructure on the driveway to the property owner. Identify the affected asset and any adjoining Council infrastructure when defining the assessment."},
+      {"question": "Can a South Morang drainage report authorise nature-strip work?", "answer": "Do not assume so. Whittlesea describes a separate works permit for work in a road reserve or Council easement, alongside any required plan assessment."}
+    ],
+    "relatedServices": ["blocked-drains", "commercial-plumbing"],
+    "sources": [{"title": "City of Whittlesea: stormwater design and discharge", "url": "https://www.whittlesea.vic.gov.au/Environment/Flooding-stormwater-and-rainwater/Stormwater-drainage-design-and-discharge"}]
+  },
   "berwick": {
     "heading": "Know what a Casey drainage report leaves out",
     "checkedDate": "2026-10-02",
