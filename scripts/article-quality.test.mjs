@@ -3,13 +3,17 @@ import assert from "node:assert/strict";
 import { mkdtemp, writeFile, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { QualityHold, collectSources, validateDraft, assertDistinctIntent, liveArticleMatches, articleUrl, sydneyTime, runReadiness, sourceText } from "./article-quality.mjs";
+import { QualityHold, collectSources, validateDraft, assertDistinctIntent, liveArticleMatches, articleUrl, sydneyTime, runReadiness, sourceText, sourceCatalog } from "./article-quality.mjs";
 import { reviewEditorial, verifyArticle, runPublisher } from "./publish-daily-article.mjs";
 
 const brief={date:"2030-01-01",title:"Planning access for a hot water assessment",slug:"planning-access-hot-water-assessment",targetKeyword:"hot water assessment access",locationSlug:"coburg",status:"planned"};
 const publicArticle={slug:"existing-guide",title:"Existing guide",sections:[{heading:"Existing",paragraphs:["A different short earlier article."]}]};
 const sources=[{id:"quotes",title:"Quotes",url:"https://example.test/quotes",content:"Official guidance about quotes."},{id:"practitioners",title:"Trades",url:"https://example.test/trades",content:"Official guidance about trades."}];
 const approval={approved:true,overlaps:[],unsupportedClaims:[],unsafeAdvice:[],localClaimsVerified:true,readerValue:"A concrete question about access restrictions and what to prepare before an assessment.",reason:"Distinct supported customer question."};
+test("ceiling-leak briefs retrieve emergency and electrical evidence, not only consumer sources",()=>{
+ const topic="Water leaking through a ceiling: safe first steps and who to call";
+ for(const id of ["storm-help","water-electrical-safety","storm-flood-building"]){const source=sourceCatalog.find(s=>s.id===id);assert.ok(source.pattern.test(topic));assert.ok(source.url.startsWith('https://'));}
+});
 function draftFixture() {
  return {metaTitle:"Planning access for a hot water assessment",metaDescription:"Prepare useful information about hot water access, property constraints and approval before discussing the appropriate professional assessment.",excerpt:"Prepare the information needed for an assessment.",sections:Array.from({length:5},(_,section)=>({heading:`Assessment topic ${section}`,sourceIds:[section%2?"quotes":"practitioners"],paragraphs:[Array.from({length:260},(_,word)=>`detail${section}word${word}`).join(" ")+(section===4?" Call (02) 5837 5457 or email support@gradeaplumbing.store.":"")]})),faq:[{question:"What helps?",answer:"Provide the records."},{question:"What remains uncertain?",answer:"The assessment findings."}],relatedServices:["hot-water"],relatedArticles:["existing-guide"]};
 }

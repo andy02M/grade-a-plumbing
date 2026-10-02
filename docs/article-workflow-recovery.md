@@ -23,3 +23,9 @@ Run 36964329608 reached generation but returned MAX_TOKENS. Editorial JSON now
 has an 8,000-token default budget (previously 2,000, including thinking). A
 truncated result is retried once with a doubled budget capped at 28,000. Partial
 JSON is never parsed or accepted, and a second truncation remains a failed run.
+
+Run 36964518923 then passed generation but correctly held the ceiling-leak brief
+for missing safety evidence. The curated catalogue now matches leak/ceiling topics
+to VICSES, Victorian Government electrical-safety and BPC storm/flood guidance.
+Their scope must be retained; flood guidance is not a diagnosis of every leak.
+Today's hold is reopened only after adding this evidence, without bypassing review.

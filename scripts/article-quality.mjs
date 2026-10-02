@@ -4,6 +4,9 @@ export const serviceSlugs = ["blocked-drains", "sewer-repairs", "pipe-relining",
 export const editorialHost = "https://melbourne.gradeaplumbing.store";
 export class QualityHold extends Error {}
 export const sourceCatalog = [
+  { id: "storm-help", title: "VICSES: when to call for emergency assistance", url: "https://www.ses.vic.gov.au/when-to-call", pattern: /ceiling|leak|burst|storm|flood|emergency|urgent/i },
+  { id: "water-electrical-safety", title: "Victorian Government: power safety and emergency contacts", url: "https://www.energy.vic.gov.au/about-energy/safety/power-safety-and-emergency-contacts", pattern: /ceiling|leak|burst|storm|flood|electric|emergency/i },
+  { id: "storm-flood-building", title: "Building and Plumbing Commission: storm and flood safety", url: "https://www.bpc.vic.gov.au/resource-hub/safety-guides/storm-and-flood-information", pattern: /ceiling|leak|burst|storm|flood/i },
   { id: "quotes", title: "Consumer Affairs Victoria: getting quotes", url: "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes", pattern: null },
   { id: "practitioners", title: "Consumer Affairs Victoria: builders and tradespeople", url: "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/about-builders-tradespeople-and-other-building-practitioners", pattern: null },
   { id: "bpc", title: "Building and Plumbing Commission: engaging a plumber", url: "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber", pattern: /plumber|licen|register|qualif|certificate/i },
