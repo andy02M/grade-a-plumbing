@@ -4,6 +4,15 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
 import { locationReadiness, unconfiguredHost, readSeoConfiguration } from "./location-readiness.mjs";
+test("sewer and relining content requires findings and job-specific proposals", () => {
+ const editorial = readSeoConfiguration("lib/service-editorial.ts").serviceEditorial;
+ for (const slug of ["sewer-repairs", "pipe-relining"]) {
+  assert.ok(editorial[slug].sections.length >= 4);
+  assert.ok(editorial[slug].faqs.length >= 2);
+ }
+ assert.ok(editorial["sewer-repairs"].sections.some(s => s.title === "Ask for findings before choosing the repair"));
+ assert.ok(editorial["pipe-relining"].sections.some(s => s.title === "Check the full scope and warranty terms"));
+});
 test("drain and hot water guides explain assessment and complete quote scopes", () => {
  const editorial = readSeoConfiguration("lib/service-editorial.ts").serviceEditorial;
  assert.ok(editorial["blocked-drains"].sections.some(s => s.title === "Compare drain-clearing quotes by scope"));
