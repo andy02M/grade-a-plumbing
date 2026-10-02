@@ -8,4 +8,6 @@ No billing or account settings were changed. Editorial holds, source checks, dai
 
 The replacement model subsequently returned 503 high-demand errors. The maintained default now has one bounded availability fallback to the supported gemini-3.7-flash model. Explicit GEMINI_MODEL overrides are respected; authentication, quota and billing failures never switch models. Both models pass through the same JSON, evidence and editorial gates. Exhausted provider availability still fails honestly and sends the existing notification.
 
+Recovery run 36957567240 passed real JSON generation, then the longer article request exhausted availability on both models. The workflow now checks again at 02:00, 04:00, 06:00 and 08:00 UTC, during the Sydney afternoon/evening. Sydney-date locks prevent duplicate daily publication; verified and editorial-held days do not regenerate. Recovery is cloud-hosted and does not require the owner's PC. Today's article remains retry-required unless a later run verifies publication.
+
 Provider reference: https://ai.google.dev/api/generate-content

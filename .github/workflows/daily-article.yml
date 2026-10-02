@@ -2,8 +2,9 @@ name: Daily plumbing article
 on:
   schedule:
     - cron: '0 22,23 * * *'
-    # A recovery check only; it cannot create a second article for the same day.
-    - cron: '0 2 * * *'
+    # Daytime recovery checks for temporary provider outages. The Sydney-date
+    # lock prevents a second article; verified/held days do not generate again.
+    - cron: '0 2,4,6,8 * * *'
   workflow_dispatch:
     inputs:
       verification_only:

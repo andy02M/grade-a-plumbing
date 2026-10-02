@@ -1,8 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
 import { modelJson } from "./article-model.mjs";
 const env = { GEMINI_API_KEY: "secret-test-value", GEMINI_MODEL: " models/gemini-2.5-flash " };
 const success = () => ({ ok:true, json:async()=>({candidates:[{finishReason:"STOP",content:{parts:[{text:'{"ok":true}'}]}}]}) });
+test("cloud workflow keeps daytime recovery and the single publisher concurrency lock",()=>{
+ const workflow=readFileSync(new URL('../.github/workflows/daily-article.yml',import.meta.url),'utf8');
+ assert.match(workflow,/cron: '0 2,4,6,8 \* \* \*'/);
+ assert.match(workflow,/group: daily-article/);
+ assert.match(workflow,/cancel-in-progress: false/);
+});
 test("default model uses the supported Gemini replacement",async()=>{
  await modelJson("test",{env:{GEMINI_API_KEY:env.GEMINI_API_KEY},fetcher:async url=>{assert.ok(url.includes('/gemini-3.8-flash:'));return success();}});
 });
