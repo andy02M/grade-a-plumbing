@@ -2,8 +2,15 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import { modelJson } from "./article-model.mjs";
+import { articleDraftSchema } from "./article-schema.mjs";
 const env = { GEMINI_API_KEY: "secret-test-value", GEMINI_MODEL: " models/gemini-2.5-flash " };
 const success = () => ({ ok:true, json:async()=>({candidates:[{finishReason:"STOP",content:{parts:[{text:'{"ok":true}'}]}}]}) });
+test("draft schema enforces validator shape and survives capacity fallback",async()=>{
+ const schema=articleDraftSchema([{id:"official"}],[{slug:"guide"}]);
+ assert.equal(schema.properties.sections.minItems,5);assert.equal(schema.properties.faq.minItems,2);
+ assert.deepEqual(schema.properties.sections.items.properties.sourceIds.items.enum,["official"]);
+ let calls=0;await modelJson("test",{env:{GEMINI_API_KEY:env.GEMINI_API_KEY},responseJsonSchema:schema,sleep:async()=>{},fetcher:async(_url,options)=>{assert.deepEqual(JSON.parse(options.body).generationConfig.responseJsonSchema,schema);return ++calls<4?{ok:false,status:503,json:async()=>({error:{message:"High demand"}})}:success();}});assert.equal(calls,4);
+});
 test("cloud workflow keeps daytime recovery and the single publisher concurrency lock",()=>{
  const workflow=readFileSync(new URL('../.github/workflows/daily-article.yml',import.meta.url),'utf8');
  assert.match(workflow,/cron: '0 2,4,6,8 \* \* \*'/);
