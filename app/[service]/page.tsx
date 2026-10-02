@@ -242,6 +242,15 @@ export default async function MoneyPage({
           </div>
         </div>
       </section>
+      {definition.sources?.length ? (
+        <aside className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8" aria-label="Official safety and practitioner guidance">
+          <h2 className="text-lg font-bold text-brand-navy">Official safety and practitioner guidance</h2>
+          <ul className="mt-4 space-y-3">
+            {definition.sources.map(source => <li key={source.url}><a href={source.url} className="text-brand-blue underline underline-offset-4">{source.title}</a></li>)}
+          </ul>
+          <p className="mt-4 text-sm text-slate-600">Follow current authority advice. These sources do not verify a Grade A Plumbing practitioner's credentials.</p>
+        </aside>
+      ) : null}
       <section className="relative overflow-hidden bg-brand-navy py-20 text-white">
         <div className="absolute inset-0 opacity-20">
           <div className="h-full w-full bg-water-grid bg-[length:24px_24px]" />

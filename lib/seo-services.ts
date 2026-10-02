@@ -11,6 +11,7 @@ export type ServiceDefinition = {
   description: (location: string) => string;
   intro: (location: string) => string;
   sections: { title: string; text: string }[];
+  sources?: { title: string; url: string }[];
   related: string[];
   faqs: (location: string) => { question: string; answer: string }[];
 };
@@ -41,6 +42,7 @@ for (const definition of services) {
   const editorial = serviceEditorial[definition.slug];
   if (!editorial) continue;
   definition.sections = [...definition.sections, ...editorial.sections];
+  definition.sources = editorial.sources;
   definition.faqs = location => [...commonFaq(definition.label, location), ...editorial.faqs];
 }
 

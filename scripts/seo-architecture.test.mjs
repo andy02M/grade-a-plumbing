@@ -4,6 +4,19 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
 import { locationReadiness, unconfiguredHost, readSeoConfiguration } from "./location-readiness.mjs";
+test("remaining service guides include scoped booking and official safety sources", () => {
+ const editorial = readSeoConfiguration("lib/service-editorial.ts").serviceEditorial;
+ for (const slug of ["emergency-plumber", "burst-pipe-repair", "gas-plumbing", "commercial-plumbing"]) {
+  assert.ok(editorial[slug].sections.length >= 4);
+  assert.ok(editorial[slug].faqs.length >= 2);
+  assert.ok(editorial[slug].sources.length > 0);
+  for (const source of editorial[slug].sources) assert.match(source.url, /^https:\/\/www\.(ses|energy|energysafe|bpc)\.vic\.gov\.au\//);
+ }
+ assert.match(editorial["emergency-plumber"].sections[0].text, /Triple Zero \(000\)/);
+ const page = readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8");
+ assert.match(page, /definition.sources.map/);
+ assert.match(page, /do not verify a Grade A Plumbing/);
+});
 test("sewer and relining content requires findings and job-specific proposals", () => {
  const editorial = readSeoConfiguration("lib/service-editorial.ts").serviceEditorial;
  for (const slug of ["sewer-repairs", "pipe-relining"]) {
