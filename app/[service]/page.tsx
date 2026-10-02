@@ -181,7 +181,7 @@ export default async function MoneyPage({
                 <Icon name="phone" className="h-4 w-4" />
                 Call {location.phone ?? site.phone}
               </ButtonLink>
-              <ButtonLink href="/contact" variant="secondary">
+              <ButtonLink href="/contact/" variant="secondary">
                 Request Service
               </ButtonLink>
             </div>

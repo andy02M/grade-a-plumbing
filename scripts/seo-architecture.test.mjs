@@ -4,6 +4,18 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
 import { locationReadiness, unconfiguredHost, readSeoConfiguration } from "./location-readiness.mjs";
+test("drain and hot water guides explain assessment and complete quote scopes", () => {
+ const editorial = readSeoConfiguration("lib/service-editorial.ts").serviceEditorial;
+ assert.ok(editorial["blocked-drains"].sections.some(s => s.title === "Compare drain-clearing quotes by scope"));
+ assert.ok(editorial["hot-water"].sections.some(s => s.title === "Compare the complete repair and replacement proposal"));
+ for (const slug of ["blocked-drains", "hot-water"]) {
+  assert.ok(editorial[slug].sections.length >= 4);
+  assert.ok(editorial[slug].faqs.length >= 2);
+ }
+ const page = readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8");
+ assert.match(page, /ButtonLink href="\/contact\/"/);
+ assert.match(page, /robots: locationHasService\(location\)/);
+});
 test("Search Console priority copy improves booking intent without losing local evidence", () => {
  const copy = JSON.parse(readFileSync(new URL("../data/priority-location-copy.json", import.meta.url), "utf8"));
  const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
