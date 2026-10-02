@@ -19,6 +19,14 @@ and editorial approval remain mandatory. This is not permission to lower the
 publication standard. No billing or account settings are altered.
 Reference: https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite
 
+The generation request is now constrained by a JSON schema matching the validator:
+five sections, two FAQs, known source IDs and existing service/article links.
+Following diagnostics, run 36965107388 reported a free-tier request quota limit
+of 20 for gemini-3.8-flash. Manual attempts were stopped; no billing was enabled
+and quota errors do not switch models. Rate retries respect Google's RetryInfo
+or Retry-After delay (up to 60 seconds); explicit daily quotas do not waste inline
+retries. Publication remains unconfirmed until a cloud run verifies the live page.
+
 Run 36964329608 reached generation but returned MAX_TOKENS. Editorial JSON now
 has an 8,000-token default budget (previously 2,000, including thinking). A
 truncated result is retried once with a doubled budget capped at 28,000. Partial

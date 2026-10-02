@@ -12,7 +12,13 @@ export async function modelJson(prompt, { maxOutputTokens = 8000, responseJsonSc
   if (response.ok) break;
   let error; try { error = (await response.json()).error; } catch { /* Never log raw responses or request data. */ }
   const detail = String(error?.message ?? "No provider detail").split(env.GEMINI_API_KEY).join("[redacted]").replace(/AIza[\w-]+/g, "[redacted]").replace(/https?:\/\/\S+/g, "[URL redacted]").slice(0, 600);
-  if (attempt < 2 && [429, 500, 502, 503, 504].includes(response.status)) { await sleep(5000 * (attempt + 1)); continue; }
+  const dailyQuota = error?.details?.some(detail => detail.violations?.some(violation => /perday|daily/i.test(violation.quotaId ?? "")));
+  if (attempt < 2 && !dailyQuota && [429, 500, 502, 503, 504].includes(response.status)) {
+    const retrySeconds = Number.parseFloat(error?.details?.find(detail => detail.retryDelay)?.retryDelay ?? response.headers?.get("retry-after") ?? "0");
+    const waitMs = Math.max(5000 * (attempt + 1), response.status === 429 ? 30000 : 0, Number.isFinite(retrySeconds) ? Math.ceil(retrySeconds * 1000) : 0);
+    // Long waits belong to scheduled recovery, not a busy inline retry loop.
+    if (waitMs <= 60000) { await sleep(waitMs); continue; }
+  }
   // Only the maintained default has an automatic, bounded availability fallback.
   // Explicit model choices, authentication, quota and billing failures never switch.
   if (allowFallback && !env.GEMINI_MODEL?.trim() && [404, 500, 502, 503, 504].includes(response.status)) {

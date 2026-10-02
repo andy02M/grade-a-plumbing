@@ -35,6 +35,10 @@ test("404 preserves safe provider detail and is not blindly retried", async()=>{
 test("temporary overload is retried with bounded delays",async()=>{
  let calls=0;const delays=[];const result=await modelJson("test",{env,sleep:async ms=>delays.push(ms),fetcher:async()=>++calls<3?{ok:false,status:503,json:async()=>({error:{message:"Overloaded"}})}:success()});assert.equal(result.ok,true);assert.deepEqual(delays,[5000,10000]);assert.equal(calls,3);
 });
+test("rate retries respect provider delay and daily quotas fail without wasted requests",async()=>{
+ let calls=0;const delays=[];await modelJson("test",{env,sleep:async ms=>delays.push(ms),fetcher:async()=>++calls===1?{ok:false,status:429,json:async()=>({error:{message:"Rate limit",details:[{retryDelay:"42s"}]}})}:success()});assert.deepEqual(delays,[42000]);
+ calls=0;await assert.rejects(modelJson("test",{env,sleep:async()=>{throw Error('must not sleep');},fetcher:async()=>{calls++;return {ok:false,status:429,json:async()=>({error:{message:"Daily cap",details:[{violations:[{quotaId:"GenerateRequestsPerDayPerProject"}]}]}})};}}),/429/);assert.equal(calls,1);
+});
 test("truncated JSON retries once with a larger budget, never parses partial output",async()=>{
  const budgets=[];const result=await modelJson("test",{env,fetcher:async(_url,options)=>{budgets.push(JSON.parse(options.body).generationConfig.maxOutputTokens);return budgets.length===1?{ok:true,json:async()=>({candidates:[{finishReason:"MAX_TOKENS",content:{parts:[{text:'{"ok":'}]}}]})}:success();}});assert.equal(result.ok,true);assert.deepEqual(budgets,[8000,16000]);
  let calls=0;await assert.rejects(modelJson("test",{env,fetcher:async()=>{calls++;return {ok:true,json:async()=>({candidates:[{finishReason:"MAX_TOKENS"}]})};}}),/Incomplete model response/);assert.equal(calls,2);
