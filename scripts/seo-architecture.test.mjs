@@ -4,6 +4,21 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { runInNewContext } from "node:vm";
 import { locationReadiness, unconfiguredHost, readSeoConfiguration } from "./location-readiness.mjs";
+test("Search Console priority copy improves booking intent without losing local evidence", () => {
+ const copy = JSON.parse(readFileSync(new URL("../data/priority-location-copy.json", import.meta.url), "utf8"));
+ const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
+ assert.deepEqual(Object.keys(copy).sort(), ["boxhill", "brunswick", "epping", "fitzroy", "kew"]);
+ for (const [slug, item] of Object.entries(copy)) {
+  assert.ok(item.title.length <= 65);
+  assert.ok(item.metaDescription.length <= 160);
+  assert.match(item.metaDescription, /\(02\) 5837 5457/);
+  assert.equal(guidance[slug].title, item.title);
+  assert.ok(guidance[slug].sources.length > 0);
+  assert.ok(guidance[slug].paragraphs.includes(item.bookingGuidance));
+  assert.ok(guidance[slug].faqs.some(faq => faq.question === item.question));
+ }
+ assert.equal(new Set(Object.values(copy).map(item => item.metaDescription)).size, 5);
+});
 test("Search Console duplicate paths redirect without changing canonical or API URLs", async () => {
  const source = readFileSync(new URL("../next.config.ts", import.meta.url), "utf8");
  const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;

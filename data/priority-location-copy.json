@@ -1,0 +1,47 @@
+{
+  "kew": {
+    "title": "Plumber Kew | Drains & Hot Water | Grade A Plumbing",
+    "introduction": "Need a plumber in Kew for a blocked drain, leaking pipe or hot water problem? Tell Grade A Plumbing what has changed and where the fault appears. We can discuss the assessment needed and confirm availability before you book.",
+    "metaDescription": "Blocked drain, leak or hot water fault in Kew? Discuss the assessment and request a quote from Grade A Plumbing. Call (02) 5837 5457.",
+    "bookingGuidance": "When enquiring about a Kew drainage repair, explain whether the problem affects an existing pipe or a proposed change to its outlet. Include previous inspection findings and Council correspondence if you have them. Ask which part of the pipework the quoted assessment covers; permission for a changed connection is a separate question.",
+    "question": "What should I ask before booking a drainage assessment in Kew?",
+    "answer": "Ask which pipe section will be assessed, what access is required and whether the proposal is an existing-pipe repair or a changed connection. Supply any earlier inspection findings. Confirm the assessment scope and pricing before agreeing to work.",
+    "relatedServices": ["blocked-drains", "hot-water", "burst-pipe-repair"]
+  },
+  "fitzroy": {
+    "title": "Plumber Fitzroy | Leaks & Blocked Drains | Grade A Plumbing",
+    "introduction": "For a plumbing enquiry in Fitzroy, describe the affected fixture, drain or hot water system and how the property can be accessed. Grade A Plumbing can discuss the next assessment step for leaks, blockages and hot water faults, with availability confirmed before booking.",
+    "metaDescription": "Need plumbing help in Fitzroy? Discuss leaks, blocked drains or hot water faults with Grade A Plumbing and request a quote. Call (02) 5837 5457.",
+    "bookingGuidance": "If a Fitzroy drain runs towards a footpath or laneway, describe where the overflow appears without assuming who owns the affected pipe. Provide connection records where available. For a shop, rental or shared building, include access arrangements and the person authorised to approve the assessment. Keep a private plumbing booking separate from reporting a public drainage fault.",
+    "question": "What access details help with a Fitzroy plumbing booking?",
+    "answer": "Explain how to reach the affected fixture or drain, whether entry requires keys or building permission, and who can authorise work. If a shared area or laneway is involved, flag it before booking rather than assuming access is available.",
+    "relatedServices": ["blocked-drains", "hot-water", "commercial-plumbing"]
+  },
+  "boxhill": {
+    "title": "Plumber Box Hill | Hot Water & Drains | Grade A Plumbing",
+    "introduction": "Request plumbing help in Box Hill for a hot water fault, blocked drain or leak. Tell Grade A Plumbing which fixtures are affected and whether you need a fault assessment or are planning an alteration. Confirm the scope, access and availability before booking.",
+    "metaDescription": "Hot water fault, blocked drain or leak in Box Hill? Request an assessment or quote from Grade A Plumbing and explain your access needs. Call (02) 5837 5457.",
+    "bookingGuidance": "For an existing Box Hill plumbing fault, describe the symptoms and any earlier repair or inspection. For a planned drainage alteration, also supply title or easement information and the intended pipe route. These are different enquiries: locating a blockage does not determine whether a proposed alteration has the required permission.",
+    "question": "Should I book a fault assessment or discuss a planned alteration in Box Hill?",
+    "answer": "If a fixture or existing drain has stopped working normally, describe the fault and its history. If you want to move or install drainage, explain the proposed route and provide available title or easement documents. Ask for the assessment and permission requirements to be identified separately.",
+    "relatedServices": ["hot-water", "blocked-drains", "burst-pipe-repair"]
+  },
+  "brunswick": {
+    "title": "Plumber Brunswick | Drains & Leaks | Grade A Plumbing",
+    "introduction": "Speak with Grade A Plumbing about a blocked drain, leak or hot water fault in Brunswick. Describe the symptoms, any previous work and the available access. We can discuss an appropriate assessment and confirm availability before you agree to a booking.",
+    "metaDescription": "Blocked drains, leaks or hot water problems in Brunswick? Discuss an assessment and request a Grade A Plumbing quote. Call (02) 5837 5457.",
+    "bookingGuidance": "When comparing Brunswick drain-work proposals, distinguish clearing an existing blockage from replacing pipework or making a new connection. Ask what evidence would justify a further repair and what is included in the initial scope. If Council connection work is proposed, share the discharge report and permit references rather than treating them as interchangeable approvals.",
+    "question": "Does booking a blocked-drain assessment in Brunswick authorise further repair work?",
+    "answer": "Agree on the initial assessment scope first. If a further repair or changed connection is proposed, ask for the findings, access implications and a separately explained scope and price before authorising that work.",
+    "relatedServices": ["blocked-drains", "sewer-repairs", "hot-water"]
+  },
+  "epping": {
+    "title": "Plumber Epping | Leaks & Hot Water | Grade A Plumbing",
+    "introduction": "Need plumbing help in Epping for a leak, blocked drain or hot water problem? Give Grade A Plumbing the property location, affected fixtures and any earlier inspection findings. We can discuss the next assessment step and confirm current booking availability.",
+    "metaDescription": "Leaks, blocked drains or hot water faults in Epping? Share your property details and request an assessment or quote. Grade A Plumbing: (02) 5837 5457.",
+    "bookingGuidance": "For an Epping drainage enquiry, provide the property address and identify the area needing assessment. Available Council asset records can help explain a proposed connection, but they do not establish the condition of your private pipe. Share any existing inspection footage or findings and ask which measurements need to be confirmed at the property.",
+    "question": "What information helps define an Epping drain-repair quote?",
+    "answer": "Provide the property location, affected fixtures, when the problem occurs and any previous inspection findings. If you have Council asset information, include it as background. Ask which private pipe section and access requirements the assessment covers before comparing repair proposals.",
+    "relatedServices": ["burst-pipe-repair", "blocked-drains", "hot-water"]
+  }
+}

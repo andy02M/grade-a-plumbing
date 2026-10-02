@@ -39,7 +39,7 @@ const serviceIcons: Record<string, IconName> = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const location = await getRequestLocation();
-  const title = `Plumber ${location.location} | Local & Emergency Plumbing | Grade A Plumbing`;
+  const title = localGuidance[location.slug]?.title ?? `Plumber ${location.location} | Local & Emergency Plumbing | Grade A Plumbing`;
   const description = localGuidance[location.slug]?.metaDescription ?? `Need a local plumber in ${location.location}? Grade A Plumbing provides drain, hot water, emergency, gas and commercial plumbing services.`;
   return {
     title,

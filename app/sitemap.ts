@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const location = await getRequestLocation();
   const isEditorialHost = location.slug === "melbourne";
   return [
-    { url: `${location.website}/`, lastModified: new Date(localGuidance[location.slug]?.checkedDate ?? locationContentUpdated), changeFrequency: "weekly", priority: 1 },
+    { url: `${location.website}/`, lastModified: new Date(localGuidance[location.slug]?.contentUpdatedDate ?? localGuidance[location.slug]?.checkedDate ?? locationContentUpdated), changeFrequency: "weekly", priority: 1 },
     ...(locationHasService(location) ? services : []).map((service) => ({ url: `${location.website}${serviceUrl(service.slug)}`, lastModified: locationContentUpdated, changeFrequency: "monthly" as const, priority: 0.9 })),
     { url: `${location.website}/service-areas/`, lastModified: locationContentUpdated, changeFrequency: "monthly", priority: 0.8 },
     ...(isEditorialHost ? [
