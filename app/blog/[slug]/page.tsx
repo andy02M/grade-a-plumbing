@@ -92,6 +92,7 @@ export default async function ArticlePage({
               alt={brandAssets.repairWork.alt}
               width={brandAssets.repairWork.width}
               height={brandAssets.repairWork.height}
+              sizes="(min-width: 1280px) 580px, (min-width: 1024px) 46vw, calc(100vw - 32px)"
               priority
               className="h-auto w-full object-cover"
             />

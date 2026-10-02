@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { site } from "@/lib/site";
+import { measurementContext } from "@/lib/measurement";
 
 export const runtime = "nodejs";
 
@@ -70,6 +71,8 @@ export async function POST(request: Request) {
       );
     }
 
+    const context=measurementContext(request.headers.get("x-forwarded-host")??request.headers.get("host")??"",submission.source==="Homepage quote form"?"/":"/contact/");
+    if(emailed && context && request.headers.get("dnt")!=="1" && request.headers.get("sec-gpc")!=="1")console.info("site_measurement",JSON.stringify({event:"quote_accepted",...context}));
     return NextResponse.json({
       ok: true,
       referenceId: submission.id,

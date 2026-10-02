@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { site } from "@/lib/site";
 import { StickyActions } from "@/components/StickyActions";
+import { SiteMeasurement } from "@/components/SiteMeasurement";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main>{children}</main>
         <Footer />
         <StickyActions />
+        <SiteMeasurement />
       </body>
     </html>
   );

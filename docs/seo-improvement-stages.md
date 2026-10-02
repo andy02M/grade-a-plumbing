@@ -2,6 +2,12 @@
 
 ## Current completion status — 2 October 2026
 
+Performance and first-party measurement implemented: mobile lab audit tooling,
+responsive article hero sizing, privacy-filtered call/email clicks and browser
+vitals, and server-only accepted quote events. See performance-and-measurement.md
+for the measured baseline, safeguards and hosting-log viewing instructions.
+Instrumentation is not a persistent analytics dashboard or Search Console access.
+
 All 82 configured homepages now have source-linked local guidance; historical
 batch counts below describe progress at that time. Eighteen expansion candidates
 remain unpublished. Storefront verification and Search Console access remain open.

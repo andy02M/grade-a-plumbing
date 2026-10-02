@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { PolicyPage } from "@/components/PolicyPage";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Privacy Policy | GMB AutoPilot", description: "How GMB AutoPilot handles Google account and Business Profile data." };
+export const metadata: Metadata = { title: "Privacy Policy | Grade A Plumbing", description: "How Grade A Plumbing handles enquiries, website measurement and connected Google Business Profile data." };
 
 export default function PrivacyPage() {
-  return <PolicyPage title="Privacy Policy" updated="18 September 2026">
+  return <PolicyPage title="Privacy Policy" updated="2 October 2026">
+    <section><h2>Website enquiries</h2><p>Details you provide in a quote form are used to respond to your plumbing enquiry and are sent through our email service to our support and booking recipients. Do not include sensitive information that is unnecessary for the enquiry.</p></section>
+    <section><h2>Website measurement</h2><p>We record limited first-party measurement events for call and email link clicks, accepted quote submissions and browser performance. Measurement records contain an allowlisted page category, configured location and, where relevant, a service or article identifier and performance value. We do not include form contents, names, phone numbers, email addresses, full URLs, query strings or visitor identifiers in these measurement records. This measurement does not set tracking cookies or load third-party analytics scripts. Browser Do Not Track and Global Privacy Control signals are respected for measurement. Our hosting provider may separately process request information for security and operational logs, subject to its retention settings.</p></section>
     <section><h2>Information we collect</h2><p>When you sign in or connect an account, we receive your Google account identifier, email address, display name and profile image. With your permission, we access the Google Business Profile accounts and locations that the connected account manages. We also store templates, scheduled posts, profile settings, publishing results and operational logs you create in the service.</p></section>
     <section><h2>How Google user data is used</h2><p>Google user data is used only to provide visible GMB AutoPilot features: connecting accounts, listing managed Business Profiles, creating drafts, scheduling posts, publishing approved content, and showing publishing status. We do not sell Google user data, use it for advertising, or use it to train general-purpose AI models.</p></section>
     <section><h2>Storage and security</h2><p>OAuth refresh tokens are encrypted before storage. Access is scoped to the signed-in workspace. We use reasonable technical and organisational controls, but no internet service can guarantee absolute security.</p></section>
