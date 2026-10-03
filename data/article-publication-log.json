@@ -115,5 +115,18 @@
     "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
     "reason": "Gemini HTTP 429 (gemini-3.8-flash): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: [URL redacted] To monitor your current usage, head to: [URL redacted] \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\nPlease retry in 22h40m37.867429312s.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-03",
+    "outcome": "held",
+    "recordedAt": "2026-10-03T07:55:03.988Z",
+    "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
+    "reason": "Editorial hold: incomplete or negative review",
+    "unavailableSources": [
+      {
+        "id": "local-stalbans-0",
+        "reason": "No usable source content"
+      }
+    ]
   }
 ]
