@@ -107,5 +107,13 @@
     "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
     "reason": "Gemini HTTP 429 (gemini-3.8-flash): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: [URL redacted] To monitor your current usage, head to: [URL redacted] \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\nPlease retry in 22h48m52.399114425s.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-03",
+    "outcome": "failed",
+    "recordedAt": "2026-10-03T01:19:16.125Z",
+    "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
+    "reason": "Gemini HTTP 429 (gemini-3.8-flash): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: [URL redacted] To monitor your current usage, head to: [URL redacted] \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\nPlease retry in 22h40m37.867429312s.",
+    "unavailableSources": []
   }
 ]
