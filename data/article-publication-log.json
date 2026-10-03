@@ -99,5 +99,13 @@
     "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
     "reason": "Editorial hold: The proposed draft is a transactional booking vehicle disguised as informational content. It incorrectly conflates sanitary drainage (boundary traps) with council stormwater connection applications, which are distinct infrastructure systems. The core issue—identifying the location of a blockage—is already covered by existing titles like 'Stormwater or Sewer Blockage: Understanding the Difference'. The content requires a shift away from 'booking advice' toward technical guidance on locating sewer",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-03",
+    "outcome": "failed",
+    "recordedAt": "2026-10-03T01:10:56.170Z",
+    "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
+    "reason": "Gemini HTTP 429 (gemini-3.8-flash): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: [URL redacted] To monitor your current usage, head to: [URL redacted] \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\nPlease retry in 22h48m52.399114425s.",
+    "unavailableSources": []
   }
 ]
