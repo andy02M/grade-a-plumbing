@@ -71,5 +71,13 @@
         "reason": "HTTP 403 or non-HTML response"
       }
     ]
+  },
+  {
+    "date": "2026-10-03",
+    "outcome": "held",
+    "recordedAt": "2026-10-03T01:01:35.871Z",
+    "slug": "blocked-toilet-in-st-albans-when-the-problem-needs-professional-assessment",
+    "reason": "Editorial hold: The proposed topic wraps a transactional local booking query ('blocked toilet in st albans') around generic advice on when to call a professional. Suburb variations do not establish a new informational intent, overlapping heavily with published guides on recurring drain blockages and scheduled sewer assessment topics. Furthermore, the provided local evidence pertains exclusively to Brimbank council stormwater connections, which is technically irrelevant to sanitary toilet drainage.",
+    "unavailableSources": []
   }
 ]
