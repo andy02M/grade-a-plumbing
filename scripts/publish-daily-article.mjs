@@ -127,7 +127,7 @@ export async function runPublisher({ args=process.argv.slice(2), now=new Date(),
     catch(error) {
       if(!(error instanceof QualityHold)) throw error;
       const rejected={slug:brief.slug,title:brief.title,targetKeyword:brief.targetKeyword,reason:error.message};
-      const replacement=await planBrief(today,calendar,publishedArticles,model,location.slug);
+      const replacement=await planBrief(today,calendar,publishedArticles,model,location.slug,{rejected,sources,business});
       Object.assign(brief,replacement);
       assertDistinctIntent(brief,publishedArticles,locations.map(item=>item.location));
       evidence=await collectSources(brief,localGuidance,fetcher);
