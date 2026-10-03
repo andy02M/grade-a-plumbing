@@ -89,7 +89,7 @@ export function validateDraft(draft, brief, sources, published) {
   const body = draft.sections.flatMap(s => s.paragraphs).join(" ");
   const allText = [brief.title,draft.metaTitle,draft.metaDescription,draft.excerpt,body,...draft.faq.flatMap(f=>[f.question,f.answer])].join(" ");
   const words = body.trim().split(/\s+/).length;
-  if (words < 1200 || words > 2200) throw new QualityHold("Draft needs substantial editing; do not pad it to a word count.");
+  if (words < 1200 || words > 2200) throw new QualityHold(`Draft has ${words} words; required range is 1200-2200. Revise useful substance or remove repetition; do not pad.`);
   if (/<\/?[a-z][^>]*>/i.test(allText) || /https?:\/\//i.test(allText)) throw new QualityHold("HTML or unvalidated inline URLs in draft text.");
   if (!body.includes("(02) 5837 5457") || !body.includes("support@gradeaplumbing.store")) throw new QualityHold("Missing accurate contact CTA.");
   if (/we (?:guarantee|are (?:fully )?licensed|arrive within)|guaranteed (?:response|arrival|ranking)|number one on google/i.test(allText)) throw new QualityHold("Unsupported business or ranking promise.");

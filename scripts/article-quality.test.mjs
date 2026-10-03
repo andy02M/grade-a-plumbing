@@ -4,7 +4,7 @@ import { mkdtemp, writeFile, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { QualityHold, collectSources, validateDraft, assertDistinctIntent, liveArticleMatches, articleUrl, sydneyTime, runReadiness, sourceText, sourceCatalog } from "./article-quality.mjs";
-import { reviewEditorial, verifyArticle, runPublisher } from "./publish-daily-article.mjs";
+import { reviewEditorial, verifyArticle, runPublisher, approveOrReviseDraft } from "./publish-daily-article.mjs";
 
 const brief={date:"2030-01-01",title:"Planning access for a hot water assessment",slug:"planning-access-hot-water-assessment",targetKeyword:"hot water assessment access",locationSlug:"coburg",status:"planned"};
 const publicArticle={slug:"existing-guide",title:"Existing guide",sections:[{heading:"Existing",paragraphs:["A different short earlier article."]}]};
@@ -20,6 +20,23 @@ function draftFixture() {
 function liveHtml(expected) {
  return `<link rel="canonical" href="${articleUrl(expected.slug)}"><h1>${expected.title}</h1><article>${expected.sections.map(section=>section.paragraphs.map(p=>`<p>${p}</p>`).join("")).join("")}</article><script type="application/ld+json">${JSON.stringify({"@type":"Article",headline:expected.title,datePublished:expected.publishedDate,dateModified:expected.updatedDate,description:expected.metaDescription,mainEntityOfPage:articleUrl(expected.slug)})}</script>`;
 }
+
+test("short drafts receive one useful revision and full editorial review",async()=>{
+ const short=draftFixture();short.sections[0].paragraphs=["Too short."];short.sections[1].paragraphs=["Also short."];
+ let calls=0;const responses=[draftFixture(),approval];
+ const result=await approveOrReviseDraft(short,{brief},{sources},[publicArticle],async()=>responses[calls++]);
+ assert.equal(result.revised,true);assert.equal(calls,2);assert.ok(result.checks.words>=1200);
+});
+test("a second invalid draft stays held without an unbounded rewrite loop",async()=>{
+ const invalid=draftFixture();invalid.sections=[];let calls=0;
+ await assert.rejects(approveOrReviseDraft(invalid,{brief},{sources},[publicArticle],async()=>{calls++;return invalid;}),QualityHold);
+ assert.equal(calls,1);
+});
+test("provider failures do not masquerade as editorial revisions",async()=>{
+ let calls=0;
+ await assert.rejects(approveOrReviseDraft(draftFixture(),{brief},{sources},[publicArticle],async()=>{calls++;throw Error("Provider quota exhausted");}),/quota exhausted/);
+ assert.equal(calls,1);
+});
 
 test("Sydney windows handle daylight saving, daily locks and recovery",()=>{
  assert.deepEqual(sydneyTime(new Date("2026-10-01T23:00:00Z")),{date:"2026-10-02",hour:9});
