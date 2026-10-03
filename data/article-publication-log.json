@@ -79,5 +79,25 @@
     "slug": "blocked-toilet-in-st-albans-when-the-problem-needs-professional-assessment",
     "reason": "Editorial hold: The proposed topic wraps a transactional local booking query ('blocked toilet in st albans') around generic advice on when to call a professional. Suburb variations do not establish a new informational intent, overlapping heavily with published guides on recurring drain blockages and scheduled sewer assessment topics. Furthermore, the provided local evidence pertains exclusively to Brimbank council stormwater connections, which is technically irrelevant to sanitary toilet drainage.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-03",
+    "outcome": "brief-replanned",
+    "recordedAt": "2026-10-03T01:06:59.689Z",
+    "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
+    "rejected": {
+      "slug": "blocked-toilet-in-st-albans-when-the-problem-needs-professional-assessment",
+      "title": "Blocked Toilet in St Albans: When the Problem Needs Professional Assessment",
+      "targetKeyword": "blocked toilet in st albans",
+      "reason": "Editorial hold: The proposal duplicates existing informational guides on sewer blockages and drain assessment. The local evidence provided is restricted to stormwater connection applications, which is irrelevant to sanitary toilet drainage. A distinct informational intent regarding the reimbursement process and property-boundary determination exists, but the current draft lacks the technical precision to address these specifically for a reader. The editor prefers improving the existing 'stormwater-or-sewer-bloc"
+    }
+  },
+  {
+    "date": "2026-10-03",
+    "outcome": "held",
+    "recordedAt": "2026-10-03T01:06:59.689Z",
+    "slug": "boundary-trap-issues-in-st-albans-symptoms-and-assessment-options",
+    "reason": "Editorial hold: The proposed draft is a transactional booking vehicle disguised as informational content. It incorrectly conflates sanitary drainage (boundary traps) with council stormwater connection applications, which are distinct infrastructure systems. The core issue—identifying the location of a blockage—is already covered by existing titles like 'Stormwater or Sewer Blockage: Understanding the Difference'. The content requires a shift away from 'booking advice' toward technical guidance on locating sewer",
+    "unavailableSources": []
   }
 ]
