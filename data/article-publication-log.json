@@ -128,5 +128,30 @@
         "reason": "No usable source content"
       }
     ]
+  },
+  {
+    "date": "2026-10-04",
+    "outcome": "brief-replanned",
+    "recordedAt": "2026-10-04T00:26:42.316Z",
+    "slug": "understanding-plumbing-compliance-certificates-in-victoria",
+    "rejected": {
+      "slug": "what-a-plumbing-quote-should-explain-before-work-starts",
+      "title": "What a Plumbing Quote Should Explain Before Work Starts",
+      "targetKeyword": "what a plumbing quote should explain before work starts",
+      "reason": "Editorial hold: incomplete or negative review"
+    }
+  },
+  {
+    "date": "2026-10-04",
+    "outcome": "failed",
+    "recordedAt": "2026-10-04T00:26:42.316Z",
+    "slug": "understanding-plumbing-compliance-certificates-in-victoria",
+    "reason": "Gemini HTTP 429 (gemini-3.8-flash): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: [URL redacted] To monitor your current usage, head to: [URL redacted] \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\nPlease retry in 23h31m19.015340852s.",
+    "unavailableSources": [
+      {
+        "id": "bpc",
+        "reason": "HTTP 403 or non-HTML response"
+      }
+    ]
   }
 ]
