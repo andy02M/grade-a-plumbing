@@ -153,5 +153,25 @@
         "reason": "HTTP 403 or non-HTML response"
       }
     ]
+  },
+  {
+    "date": "2026-10-04",
+    "outcome": "brief-replanned",
+    "recordedAt": "2026-10-04T08:16:55.139Z",
+    "slug": "comparing-plumbing-quotes-in-victoria-what-to-check-before-approving-work",
+    "rejected": {
+      "slug": "understanding-plumbing-compliance-certificates-in-victoria",
+      "title": "Understanding Plumbing Compliance Certificates in Victoria",
+      "targetKeyword": "plumbing compliance certificates in victoria",
+      "reason": "Editorial hold: This intent provides a distinct informational need regarding legal rights and regulatory documentation in Victoria. While there is an existing title, the focus on 'understanding' certificates provides the necessary scope to address the specific statutory requirement (work valued at $750 or more) mentioned in the provided source data, which is distinct from booking preparation."
+    }
+  },
+  {
+    "date": "2026-10-04",
+    "outcome": "held",
+    "recordedAt": "2026-10-04T08:16:55.139Z",
+    "slug": "comparing-plumbing-quotes-in-victoria-what-to-check-before-approving-work",
+    "reason": "Editorial hold: The planned topic 'Comparing Plumbing Quotes in Victoria' overlaps significantly with existing guidance on obtaining quotes from Consumer Affairs Victoria and the broader library of planning-based plumbing articles. The intent is essentially a duplicate of general 'preparing to book' advice. A more valuable contribution would be a specific focus on navigating the 'Certificate of Compliance' requirements or identifying red flags in quotes, rather than a generic guide on how to compare them.",
+    "unavailableSources": []
   }
 ]
