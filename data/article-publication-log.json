@@ -173,5 +173,34 @@
     "slug": "comparing-plumbing-quotes-in-victoria-what-to-check-before-approving-work",
     "reason": "Editorial hold: The planned topic 'Comparing Plumbing Quotes in Victoria' overlaps significantly with existing guidance on obtaining quotes from Consumer Affairs Victoria and the broader library of planning-based plumbing articles. The intent is essentially a duplicate of general 'preparing to book' advice. A more valuable contribution would be a specific focus on navigating the 'Certificate of Compliance' requirements or identifying red flags in quotes, rather than a generic guide on how to compare them.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-05",
+    "outcome": "brief-replanned",
+    "recordedAt": "2026-10-05T00:39:06.327Z",
+    "slug": "discharge-certificate-applications-in-south-melbourne-site-plans-and-plumbing-details",
+    "rejected": {
+      "slug": "apartment-plumbing-in-south-melbourne-coordinating-access-and-building-management",
+      "title": "Apartment Plumbing in South Melbourne: Coordinating Access and Building Management",
+      "targetKeyword": "apartment plumbing in south melbourne",
+      "reason": "Editorial hold: This intent provides specific, distinct value regarding council-level regulatory requirements (discharge certificates and site plans) for South Melbourne apartments, distinct from general apartment access guides. It bridges the gap between building management coordination and local municipal compliance."
+    }
+  },
+  {
+    "date": "2026-10-05",
+    "outcome": "held",
+    "recordedAt": "2026-10-05T00:39:06.327Z",
+    "slug": "discharge-certificate-applications-in-south-melbourne-site-plans-and-plumbing-details",
+    "reason": "Editorial hold: The content addresses a specific regulatory requirement for South Melbourne (Port Phillip council site plan requests) that is not covered by general plumbing access or booking guides. It adds practical value by outlining what property owners must gather before engaging a plumber to ensure the project meets local council standards for discharge certificates.",
+    "unavailableSources": [
+      {
+        "id": "bpc",
+        "reason": "HTTP 403 or non-HTML response"
+      },
+      {
+        "id": "local-southmelbourne-0",
+        "reason": "HTTP 429 or non-HTML response"
+      }
+    ]
   }
 ]
