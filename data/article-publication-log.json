@@ -202,5 +202,13 @@
         "reason": "HTTP 429 or non-HTML response"
       }
     ]
+  },
+  {
+    "date": "2026-10-06",
+    "outcome": "held",
+    "recordedAt": "2026-10-06T02:09:11.301Z",
+    "slug": "low-water-pressure-at-one-tap-or-throughout-the-house-what-the-difference-means",
+    "reason": "Draft has 1131 words; required range is 1200-2200. Revise useful substance or remove repetition; do not pad.",
+    "unavailableSources": []
   }
 ]
