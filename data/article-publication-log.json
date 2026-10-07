@@ -210,5 +210,22 @@
     "slug": "low-water-pressure-at-one-tap-or-throughout-the-house-what-the-difference-means",
     "reason": "Draft has 1131 words; required range is 1200-2200. Revise useful substance or remove repetition; do not pad.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-07",
+    "outcome": "failed",
+    "recordedAt": "2026-10-07T01:21:42.633Z",
+    "slug": "no-hot-water-in-pakenham-information-to-gather-before-calling-a-plumber",
+    "reason": "Invalid planned topic.",
+    "unavailableSources": [
+      {
+        "id": "bpc",
+        "reason": "HTTP 403 or non-HTML response"
+      },
+      {
+        "id": "local-pakenham-0",
+        "reason": "HTTP 403 or non-HTML response"
+      }
+    ]
   }
 ]
