@@ -227,5 +227,13 @@
         "reason": "HTTP 403 or non-HTML response"
       }
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "outcome": "failed",
+    "recordedAt": "2026-10-08T08:45:17.845Z",
+    "slug": "what-happens-during-a-cctv-drain-inspection",
+    "reason": "Invalid planned topic.",
+    "unavailableSources": []
   }
 ]
