@@ -235,5 +235,25 @@
     "slug": "what-happens-during-a-cctv-drain-inspection",
     "reason": "Invalid planned topic.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-09",
+    "outcome": "brief-replanned",
+    "recordedAt": "2026-10-09T08:49:20.426Z",
+    "slug": "applying-for-a-legal-point-of-discharge-in-ballarat-plans-and-requirements",
+    "rejected": {
+      "slug": "preparing-a-ballarat-property-for-a-plumbing-inspection",
+      "title": "Preparing a Ballarat Property for a Plumbing Inspection",
+      "targetKeyword": "preparing a ballarat property for a plumbing inspection",
+      "reason": "Editorial hold: A suburb swap does not establish a distinct informational intent. The planned article duplicates existing preparation guidance ('before-booking-a-plumber-in-coburg-photos-access-and-questions-to-prepare'), and generic booking preparation belongs on a service landing page rather than an informational guide. Furthermore, the provided Ballarat municipal sources address stormwater legal point of discharge applications and road-reserve permits rather than preparing private properties for routine plum"
+    }
+  },
+  {
+    "date": "2026-10-09",
+    "outcome": "held",
+    "recordedAt": "2026-10-09T08:49:20.426Z",
+    "slug": "applying-for-a-legal-point-of-discharge-in-ballarat-plans-and-requirements",
+    "reason": "Editorial hold: The planned title conflates a formal regulatory application process (Legal Point of Discharge) with generic 'before booking a plumber' advice. The current scope is redundant as it merely re-titles existing preparation checklists. To be approved, the article must pivot away from booking advice and strictly provide the technical steps for homeowners to correctly prepare a 'Legal Point of Discharge' application as per City of Ballarat requirements.",
+    "unavailableSources": []
   }
 ]
