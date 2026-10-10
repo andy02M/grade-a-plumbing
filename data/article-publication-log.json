@@ -255,5 +255,25 @@
     "slug": "applying-for-a-legal-point-of-discharge-in-ballarat-plans-and-requirements",
     "reason": "Editorial hold: The planned title conflates a formal regulatory application process (Legal Point of Discharge) with generic 'before booking a plumber' advice. The current scope is redundant as it merely re-titles existing preparation checklists. To be approved, the article must pivot away from booking advice and strictly provide the technical steps for homeowners to correctly prepare a 'Legal Point of Discharge' application as per City of Ballarat requirements.",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-10",
+    "outcome": "brief-replanned",
+    "recordedAt": "2026-10-10T01:37:14.029Z",
+    "slug": "overflow-relief-gully-overflowing-how-to-tell-whose-drain-is-blocked",
+    "rejected": {
+      "slug": "running-toilet-or-leaking-cistern-how-to-describe-the-fault",
+      "title": "Running Toilet or Leaking Cistern: How to Describe the Fault",
+      "targetKeyword": "running toilet or leaking cistern",
+      "reason": "Editorial hold: The supplied evidence lacks technical source material regarding toilet cistern mechanics, valve diagnostics, and fault descriptions. The provided sources strictly cover storm emergencies, general quote legislation, sewer blockages, and municipal flood mapping."
+    }
+  },
+  {
+    "date": "2026-10-10",
+    "outcome": "failed",
+    "recordedAt": "2026-10-10T01:37:14.029Z",
+    "slug": "overflow-relief-gully-overflowing-how-to-tell-whose-drain-is-blocked",
+    "reason": "The operation was aborted due to timeout",
+    "unavailableSources": []
   }
 ]
