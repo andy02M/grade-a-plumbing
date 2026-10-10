@@ -275,5 +275,20 @@
     "slug": "overflow-relief-gully-overflowing-how-to-tell-whose-drain-is-blocked",
     "reason": "The operation was aborted due to timeout",
     "unavailableSources": []
+  },
+  {
+    "date": "2026-10-10",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-10T03:58:59.343Z",
+    "slug": "after-hot-water-installation-handover-recordkeeping-checklist",
+    "words": 1393,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-10",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original homeowner recordkeeping checklist. System distinctions checked against Australian Government sources. No installation instructions, rebate amounts, local territory claims or staff credentials."
+    }
   }
 ]
