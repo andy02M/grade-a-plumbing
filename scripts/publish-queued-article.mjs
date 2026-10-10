@@ -20,7 +20,7 @@ export function validateQueued(entry,published,locations,today) {
  return validateDraft(draft,{title:article.title,slug:article.slug},sources,published);
 }
 
-export async function publishQueue({dataDir='data',now=new Date(),args=process.argv.slice(2),manual=process.env.MANUAL_RUN==='true',verifyOnly=process.env.VERIFY_ONLY==='true'}={}) {
+export async function publishQueue({dataDir='data',now=new Date(),args=process.argv.slice(2),manual=process.env.MANUAL_RUN==='true',verifyOnly=process.env.VERIFY_ONLY==='true',catalog=()=>readSeoConfiguration('lib/articles.ts').publishedArticles}={}) {
  if(args.includes('--verify'))return runPublisher({dataDir,now,args:['--verify']});
  const queue=await read(`${dataDir}/article-queue.json`);
  const generated=await read(`${dataDir}/generated-articles.json`);
@@ -40,7 +40,7 @@ export async function publishQueue({dataDir='data',now=new Date(),args=process.a
  if(pending){await output('outcome','verification-only');return;}
  const entry=queue.find(item=>item.status==='ready'&&item.availableFrom<=date);
  if(!entry)throw Error('Article queue empty or no reviewed article due. Replenishment required; no AI generation attempted.');
- const {publishedArticles}=readSeoConfiguration('lib/articles.ts');
+ const publishedArticles=catalog();
  const {locations}=readSeoConfiguration('lib/locations.ts');
  const checks=validateQueued(entry,publishedArticles,locations,date);
  if(generated.some(article=>article.slug===entry.article.slug))throw Error('Duplicate queue slug.');

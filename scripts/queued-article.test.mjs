@@ -21,11 +21,12 @@ test('queue releases one per Sydney date without AI or source fetch calls and ne
  const originalFetch=globalThis.fetch;
  globalThis.fetch=async()=>{throw Error('Queue must not call AI or source fetches');};
  try{
-  await writeFile(join(dataDir,'article-queue.json'),JSON.stringify(queue));
+  const fixture=structuredClone(queue[0]);fixture.status='ready';fixture.availableFrom='2026-10-10';
+  await writeFile(join(dataDir,'article-queue.json'),JSON.stringify([fixture]));
   await writeFile(join(dataDir,'generated-articles.json'),'[]');
   await writeFile(join(dataDir,'article-publication-log.json'),'[]');
   await writeFile(join(dataDir,'article-calendar-01.json'),JSON.stringify([{date:'2026-10-10',status:'held',slug:'old-rejected-topic'}]));
-  const options={dataDir,now:new Date('2026-10-10T01:00:00Z'),args:[],manual:true};
+  const options={dataDir,now:new Date('2026-10-10T01:00:00Z'),args:[],manual:true,catalog:()=>publishedArticles.filter(a=>a.slug!==fixture.article.slug)};
   await publishQueue(options);await publishQueue(options);
   const generated=JSON.parse(await readFile(join(dataDir,'generated-articles.json'),'utf8'));
   assert.equal(generated.length,1);assert.equal(generated[0].publishedDate,'2026-10-10');
