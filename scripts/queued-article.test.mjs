@@ -9,7 +9,13 @@ const queue=JSON.parse(await readFile('data/article-queue.json','utf8'));
 const {publishedArticles}=readSeoConfiguration('lib/articles.ts');
 const {locations}=readSeoConfiguration('lib/locations.ts');
 test('all ready queue articles meet structural, citation, intent and originality checks',()=>{
- for(const entry of queue.filter(e=>e.status==='ready'))assert.ok(validateQueued(entry,publishedArticles,locations,'2026-10-10').words>=1200);
+ const ready=queue.filter(e=>e.status==='ready');
+ const slugs=ready.map(e=>e.article.slug);
+ assert.equal(new Set(slugs).size,slugs.length,'Queue contains duplicate slugs');
+ for(const entry of ready){
+  const others=ready.filter(e=>e!==entry).map(e=>e.article);
+  assert.ok(validateQueued(entry,[...publishedArticles,...others],locations,'2026-10-10').words>=1200);
+ }
 });
 test('queue rejects absent review, invalid source mapping, inactive locations and unsupported contacts',()=>{
  for(const mutate of [e=>e.review.status='pending',e=>e.article.sections[0].sourceUrls=['https://invented.invalid/'],e=>e.article.locationSlugs=['unknown'],e=>e.article.sections.forEach(s=>s.paragraphs=s.paragraphs.map(p=>p.replaceAll('(02) 5837 5457','wrong')))]){
