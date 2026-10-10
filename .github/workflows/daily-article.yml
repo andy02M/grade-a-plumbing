@@ -34,34 +34,23 @@ jobs:
         env:
           MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
           VERIFY_ONLY: ${{ inputs.verification_only || false }}
-        run: node scripts/publish-daily-article.mjs --preflight
-      - name: Smoke-test official source access without generating content
-        if: inputs.verification_only == true
-        run: node scripts/publish-daily-article.mjs --check-sources
-      - name: Verify Gemini key and model access
-        if: steps.readiness.outputs.should_generate == 'true'
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
-        run: node scripts/publish-daily-article.mjs --check-key
-      - name: Prepare article or record editorial hold
+        run: node scripts/publish-queued-article.mjs --preflight
+      - name: Prepare reviewed queued article (no AI calls)
         id: prepare
         if: steps.readiness.outputs.should_run == 'true'
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
           VERIFY_ONLY: ${{ inputs.verification_only || false }}
-        run: node scripts/publish-daily-article.mjs
+        run: node scripts/publish-queued-article.mjs
       - if: steps.readiness.outputs.should_run == 'true'
         run: npm run typecheck && npm test && npm run build
       - name: Publish to GitHub and Vercel
         if: steps.readiness.outputs.should_run == 'true'
         run: |
-          if git diff --quiet -- data/generated-articles.json data/article-calendar-*.json data/article-publication-log.json; then exit 0; fi
+          if git diff --quiet -- data/generated-articles.json data/article-queue.json data/article-calendar-*.json data/article-publication-log.json; then exit 0; fi
           git config user.name 'Grade A Plumbing publisher'
           git config user.email 'publisher@users.noreply.github.com'
-          git add data/generated-articles.json data/article-calendar-*.json data/article-publication-log.json
+          git add data/generated-articles.json data/article-queue.json data/article-calendar-*.json data/article-publication-log.json
           git commit -m 'Record daily article preparation and editorial checks'
           git pull --rebase origin main
           git push origin HEAD:main
@@ -74,13 +63,19 @@ jobs:
         if: steps.readiness.outputs.should_run == 'true'
         env:
           VERIFY_ONLY: ${{ inputs.verification_only || false }}
-        run: node scripts/publish-daily-article.mjs --verify
+        run: node scripts/publish-queued-article.mjs --verify
+      - name: Alert when reviewed queue needs replenishing
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_FROM_EMAIL: ${{ vars.ALERT_FROM_EMAIL }}
+        run: node scripts/email-queue-status.mjs
       - name: Record verified publication
         run: |
-          if git diff --quiet -- data/article-calendar-*.json data/article-publication-log.json; then exit 0; fi
+          if git diff --quiet -- data/article-calendar-*.json data/article-publication-log.json data/article-queue-alert.json; then exit 0; fi
           git config user.name 'Grade A Plumbing publisher'
           git config user.email 'publisher@users.noreply.github.com'
           git add data/article-calendar-*.json data/article-publication-log.json
+          if test -f data/article-queue-alert.json; then git add data/article-queue-alert.json; fi
           git commit -m 'Record verified article deployment'
           git pull --rebase origin main
           git push origin HEAD:main
