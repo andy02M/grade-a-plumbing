@@ -115,7 +115,7 @@
     "releasedDate": "2026-10-10"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-11",
     "targetKeyword": "rainwater tank inspection before buying a house",
     "review": {
@@ -226,7 +226,8 @@
           "answer": "No. Do not enter a tank, climb onto a roof or dismantle equipment to gather information. Arrange appropriate assessment with safe access."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-11"
   },
   {
     "status": "ready",
