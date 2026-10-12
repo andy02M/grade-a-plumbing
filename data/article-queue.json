@@ -230,7 +230,7 @@
     "releasedDate": "2026-10-11"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-12",
     "targetKeyword": "high water bill leak or usage",
     "review": {
@@ -338,7 +338,8 @@
           "answer": "No. Ask your own retailer about its current criteria and evidence requirements. Do not assume that another retailer's review process applies to your account."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-12"
   },
   {
     "status": "ready",

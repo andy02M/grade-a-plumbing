@@ -319,5 +319,20 @@
     "recordedAt": "2026-10-11T00:46:38.156Z",
     "slug": "buying-home-rainwater-tank-questions-before-relying-on-it",
     "url": "https://melbourne.gradeaplumbing.store/blog/buying-home-rainwater-tank-questions-before-relying-on-it/"
+  },
+  {
+    "date": "2026-10-12",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-12T01:07:49.807Z",
+    "slug": "higher-water-bill-billing-questions-possible-plumbing-leaks",
+    "words": 1334,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-10",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Distinct bill-triage intent. Retailer guidance has explicit territory limitations. No guaranteed leak allowance, repair cost or unsafe isolation instructions."
+    }
   }
 ]
