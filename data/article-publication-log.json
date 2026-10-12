@@ -334,5 +334,12 @@
       "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
       "notes": "Distinct bill-triage intent. Retailer guidance has explicit territory limitations. No guaranteed leak allowance, repair cost or unsafe isolation instructions."
     }
+  },
+  {
+    "date": "2026-10-12",
+    "outcome": "verified",
+    "recordedAt": "2026-10-12T01:08:12.953Z",
+    "slug": "higher-water-bill-billing-questions-possible-plumbing-leaks",
+    "url": "https://melbourne.gradeaplumbing.store/blog/higher-water-bill-billing-questions-possible-plumbing-leaks/"
   }
 ]
