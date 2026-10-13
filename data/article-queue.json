@@ -342,7 +342,7 @@
     "releasedDate": "2026-10-12"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-13",
     "targetKeyword": "choosing water efficient taps showers WELS labels",
     "review": {
@@ -449,7 +449,8 @@
           "answer": "Not necessarily. Explain the change and arrange appropriate assessment before assuming that replacing the fixture addresses the cause."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-13"
   },
   {
     "status": "ready",

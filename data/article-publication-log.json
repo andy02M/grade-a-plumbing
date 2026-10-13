@@ -341,5 +341,20 @@
     "recordedAt": "2026-10-12T01:08:12.953Z",
     "slug": "higher-water-bill-billing-questions-possible-plumbing-leaks",
     "url": "https://melbourne.gradeaplumbing.store/blog/higher-water-bill-billing-questions-possible-plumbing-leaks/"
+  },
+  {
+    "date": "2026-10-13",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-13T02:56:33.349Z",
+    "slug": "choosing-water-efficient-taps-showers-label-and-fit",
+    "words": 1363,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-10",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Distinct product-selection intent. WELS concepts checked against official guidance; no arbitrary star minimum, guaranteed savings or DIY installation instructions."
+    }
   }
 ]
