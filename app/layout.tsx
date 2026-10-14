@@ -10,6 +10,7 @@ import "@/components/manus/pages.css";
 import "@/components/manus/location.css";
 import "@/components/manus/service-seo.css";
 import "@/components/manus/integration.css";
+import "@/components/manus/advice.css";
 import { ManusShell } from "@/components/ManusShell";
 
 export const metadata: Metadata = {
