@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ButtonLink";
-import { ArticlesSection } from "@/components/ArticlesSection";
 import { ContactForm } from "@/components/ContactForm";
 import { CTASection } from "@/components/CTASection";
 import { CustomerReviews } from "@/components/CustomerReviews";
@@ -110,7 +109,6 @@ export default async function HomePage() {
           />
         </div>
       </section>
-      <ArticlesSection locationSlug={location.slug} />
     </>
   );
 }
