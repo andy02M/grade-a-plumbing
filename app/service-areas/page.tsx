@@ -18,7 +18,7 @@ export default function ServiceAreas() {
       <section className="section">
         <div className="container">
           <h2>Our location websites</h2>
-          <div className="page-service-grid">
+          <div className="location-website-grid">
             {locations.map((l) => (
               <a key={l.slug} href={l.website + "/"}>
                 {l.location}

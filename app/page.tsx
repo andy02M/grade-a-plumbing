@@ -21,9 +21,7 @@ import {
   trustBadges,
   whyChooseUs,
 } from "@/lib/site";
-import { formatStorefrontAddress } from "@/lib/storefronts";
 import { publicMapsUrl } from "@/lib/google-business-profiles";
-import { LocalGuidanceSection } from "@/components/LocalGuidanceSection";
 import { localGuidance } from "@/lib/local-guidance";
 
 const serviceIcons: Record<string, IconName> = {
@@ -62,7 +60,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const location = await getRequestLocation();
   const faq = localGuidance[location.slug]?.faqs ?? [];
-  const introduction = localGuidance[location.slug]?.introduction;
   const address = location.address
     ? { "@type": "PostalAddress", ...location.address }
     : undefined;
@@ -90,25 +87,6 @@ export default async function HomePage() {
         }}
       />
       <ManusApp initialPath="/" embedded />
-      {introduction && (
-        <section className="section">
-          <div className="container">
-            <h2>Plumbing in {location.location}</h2>
-            <p>{introduction}</p>
-            {location.address && (
-              <p>{formatStorefrontAddress(location.address)}</p>
-            )}
-          </div>
-        </section>
-      )}
-      <section className="section">
-        <div className="container">
-          <LocalGuidanceSection
-            slug={location.slug}
-            location={location.location}
-          />
-        </div>
-      </section>
     </>
   );
 }

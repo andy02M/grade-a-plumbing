@@ -59,6 +59,9 @@
 .location-empty-result { margin: 16px 0; padding: 18px; border: 1px dashed #9aabba; border-radius: 6px; color: #34485c; }
 .location-source-note, .location-management-note { margin: 14px 0 0; color: #3b4e62; font-size: 12px; line-height: 1.55; }
 .location-management-note { padding: 11px 13px; border-left: 3px solid #486b8d; background: #f1f5f8; }
+.location-website-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; margin-top: 22px; }
+.location-website-grid a { display: flex; align-items: center; min-height: 52px; padding: 12px 14px; border: 1px solid #d2dce6; border-radius: 7px; background: #fff; color: #17314d; font-size: 14px; font-weight: 700; line-height: 1.3; text-decoration: none; transition: border-color .16s ease, background .16s ease, transform .16s ease; }
+.location-website-grid a:hover { border-color: #6ca9dc; background: #f3f8fd; transform: translateY(-1px); }
 
 .location-home-field { margin: 12px 0 8px; }
 .location-home-field > label, .quote-location-field > label { display: block; margin-bottom: 6px; color: #20354a; font-size: 13px; font-weight: 800; }

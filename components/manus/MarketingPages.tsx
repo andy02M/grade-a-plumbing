@@ -861,14 +861,6 @@ function ServiceAreaPage() {
         primaryLabel="Find your suburb"
         secondaryLabel={`Call ${PHONE}`}
       />
-      <section className="page-area-note">
-        <div className="container">
-          <p>
-            <b>Image note:</b> the skyline is concept artwork and
-            is not presented as a verified map or precise landmark photograph.
-          </p>
-        </div>
-      </section>
       <section id="area-browser" className="page-regions-section">
         <div className="container">
           <LocationDirectory />
@@ -1006,6 +998,10 @@ function ReviewsPage() {
               .filter((r) => r.text)
               .map((r) => (
                 <article className="review-card" key={r.name}>
+                  <div className="review-source-rating" aria-label="Google review, 5 out of 5 stars">
+                    <span className="review-google-mark" aria-hidden="true">G</span>
+                    <span className="review-stars" aria-hidden="true">★★★★★</span>
+                  </div>
                   <p>{r.text}</p>
                   <footer>
                     <b>{r.name}</b>
