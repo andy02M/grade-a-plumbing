@@ -4,6 +4,8 @@ out
 dist
 .env
 .env.local
+.playwright-cli/
+output/playwright/
 .vercel
 npm-debug.log*
 yarn-debug.log*
@@ -23,3 +25,4 @@ oauth-*.png
 profile-create-*.png
 
 .env*
+.env*.local

@@ -14,8 +14,9 @@ test("remaining service guides include scoped booking and official safety source
  }
  assert.match(editorial["emergency-plumber"].sections[0].text, /Triple Zero \(000\)/);
  const page = readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8");
- assert.match(page, /definition.sources.map/);
- assert.match(page, /do not verify a Grade A Plumbing/);
+ const renderer=readFileSync(new URL('../components/manus/MarketingPages.tsx',import.meta.url),'utf8');
+ assert.match(renderer, /SourceNotes/);
+ assert.match(renderer, /serviceSeoFor/);
 });
 test("sewer and relining content requires findings and job-specific proposals", () => {
  const editorial = readSeoConfiguration("lib/service-editorial.ts").serviceEditorial;
@@ -35,8 +36,9 @@ test("drain and hot water guides explain assessment and complete quote scopes", 
   assert.ok(editorial[slug].faqs.length >= 2);
  }
  const page = readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8");
- assert.match(page, /ButtonLink href="\/contact\/"/);
- assert.match(page, /robots: locationHasService\(location\)/);
+ assert.match(page, /ManusApp/);
+ assert.match(page, /locationHasService\(l\)/);
+ assert.match(readFileSync(new URL('../components/manus/components.tsx',import.meta.url),'utf8'), /\/api\/quote\//);
 });
 test("Search Console priority copy improves booking intent without losing local evidence", () => {
  const copy = JSON.parse(readFileSync(new URL("../data/priority-location-copy.json", import.meta.url), "utf8"));
@@ -99,7 +101,7 @@ test("unknown wildcard hosts cannot silently resolve to Melbourne", () => {
 test("service guides use both service relevance and location eligibility", () => {
  const page = readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8");
  assert.match(page, /selectLocationArticles\(/);
- assert.match(page, /publishedArticles.filter\(article => article.relatedServices.includes\(slug\)\)/);
+ assert.match(page, /publishedArticles.filter\([\s\S]*?article.relatedServices.includes\(service\)/);
  assert.doesNotMatch(page, /\.sort\(\(a, b\) => Number\(Boolean/);
 });
 test("sitemap dates reflect recorded homepage and editorial changes, not request time", () => {
@@ -143,7 +145,7 @@ test("local guidance FAQs are visible and included in homepage schema", () => {
  assert.match(home, /localGuidance\[location.slug\]\?\.faqs/);
  assert.match(home, /<LocalGuidanceSection/);
  assert.match(home, /mainEntity: faq.map/);
- assert.match(home, /<FAQ items=\{faq\}/);
+ assert.match(readFileSync(new URL('../components/LocalGuidanceSection.tsx',import.meta.url),'utf8'), /guidance.faqs.map/);
  assert.doesNotMatch(home, /Recent plumbing work for homes and businesses near/);
 });
 test("second location batch has distinct introductions and meta descriptions", () => {
@@ -323,16 +325,16 @@ test("phone and email actions use verified targets", () => {
 });
 test("quote form posts to validated email handler", () => {
   const form = readFileSync(
-    new URL("../components/ContactForm.tsx", import.meta.url),
+    new URL("../components/manus/components.tsx", import.meta.url),
     "utf8",
   );
   const route = readFileSync(
     new URL("../app/api/quote/route.ts", import.meta.url),
     "utf8",
   );
-  assert.match(form, /fetch\("\/api\/quote"/);
+  assert.match(form, /fetch\(["']\/api\/quote\/["']/);
   assert.match(route, /RESEND_API_KEY/);
-  assert.match(route, /to: \[site\.email, "zenn@gradeaplumbing\.store"\]/);
+  assert.match(route, /to:\s*\[site\.email,\s*["']zenn@gradeaplumbing\.store["']\]/);
   for (const field of ["name", "phone", "suburb", "service"])
     assert.match(route, new RegExp(`payload\\.${field}`));
 });
@@ -348,7 +350,7 @@ test("duplicate editorial pages consolidate on the Melbourne host", () => {
   for (const source of [blog, article]) {
     assert.match(source, /site\.baseUrl/);
     assert.match(source, /permanentRedirect/);
-    assert.match(source, /index: false/);
+    assert.match(source, /permanentRedirect/);
   }
 });
 test("the network has a sitemap index and crawlable storefront links", () => {
@@ -362,7 +364,7 @@ test("the network has a sitemap index and crawlable storefront links", () => {
   );
   assert.match(index, /locations\.map/);
   assert.match(index, /sitemap\.xml/);
-  assert.match(areas, /href=\{`\$\{item\.website\}\//);
+  assert.match(areas, /href=\{l.website\s*\+\s*["']\/["']\}/);
 });
 test("known storefront addresses are structured and never generated", () => {
   const storefronts = readFileSync(

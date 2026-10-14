@@ -11,4 +11,7 @@ profile-create-dry-run*.png
 artifacts
 scripts
 docs
+bugfather-pest-control
+output
+.playwright-cli
 *.tsbuildinfo

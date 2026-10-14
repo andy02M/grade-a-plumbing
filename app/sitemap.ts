@@ -4,6 +4,7 @@ import { locationHasService, services, serviceUrl } from "@/lib/seo-services";
 import { publishedArticles } from "@/lib/articles";
 import { localGuidance } from "@/lib/local-guidance";
 
+const additionalServices=['toilet-repairs','kitchen-plumbing','bathroom-plumbing','leak-detection'];
 const locationContentUpdated = new Date("2026-09-22T00:00:00+10:00");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -12,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     { url: `${location.website}/`, lastModified: new Date(localGuidance[location.slug]?.contentUpdatedDate ?? localGuidance[location.slug]?.checkedDate ?? locationContentUpdated), changeFrequency: "weekly", priority: 1 },
     ...(locationHasService(location) ? services : []).map((service) => ({ url: `${location.website}${serviceUrl(service.slug)}`, lastModified: locationContentUpdated, changeFrequency: "monthly" as const, priority: 0.9 })),
+    ...(locationHasService(location)?additionalServices:[]).map(slug=>({url:location.website+'/'+slug+'/',lastModified:locationContentUpdated,changeFrequency:'monthly' as const,priority:0.8})),
     { url: `${location.website}/service-areas/`, lastModified: locationContentUpdated, changeFrequency: "monthly", priority: 0.8 },
     ...(isEditorialHost ? [
       { url: `${location.website}/blog/`, lastModified: new Date(Math.max(locationContentUpdated.getTime(), ...publishedArticles.map(article => new Date(article.updatedDate ?? article.publishedDate).getTime()))), changeFrequency: "weekly" as const, priority: 0.7 },

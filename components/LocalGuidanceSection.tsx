@@ -25,6 +25,7 @@ export function LocalGuidanceSection({ slug, location }: { slug: string; locatio
             <p className="mt-6 text-sm leading-6 text-slate-600">Sources checked <time dateTime={guidance.checkedDate}>{guidance.checkedDate}</time>. Confirm current requirements with the relevant authority for your property. This information is not a site assessment or an approval.</p>
           </aside>
         </div>
+        <div className="mt-8">{guidance.faqs.map(faq=><details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div>
       </div>
     </section>
   );

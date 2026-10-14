@@ -1,13 +1,21 @@
-import Image from "next/image";
 import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { ButtonLink } from "@/components/ButtonLink";
-import { CalendlyBookingSection } from "@/components/CalendlyBookingSection";
-import { ContactForm } from "@/components/ContactForm";
-import { Icon } from "@/components/Icon";
-import { WorkShowcase } from "@/components/WorkShowcase";
+import ManusApp from "@/components/manus/App";
 import { getRequestLocation } from "@/lib/location-request";
-import { JsonLd } from "@/lib/seo";
-import { brandAssets,site } from "@/lib/site";
-export async function generateMetadata():Promise<Metadata>{const l=await getRequestLocation();const title=`Contact Grade A Plumbing ${l.location} | Request a Quote`,description=`Contact Grade A Plumbing for plumbing enquiries and quote requests in ${l.location}.`;return{title,description,alternates:{canonical:`${l.website}/contact/`}}}
-export default async function ContactPage(){const l=await getRequestLocation();const schema={"@context":"https://schema.org","@type":"ContactPage",name:`Contact ${l.name}`,url:`${l.website}/contact/`,mainEntity:{"@type":["LocalBusiness","Plumber"],name:l.name,url:l.website,...(l.phone?{telephone:l.phone}:{})}};return <><JsonLd data={schema}/><Breadcrumbs items={[{name:"Home",href:"/"},{name:"Contact",href:"/contact/"}]}/><section className="relative overflow-hidden px-4 pb-20 pt-5 sm:px-6 lg:px-8"><div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(23,184,212,.18),transparent_30%),radial-gradient(circle_at_top_right,rgba(7,88,214,.14),transparent_36%)]"/><div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-start"><div className="pt-8"><span className="inline-flex rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold uppercase tracking-[.18em] text-brand-blue shadow-sm">Contact Grade A Plumbing</span><h1 className="mt-6 font-display text-5xl font-bold uppercase leading-[.88] text-brand-navy sm:text-6xl">Request plumbing service in {l.location}</h1><p className="mt-6 text-lg leading-8 text-slate-600">Tell us what you need, your suburb and the best way to reach you. For an urgent problem, call first so we can discuss the available next step.</p><div className="mt-8 flex flex-wrap gap-3"><ButtonLink className="gap-2" href={l.phoneHref??site.phoneHref}><Icon name="phone" className="h-4 w-4"/>Call {l.phone??site.phone}</ButtonLink><ButtonLink href="#book-appointment" variant="secondary">Book appointment</ButtonLink></div><div className="mt-8 overflow-hidden rounded-[2rem] shadow-soft"><Image src={brandAssets.homeVisit.src} alt={brandAssets.homeVisit.alt} width={brandAssets.homeVisit.width} height={brandAssets.homeVisit.height} className="h-auto w-full object-cover"/></div></div><div className="glass-surface rounded-[2rem] p-6 sm:p-8"><p className="text-sm font-bold uppercase tracking-[.2em] text-brand-blue">Quote enquiry</p><h2 className="mt-3 font-display text-4xl font-bold uppercase leading-none text-brand-navy">How can we help?</h2><p className="mt-4 text-sm leading-7 text-slate-600">Share a few details and we will come back to you with the next step.</p><div className="mt-7"><ContactForm/></div><div className="mt-7 grid gap-3 border-t border-slate-200 pt-6 sm:grid-cols-2"><a className="rounded-xl bg-white p-4 shadow-sm" href={l.phoneHref??site.phoneHref}><span className="block text-xs font-bold uppercase tracking-[.18em] text-slate-500">Phone</span><strong className="mt-1 block text-brand-blue">{l.phone??site.phone}</strong></a><a className="rounded-xl bg-white p-4 shadow-sm" href={site.emailHref}><span className="block text-xs font-bold uppercase tracking-[.18em] text-slate-500">Email</span><strong className="mt-1 block break-all text-brand-blue">{site.email}</strong></a></div></div></div></section><CalendlyBookingSection className="bg-white/55 py-20 backdrop-blur"/><WorkShowcase background="tint" description="Browse examples of hot water, bathroom, kitchen, toilet and drainage work. Include a photo in your enquiry if your job looks similar." eyebrow="Recent plumbing work" limit={6} title="See the finish before you request service"/></>}
+import { CalendlyBookingSection } from "@/components/CalendlyBookingSection";
+export async function generateMetadata(): Promise<Metadata> {
+  const l = await getRequestLocation();
+  return {
+    title: "Contact Grade A Plumbing " + l.location,
+    description:
+      "Request a plumbing quote with your suburb, postcode and preferred contact details.",
+    alternates: { canonical: l.website + "/contact/" },
+  };
+}
+export default function ContactPage() {
+  return (
+    <>
+      <ManusApp initialPath="/contact/" embedded />
+      <CalendlyBookingSection />
+    </>
+  );
+}
