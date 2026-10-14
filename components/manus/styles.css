@@ -351,6 +351,7 @@ legend { color: #283a4e; font-size: 12px; font-weight: 700; padding: 0 0 6px; }
 .premium-social-icon { width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(76,157,231,.55); border-radius: 50%; color: #eaf5ff; background: rgba(3,21,40,.24); }
 .premium-social-icon img, .premium-social-icon svg { width: 22px; height: 22px; display: block; object-fit: contain; }
 .premium-social-icon img { filter: brightness(0) invert(1); }
+.premium-social-tiktok span { font-size: 25px; line-height: 1; }
 .premium-social-google { font-family: Arial,sans-serif; font-size: 25px; font-weight: 700; }
 .premium-footer h2 { margin: 0 0 18px; color: #f8fbff; font-family: var(--font-display); font-size: 19px; font-weight: 800; letter-spacing: .04em; line-height: 1; text-transform: uppercase; }
 .premium-footer h2::after { content: ''; display: block; width: 30px; height: 3px; margin-top: 9px; background: #0789f5; }

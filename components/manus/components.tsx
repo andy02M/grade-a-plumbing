@@ -287,39 +287,42 @@ export function Footer() {
               across Melbourne and surrounding suburbs.
             </p>
             <div className="premium-social" aria-label="Social media profiles">
-              <span
+              <a
                 className="premium-social-icon"
-                role="img"
-                aria-label="Facebook"
+                href="https://www.facebook.com/profile.php?id=61594890159299"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Grade A Plumbing on Facebook"
               >
                 <img src={icon("facebook")} alt="" />
-              </span>
-              <span
+              </a>
+              <a
                 className="premium-social-icon"
-                role="img"
-                aria-label="Instagram"
+                href="https://www.facebook.com/profile.php?id=61589874502109"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Grade A Plumbing Facebook profile"
+              >
+                <img src={icon("facebook")} alt="" />
+              </a>
+              <a
+                className="premium-social-icon"
+                href="https://www.instagram.com/gradea.plumbing/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Grade A Plumbing on Instagram"
               >
                 <img src={icon("instagram")} alt="" />
-              </span>
-              <span
-                className="premium-social-icon premium-social-google"
-                role="img"
-                aria-label="Google"
+              </a>
+              <a
+                className="premium-social-icon premium-social-tiktok"
+                href="https://www.tiktok.com/@gradeaplumbing"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Grade A Plumbing on TikTok"
               >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill="currentColor"
-                    d="M21.35 12.2c0-.7-.06-1.36-.18-2H12v3.8h5.24a4.5 4.5 0 0 1-1.94 2.95v2.46h3.15c1.85-1.7 2.9-4.2 2.9-7.21ZM12 21.6c2.64 0 4.86-.88 6.48-2.39l-3.15-2.46c-.88.59-2 .94-3.33.94-2.56 0-4.73-1.73-5.51-4.06H3.23v2.53A9.8 9.8 0 0 0 12 21.6ZM6.49 13.63a5.9 5.9 0 0 1 0-3.76V7.34H3.23a9.6 9.6 0 0 0 0 8.82l3.26-2.53ZM12 5.8c1.44 0 2.73.5 3.75 1.49l2.8-2.8A9.4 9.4 0 0 0 12 1.4a9.8 9.8 0 0 0-8.77 5.94l3.26 2.53C7.27 7.53 9.44 5.8 12 5.8Z"
-                  />
-                </svg>
-              </span>
-              <span
-                className="premium-social-icon"
-                role="img"
-                aria-label="YouTube"
-              >
-                <img src={icon("youtube")} alt="" />
-              </span>
+                <span aria-hidden="true">♪</span>
+              </a>
             </div>
           </section>
           <nav className="premium-footer-services" aria-label="Footer services">
