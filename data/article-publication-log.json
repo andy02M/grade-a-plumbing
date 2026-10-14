@@ -363,5 +363,20 @@
     "recordedAt": "2026-10-13T02:56:51.168Z",
     "slug": "choosing-water-efficient-taps-showers-label-and-fit",
     "url": "https://melbourne.gradeaplumbing.store/blog/choosing-water-efficient-taps-showers-label-and-fit/"
+  },
+  {
+    "date": "2026-10-14",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-14T01:02:34.872Z",
+    "slug": "reporting-plumbing-repair-victorian-rental-request-evidence-record",
+    "words": 1386,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-10",
+      "reviewer": "AI editorial review in this chat; not legal advice or a licensed plumbing inspection",
+      "notes": "Distinct rental reporting and evidence intent. Urgent/non-urgent distinction checked with CAV and Tenants Victoria. No reimbursement guarantee, legal deadline calculation or instruction to withhold rent."
+    }
   }
 ]

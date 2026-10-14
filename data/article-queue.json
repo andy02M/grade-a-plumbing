@@ -453,7 +453,7 @@
     "releasedDate": "2026-10-13"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-14",
     "targetKeyword": "report plumbing repair rental property Victoria",
     "review": {
@@ -561,7 +561,8 @@
           "answer": "Dates, contact methods, observations, responses and documents actually supplied. Distinguish an assessment visit from a completed repair and record subsequent changes separately."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-14"
   },
   {
     "status": "ready",
