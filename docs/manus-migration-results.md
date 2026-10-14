@@ -10,30 +10,29 @@ Date: 14 October 2026. Branch: `codex/manus-migration`. Production and main have
 - Preserved 82 location homepages, local guidance, recorded storefront addresses and FAQ schema. Added service and FAQ schema for the Manus service content.
 - Preserved the 619-record locality catalogue, including Penrith, Blacktown and North Sydney, and the existing location website links.
 - Replaced unverifiable Manus sample reviews (Michael T., Sarah L., David R.) with the existing supplied review records. Relative dates are labelled as supplied dates, not asserted as current. No aggregate rating was fabricated.
-- Connected the shared quote form to `/api/quote/`. Name, phone, email, location ID, suburb, postcode/state, service, description, contact preference, requested day/date/time and an optional photo are preserved.
-- Added a single JPG/PNG/WebP email attachment up to 2 MB, with server size/type-signature validation. No HEIC or 10 MB capability is claimed. No external photo-storage service is required.
-- Added validation, bounded request fields, provider timeout, privacy-safe failure logging, a submission lock and Resend idempotency. A changed retry payload gets a new request ID. UI success requires backend `ok: true`; appointment preferences are not presented as confirmed bookings.
+- Restored the existing ContactForm and quote API from production baseline 2efba85. All new visual form placements wrap this original component; only surrounding CSS changes its appearance.
+- Retained original payload fields, validation, notification handler, error/success messages and disabled-submit behavior. Removed migration-only photo, postcode/state, appointment and preference controls because the original backend does not support them.
+- Removed migration-only quote validator and tests. Existing backend regression tests are restored.
 - Existing recipients remain `support@gradeaplumbing.store` and `zenn@gradeaplumbing.store`.
 
 ## Evidence
 
+Visual-only revision: production quote API matches baseline with no diff. Restored-form browser tests intercepted both requests: HTTP 500 displayed the failure and enabled retry; HTTP 200 displayed the backend message/reference and removed the submit button. No real email was sent by those tests. Refreshed preview is READY at https://grade-a-plumbing-6y2yr4yd9-andy02ms-projects.vercel.app (dpl_EmgDJwuopScPWSigNBzygYSzqH2c). Authenticated preview fetch contains the original form and Manus assets, with no photo upload.
+
 | Check | Result |
 | --- | --- |
 | TypeScript | Passed |
-| Automated tests | 65 passed |
+| Automated tests | 63 passed |
 | Next.js production build | Passed |
 | Main public routes | 21 routes returned HTTP 200 with rendered H1 and canonical in the browser |
 | Responsive layout | 160 checks: 20 primary pages × 8 requested widths; no horizontal overflow after fixing directory alphabet wrapping |
 | Location homepage host simulation | All 82 returned HTTP 200 with matching root canonical; bare-host and slash root URLs were normalised as equivalent |
 | Published articles | All 8 matched canonical, headline, dates, Article schema and visible text using the existing live verifier |
 | Visual comparison | Original export and migrated homepage screenshots compared at 1440×900; core typography, hero, photography and layout match closely; advice navigation and functional form additions are intentional |
-| Melbourne autocomplete | Coburg VIC 3058 selected; location fields captured in the request |
-| Sydney autocomplete | Penrith NSW 2750 option displayed; all three Sydney records present in catalogue |
-| Form failure UX | Mock HTTP 503 produced the error message and left retry enabled |
-| Form success UX | Mock HTTP 200 with `ok: true` showed receipt and disabled duplicate clicks |
-| API/provider boundary | Mock provider acceptance required for HTTP 200; failed provider returned HTTP 503; repeated request sent one mocked notification |
-| Photo request | PNG test file included in browser payload and recipient payload validated by tests |
-| Real notification test | Attempted once with clearly labelled data and a PNG; HTTP 503 because the local Resend configuration was absent. No delivery claimed |
+| Locality directory | Existing catalogue and searchable directory retained, including Sydney locations |
+| Restored quote backend | Original regression tests pass, including mocked provider acceptance and privacy-safe measurement |
+| Earlier expanded-form tests | Superseded by visual-only scope; expanded form and photo support removed |
+| Real notification delivery | Not verified in Preview; no new credentials requested or production configuration changed |
 
 Screenshots are in ignored `output/playwright/`; browser artifacts are ignored and excluded from Vercel upload. No real customer was contacted. No automated test created a real appointment.
 
@@ -45,10 +44,10 @@ Local `.vercel/project.json` now points to the confirmed project, not `gmb-autop
 
 ## Unresolved configuration and verification
 
-1. `RESEND_API_KEY` and `QUOTE_FROM_EMAIL` are absent from the local and inspected Preview environment. Add a test-capable key and verified sender directly in Vercel, scoped to Preview or the migration branch, then redeploy and repeat the labelled end-to-end test. Inbox delivery and actual attachment delivery are not verified.
+1. Preview email acceptance and inbox delivery remain unverified: the inspected Preview environment lacks Resend configuration. The existing production handler/configuration is unchanged. Per the revised scope, no replacement credentials are requested or copied from Production.
 2. **Local environment incident:** Vercel CLI 50.4.5 `link --yes` unexpectedly refreshed `.env.local` and removed `GOOGLE_GBP_CLIENT_ID`, `GOOGLE_GBP_CLIENT_SECRET` and `GOOGLE_GBP_REFRESH_TOKEN`. The refreshed file was then saved as ignored `.env.manus-development.snapshot`. The available old-project Development pull and existing local production snapshot did not contain those three keys. Their previous local values must be restored through OneDrive Version History or secure reconfiguration. No production credential or DNS was changed. Do not claim original local configuration preservation complete until this recovery is resolved.
 3. Existing Redis/call/booking credentials are scoped to Preview as well as Production in Vercel. The migration did not exercise production call/webhook/GBP automation or write to those services. Their code remains preserved; they are not claimed end-to-end retested. Preview credentials should be scoped to appropriate test resources before exercising such flows.
-4. The application has no new durable production quote database. Acceptance means the email provider accepts the notification. This preserves the established email-based quote workflow; it does not imply database storage or inbox delivery.
+4. The application has no new durable production quote database. In production acceptance requires email-provider acceptance; the original development-only in-memory fallback is preserved. This preserves the established email-based quote workflow; it does not imply database storage or inbox delivery.
 5. No field Core Web Vitals measurement or independent accessibility certification is claimed. The requested widths, labels, keyboard-native dialog and browser rendering were checked; follow-up audits can assess broader performance/accessibility.
 
 ## Release and rollback

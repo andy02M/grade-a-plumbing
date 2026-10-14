@@ -1,145 +1,174 @@
 import { NextResponse } from "next/server";
 import { site } from "@/lib/site";
 import { measurementContext } from "@/lib/measurement";
-import { validateQuote, type QuotePayload } from "@/lib/quote-validation";
-import catalogue from "@/components/manus/location-catalog.json";
-import { SYDNEY_LOCATIONS } from "@/components/manus/locationData";
+
 export const runtime = "nodejs";
-const inFlight = new Map<string, Promise<{ referenceId: string }>>();
-const accepted = new Map<string, { referenceId: string; expires: number }>();
+
+type QuotePayload = {
+  name: string;
+  phone: string;
+  email?: string;
+  suburb: string;
+  service: string;
+  message?: string;
+  source?: string;
+};
+
+type StoredQuote = QuotePayload & {
+  id: string;
+  submittedAt: string;
+};
+
+const localQuoteSubmissions: StoredQuote[] = [];
+const quoteSubmissionError = `We could not submit your quote right now. Please call ${site.phone} or email ${site.email}.`;
+const canStoreLocally = process.env.NODE_ENV !== "production";
+
 export async function POST(request: Request) {
   try {
-    const raw = await request.text();
-    if (raw.length > 3000000)
-      return NextResponse.json(
-        { error: "Request too large." },
-        { status: 413 },
-      );
-    let payload: QuotePayload;
-    try {
-      payload = JSON.parse(raw);
-    } catch {
-      return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    const payload = (await request.json()) as Partial<QuotePayload>;
+    const validationError = validateQuote(payload);
+
+    if (validationError) {
+      return NextResponse.json({ error: validationError }, { status: 400 });
     }
-    const error = validateQuote(payload);
-    if (error) return NextResponse.json({ error }, { status: 400 });
-    if (payload.locationId) {
-      const locality = [...catalogue.locations, ...SYDNEY_LOCATIONS].find(
-        (l) => l.id === payload.locationId,
-      );
-      if (
-        !locality ||
-        locality.name !== payload.suburb ||
-        locality.postcode !== payload.postcode ||
-        locality.state !== payload.state
-      )
-        return NextResponse.json(
-          { error: "Select a matching suburb, postcode and state." },
-          { status: 400 },
-        );
-    }
-    const key = payload.requestId || crypto.randomUUID();
-    for (const [id, item] of accepted)
-      if (item.expires < Date.now()) accepted.delete(id);
-    if (accepted.size > 1000) accepted.delete(accepted.keys().next().value!);
-    let result = accepted.get(key);
-    if (!result) {
-      let pending = inFlight.get(key);
-      if (!pending) {
-        pending = sendQuoteEmail(payload, key);
-        inFlight.set(key, pending);
-      }
+
+    const submission: StoredQuote = {
+      id: crypto.randomUUID().slice(0, 8).toUpperCase(),
+      submittedAt: new Date().toISOString(),
+      name: payload.name!.trim(),
+      phone: payload.phone!.trim(),
+      email: payload.email?.trim() ?? "",
+      suburb: payload.suburb!.trim(),
+      service: payload.service!.trim(),
+      message: payload.message?.trim() ?? "",
+      source: payload.source?.trim() ?? "Website quote form"
+    };
+
+    let stored = false;
+    let emailed = false;
+
+    if (canStoreLocally) {
       try {
-        const receipt = await pending;
-        result = { ...receipt, expires: Date.now() + 86400000 };
-        accepted.set(key, result);
-      } finally {
-        inFlight.delete(key);
+        storeQuote(submission);
+        stored = true;
+      } catch (error) {
+        console.error("Quote storage failed", error);
       }
     }
-    const context = measurementContext(
-      request.headers.get("x-forwarded-host") ??
-        request.headers.get("host") ??
-        "",
-      payload.source === "Homepage quote form"
-        ? "/"
-        : payload.source?.startsWith("/")
-          ? payload.source
-          : "/contact/",
-    );
-    if (
-      context &&
-      request.headers.get("dnt") !== "1" &&
-      request.headers.get("sec-gpc") !== "1"
-    )
-      console.info(
-        "site_measurement",
-        JSON.stringify({ event: "quote_accepted", ...context }),
+
+    try {
+      emailed = await sendQuoteEmail(submission);
+    } catch (error) {
+      console.error("Quote email failed", error);
+    }
+
+    if (!stored && !emailed) {
+      return NextResponse.json(
+        {
+          error: quoteSubmissionError
+        },
+        { status: 500 }
       );
+    }
+
+    const context=measurementContext(request.headers.get("x-forwarded-host")??request.headers.get("host")??"",submission.source==="Homepage quote form"?"/":"/contact/");
+    if(emailed && context && request.headers.get("dnt")!=="1" && request.headers.get("sec-gpc")!=="1")console.info("site_measurement",JSON.stringify({event:"quote_accepted",...context}));
     return NextResponse.json({
       ok: true,
-      referenceId: result.referenceId,
+      referenceId: submission.id,
       message:
-        "Your quote request has been received. We will review it and contact you.",
+        "Your free quote request has been received. We will review it and get back to you as soon as possible."
     });
-  } catch {
-    console.error("quote_submission_failed");
+  } catch (error) {
+    console.error("Quote submission error", error);
+
     return NextResponse.json(
       {
-        error:
-          "We could not submit your quote right now. Please call " +
-          site.phone +
-          " or email " +
-          site.email +
-          ".",
+        error: quoteSubmissionError
       },
-      { status: 503 },
+      { status: 500 }
     );
   }
 }
-async function sendQuoteEmail(payload: QuotePayload, key: string) {
-  if (!process.env.RESEND_API_KEY)
-    throw Error("Email configuration unavailable");
-  const referenceId = key.slice(0, 8).toUpperCase();
-  const lines = [
-    "Reference: " + referenceId,
-    "Source: " + (payload.source || "Website quote form"),
-    "Name: " + payload.name.trim(),
-    "Phone: " + payload.phone.trim(),
-    "Email: " + (payload.email?.trim() || "Not provided"),
-    "Suburb: " + payload.suburb,
-    "Postcode: " + (payload.postcode || "Not provided"),
-    "State: " + (payload.state || "Not provided"),
-    "Service: " + payload.service,
-    "Preferred contact: " + (payload.preferredContact || "phone"),
-    "Preferred day/date: " + (payload.preferredDay || "Not specified"),
-    "Preferred date: " + (payload.preferredDate || "Not specified"),
-    "Preferred time: " + (payload.preferredTime || "Not specified"),
-    "Message: " + (payload.message || "No message provided"),
-  ];
-  // Stable request body and provider idempotency protect retries across server instances.
+
+function validateQuote(payload: Partial<QuotePayload>) {
+  if (!payload.name?.trim()) return "Please enter your name.";
+  if (!payload.phone?.trim()) return "Please enter your phone number.";
+  if (!payload.suburb?.trim()) return "Please enter your suburb.";
+  if (!payload.service?.trim()) return "Please select the plumbing service you need.";
+
+  if (payload.email && payload.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+    return "Please enter a valid email address.";
+  }
+
+  return null;
+}
+
+function storeQuote(submission: StoredQuote) {
+  localQuoteSubmissions.push(submission);
+  console.info("Local quote submission received", {
+    referenceId: submission.id,
+    totalLocalSubmissions: localQuoteSubmissions.length
+  });
+}
+
+async function sendQuoteEmail(submission: StoredQuote) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+
+  if (!resendApiKey) {
+    return false;
+  }
+
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      Authorization: "Bearer " + process.env.RESEND_API_KEY,
-      "Content-Type": "application/json",
-      "Idempotency-Key": "quote-" + key,
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      from:
-        process.env.QUOTE_FROM_EMAIL ||
-        "Grade A Plumbing Quotes <onboarding@resend.dev>",
+      from: process.env.QUOTE_FROM_EMAIL ?? "Grade A Plumbing Quotes <onboarding@resend.dev>",
       to: [site.email, "zenn@gradeaplumbing.store"],
-      reply_to: payload.email || undefined,
-      subject: "New free quote request from " + payload.name,
-      text: lines.join("\n"),
-      attachments: payload.attachments?.map((a) => ({
-        filename: a.filename.replace(/[^a-zA-Z0-9._-]/g, "_"),
-        content: a.content,
-      })),
-    }),
-    signal: AbortSignal.timeout(20000),
+      reply_to: submission.email || undefined,
+      subject: `New free quote request from ${submission.name}`,
+      text: [
+        `Reference: ${submission.id}`,
+        `Submitted: ${submission.submittedAt}`,
+        `Source: ${submission.source}`,
+        `Name: ${submission.name}`,
+        `Phone: ${submission.phone}`,
+        `Email: ${submission.email || "Not provided"}`,
+        `Suburb: ${submission.suburb}`,
+        `Service: ${submission.service}`,
+        `Message: ${submission.message || "No message provided"}`
+      ].join("\n"),
+      html: `
+        <h2>New Grade A Plumbing quote request</h2>
+        <p><strong>Reference:</strong> ${escapeHtml(submission.id)}</p>
+        <p><strong>Submitted:</strong> ${escapeHtml(submission.submittedAt)}</p>
+        <p><strong>Source:</strong> ${escapeHtml(submission.source ?? "")}</p>
+        <p><strong>Name:</strong> ${escapeHtml(submission.name)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(submission.phone)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(submission.email || "Not provided")}</p>
+        <p><strong>Suburb:</strong> ${escapeHtml(submission.suburb)}</p>
+        <p><strong>Service:</strong> ${escapeHtml(submission.service)}</p>
+        <p><strong>Message:</strong><br>${escapeHtml(submission.message || "No message provided").replace(/\n/g, "<br>")}</p>
+      `
+    })
   });
-  if (!response.ok) throw Error("Email provider did not accept request");
-  return { referenceId };
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Resend error: ${errorText}`);
+  }
+
+  return true;
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }

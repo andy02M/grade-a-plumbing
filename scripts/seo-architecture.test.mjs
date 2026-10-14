@@ -38,7 +38,7 @@ test("drain and hot water guides explain assessment and complete quote scopes", 
  const page = readFileSync(new URL("../app/[service]/page.tsx", import.meta.url), "utf8");
  assert.match(page, /ManusApp/);
  assert.match(page, /locationHasService\(l\)/);
- assert.match(readFileSync(new URL('../components/manus/components.tsx',import.meta.url),'utf8'), /\/api\/quote\//);
+ assert.match(readFileSync(new URL('../components/ContactForm.tsx',import.meta.url),'utf8'), /\/api\/quote/);
 });
 test("Search Console priority copy improves booking intent without losing local evidence", () => {
  const copy = JSON.parse(readFileSync(new URL("../data/priority-location-copy.json", import.meta.url), "utf8"));
@@ -325,14 +325,14 @@ test("phone and email actions use verified targets", () => {
 });
 test("quote form posts to validated email handler", () => {
   const form = readFileSync(
-    new URL("../components/manus/components.tsx", import.meta.url),
+    new URL("../components/ContactForm.tsx", import.meta.url),
     "utf8",
   );
   const route = readFileSync(
     new URL("../app/api/quote/route.ts", import.meta.url),
     "utf8",
   );
-  assert.match(form, /fetch\(["']\/api\/quote\/["']/);
+  assert.match(form, /fetch\(["']\/api\/quote["']/);
   assert.match(route, /RESEND_API_KEY/);
   assert.match(route, /to:\s*\[site\.email,\s*["']zenn@gradeaplumbing\.store["']\]/);
   for (const field of ["name", "phone", "suburb", "service"])

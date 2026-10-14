@@ -25,21 +25,17 @@ test("events reject identifiers, arbitrary labels and invalid metrics",()=>{
 test("measurement cannot block booking and respects browser preferences",()=>{
  const client=readFileSync(new URL('../components/SiteMeasurement.tsx',import.meta.url),'utf8');
  assert.match(client,/doNotTrack/);assert.match(client,/globalPrivacyControl/);assert.doesNotMatch(client,/localStorage|document.cookie|preventDefault|FormData/);
- const quote=readFileSync(new URL('../app/api/quote/route.ts',import.meta.url),'utf8');assert.match(quote,/await pending/);assert.match(quote,/event:\s*["']quote_accepted["']/);
+ const quote=readFileSync(new URL('../app/api/quote/route.ts',import.meta.url),'utf8');assert.match(quote,/if\(emailed && context/);assert.match(quote,/event:"quote_accepted"/);
  const route=readFileSync(new URL('../app/api/measurement/route.ts',import.meta.url),'utf8');assert.match(route,/sec-gpc/);assert.match(route,/size>2048/);assert.match(route,/sanitiseMeasurement/);
 });
 test("accepted quote measurement requires provider acceptance and contains no customer fields",async()=>{
  const source=readFileSync(new URL('../app/api/quote/route.ts',import.meta.url),'utf8');
  const output=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
  const logs=[];let accepted=true;const module={exports:{}};
- const validation={exports:{}};runInNewContext(ts.transpileModule(readFileSync(new URL('../lib/quote-validation.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText,{module:validation,exports:validation.exports,Buffer});
- runInNewContext(output,{module,exports:module.exports,AbortSignal,crypto:{randomUUID},process:{env:{NODE_ENV:'production',RESEND_API_KEY:'mock-key'}},console:{info:(...args)=>logs.push(args),error:()=>{}},fetch:async()=>({ok:accepted,text:async()=>"Mock provider failure"}),require:specifier=>{
+ runInNewContext(output,{module,exports:module.exports,crypto:{randomUUID},process:{env:{NODE_ENV:'production',RESEND_API_KEY:'mock-key'}},console:{info:(...args)=>logs.push(args),error:()=>{}},fetch:async()=>({ok:accepted,text:async()=>"Mock provider failure"}),require:specifier=>{
   if(specifier==='next/server')return {NextResponse:{json:(body,options)=>({status:options?.status??200,body})}};
   if(specifier==='@/lib/site')return {site:{phone:'(02) 5837 5457',email:'support@gradeaplumbing.store'}};
   if(specifier==='@/lib/measurement')return {measurementContext};
-  if(specifier==='@/lib/quote-validation')return validation.exports;
-  if(specifier.endsWith('location-catalog.json'))return {locations:[]};
-  if(specifier.endsWith('locationData'))return {SYDNEY_LOCATIONS:[]};
   throw Error(specifier);
  }});
  const body={name:'Private name',phone:'0400000000',suburb:'Coburg',service:'Blocked drain',source:'Homepage quote form'};
@@ -47,5 +43,5 @@ test("accepted quote measurement requires provider acceptance and contains no cu
  assert.equal((await module.exports.POST(request())).status,200);
  const event=JSON.parse(logs.find(row=>row[0]==='site_measurement')[1]);
  assert.equal(event.event,'quote_accepted');assert.equal(event.locationSlug,'coburg');assert.equal(event.pageType,'home');assert.ok(!JSON.stringify(event).includes('Private'));assert.ok(!JSON.stringify(event).includes(body.phone));
- logs.length=0;accepted=false;assert.equal((await module.exports.POST(request())).status,503);assert.equal(logs.length,0);
+ logs.length=0;accepted=false;assert.equal((await module.exports.POST(request())).status,500);assert.equal(logs.length,0);
 });
