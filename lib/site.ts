@@ -10,9 +10,6 @@ export const site = {
   emailHref: "mailto:support@gradeaplumbing.store",
   whatsAppNumber,
   whatsAppHref: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(whatsAppMessage)}`,
-  calendlyUrl: "https://calendly.com/gradeaplumbing-support/30min",
-  calendlyEmbedUrl:
-    "https://calendly.com/gradeaplumbing-support/30min?hide_event_type_details=1&hide_gdpr_banner=1",
   serviceArea: "Melbourne and surrounding Victorian suburbs",
   location: "Melbourne",
   description:
