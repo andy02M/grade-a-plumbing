@@ -59,7 +59,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const location = await getRequestLocation();
-  const faq = localGuidance[location.slug]?.faqs ?? [];
   const address = location.address
     ? { "@type": "PostalAddress", ...location.address }
     : undefined;
@@ -73,17 +72,6 @@ export default async function HomePage() {
           url: location.website,
           telephone: location.phone ?? site.phone,
           ...(address ? { address } : {}),
-        }}
-      />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faq.map((f) => ({
-            "@type": "Question",
-            name: f.question,
-            acceptedAnswer: { "@type": "Answer", text: f.answer },
-          })),
         }}
       />
       <ManusApp initialPath="/" embedded />
