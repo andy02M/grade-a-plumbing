@@ -192,42 +192,42 @@ export const gallery = [
   {
     title: "Emergency response",
     image: asset("sharp/02_Emergency_Plumbing_Service.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
   {
     title: "Hot water system",
     image: asset("sharp/04_Hot_Water_Systems.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
   {
     title: "Kitchen sink",
     image: asset("sharp/10_Kitchen_Plumbing.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
   {
     title: "Blocked drain",
     image: asset("sharp/03_Blocked_Drains.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
   {
     title: "Bathroom plumbing",
     image: asset("sharp/11_Bathroom_Plumbing.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
   {
     title: "Copper pipework",
     image: asset("sharp/05_Burst_Pipe_Repairs.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
   {
     title: "Toilet repairs",
     image: asset("sharp/06_Toilet_Repairs.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
   {
     title: "Drainage work",
     image: asset("sharp/08_Sewer_Repairs.jpg"),
-    label: "Illustrative image",
+    label: "Image",
   },
 ];
 

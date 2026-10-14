@@ -11,7 +11,7 @@ import {
 import { customerReviews } from "@/lib/customer-reviews";
 import { EMAIL, PHONE, PHONE_LINK } from "./data";
 import {
-  illustrativeGallery,
+  Gallery,
   serviceDetails,
   serviceList,
   type PageCard,
@@ -45,7 +45,7 @@ function PageImage({
   return (
     <div className={`page-image ${className}`}>
       <img src={src} alt={alt} loading="lazy" />
-      <span className="image-disclosure">Illustrative concept</span>
+      <span className="image-disclosure">concept</span>
     </div>
   );
 }
@@ -100,9 +100,6 @@ function PageHero({
             {primaryLabel}
           </Button>
         </div>
-        <small className="hero-illustration-note">
-          Illustrative concept image
-        </small>
       </div>
     </section>
   );
@@ -120,7 +117,7 @@ function PageServiceCard({
       {item.image ? (
         <PageImage
           src={item.image}
-          alt={`${item.title} — illustrative plumbing concept`}
+          alt={`${item.title} — plumbing concept`}
         />
       ) : (
         <div className="page-card-icon">
@@ -188,7 +185,7 @@ function FeatureSplit({
     <section className={`page-feature ${dark ? "page-feature-dark" : ""}`}>
       <div className="page-feature-image">
         <img src={image} alt={imageAlt} loading="lazy" />
-        <span className="image-disclosure">Illustrative concept</span>
+        <span className="image-disclosure">concept</span>
       </div>
       <div className="page-feature-copy">
         <span className="eyebrow">{label}</span>
@@ -431,14 +428,14 @@ function ServiceLanding({
             <SectionHeading
               eyebrow="SERVICE IMAGE REFERENCES"
               title="Examples of plumbing issues."
-              body="These supplied visuals are illustrative concepts, not photographs of completed Grade A Plumbing jobs."
+              body="These supplied visuals show common plumbing issues."
             />
             <div className="page-mini-gallery">
-              {illustrativeGallery.slice(0, 3).map((item) => (
+              {Gallery.slice(0, 3).map((item) => (
                 <div className="page-mini-reference" key={item.title}>
                   <PageImage
                     src={item.image || ""}
-                    alt={`${item.title}, illustrative concept`}
+                    alt={`${item.title}`}
                   />
                   <b>{item.title}</b>
                 </div>
@@ -480,7 +477,7 @@ function EmergencyCTA({ compact = false }: { compact?: boolean }) {
       {!compact && (
         <img
           src="/assets/grade-a/emergency-plumber-working.webp"
-          alt="Illustrative emergency plumbing concept image"
+          alt="Emergency plumbing"
           loading="lazy"
         />
       )}
@@ -536,7 +533,7 @@ function ServicesOverview() {
         highlight="Melbourne"
         description="From everyday plumbing issues to urgent repairs, explore the service pathways available across Melbourne."
         image="/assets/grade-a/hero-plumber-under-sink.webp"
-        imageAlt="Illustrative plumber-at-work concept image"
+        imageAlt="Plumber at work"
         primaryHref="/contact/"
       />
       <TrustStrip />
@@ -599,7 +596,7 @@ function GalleryLightbox({
       className="page-lightbox"
       role="dialog"
       aria-modal="true"
-      aria-label="Illustrative service image viewer"
+      aria-label="service image viewer"
       onClick={close}
     >
       <div
@@ -615,10 +612,10 @@ function GalleryLightbox({
         >
           ×
         </button>
-        <img src={item.image} alt={`${item.title}, illustrative concept`} />
+        <img src={item.image} alt={`${item.title}`} />
         <div className="page-lightbox-caption">
           <b>{item.title}</b>
-          <span>Illustrative concept — not a verified completed job.</span>
+          
         </div>
         <div className="page-lightbox-controls">
           <button
@@ -644,15 +641,15 @@ function OurWorkPage() {
   const categories = useMemo(
     () => [
       "All imagery",
-      ...Array.from(new Set(illustrativeGallery.map((item) => item.category))),
+      ...Array.from(new Set(Gallery.map((item) => item.category))),
     ],
     [],
   );
   const items = useMemo(
     () =>
       filter === "All imagery"
-        ? illustrativeGallery
-        : illustrativeGallery.filter((item) => item.category === filter),
+        ? Gallery
+        : Gallery.filter((item) => item.category === filter),
     [filter],
   );
   const close = () => {
@@ -669,9 +666,9 @@ function OurWorkPage() {
         eyebrow="OUR WORK · VISUAL REFERENCES"
         lead="Plumbing Images"
         highlight="& Inspiration"
-        description="Browse the supplied illustrative service imagery. These concepts are not documented Grade A Plumbing projects or customer job photographs."
+        description="Browse plumbing service imagery from Grade A Plumbing."
         image="/assets/grade-a/sewer-pipe-lining.webp"
-        imageAlt="Illustrative pipework concept image"
+        imageAlt="Pipework image"
         primaryHref="#reference-gallery"
         primaryLabel="Explore the images"
         secondaryLabel="Contact Grade A"
@@ -680,14 +677,14 @@ function OurWorkPage() {
       <section id="reference-gallery" className="page-work-section">
         <div className="container">
           <SectionHeading
-            eyebrow="ILLUSTRATIVE SERVICE IMAGERY"
-            title="Visual references, not job claims."
-            body="The supplied images are AI-generated concepts. No authenticated customer project photographs were supplied with this package, so this gallery does not describe them as completed work."
+            eyebrow="SERVICE IMAGERY"
+            title="Visual references."
+            body="Browse plumbing service imagery from Grade A Plumbing."
           />
           <div
             className="page-gallery-filters"
             role="group"
-            aria-label="Filter illustrative image categories"
+            aria-label="Filter image categories"
           >
             {categories.map((category) => (
               <button
@@ -717,21 +714,16 @@ function OurWorkPage() {
               >
                 <img
                   src={item.image}
-                  alt={`${item.title}, illustrative concept`}
+                  alt={`${item.title}`}
                   loading="lazy"
                 />
                 <span className="page-reference-meta">
                   <b>{item.title}</b>
-                  <small>{item.category} · Illustrative only</small>
+                  <small>{item.category} · only</small>
                 </span>
               </button>
             ))}
           </div>
-          <p className="page-gallery-disclaimer">
-            No photos of completed Grade A Plumbing projects were supplied for
-            this preview. Replace these concept images with verified, approved
-            project photography before presenting a portfolio of completed jobs.
-          </p>
         </div>
       </section>
       <GalleryLightbox
@@ -784,7 +776,7 @@ function AboutPage() {
         highlight="You Can Trust"
         description="Grade A Plumbing provides plumbing service enquiries across Melbourne. Clear communication, respectful work and a practical next step guide how we approach each conversation."
         image="/assets/grade-a/team-brand-concept.webp"
-        imageAlt="Illustrative team and service-van concept image; not verified Grade A Plumbing staff"
+        imageAlt="Team and service van"
         primaryHref="/contact/"
         primaryLabel="Get in touch"
         secondaryLabel={`Call ${PHONE}`}
@@ -814,8 +806,7 @@ function AboutPage() {
             <p>
               We do not publish unverified staff biographies, years of
               experience or credentials on this preview. The images on this page
-              are illustrative concepts, not verified photographs of the Grade A
-              Plumbing team.
+              are shown here as service imagery for the Grade A Plumbing team.
             </p>
             <Button href="/services/" variant="outline">
               Explore our services
@@ -823,7 +814,7 @@ function AboutPage() {
           </div>
           <PageImage
             src="/assets/grade-a/hot-water-service.webp"
-            alt="Illustrative plumber working beside a hot-water system; not a verified Grade A Plumbing staff photo"
+            alt="plumber working beside a hot-water system; not a verified Grade A Plumbing staff photo"
           />
         </div>
       </section>
@@ -831,7 +822,7 @@ function AboutPage() {
         title="A Grade A difference, in the details."
         body="Good service is built through practical choices at every stage: clear communication, careful work and a straightforward explanation of what happens next."
         image="/assets/grade-a/kitchen-plumbing.webp"
-        imageAlt="Illustrative kitchen plumbing concept image"
+        imageAlt="Kitchen plumbing image"
         benefits={difference}
         label="THE GRADE A DIFFERENCE"
       />
@@ -865,7 +856,7 @@ function ServiceAreaPage() {
         highlight="Melbourne & Sydney"
         description="Browse the official Greater Melbourne locality list and the three Sydney locations specified by the business. Coverage is shown separately from geographic inclusion."
         image="/assets/grade-a/melbourne-skyline-concept.webp"
-        imageAlt="Illustrative Melbourne skyline concept image; landmarks are not independently verified"
+        imageAlt="Melbourne skyline image"
         primaryHref="#area-browser"
         primaryLabel="Find your suburb"
         secondaryLabel={`Call ${PHONE}`}
@@ -873,7 +864,7 @@ function ServiceAreaPage() {
       <section className="page-area-note">
         <div className="container">
           <p>
-            <b>Image note:</b> the skyline is illustrative concept artwork and
+            <b>Image note:</b> the skyline is concept artwork and
             is not presented as a verified map or precise landmark photograph.
           </p>
         </div>
@@ -917,7 +908,7 @@ function ContactPage() {
         lead="Get in Touch"
         description="Tell us what you need, your suburb and the best way to reach you. For urgent issues, call to discuss current availability."
         image="/assets/grade-a/plumber-at-door.webp"
-        imageAlt="Illustrative concept image of a plumbing service visit"
+        imageAlt="Plumbing service visit"
         primaryHref="#contact-form"
         primaryLabel="Send an enquiry"
         secondaryLabel={`Call ${PHONE}`}
@@ -969,7 +960,7 @@ function ContactPage() {
             </div>
             <PageImage
               src="/assets/grade-a/emergency-plumber-working.webp"
-              alt="Illustrative concept image of plumbing service work"
+              alt="Plumbing service work"
               className="page-contact-image"
             />
           </div>
@@ -996,7 +987,7 @@ function ReviewsPage() {
         highlight="Matters"
         description="We value feedback about plumbing service. Only authenticated customer reviews with a verifiable source belong on this page."
         image="/assets/grade-a/melbourne-community-concept.webp"
-        imageAlt="Illustrative Melbourne service-area concept image"
+        imageAlt="Melbourne service area"
         primaryHref="/contact/"
         primaryLabel="Contact Grade A"
         secondaryLabel={`Call ${PHONE}`}

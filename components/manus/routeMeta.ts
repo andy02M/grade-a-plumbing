@@ -31,7 +31,7 @@ const staticPages: Record<string, { title: string; description: string; crumbs: 
   },
   '/our-work/': {
     title: 'Plumbing Image References | Grade A Plumbing',
-    description: 'Illustrative plumbing service imagery supplied with the Grade A Plumbing website. These concept images are not photographs of completed Grade A Plumbing jobs.',
+    description: 'Plumbing service imagery from Grade A Plumbing.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'Our Work' }],
   },
   '/about/': {
