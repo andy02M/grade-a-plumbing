@@ -49,7 +49,7 @@ button { cursor: pointer; }
 .logo-invert .footer-logo-text b { color: var(--blue); font-size: 15px; }
 .desktop-nav { display: flex; align-items: center; gap: clamp(12px, 1.15vw, 20px); flex: 1; justify-content: center; }
 .desktop-nav a { color: #17273a; font-size: var(--type-nav); font-weight: 700; white-space: nowrap; }
-.desktop-nav a:first-child { border-bottom: 2px solid var(--blue); padding-bottom: 4px; }
+.desktop-nav a.nav-link-active { border-bottom: 2px solid var(--blue); padding-bottom: 4px; }
 .nav-chevron { color: var(--muted); font-size: 10px; margin-left: 3px; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .header-phone { height: 46px; padding: 0 15px; border: 1px solid #8ec8fa; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; color: var(--blue-2); font-size: 13px; font-weight: 800; white-space: nowrap; }
@@ -281,7 +281,7 @@ legend { color: #283a4e; font-size: 12px; font-weight: 700; padding: 0 0 6px; }
   .desktop-nav { top: 64px; padding: 8px 18px 14px; }
   .desktop-nav.nav-open { display: flex; }
   .desktop-nav a { padding: 13px 0; font-size: 14px; border-bottom: 1px solid #eef2f6; }
-  .desktop-nav a:first-child { padding-bottom: 13px; border-bottom: 1px solid #eef2f6; }
+  .desktop-nav a.nav-link-active { padding-bottom: 13px; border-bottom: 2px solid var(--blue); }
   .header-phone { display: none; }
   .header-actions .button { min-height: 40px; padding-inline: 11px; font-size: 12px; }
   .menu-toggle { display: inline-flex; width: 42px; height: 42px; padding: 7px; }

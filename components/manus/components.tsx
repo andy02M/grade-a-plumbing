@@ -1,5 +1,6 @@
 "use client";
 import { ContactForm } from "../ContactForm";
+import { usePathname } from "next/navigation";
 import {
   FormEvent,
   ReactNode,
@@ -202,6 +203,7 @@ export function Logo({ invert = false }: { invert?: boolean }) {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const nav = [
     ["Services", "/services/"],
     ["Service Areas", "/service-areas/"],
@@ -218,12 +220,15 @@ export function Header() {
           className={`desktop-nav ${open ? "nav-open" : ""}`}
           aria-label="Primary navigation"
         >
-          {nav.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)}>
+          {nav.map(([label, href]) => {
+            const active = pathname === href || pathname.startsWith(`${href.replace(/\/$/, "")}/`);
+            return (
+            <a key={href} href={href} className={active ? "nav-link-active" : undefined} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>
               {label}
               {label === "Services" && <span className="nav-chevron">⌄</span>}
             </a>
-          ))}
+            );
+          })}
         </nav>
         <div className="header-actions">
           <a className="header-phone" href={PHONE_LINK}>
