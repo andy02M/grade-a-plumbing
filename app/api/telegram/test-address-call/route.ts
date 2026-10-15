@@ -3,6 +3,7 @@ import { buildCallActionKeyboard, getCallActionStoreKey, getNewCallsTopicId } fr
 import { rememberCallMessage } from "@/lib/call-alert-store";
 import { getPlumberEtaLines } from "@/lib/plumber-eta";
 import { sendTelegramMessage } from "@/lib/telegram";
+import { insertPhoneLabel } from "@/lib/vapi-phone-label";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,7 +23,7 @@ export async function GET(request: Request) {
   const actionKey = `maps-test-${Date.now().toString(36)}`;
   const callMessageKey = `TelegramMapsTest:${actionKey}`;
   const eta = await getPlumberEtaLines(address);
-  const text = [
+  const text = insertPhoneLabel([
     ...formatTestHeader("🟩🟦🟩🟩🟦🟩🟩🟦🟩", "🚰 GRADE A PLUMBING", "✅ GOOGLE MAPS ETA TEST"),
     ...formatTestSection("👤 CUSTOMER", [
       "Name: Test Customer",
@@ -37,8 +38,8 @@ export async function GET(request: Request) {
       `Tested: ${formatMelbourneTimestamp(new Date().toISOString())}`
     ]),
     ...eta.lines,
-    ...formatTestSection("🎯 NEXT ACTION", ["Tap Booked to test the required booking-detail flow."])
-  ].filter((line, index, array) => line !== "" || (Boolean(array[index - 1]) && array[index - 1] !== "")).join("\n");
+    ...formatTestSection("🎯 NEXT ACTION", ["Confirm availability with the team."])
+  ].filter((line, index, array) => line !== "" || (Boolean(array[index - 1]) && array[index - 1] !== "")).join("\n"), "Melbourne|Richmond|Essendon|Hampton");
 
   const result = await sendTelegramMessage(text, undefined, {
     messageThreadId: getNewCallsTopicId(),

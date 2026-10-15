@@ -1,3 +1,5 @@
+import { notificationEmoji, renderCallNotification } from "@/lib/call-notification";
+
 export type TelegramDelivery = {
   chatId: string;
   messageId: number;
@@ -7,6 +9,7 @@ export type TelegramInlineKeyboardMarkup = {
   inline_keyboard: Array<
     Array<{
       callback_data: string;
+      icon_custom_emoji_id?: string;
       text: string;
     }>
   >;
@@ -19,6 +22,7 @@ export type TelegramForceReplyMarkup = {
 };
 
 type TelegramMessageOptions = {
+  expandedEtas?: boolean;
   disableWebPagePreview?: boolean;
   messageThreadId?: number;
   replyMarkup?: TelegramInlineKeyboardMarkup | TelegramForceReplyMarkup | null;
@@ -34,6 +38,29 @@ type TelegramResult =
       error: string;
       failedChatIds?: string[];
     };
+
+function presentMessage(text: string, options: TelegramMessageOptions) {
+  const rendered = renderCallNotification(text, options.expandedEtas);
+  let replyMarkup = options.replyMarkup;
+  if (replyMarkup && "inline_keyboard" in replyMarkup) {
+    const rows = replyMarkup.inline_keyboard.filter((row) => !row.some((button) => button.callback_data.startsWith("gapeta:")));
+    const action = rows.flat().find((button) => /^(gap|gapmenu|gapfill):/.test(button.callback_data));
+    const key = action?.callback_data.split(":")[2];
+    if (rendered.hasMoreEtas && key) rows.push([{
+      text: options.expandedEtas ? "Hide other plumbers ↑" : "View other plumbers ↓",
+      callback_data: `gapeta:${options.expandedEtas ? "less" : "more"}:${key}`
+    }]);
+    replyMarkup = { inline_keyboard: rows.map((row) => row.map((button) => {
+      const emoji = Object.keys(notificationEmoji).find((icon) => button.text.startsWith(icon));
+      return emoji ? {
+        ...button,
+        text: button.text.slice(emoji.length).trimStart(),
+        icon_custom_emoji_id: notificationEmoji[emoji]
+      } : button;
+    })) };
+  }
+  return { ...rendered, replyMarkup };
+}
 
 export async function sendTelegramMessage(
   text: string,
@@ -84,6 +111,7 @@ async function sendTelegramTextToChat(
   attemptedMigration = false,
   attemptedWithoutThread = false
 ) {
+  const presentation = presentMessage(text, options);
   const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
     method: "POST",
     headers: {
@@ -93,8 +121,9 @@ async function sendTelegramTextToChat(
       chat_id: chatId,
       disable_web_page_preview: options.disableWebPagePreview ?? true,
       ...(typeof options.messageThreadId === "number" ? { message_thread_id: options.messageThreadId } : {}),
-      ...(options.replyMarkup !== undefined ? { reply_markup: options.replyMarkup } : {}),
-      text: text.slice(0, 3900)
+      ...(presentation.replyMarkup !== undefined ? { reply_markup: presentation.replyMarkup } : {}),
+      text: presentation.text,
+      entities: presentation.entities
     })
   });
   const data = (await parseTelegramResponse(response)) as TelegramSendMessageResponse;
@@ -131,6 +160,7 @@ export async function editTelegramMessage(
   deliveries: TelegramDelivery[],
   options: TelegramMessageOptions = {}
 ): Promise<TelegramResult> {
+  const presentation = presentMessage(text, options);
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
 
   if (!botToken || !deliveries.length) {
@@ -151,8 +181,9 @@ export async function editTelegramMessage(
           chat_id: delivery.chatId,
           disable_web_page_preview: options.disableWebPagePreview ?? true,
           message_id: delivery.messageId,
-          ...(options.replyMarkup !== undefined ? { reply_markup: options.replyMarkup } : {}),
-          text: text.slice(0, 3900)
+          ...(presentation.replyMarkup !== undefined ? { reply_markup: presentation.replyMarkup } : {}),
+          text: presentation.text,
+          entities: presentation.entities
         })
       });
       const error = response.ok ? "" : await response.text();

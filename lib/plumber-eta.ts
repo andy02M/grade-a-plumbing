@@ -216,10 +216,6 @@ export async function getPlumberEtaLines(locationInput: string): Promise<Plumber
         serviceMatch: isServiceAreaMatch(plumbers[index], validation.formattedAddress || locationInput)
       }))
       .sort((a, b) => {
-        if (a.serviceMatch !== b.serviceMatch) {
-          return a.serviceMatch ? -1 : 1;
-        }
-
         return (a.durationValue ?? Number.MAX_SAFE_INTEGER) - (b.durationValue ?? Number.MAX_SAFE_INTEGER);
       });
 

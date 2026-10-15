@@ -169,6 +169,17 @@ export async function getStoredJson<T>(kind: string, key: string, ttlMs: number)
   return (memoryJsonValues.get(`${kind}:${key}`)?.value as T | undefined) ?? null;
 }
 
+export async function getDurableStoredJson<T>(kind: string, key: string): Promise<T | null> {
+  const result = await redisCommand<string | null>(["GET", buildKey(kind, key)]);
+  if (!result.ok) throw new Error("Blocked caller storage is unavailable.");
+  return parseStoredJson<T>(result.value);
+}
+
+export async function setDurableStoredJson<T>(kind: string, key: string, value: T, ttlMs: number) {
+  const result = await redisCommand<string>(["SET", buildKey(kind, key), JSON.stringify(value), "EX", msToSeconds(ttlMs)]);
+  if (!result.ok || result.value !== "OK") throw new Error("Could not save blocked caller permanently.");
+}
+
 export async function setStoredJson<T>(kind: string, key: string, value: T, ttlMs: number) {
   const redisKey = buildKey(kind, key);
   const redisResult = await redisCommand<string>(["SET", redisKey, JSON.stringify(value), "EX", msToSeconds(ttlMs)]);

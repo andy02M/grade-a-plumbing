@@ -16,6 +16,7 @@ import {
   rememberRecentAlert
 } from "@/lib/call-alert-store";
 import { isCallerNumberBlocked } from "@/lib/call-block-list";
+import { insertPhoneLabel, resolveVapiPhoneLabel } from "@/lib/vapi-phone-label";
 import { recordCallStatistic } from "@/lib/call-statistics";
 import { getPlumberEtaLines } from "@/lib/plumber-eta";
 import { createRecordingLink } from "@/lib/recordings";
@@ -38,6 +39,8 @@ type NormalizedCall = {
   callId: string;
   customerNumber: string;
   businessNumber: string;
+  businessPhoneId: string;
+  businessPhoneLabel: string;
   direction: string;
   duration: string;
   endedReason: string;
@@ -230,7 +233,8 @@ export async function POST(request: Request) {
 
 async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
   const alertContext = await buildAlertContext(call);
-  const message = formatCallAlert(call, alertStage, alertContext);
+  const phoneLabel = await resolveVapiPhoneLabel({ id: call.businessPhoneId, label: call.businessPhoneLabel, number: call.businessNumber });
+  const message = insertPhoneLabel(formatCallAlert(call, alertStage, alertContext), phoneLabel);
   const callMessageKeys = getCallMessageKeys(call);
   const actionKeys = getCallActionKeys(callMessageKeys);
   const actionKeyboard = buildCallActionKeyboard(actionKeys[0]);
@@ -358,7 +362,7 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
     (payload.CallSid ? "Twilio" : "Vapi");
 
   const customer = getObject(call.customer) ?? {};
-  const phoneNumber = getObject(call.phoneNumber) ?? {};
+  const phoneNumber = getObject(call.phoneNumber) ?? getObject(message.phoneNumber) ?? {};
   const artifact = getObject(call.artifact) ?? getObject(message.artifact) ?? {};
   const analysis = getObject(call.analysis) ?? getObject(message.analysis) ?? {};
   const structuredData = getObject(analysis.structuredData) ?? {};
@@ -383,6 +387,8 @@ function normalizeCallPayload(payload: CallPayload, request: Request): Normalize
     callId: firstString(call.id, message.callId, payload.CallSid, payload.callSid) || "Unknown",
     customerNumber,
     businessNumber,
+    businessPhoneId: firstString(call.phoneNumberId, phoneNumber.id, message.phoneNumberId) || "",
+    businessPhoneLabel: firstString(phoneNumber.name) || "",
     direction: firstString(call.direction, message.direction, payload.Direction, payload.direction) || "Inbound",
     duration:
       firstString(
@@ -513,9 +519,16 @@ function formatCallbackRequiredAlert(call: NormalizedCall, context: AlertContext
   const lines = [
     ...formatAlertHeader("🟨🟧🟥🟨🟧🟥🟨🟧🟥", "🚰 GRADE A PLUMBING", "⚠️ CALLBACK REQUIRED"),
     ...formatSection("📞 CUSTOMER", [
+      call.lead.customerName ? `Name: ${call.lead.customerName}` : "",
       `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
       `Best contact: ${formatBestContactNumber(call)}`,
+      getCallLocationInput(call) ? `Location: ${getCallLocationInput(call)}` : "",
       `Time: ${formatTimestamp(call.timestamp)}`
+    ]),
+    ...formatSection("🔧 JOB DETAILS", [
+      call.lead.issueSummary || call.lead.serviceNeeded ? `Issue: ${call.lead.issueSummary || call.lead.serviceNeeded}` : "",
+      call.lead.urgency ? `Urgency: ${call.lead.urgency}` : "",
+      call.lead.preferredTime ? `Preferred: ${call.lead.preferredTime}` : ""
     ]),
     ...formatSection("🧩 MISSING DETAILS", [
       "🟡 Call ended but booking details are missing.",
