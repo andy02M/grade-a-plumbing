@@ -84,16 +84,16 @@ export default function GradeAWhatsAppWidget({
               ))}
             </div>
             {waUrl ? (
-              <a className={styles.primary} href={waUrl} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={20}/> Open WhatsApp Chat <span aria-hidden="true">→</span></a>
+              <a className={styles.primary} href={waUrl} target="_blank" rel="noopener noreferrer" data-whatsapp-action="whatsapp_click" data-whatsapp-issue={issue || 'unspecified'}><WhatsAppIcon size={20}/> Open WhatsApp Chat <span aria-hidden="true">→</span></a>
             ) : (
               <p className={styles.notice} role="status">WhatsApp chat will be available once a verified business WhatsApp number is configured.</p>
             )}
-            {onRequestCallback && <><div className={styles.or}><span>or</span></div><button type="button" className={styles.secondary} onClick={() => {setOpen(false); onRequestCallback();}}>Request a callback</button></>}
+            {onRequestCallback && <><div className={styles.or}><span>or</span></div><button type="button" className={styles.secondary} data-whatsapp-action="whatsapp_callback_click" onClick={() => {setOpen(false); onRequestCallback();}}>Request a callback</button></>}
             <p className={styles.privacy}>Please avoid sending payment details or sensitive personal information over chat.</p>
           </div>
         </section>
       )}
-      <button ref={launcherRef} type="button" className={styles.launcher} aria-expanded={open} aria-controls="gradea-whatsapp-panel" aria-label={open ? 'Close WhatsApp help panel' : 'Open WhatsApp help panel'} onClick={() => setOpen((previous) => !previous)}>
+      <button ref={launcherRef} type="button" className={styles.launcher} aria-expanded={open} aria-controls="gradea-whatsapp-panel" aria-label={open ? 'Close WhatsApp help panel' : 'Open WhatsApp help panel'} onClick={() => { if (!open) window.dispatchEvent(new CustomEvent('site-measurement', { detail: { event: 'whatsapp_open', placement: 'whatsapp_panel' } })); setOpen((previous) => !previous); }}>
         <WhatsAppIcon size={31} />
         {!open && <span className={styles.notificationDot} aria-hidden="true" />}
       </button>

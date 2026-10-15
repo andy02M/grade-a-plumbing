@@ -19,6 +19,10 @@ test("events reject identifiers, arbitrary labels and invalid metrics",()=>{
  assert.equal(sanitiseMeasurement({...base,email:"private@example.com"},host),null);
  assert.equal(sanitiseMeasurement({...base,placement:"customer name"},host),null);
  assert.equal(sanitiseMeasurement({...base,event:"quote_accepted"},host),null);
+ assert.equal(sanitiseMeasurement({event:"whatsapp_open",path:"/",placement:"whatsapp_panel"},host).event,"whatsapp_open");
+ assert.equal(sanitiseMeasurement({event:"whatsapp_click",path:"/contact/",placement:"whatsapp_panel",issue:"hot water issue"},host).issue,"hot water issue");
+ assert.equal(sanitiseMeasurement({event:"whatsapp_callback_click",path:"/",placement:"whatsapp_panel"},host).event,"whatsapp_callback_click");
+ assert.equal(sanitiseMeasurement({event:"whatsapp_click",path:"/",placement:"whatsapp_panel",issue:"private name"},host),null);
  for(const value of [NaN,Infinity,-1,120001])assert.equal(sanitiseMeasurement({event:"web_vital",path:"/",metric:"LCP",value},host),null);
  assert.equal(sanitiseMeasurement({event:"web_vital",path:"/",metric:"CLS",value:.1},host).value,.1);
 });

@@ -17,17 +17,27 @@ function reportVital(metric: {name:string;value:number}) {
 export function SiteMeasurement() {
  useReportWebVitals(reportVital);
  useEffect(()=>{
+  const custom=(event:Event)=>{const detail=(event as CustomEvent<Record<string,unknown>>).detail;if(detail)report(detail);};
   let previous="",at=0;
   const clicked=(event:MouseEvent)=>{
    if(event.defaultPrevented || !(event.target instanceof Element))return;
-   const anchor=event.target.closest("a");const href=anchor?.getAttribute("href")??"";
+      const whatsapp=event.target.closest<HTMLElement>("[data-whatsapp-action]");
+      if(whatsapp){
+       const action=whatsapp.dataset.whatsappAction;
+       if(action){
+        const issue=whatsapp.dataset.whatsappIssue;
+        report({event:action,placement:"whatsapp_panel",...(issue?{issue}: {})});
+       }
+       return;
+      }
+      const anchor=event.target.closest("a");const href=anchor?.getAttribute("href")??"";
    const action=href.startsWith("tel:")?"call_click":href.startsWith("mailto:")?"email_click":null;
    if(!action || !anchor)return;
    const placement=anchor.closest("header")?"header":anchor.closest("footer")?"footer":anchor.closest("main")?"main":"other";
    const key=`${action}:${placement}`;if(key===previous&&Date.now()-at<1000)return;
    previous=key;at=Date.now();report({event:action,placement});
   };
-  document.addEventListener("click",clicked);return()=>document.removeEventListener("click",clicked);
+  window.addEventListener("site-measurement",custom);document.addEventListener("click",clicked);return()=>{window.removeEventListener("site-measurement",custom);document.removeEventListener("click",clicked);};
  },[]);
  return null;
 }

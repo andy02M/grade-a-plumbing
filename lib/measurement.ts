@@ -19,11 +19,16 @@ export function measurementContext(host: string, path: string) {
 export function sanitiseMeasurement(payload: unknown, host: string) {
  if(!payload || typeof payload!=="object" || Array.isArray(payload))return null;
  const p=payload as Record<string,unknown>;
- if(Object.keys(p).some(key=>!["event","path","placement","metric","value"].includes(key)) || typeof p.path!=="string" || p.path.length>256)return null;
+ if(Object.keys(p).some(key=>!["event","path","placement","metric","value","issue"].includes(key)) || typeof p.path!=="string" || p.path.length>256)return null;
  const context=measurementContext(host,p.path);if(!context)return null;
  if(p.event==="call_click"||p.event==="email_click") {
   if(!["header","main","footer","other"].includes(String(p.placement)))return null;
   return {event:p.event,...context,placement:p.placement};
+ }
+ if(p.event==="whatsapp_open"||p.event==="whatsapp_click"||p.event==="whatsapp_callback_click") {
+  if(p.placement!=="whatsapp_panel")return null;
+  if(p.issue!==undefined && !["blocked drain","hot water issue","burst pipe","plumbing quote","unspecified"].includes(String(p.issue)))return null;
+  return {event:p.event,...context,placement:p.placement,...(p.issue!==undefined?{issue:p.issue}: {})};
  }
  if(p.event==="web_vital" && ["LCP","CLS","INP"].includes(String(p.metric)) && typeof p.value==="number" && Number.isFinite(p.value) && p.value>=0 && p.value<= (p.metric==="CLS"?10:120000))return {event:p.event,...context,metric:p.metric,value:Math.round(p.value*1000)/1000};
  return null;
