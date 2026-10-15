@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { Header, Footer, MobileActions, QuoteForm } from "./manus/components";
+import GradeAWhatsAppWidget from "./GradeAWhatsAppWidget";
+import { site } from "@/lib/site";
 export function ManusShell({ children }: { children: React.ReactNode }) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -14,6 +16,11 @@ export function ManusShell({ children }: { children: React.ReactNode }) {
       <div>{children}</div>
       <Footer />
       <MobileActions />
+      <GradeAWhatsAppWidget
+        whatsAppNumber={site.whatsAppNumber}
+        businessName={site.name}
+        onRequestCallback={() => window.dispatchEvent(new Event("open-quote"))}
+      />
       <dialog
         ref={dialog}
         className="manus-quote-dialog"
