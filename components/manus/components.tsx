@@ -10,6 +10,7 @@ import {
   useRef,
 } from "react";
 import { gallery, PHONE, PHONE_LINK, services } from "./data";
+import { googleBusinessProfiles, publicMapsUrl } from "@/lib/google-business-profiles";
 import { LocationAutocomplete } from "./LocationFeatures";
 import {
   loadLocationById,
@@ -452,25 +453,46 @@ export function SectionHeading({
   );
 }
 
-export function TrustStrip() {
+export function TrustStrip({ showGoogleRating = false }: { showGoogleRating?: boolean } = {}) {
   const items = [
     ["clock", "24/7", "Emergency Plumbing"],
     ["building", "Residential &", "Commercial"],
     ["pin", "Melbourne-Wide", "Service"],
     ["shield", "Quality You", "Can Trust"],
   ] as const;
+  const googleMapsUrl = publicMapsUrl(googleBusinessProfiles.melbourne);
   return (
     <div className="trust-strip">
       <div className="container trust-grid">
-        {items.map(([icon, line1, line2]) => (
-          <div className="trust-item" key={line1}>
-            <Icon name={icon} size={27} />
+        {showGoogleRating && googleMapsUrl && (
+          <a
+            className="trust-item trust-item-rating"
+            href={googleMapsUrl}
+            key="google-rating"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Google rating 4.8 out of 5 based on 22 reviews"
+            title="Google rating checked 17 October 2026"
+          >
+            <Icon name="star" size={27} />
             <span>
-              <b>{line1}</b>
-              <small>{line2}</small>
+              <b>4.8 / 5</b>
+              <small>22 Google reviews</small>
             </span>
-          </div>
-        ))}
+          </a>
+        )}
+        {items.map(([icon, line1, line2], index) => {
+          if (showGoogleRating && googleMapsUrl && index === items.length - 1) return null;
+          return (
+            <div className="trust-item" key={line1}>
+              <Icon name={icon} size={27} />
+              <span>
+                <b>{line1}</b>
+                <small>{line2}</small>
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

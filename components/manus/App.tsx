@@ -363,11 +363,11 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <TrustStrip />
+      <TrustStrip showGoogleRating />
       <ServicesSection />
+      <ReviewsSection />
       <DifferenceSection />
       <GallerySection />
-      <ReviewsSection />
       <ProcessSection />
       <AreasSection />
     </>
