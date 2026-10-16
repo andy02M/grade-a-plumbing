@@ -164,8 +164,7 @@ export function buildCallActionKeyboard(actionKey: string): TelegramInlineKeyboa
 export function buildCallActionMainKeyboard(actionKey: string): TelegramInlineKeyboardMarkup {
   return {
     inline_keyboard: [
-      [buildActionButton("calling_customer", actionKey)],
-      [buildActionButton("booked", actionKey)],
+      [buildActionButton("calling_customer", actionKey), buildActionButton("booked", actionKey)],
       [
         buildMenuButton("follow_up", actionKey),
         buildMenuButton("closed", actionKey)

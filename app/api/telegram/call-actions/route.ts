@@ -107,6 +107,25 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
 
   const parsedStatisticsAction = parseCallStatisticsActionData(callbackQuery.data);
 
+  const etaAction = /^gapeta:(more|less):([^:]+)$/.exec(callbackQuery.data ?? "");
+  if (etaAction) {
+    const record = await getCallMessageRecord(getCallActionStoreKey(etaAction[2]), callActionRecordWindowMs);
+    const delivery = getFallbackDelivery(callbackQuery);
+    if (!record?.text || !delivery) {
+      await answerTelegramCallbackQuery(callbackQuery.id, "Full details unavailable for this older alert.");
+      return NextResponse.json({ ok: true, ignored: true });
+    }
+    const keyboard = record.status === "booked"
+      ? buildBookedDetailsKeyboard(etaAction[2], record.text)
+      : buildCallActionKeyboard(etaAction[2]);
+    const result = await editTelegramMessage(record.text, [delivery], {
+      replyMarkup: keyboard,
+      expandedEtas: etaAction[1] === "more"
+    });
+    await answerTelegramCallbackQuery(callbackQuery.id, result.ok ? "ETA list updated." : "Could not update ETA list.");
+    return NextResponse.json({ ok: result.ok });
+  }
+
   if (parsedStatisticsAction) {
     const fallbackDelivery = getFallbackDelivery(callbackQuery);
     const result = await refreshCallStatisticsMessage(
@@ -139,7 +158,7 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     const record = await getCallMessageRecord(storeKey, callActionRecordWindowMs);
     const fallbackDelivery = getFallbackDelivery(callbackQuery);
     const deliveries = fallbackDelivery ? [fallbackDelivery] : record?.deliveries.length ? record.deliveries : [];
-    const baseText = callbackQuery.message?.text || record?.text || "Grade A Plumbing call alert";
+    const baseText = record?.text || callbackQuery.message?.text || "Grade A Plumbing call alert";
     const replyMarkup =
       parsedMenuAction.menu === "main"
         ? buildCallActionMainKeyboard(parsedMenuAction.actionKey)
@@ -237,16 +256,21 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
   const record = await getCallMessageRecord(storeKey, callActionRecordWindowMs);
   const fallbackDelivery = getFallbackDelivery(callbackQuery);
   const deliveries = fallbackDelivery ? [fallbackDelivery] : record?.deliveries.length ? record.deliveries : [];
-  const baseText = callbackQuery.message?.text || record?.text || "Grade A Plumbing call alert";
+  const baseText = record?.text || callbackQuery.message?.text || "Grade A Plumbing call alert";
   const relatedCallMessageKeys = record?.callMessageKeys ?? [];
   const previousAction = parseCallActionStatus(record?.status);
   const handlerName = formatTelegramUser(callbackQuery.from);
   const actionLabel = getCallActionLabel(parsedAction.action);
   const destinationLabel = getCallActionDestinationLabel(parsedAction.action);
-  const blockedCaller =
-    parsedAction.action === "block_caller"
-      ? await blockCallerNumber(extractCallerNumberFromAlertText(baseText))
-      : { blocked: false, normalizedNumber: "" };
+  let blockedCaller = { blocked: false, normalizedNumber: "" };
+  if (parsedAction.action === "block_caller") {
+    try {
+      blockedCaller = await blockCallerNumber(extractCallerNumberFromAlertText(baseText));
+    } catch {
+      await answerTelegramCallbackQuery(callbackQuery.id, "Block NOT saved: storage unavailable. Please try again.");
+      return NextResponse.json({ ok: true, blockedCaller: false, error: "Block storage unavailable." });
+    }
+  }
 
   if (parsedAction.action === "block_caller" && !blockedCaller.blocked) {
     await answerTelegramCallbackQuery(callbackQuery.id, "Could not block: no caller number found.");
@@ -519,7 +543,8 @@ function insertCallingCustomerBlockNearTop(text: string, block: string) {
   const headerEndIndex = findAlertHeaderEndIndex(lines);
 
   if (headerEndIndex < 0) {
-    return [text.trimEnd(), "", block].join("\n");
+    const [title, ...body] = lines;
+    return [title, "", block, "", ...body].join("\n").trimEnd();
   }
 
   const before = lines.slice(0, headerEndIndex + 1).join("\n").trimEnd();

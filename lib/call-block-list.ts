@@ -1,4 +1,4 @@
-import { getStoredJson, setStoredJson } from "@/lib/call-alert-store";
+import { getDurableStoredJson, setDurableStoredJson } from "@/lib/call-alert-store";
 
 type BlockedCallerList = {
   numbers: string[];
@@ -10,7 +10,8 @@ const blockedCallerKey = "numbers";
 const blockedCallerTtlMs = 10 * 365 * 24 * 60 * 60 * 1000;
 
 export function normalizeCallerNumber(value: string | undefined) {
-  const digits = (value ?? "").replace(/\D/g, "");
+  if (!value || !/^\+?[\d\s().-]+$/.test(value.trim())) return "";
+  const digits = value.replace(/\D/g, "").replace(/^00/, "");
 
   if (!digits) {
     return "";
@@ -28,7 +29,7 @@ export function normalizeCallerNumber(value: string | undefined) {
     return digits;
   }
 
-  return digits.length >= 8 ? digits : "";
+  return /^[1-9]\d{7,14}$/.test(digits) ? digits : "";
 }
 
 export async function blockCallerNumber(value: string | undefined) {
@@ -41,15 +42,11 @@ export async function blockCallerNumber(value: string | undefined) {
     };
   }
 
-  const list = await getBlockedCallerList();
-  const numbers = new Set(list.numbers);
-  numbers.add(normalizedNumber);
-
-  await setStoredJson<BlockedCallerList>(
+  await setDurableStoredJson(
     blockedCallerKind,
-    blockedCallerKey,
+    `number:${normalizedNumber}`,
     {
-      numbers: [...numbers].sort(),
+      number: normalizedNumber,
       updatedAt: Date.now()
     },
     blockedCallerTtlMs
@@ -68,6 +65,8 @@ export async function isCallerNumberBlocked(value: string | undefined) {
     return false;
   }
 
+  const entry = await getDurableStoredJson<{ number: string }>(blockedCallerKind, `number:${normalizedNumber}`);
+  if (entry?.number === normalizedNumber) return true;
   const list = await getBlockedCallerList();
 
   return list.numbers.includes(normalizedNumber);
@@ -77,7 +76,7 @@ export function extractCallerNumberFromAlertText(text: string) {
   const callerLine = text
     .split(/\r?\n/)
     .map((line) => line.trim())
-    .find((line) => /^(?:📞\s*)?(?:caller|caller id)\s*:/i.test(line));
+    .find((line) => /^(?:caller|caller id)\s*:/i.test(line.replace(/^[^\p{L}\p{N}]+/u, "")));
 
   if (callerLine) {
     const separatorIndex = callerLine.indexOf(":");
@@ -89,9 +88,7 @@ export function extractCallerNumberFromAlertText(text: string) {
     }
   }
 
-  const phoneMatch = text.match(/\+?\d[\d\s().-]{7,}\d/);
-
-  return normalizeCallerNumber(phoneMatch?.[0]);
+  return "";
 }
 
 export function formatBlockedCallerNumber(value: string) {
@@ -105,7 +102,7 @@ export function formatBlockedCallerNumber(value: string) {
 }
 
 async function getBlockedCallerList() {
-  const list = await getStoredJson<BlockedCallerList>(blockedCallerKind, blockedCallerKey, blockedCallerTtlMs);
+  const list = await getDurableStoredJson<BlockedCallerList>(blockedCallerKind, blockedCallerKey);
 
   if (!list || !Array.isArray(list.numbers)) {
     return {
