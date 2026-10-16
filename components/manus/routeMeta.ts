@@ -30,8 +30,8 @@ const staticPages: Record<string, { title: string; description: string; crumbs: 
     crumbs: [{ label: 'Home', href: '/' }, { label: 'Services' }],
   },
   '/our-work/': {
-    title: 'Plumbing Image References | Grade A Plumbing',
-    description: 'Plumbing service imagery from Grade A Plumbing.',
+    title: 'Our Plumbing Projects | Grade A Plumbing',
+    description: 'View completed Grade A Plumbing projects across bathrooms, kitchens, hot water, drainage and pipework.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'Our Work' }],
   },
   '/about/': {

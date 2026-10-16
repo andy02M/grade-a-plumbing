@@ -1,4 +1,4 @@
-import { services } from './data'
+import { gallery as workGallery, services } from './data'
 
 export type PageCard = {
   title: string
@@ -206,20 +206,13 @@ const serviceImages: Record<string, string> = {
 }
 export const serviceList = services.map(service => ({ ...service, image: image(serviceImages[service.slug] || 'bathroom-inspection') }))
 
-export const Gallery: (PageCard & { category: string })[] = [
-  { title: 'Emergency plumbing', body: 'Plumbing service image.', image: image('emergency-plumber-working'), category: 'General service' },
-  { title: 'Drain inspection', body: 'Plumbing service image.', image: image('drain-inspection'), category: 'Drainage' },
-  { title: 'Blocked drain', body: 'Plumbing service image.', image: image('blocked-drains-closeup'), category: 'Drainage' },
-  { title: 'Hot-water system', body: 'Plumbing service image.', image: image('hot-water-cylinder'), category: 'Hot water' },
-  { title: 'Hot-water service', body: 'Plumbing service image.', image: image('hot-water-service'), category: 'Hot water' },
-  { title: 'Kitchen plumbing', body: 'Plumbing service image.', image: image('kitchen-plumbing'), category: 'Kitchen & bathroom' },
-  { title: 'Bathroom inspection', body: 'Plumbing service image.', image: image('bathroom-inspection'), category: 'Kitchen & bathroom' },
-  { title: 'Bathroom fixture', body: 'Plumbing service image.', image: image('bathroom-toilet-technician'), category: 'Kitchen & bathroom' },
-  { title: 'Burst copper pipe', body: 'Plumbing service image.', image: image('burst-copper-pipe'), category: 'Pipework' },
-  { title: 'Pipe relining', body: 'Plumbing service image.', image: image('sewer-pipe-lining'), category: 'Drainage' },
-  { title: 'Leak inspection', body: 'Plumbing service image.', image: image('leak-detection'), category: 'Pipework' },
-  { title: 'Service visit', body: 'Plumbing service image.', image: image('plumber-at-door'), category: 'General service' },
-]
+export const Gallery: (PageCard & { category: string })[] =
+  workGallery.map(({ title, image, category, alt }) => ({
+    title,
+    body: alt,
+    image,
+    category,
+  }))
 
 export const areaRegions = [
   { title: 'Melbourne & inner suburbs', suburbs: ['West Melbourne', 'North Melbourne', 'East Melbourne', 'Carlton', 'Southbank', 'Docklands', 'South Wharf', 'South Melbourne', 'Fitzroy', 'Collingwood', 'Richmond', 'Port Melbourne', 'Botanic Hill'] },
@@ -230,4 +223,3 @@ export const areaRegions = [
 ]
 
 export const commonServiceFAQ = commonFAQs
-

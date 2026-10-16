@@ -596,7 +596,7 @@ function GalleryLightbox({
       className="page-lightbox"
       role="dialog"
       aria-modal="true"
-      aria-label="service image viewer"
+      aria-label="Completed project photo viewer"
       onClick={close}
     >
       <div
@@ -612,10 +612,10 @@ function GalleryLightbox({
         >
           ×
         </button>
-        <img src={item.image} alt={`${item.title}`} />
+        <img src={item.image} alt={item.body} />
         <div className="page-lightbox-caption">
           <b>{item.title}</b>
-          
+          <span>{item.body}</span>
         </div>
         <div className="page-lightbox-controls">
           <button
@@ -635,19 +635,19 @@ function GalleryLightbox({
 }
 
 function OurWorkPage() {
-  const [filter, setFilter] = useState("All imagery");
+  const [filter, setFilter] = useState("All projects");
   const [active, setActive] = useState<number | null>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
   const categories = useMemo(
     () => [
-      "All imagery",
+      "All projects",
       ...Array.from(new Set(Gallery.map((item) => item.category))),
     ],
     [],
   );
   const items = useMemo(
     () =>
-      filter === "All imagery"
+      filter === "All projects"
         ? Gallery
         : Gallery.filter((item) => item.category === filter),
     [filter],
@@ -663,28 +663,28 @@ function OurWorkPage() {
   return (
     <div className="marketing-page" data-page="our-work">
       <PageHero
-        eyebrow="OUR WORK · VISUAL REFERENCES"
-        lead="Plumbing Images"
-        highlight="& Inspiration"
-        description="Browse plumbing service imagery from Grade A Plumbing."
-        image="/assets/grade-a/sewer-pipe-lining.webp"
-        imageAlt="Pipework image"
-        primaryHref="#reference-gallery"
-        primaryLabel="Explore the images"
+        eyebrow="OUR WORK · COMPLETED PROJECTS"
+        lead="Plumbing Projects"
+        highlight="& Recent Work"
+        description="Browse completed Grade A Plumbing projects across bathrooms, kitchens, hot water, drainage and pipework."
+        image="/assets/project-photos/drainage-trench.webp"
+        imageAlt="Drainage trench from a Grade A Plumbing project"
+        primaryHref="#project-gallery"
+        primaryLabel="Explore the projects"
         secondaryLabel="Contact Grade A"
         secondaryHref="/contact/"
       />
-      <section id="reference-gallery" className="page-work-section">
+      <section id="project-gallery" className="page-work-section">
         <div className="container">
           <SectionHeading
-            eyebrow="SERVICE IMAGERY"
-            title="Visual references."
-            body="Browse plumbing service imagery from Grade A Plumbing."
+            eyebrow="COMPLETED PROJECT PHOTOS"
+            title="Recent plumbing work."
+            body="Photos from Grade A Plumbing projects, including bathroom fixtures, kitchen plumbing, hot-water systems, drainage and pipework."
           />
           <div
             className="page-gallery-filters"
             role="group"
-            aria-label="Filter image categories"
+            aria-label="Filter project photo categories"
           >
             {categories.map((category) => (
               <button
@@ -714,12 +714,12 @@ function OurWorkPage() {
               >
                 <img
                   src={item.image}
-                  alt={`${item.title}`}
+                  alt={item.body}
                   loading="lazy"
                 />
                 <span className="page-reference-meta">
                   <b>{item.title}</b>
-                  <small>{item.category} · only</small>
+                  <small>{item.category} · Completed project</small>
                 </span>
               </button>
             ))}

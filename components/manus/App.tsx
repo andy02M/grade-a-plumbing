@@ -161,7 +161,7 @@ function GallerySection() {
         <SectionHeading
           eyebrow="PROJECT GALLERY"
           title="Real work. Real results."
-          body="Plumbing images are shown here for service reference."
+          body="A selection of completed Grade A Plumbing projects across bathrooms, kitchens, hot water, drainage and pipework."
           action={
             <Button href="/our-work/" variant="outline">
               View full gallery

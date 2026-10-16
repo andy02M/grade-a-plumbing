@@ -536,7 +536,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
           >
             <img
               src={item.image}
-              alt={`${item.title} ${item.label.toLowerCase()}`}
+              alt={item.alt}
             />
             <span className="gallery-caption">
               <b>{item.title}</b>
