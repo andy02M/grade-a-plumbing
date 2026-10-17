@@ -32,6 +32,13 @@ for (const record of googleBusinessRegister) {
     ...(record.mapsUrl ? { mapsUrl: record.mapsUrl } : {}),
   };
 }
+
+// Business-wide figures confirmed by the owner on 18 October 2026; not a per-profile listing score.
+export const googleReviewSummary = {
+  rating: 5,
+  reviewCount: 167,
+} as const;
+
 export function publicMapsUrl(profile?: GoogleBusinessProfile) {
   return profile?.status === "Active" ? profile.mapsUrl : undefined;
 }

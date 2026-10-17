@@ -10,7 +10,7 @@ import {
   useRef,
 } from "react";
 import { gallery, PHONE, PHONE_LINK, services } from "./data";
-import { googleBusinessProfiles, publicMapsUrl } from "@/lib/google-business-profiles";
+import { googleBusinessRegister, googleReviewSummary } from "@/lib/google-business-profiles";
 import { LocationAutocomplete } from "./LocationFeatures";
 import {
   loadLocationById,
@@ -460,29 +460,29 @@ export function TrustStrip({ showGoogleRating = false }: { showGoogleRating?: bo
     ["pin", "Melbourne-Wide", "Service"],
     ["shield", "Quality You", "Can Trust"],
   ] as const;
-  const googleMapsUrl = publicMapsUrl(googleBusinessProfiles.melbourne);
+  const hasActiveGoogleProfiles = googleBusinessRegister.some(
+    (profile) => profile.status === "Active" && Boolean(profile.mapsUrl),
+  );
   return (
     <div className="trust-strip">
       <div className="container trust-grid">
-        {showGoogleRating && googleMapsUrl && (
+        {showGoogleRating && hasActiveGoogleProfiles && (
           <a
             className="trust-item trust-item-rating"
-            href={googleMapsUrl}
+            href="/reviews/"
             key="google-rating"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Google rating 4.8 out of 5 based on 22 reviews"
-            title="Google rating checked 17 October 2026"
+            aria-label={`Business-wide Google rating ${googleReviewSummary.rating.toFixed(1)} out of 5 from ${googleReviewSummary.reviewCount} reviews across all profiles`}
+            title="Business-wide summary across Grade A Plumbing Google profiles"
           >
             <Icon name="star" size={27} />
             <span>
-              <b>4.8 / 5</b>
-              <small>22 Google reviews</small>
+              <b>{googleReviewSummary.rating.toFixed(1)} / 5</b>
+              <small>{googleReviewSummary.reviewCount} Google reviews · all profiles</small>
             </span>
           </a>
         )}
         {items.map(([icon, line1, line2], index) => {
-          if (showGoogleRating && googleMapsUrl && index === items.length - 1) return null;
+          if (showGoogleRating && hasActiveGoogleProfiles && index === items.length - 1) return null;
           return (
             <div className="trust-item" key={line1}>
               <Icon name={icon} size={27} />

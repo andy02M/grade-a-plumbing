@@ -9,6 +9,7 @@ import {
   TrustStrip,
 } from "./components";
 import { customerReviews } from "@/lib/customer-reviews";
+import { googleBusinessRegister, googleReviewSummary } from "@/lib/google-business-profiles";
 import { EMAIL, PHONE, PHONE_LINK } from "./data";
 import {
   Gallery,
@@ -971,6 +972,9 @@ function ContactPage() {
 }
 
 function ReviewsPage() {
+  const profileLinks = googleBusinessRegister.filter(
+    (profile) => profile.status === "Active" && Boolean(profile.mapsUrl),
+  );
   return (
     <div className="marketing-page" data-page="reviews">
       <PageHero
@@ -989,10 +993,26 @@ function ReviewsPage() {
         <div className="container">
           <h2>Reviews supplied by our customers</h2>
           <p>
-            Business-wide Grade A Plumbing reviews supplied from Google Business
-            Profiles; not specific to every suburb. Dates are displayed as
-            recorded in the supplied reviews.
+            Business-wide summary across Grade A Plumbing’s Google Business
+            Profiles: {googleReviewSummary.rating.toFixed(1)} out of 5 from{" "}
+            {googleReviewSummary.reviewCount} Google reviews. Individual
+            profiles display their own ratings and counts. Select a profile to
+            open it on Google Maps. Review dates are displayed as recorded in
+            the supplied reviews.
           </p>
+          <nav className="review-profile-links" aria-label="Google Business Profiles">
+            {profileLinks.map((profile) => (
+              <a
+                className="review-profile-link"
+                href={profile.mapsUrl ?? undefined}
+                key={`${profile.locationSlug}-${profile.mapsUrl}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {profile.name} · {profile.locality}
+              </a>
+            ))}
+          </nav>
           <div className="review-grid">
             {customerReviews
               .filter((r) => r.text)
