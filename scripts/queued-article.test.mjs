@@ -14,7 +14,7 @@ test('all ready queue articles meet structural, citation, intent and originality
  assert.equal(new Set(slugs).size,slugs.length,'Queue contains duplicate slugs');
  for(const entry of ready){
   const others=ready.filter(e=>e!==entry).map(e=>e.article);
-  assert.ok(validateQueued(entry,[...publishedArticles,...others],locations,'2026-10-10').words>=1200);
+  assert.ok(validateQueued(entry,[...publishedArticles,...others],locations,new Date().toISOString().slice(0,10)).words>=1200);
  }
 });
 test('queue rejects absent review, invalid source mapping, inactive locations and unsupported contacts',()=>{

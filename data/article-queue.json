@@ -890,5 +890,642 @@
         }
       ]
     }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "drain camera inspection report questions",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Drain Camera Reports: Questions to Ask Before Approving Repairs",
+      "slug": "drain-camera-report-questions-before-approving-repairs",
+      "metaTitle": "Drain Camera Reports: Questions to Ask Before Approving Repairs | Grade A Plumbing",
+      "metaDescription": "Understand what to ask about a drain camera report, uninspected pipework, repair boundaries and evidence before approving further drainage work.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Understand what to ask about a drain camera report, uninspected pipework, repair boundaries and evidence before approving further drainage work.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "blocked-drains",
+        "sewer-repairs",
+        "pipe-relining"
+      ],
+      "relatedArticles": [
+        "why-drains-keep-blocking",
+        "sewer-repair-vs-pipe-relining"
+      ],
+      "sources": [
+        {
+          "title": "South East Water: blockages",
+          "url": "https://southeastwater.com.au/faults-and-works/maintenance/blockages/",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Greater Western Water: fixing a blocked sewer",
+          "url": "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Start with the decision the inspection is meant to support",
+          "paragraphs": [
+            "A recording inside a drain can look convincing without telling a homeowner what decision to make next. Before approving further work, ask the person explaining the report to connect the pictures with a clear question: has a current obstruction been investigated, is another assessment required, or is there enough information to propose a defined repair? Those are different outcomes. This guide helps you organise that conversation. It is not a way to diagnose underground pipework from a screenshot, and it does not suggest that every blockage needs a camera survey or a replacement.",
+            "Write down the symptoms that led to the visit and ask which ones the inspection addressed. For example, the report might discuss the kitchen branch while your original concern also included a toilet elsewhere. Describe that distinction rather than assuming every connected drain has been examined. Greater Western Water separates problems in private pipes from faults in its network, while South East Water also publishes blockage guidance. Check the relevant retailer for your property; neither an unfamiliar suburb nor a camera image alone determines who is responsible. Keep away from sewage and seek assistance if it is spilling.",
+            "Ask for a plain-language outcome before discussing a repair product. A useful explanation distinguishes an observed condition, the assessor's interpretation and the proposed response. You should be able to repeat back what is known and what remains uncertain without using specialist terminology. If you cannot, request clarification before treating the report as permission for a much broader job."
+          ],
+          "sourceUrls": [
+            "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer"
+          ]
+        },
+        {
+          "heading": "Request a record that can be understood later",
+          "paragraphs": [
+            "Ask what you will receive after the inspection: a written summary, selected images, a recording or some combination. These are questions about the proposed service, not an assertion that every visit includes a formal survey. Confirm any additional charge for a report before authorising it. Give the property address and inspection date a prominent place in your own records so that a future enquiry is not based on an unlabelled video forwarded through several phones. Save the original files if they are supplied.",
+            "Useful reporting questions include where the camera entered, which direction it travelled, which sections were reached and how locations are described. Ask how any distance shown in the report relates to the access point. Do not convert an on-screen distance into a digging position yourself. If a contractor proposes opening a surface, ask them to explain how the location will be confirmed and which part of that process is included. A sketch can help a homeowner follow the explanation without pretending to be a surveyed services plan.",
+            "Separate the record you actually receive from material promised later. If there is a written recommendation but no accompanying footage, ask whether images exist and whether they are necessary to understand the recommendation. If a video cannot be opened, report that promptly rather than assuming the transfer worked. Accessible records are particularly helpful when another decision-maker needs to authorise expenditure."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Ask what the camera could not establish",
+          "paragraphs": [
+            "An inspection has boundaries. Ask the assessor to identify any section that was not reached, any part they could not clearly interpret and any question that would need a different investigation. Do not assume that footage of one accessible route proves every branch is sound. Equally, a limitation does not automatically mean a serious hidden defect exists. The important point is that the written conclusion should not silently expand beyond what the assessor says was examined.",
+            "Ask whether the proposed repair depends on information that is still missing. If the contractor recommends another step, request its purpose and likely decision outcome: what would change if the next assessment confirms the concern, and what would happen if it does not? This makes staged work easier to understand. It also provides a sensible stopping point before a customer commits to an open-ended sequence of investigations with no explanation of what each step is intended to resolve.",
+            "Keep your own observations distinct from the technical conclusion. You can say that a bathroom drained slowly on a particular morning, but that does not establish the material, depth or condition of an underground connection. Use descriptions and dates rather than unsupported labels. When several people discuss the same issue, this distinction helps prevent an early guess from becoming an accepted fact in later quotes."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Connect the evidence to a bounded repair proposal",
+          "paragraphs": [
+            "A repair recommendation should describe the work being offered, not just name a method. Ask which section is included, what result is intended and what is expressly outside the proposal. For an option involving excavation, ask about access, affected surfaces and reinstatement. For a proposed lining option, ask the contractor to explain its suitability for the assessed pipe and any remaining concerns. This article does not choose between those methods. That decision needs the actual findings and a proposal suited to the property.",
+            "Consumer Affairs Victoria advises customers to understand quote inclusions and document changes. Apply that principle to this specific job: separate investigation, clearing, repair and finishing work in the conversation. Ask whether disposal, access arrangements and any return visit are included. If the scope changes after more information becomes available, request a revised written description before approving the additional work. Avoid comparing two headline prices when they describe different lengths or different finishing responsibilities.",
+            "Request the contractor's explanation of what the proposed work will not fix. A limited repair may be reasonable without renewing the whole drainage system. The distinction should simply be visible. Keep the inspection record with the accepted proposal so that you can connect the decision with the information available when it was made."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        },
+        {
+          "heading": "Keep the next assessment independent of the sales explanation",
+          "paragraphs": [
+            "If you seek another opinion, provide the same symptom history and available records without asking the second person to confirm a conclusion you do not understand. Tell them what the first contractor proposed and which questions remain unanswered. Ask whether they can assess the existing material or need their own visit. A second quotation based only on a forwarded image may have different limitations from an assessment performed at the property. Record those differences when you compare recommendations.",
+            "In Victoria, the Building and Plumbing Commission provides a way to check a practitioner's registration or licence and the classes of work they can undertake. Use that information rather than assuming that a polished report establishes qualifications. Ask who will perform the proposed work and who will provide applicable completion documentation. The regulator's guidance is general information; it does not endorse a business or establish the credentials of anyone mentioned in your private correspondence.",
+            "Give each decision-maker one consistent set of documents. An owner, property manager or household member should see the current scope rather than an earlier estimate after the recommendation has changed. Remove unrelated personal material before sharing photos. Keep account details, access codes and identity documents out of informal report-sharing messages unless a secure process genuinely requires them."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Finish with a short approval checklist",
+          "paragraphs": [
+            "Before approval, check that you can identify the original concern, the inspected route, the stated limitations, the recommended scope and the party authorising the work. Confirm what happens if the contractor encounters something outside the agreed scope. Ask which records you will receive after completion and how to report a continuing symptom. This checklist is a communication aid, not a guarantee of performance or a substitute for a professional assessment.",
+            "After the work, keep the final invoice and the explanation of the completed scope with the inspection material. If a symptom continues, describe what you observe and when it occurs instead of declaring that the entire repair failed. Refer to the agreed follow-up arrangements and ask what assessment is appropriate. Do not keep testing a drain that is backing up simply to create more footage for an email.",
+            "For a drainage assessment enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb, the affected fixtures and any existing report you can safely share. Use the Melbourne location and relevant service links alongside this guide to discuss availability and scope. A booking enquiry does not itself confirm a diagnosis, repair method, appointment or fixed price."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does a camera recording prove I need pipe relining?",
+          "answer": "No single recording chooses a repair method. Ask the assessor to explain the findings, limitations, suitability of the proposal and alternatives for the actual pipework."
+        },
+        {
+          "question": "Should I approve excavation from an on-screen distance?",
+          "answer": "Ask the contractor how the proposed work location will be confirmed. Do not use the camera display as a homeowner digging instruction."
+        },
+        {
+          "question": "What if my report does not include a video?",
+          "answer": "Clarify what the inspection service included and request the information needed to understand the recommendation. Not every service is offered with the same reporting package."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "heat pump hot water site assessment",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Heat Pump Hot Water: Prepare for a Site Assessment",
+      "slug": "heat-pump-hot-water-site-assessment-preparation",
+      "metaTitle": "Heat Pump Hot Water: Prepare for a Site Assessment | Grade A Plumbing",
+      "metaDescription": "Prepare useful information for a heat pump hot water assessment, including household demand, proposed location, access, responsibilities and quote exclusions.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Prepare useful information for a heat pump hot water assessment, including household demand, proposed location, access, responsibilities and quote exclusions.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "hot-water"
+      ],
+      "relatedArticles": [
+        "how-long-does-a-hot-water-system-last",
+        "after-hot-water-installation-handover-recordkeeping-checklist"
+      ],
+      "sources": [
+        {
+          "title": "Australian Government: hot water systems",
+          "url": "https://www.energy.gov.au/households/hot-water-systems",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "YourHome: hot water systems",
+          "url": "https://www.yourhome.gov.au/energy/hot-water-systems",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Make the assessment about your home, not a catalogue package",
+          "paragraphs": [
+            "A heat pump advertisement cannot establish whether a particular model and installation arrangement suit your property. A useful site assessment connects the equipment with the household, the available space and the work needed to install it. This guide is about preparing information and questions before that assessment. It does not provide design clearances, electrical instructions, temperature settings or a recommendation to replace a system that has not been examined. Keep the proposed equipment unconfirmed until the installer has explained the site-specific requirements.",
+            "The Australian Government describes heat pump water heaters as drawing heat from surrounding air and distinguishes integrated and split arrangements. YourHome recommends considering household needs and climate when choosing hot water equipment. Those broad principles explain why a model name and tank size are only part of the conversation. Ask the assessor to connect the proposed configuration with your actual property rather than assuming that a package suitable elsewhere will fit your home.",
+            "Begin with your reason for enquiring. You may be planning an eventual replacement, responding to a current fault or considering a change in energy use. State that priority plainly. An urgent loss of hot water needs a different discussion from a long-term upgrade, and neither situation justifies skipping the explanation of installation scope."
+          ],
+          "sourceUrls": [
+            "https://www.energy.gov.au/households/hot-water-systems"
+          ]
+        },
+        {
+          "heading": "Describe household demand without guessing the required capacity",
+          "paragraphs": [
+            "Prepare a short account of who uses hot water and when. Useful details include the number of regular occupants, whether showers usually happen together or across the day, and whether occupancy changes substantially during visits. Explain if your household routine is likely to change. You do not need to turn those observations into an engineering calculation. Give the assessor enough information to explain the proposed capacity and recovery assumptions in plain language.",
+            "List the fixtures and appliances you actually use, while avoiding assumptions about how each appliance connects. If the dishwasher or laundry machine has a readily available manual, keep the model details handy. Tell the assessor about a bath that is frequently used or a bathroom that is rarely occupied. The point is to reveal the pattern behind demand, not to promise a precise daily volume from memory. Where your information is approximate, label it as approximate.",
+            "Ask the installer to describe the circumstances in which the recommended arrangement might not meet your expectations. For example, discuss an unusual peak day rather than only the household average. Ask how normal user instructions address changes in demand. Do not experiment with existing controls to recreate a peak while the equipment is malfunctioning. A good preparation note explains your needs without becoming an instruction to alter the current installation."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Record the proposed location and access constraints",
+          "paragraphs": [
+            "Take wide photographs of the existing installation and the route a contractor would use to reach it, provided both are safely accessible. Include an overview that shows nearby doors, windows and everyday pathways without entering a neighbour's property. A close-up of a model label can supplement that overview if it is visible without moving equipment. Do not remove covers or climb to reach a label. Tell the assessor when a photograph cannot capture the full space.",
+            "Describe what shares the proposed area: a narrow side passage, regular clothes drying, a gate or a frequently used outdoor sitting space. Ask the installer to check the manufacturer's location requirements and explain any practical implications. The government notes that a heat pump compressor can produce noise. Do not turn that general observation into an unsupported claim that any particular boundary location is permissible or unsuitable. Request an assessment for the exact model and setting.",
+            "Confirm how delivery and removal will be handled. Ask whether equipment can use the visible access route and whether anything needs separate permission or preparation. Mark uncertainties such as a shared gate or controlled basement entrance in the booking notes. Measurements supplied by a homeowner can help start a conversation, but the contractor should confirm dimensions that the installation depends on."
+          ],
+          "sourceUrls": [
+            "https://www.energy.gov.au/households/hot-water-systems"
+          ]
+        },
+        {
+          "heading": "Clarify which trades and associated work the proposal covers",
+          "paragraphs": [
+            "Ask for an explanation of each work responsibility rather than assuming the hot water installer performs every associated task. The discussion may need to cover plumbing, electrical assessment, removal of previous equipment and any finishing work. Do not commission electrical alterations from this checklist. Request confirmation of who assesses the existing supply and whether a separate qualified provider is involved. Keep that responsibility visible in the proposal so a missing task does not appear only on installation day.",
+            "If another energy source or appliance will remain, explain that to the assessor. A hot water replacement should not be described as disconnecting a whole property from an energy service unless that broader work has actually been agreed. Ask what happens to the old unit and which redundant connections, if any, are included in the scope. Record the answer without making changes to valves, wiring or pipework yourself.",
+            "The Building and Plumbing Commission explains that Victorian practitioners need the appropriate registration or licence for their class of plumbing work. Check the person or business proposed for the work through the regulator's available tools, and ask what completion documents apply to the agreed installation. A quote heading does not establish those details. This guide makes no claim about the qualifications or accreditation of a particular provider."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Compare a site-specific total rather than a headline discount",
+          "paragraphs": [
+            "Request a written proposal that identifies the exact model, included works and exclusions. Record whether the amount is conditional on a later site check or other information. Consumer Affairs Victoria recommends understanding what a quote covers and how changes are managed. For this assessment, the useful question is what could still change between the advertised offer and the final installed arrangement. Ask for the process used to approve additional work before it is carried out.",
+            "Keep incentives separate from the physical installation description. Ask which conditions affect a proposed discount, who handles any application and what happens if eligibility is not confirmed. Do not treat a general statement about rebates as approval for your household. This article deliberately does not publish dollar amounts, application rules or promised savings. Those details can change and need checking with the current scheme information when you make your decision.",
+            "Distinguish estimated running costs from a measured household result. If a proposal includes a comparison, ask which assumptions it uses about household consumption, electricity prices and the system being replaced. A useful comparison states its limits. You can then decide whether the assumptions resemble your circumstances rather than accepting a single savings figure as a promise about future bills."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        },
+        {
+          "heading": "Prepare the appointment and the handover questions together",
+          "paragraphs": [
+            "Before the assessment, gather the existing model information, safe overview photographs, household demand notes and known access restrictions in one place. Confirm who is authorised to approve work, particularly if a rental provider or another property owner needs to decide. Avoid assuming that a site visit itself commits you to installation. Ask what the visit includes and whether any assessment fee applies.",
+            "Prepare a few handover questions in advance: which user manual will be supplied, who explains ordinary operation, where warranty details will be recorded and how to request follow-up assistance. Keep those questions linked to the actual model eventually selected. They do not need to become a requirement to predict every future fault. The aim is to make a considered selection and leave the household with usable information after the work.",
+            "To discuss a hot water assessment with Grade A Plumbing, call (02) 5837 5457 or email support@gradeaplumbing.store with your suburb and current system details. The linked Melbourne homepage and hot water service page provide the relevant booking routes. Contact establishes an enquiry, not guaranteed availability, a final design, rebate eligibility or an installation price. If the existing system is unsafe or malfunctioning, explain the immediate concern instead of waiting to complete every preparation note."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can photos replace a heat pump site assessment?",
+          "answer": "They can help describe access and existing equipment, but the contractor must confirm the information needed for a suitable proposal. Do not assume photographs establish clearances, electrical suitability or approval requirements."
+        },
+        {
+          "question": "Should I choose capacity before talking to an installer?",
+          "answer": "Prepare your household demand pattern and ask the installer to explain the recommendation. Avoid converting a generic household-size chart into a final design decision."
+        },
+        {
+          "question": "Does this guide confirm rebate eligibility?",
+          "answer": "No. Check the current scheme conditions for the property, equipment and provider before relying on an advertised incentive."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "repair or replace toilet",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Repair or Replace a Toilet? Questions Before Buying a New Suite",
+      "slug": "repair-or-replace-toilet-questions-before-buying-suite",
+      "metaTitle": "Repair or Replace a Toilet? Questions Before Buying a New Suite | Grade A Plumbing",
+      "metaDescription": "Decide what to ask about toilet repairs, compatible replacement parts, suite selection, installation scope and follow-up before buying a replacement.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Decide what to ask about toilet repairs, compatible replacement parts, suite selection, installation scope and follow-up before buying a replacement.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "blocked-drains"
+      ],
+      "relatedArticles": [
+        "choosing-water-efficient-taps-showers-label-and-fit",
+        "why-drains-keep-blocking"
+      ],
+      "sources": [
+        {
+          "title": "YourHome: reducing water use",
+          "url": "https://www.yourhome.gov.au/water/reducing-water-use",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Separate a faulty fixture from an unconfirmed cause",
+          "paragraphs": [
+            "A toilet that is noisy, inconvenient or difficult to keep working can make immediate replacement seem like the simplest answer. Before buying a new suite, ask what has actually been assessed. A problem described as a running cistern, an uncomfortable seat or a drainage complaint may require different decisions. This guide helps you compare a repair conversation with a replacement proposal. It does not diagnose a toilet, direct you to remove fittings or tell you that a particular symptom proves the whole suite needs replacing.",
+            "Describe what you notice using ordinary language: water continuing into the bowl, a handle that behaves differently, visible moisture or a flushing concern. Note when it happens and whether it affects use. Avoid forcing mechanisms, repeatedly flushing a backing-up fixture or dismantling a cistern to obtain evidence. Where there is an immediate hygiene or safety concern, arrange advice instead of waiting for a complete shopping comparison.",
+            "Ask the assessor whether the investigation concerns the fixture itself or something beyond it. A new suite should not be presented as a confirmed answer to an unexamined drainage problem. Request a clear explanation of the proposed scope and its limits. Keep the distinction in writing if replacement is recommended while another issue still needs assessment."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Find out whether a bounded repair is a practical option",
+          "paragraphs": [
+            "If repair is proposed, ask which component is being addressed and whether compatible parts have been identified. Provide the brand or model information if you already have it, but do not remove the toilet to find an inaccessible marking. A safe photograph of the fixture can help start the enquiry. Ask the contractor what further information they need before confirming the repair rather than ordering a part from its appearance alone.",
+            "Discuss what the repair would leave unchanged. It may address a specific fault without changing the age, appearance or other characteristics of the existing suite. That can be entirely reasonable when it matches your priorities. Ask how the contractor will explain completion and what to do if the original symptom remains. This is more useful than expecting a small component replacement to renew every part of the fixture.",
+            "If parts cannot be confirmed during an initial discussion, ask whether a visit or manufacturer enquiry is appropriate. Record which information is missing and whether that affects price or timing. Avoid treating an uncertain online stock listing as proof that the proposed repair is available. Similarly, a delay in identifying a part does not establish that replacement is the only technically suitable choice."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Use water labels as one selection tool, not a fitting guarantee",
+          "paragraphs": [
+            "YourHome explains that the national WELS scheme identifies water efficiency through star ratings and water-consumption information for products including toilets. Use that label to compare relevant products, while recognising that efficiency information does not establish whether a suite fits your existing bathroom. This guide does not prescribe a rating threshold or calculate a promised saving. Actual consumption depends on the household and how the fixture is used.",
+            "Create a short selection note with your priorities: comfortable use, an appropriate seat, manageable cleaning and a design suited to the room. Show the proposed product details to the installer before purchase. Ask them to confirm which dimensions and connections need checking at the property. Do not assume a replacement with a similar outline uses an identical installation arrangement. Retain the exact model reference rather than a screenshot of a product family.",
+            "Where accessibility or assistance needs influence the choice, describe those needs early and seek suitable professional advice where required. Do not rely solely on a marketing word such as universal or comfortable. Ask whether the proposed layout leaves the practical access you need. A household preference is not the same as verification that a bathroom meets an accessibility standard."
+          ],
+          "sourceUrls": [
+            "https://www.yourhome.gov.au/water/reducing-water-use"
+          ]
+        },
+        {
+          "heading": "Agree who selects, supplies and checks the replacement",
+          "paragraphs": [
+            "Decide whether the contractor will supply the suite or install a product you purchase. Ask how that choice affects checking suitability, delivery timing and the process if the product is damaged or unsuitable. Keep product and installation responsibilities separate in your notes. Avoid buying a non-returnable item on the assumption that a contractor can adapt any connection without additional work. Obtain the relevant advice before committing to the purchase.",
+            "If you supply the product, provide the installer with the full product specification and the contents of the package. Ask whether the stated installation scope assumes that particular model and which additional components, if any, remain unconfirmed. Keep purchase receipts and correspondence. A clear responsibility record helps you direct a later question to the right party without assuming the installation provider also sold the product.",
+            "For Victorian work, the Building and Plumbing Commission advises using appropriately licensed or registered practitioners and provides licence-checking information. Confirm who will do the plumbing work and ask what documentation applies. That source does not establish the credentials of a retailer, a product listing or a particular business, and this guide makes no such endorsement."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Compare complete scopes, including finishing and disposal",
+          "paragraphs": [
+            "A replacement proposal should be more specific than remove old toilet and install new. Ask how the existing suite will be removed, whether disposal is included and how the surrounding area will be left. Explain if you are trying to preserve particular tiles or finishes, without assuming that their condition can be guaranteed before the fixture is assessed. Ask what happens if work exposes an issue outside the original scope.",
+            "Consumer Affairs Victoria recommends clarifying quote inclusions and the handling of changes. Apply that advice by separating the supply price, installation description, associated works and exclusions. Ask whether a follow-up visit or an additional assessment is included. If two proposals differ, identify the difference before comparing the total. A lower price may simply describe less work, not a better or worse recommendation.",
+            "Confirm the practical arrangements for the day. Tell the contractor if the household has no alternative toilet and ask how that affects planning. Discuss entry, parking restrictions and the person authorised to approve a variation. An estimated duration is a planning discussion, not permission to promise uninterrupted use. Keep household requirements visible so that the contractor can explain what is feasible."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        },
+        {
+          "heading": "Make the decision using a side-by-side note",
+          "paragraphs": [
+            "Put the assessed repair option and replacement proposal on the same page. For each, record the problem it addresses, the known scope, the remaining uncertainties and the records you expect after completion. Add your own priorities separately. If appearance is the main reason you prefer replacement, say so; do not turn a design preference into a claim that an existing fixture is beyond repair.",
+            "If more than one person is making the decision, agree which features are essential before requesting revisions. One person may prioritise a quick repair while another expects a different appearance. Recording both priorities prevents repeated quotes that answer different questions. Keep a dated copy of the final product choice and accepted scope, particularly when a retailer's page changes or several similar models have been discussed.",
+            "After the agreed work, ask how ordinary operation and follow-up concerns will be explained. Keep the final invoice, exact product details and any supplied user or warranty information together. If a symptom continues, contact the provider with a description of what you observe rather than attempting additional work yourself. Refer to the accepted scope so that everyone is discussing the same task.",
+            "Contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store to discuss a toilet-related enquiry and your suburb. Use the linked Melbourne location page for the matching contact route and the drainage information where a blockage concern is involved. An enquiry does not confirm that replacement is necessary, that a chosen suite is suitable or that a particular appointment is available."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does a running toilet always need replacement?",
+          "answer": "Not necessarily. Ask for an assessment of the specific fault and any compatible repair options before deciding whether to replace the entire suite."
+        },
+        {
+          "question": "Can I buy a suite before the installer visits?",
+          "answer": "Ask the installer what suitability information must be confirmed first. A product's appearance or water-efficiency label does not establish compatibility with your bathroom."
+        },
+        {
+          "question": "What should I compare between repair and replacement quotes?",
+          "answer": "Compare the problem each option addresses, the included work, product and disposal responsibilities, exclusions and remaining uncertainties. Avoid comparing totals for different scopes."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "outdoor tap repair assessment",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Outdoor Tap Repairs: Plan the Assessment Before Changing Garden Connections",
+      "slug": "outdoor-tap-repair-garden-connections-assessment",
+      "metaTitle": "Outdoor Tap Repairs: Plan the Assessment Before Changing Garden Connections",
+      "metaDescription": "Prepare for an outdoor tap repair with clear fault notes, water-source information, garden connection details and a defined assessment and repair scope.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Prepare for an outdoor tap repair with clear fault notes, water-source information, garden connection details and a defined assessment and repair scope.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "burst-pipe-repair"
+      ],
+      "relatedArticles": [
+        "higher-water-bill-billing-questions-possible-plumbing-leaks",
+        "buying-home-rainwater-tank-questions-before-relying-on-it"
+      ],
+      "sources": [
+        {
+          "title": "YourHome: reducing water use",
+          "url": "https://www.yourhome.gov.au/water/reducing-water-use",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Describe the tap problem before buying accessories",
+          "paragraphs": [
+            "An outdoor tap problem often becomes obvious while you are watering, filling a bucket or disconnecting a hose. It is tempting to buy another fitting immediately, but first separate the observations from the proposed solution. Is water visible at the tap itself, at a connection, or somewhere nearby? Does the concern occur during use, after use or at another time? Describe what you can see from a safe position without dismantling anything. This guide helps prepare an assessment, not carry out plumbing repairs.",
+            "Record the tap's location in everyday terms, such as beside the side gate or near the garden shed. If there are several taps, identify which one you mean in the booking message. A wide photograph and a closer image of the visible concern are usually more informative than an unexplained close-up. Avoid moving heavy pots, reaching behind electrical equipment or opening a service enclosure simply to obtain a better picture.",
+            "Treat a sudden significant leak or another immediate hazard as a reason to seek assistance rather than continue with routine preparation. Keep people away from unsafe areas and explain the circumstances when you call. Do not force an unfamiliar valve or attempt work on connections you cannot identify. A concise account of the current problem is more valuable than a guessed repair instruction."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Identify what you know about the water source",
+          "paragraphs": [
+            "Explain whether the outlet has any existing label or known connection to a rainwater arrangement. If you do not know, say so. Do not decide whether water is suitable for drinking from its appearance or because an ordinary hose is attached. The plumber needs accurate information about the actual connection, and a homeowner's uncertain description should remain a question for assessment rather than become a fact in a quote.",
+            "Keep any available property or equipment records handy, especially if a pump or tank is involved. Provide only documents you actually have, and identify whether they describe the current installation or an earlier proposal. An old invoice can offer context without proving how the system is connected today. Where another owner or a property manager holds the records, ask whether they can supply the relevant information before alterations are discussed.",
+            "The Building and Plumbing Commission explains that Victorian plumbing practitioners need the appropriate registration or licence for the work they undertake. Use the regulator's checking information when arranging plumbing changes. This article does not provide instructions for connecting a tank, changing a supply or selecting a protective device. Ask the practitioner which assessment and safeguards apply to the actual proposed work."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Show the connections and describe how you use them",
+          "paragraphs": [
+            "List the ordinary items connected to the outlet: a hose, timer, garden irrigation equipment or another accessory. Give the model information if it is readily available. State which items were in place when the concern appeared, but do not assume they caused it. Ask whether the plumber needs to see the usual arrangement during the assessment. Do not recreate a leak beside electrical equipment or repeatedly operate a failing connection to make a video.",
+            "Explain the daily routine that matters to you. A tap used occasionally for a bucket has different practical expectations from one serving regularly used garden equipment. Mention if another household member finds the existing position difficult to reach. The purpose is to describe the outcome you need, not specify an unassessed pipe size or product. A proposed repair can then be discussed against actual use rather than a generic replacement package.",
+            "Keep plumbing work separate from accessory purchases. Ask which part of the concern the proposed work addresses and which items remain your responsibility. If a new tap or connection is suggested, request confirmation that the exact arrangement is suitable before ordering equipment. Do not assume that a fitting which screws on is necessarily appropriate for every water source or use."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Use a measured observation record, not a guessed water-loss figure",
+          "paragraphs": [
+            "YourHome advises addressing drips and leaks and using household water information to identify changes. For your outdoor tap enquiry, a short observation record may be enough: when the concern started, when it is visible and whether normal use has changed. You do not need to calculate an annual loss from a short video. The article deliberately gives no promised savings or fixed estimate for an unassessed leak.",
+            "If you are also investigating a higher bill, keep that issue linked but separate. Note the billing period and any known changes in garden watering or occupancy. A visible drip and an unusual bill may both deserve attention, but neither proves that the other has been fully explained. Ask what the current repair assessment can establish and whether any further investigation is needed.",
+            "Do not use extra water simply to build a more detailed record. If a supplier offers account information or guidance about the meter, consult the instructions relevant to your property. A shared meter or unfamiliar supply may require additional clarification. The goal is to give the practitioner useful context while avoiding an unsupported conclusion about hidden pipework or retailer responsibility."
+          ],
+          "sourceUrls": [
+            "https://www.yourhome.gov.au/water/reducing-water-use"
+          ]
+        },
+        {
+          "heading": "Agree the repair boundary and the surrounding work",
+          "paragraphs": [
+            "Ask whether the proposed service is an assessment, a specific repair or a replacement of an identified component. Request a plain description of what is included. If work might affect a wall, paving or garden feature, discuss that before approval. Do not assume that a tap repair automatically includes restoring decorative surfaces or relocating an outlet to a new position.",
+            "Consumer Affairs Victoria recommends understanding quote inclusions and how changes are handled. Apply that approach to access, parts, any associated work and the process if assessment reveals a different problem. Ask whether a second visit would need separate approval. Keep optional improvements separate from the immediate repair so you can choose between them without losing sight of the original concern.",
+            "Explain any access constraints that could affect the appointment: a locked gate, a dog in the yard, a shared path or a tap behind stored items. Agree which preparation you can safely do and what the contractor needs to assess themselves. Do not dig, remove a cover or clear an unsafe area in anticipation of a repair unless appropriately advised through a safe process."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        },
+        {
+          "heading": "Prepare for completion and normal use",
+          "paragraphs": [
+            "Before the work, decide who can approve changes and how that person can be contacted. Ask the contractor to explain the completed task and any ordinary user guidance that applies. A repair note should identify what was actually done, not carry forward every improvement mentioned during the initial conversation. Keep the invoice and any relevant product details with your property records.",
+            "If an accessory was not part of the plumbing work, retain its purchase and support information separately. Label photographs so you can distinguish the outlet before the visit from its appearance afterwards. When another member of the household resumes using garden equipment, pass on any actual instructions supplied by the contractor rather than an assumption about how the arrangement should now work. If something remains unclear, ask before reconnecting equipment or changing the usual use.",
+            "If you are planning a garden project, discuss it separately rather than letting temporary accessories become an assumed permanent design. Tell the practitioner about future intentions without asking them to treat undecided work as part of the accepted job. That separation keeps the current scope understandable and provides a better starting point if you request a later alteration.",
+            "For an outdoor plumbing enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb, a brief description of the outlet and any known water-source information. The Melbourne homepage and linked service guides provide the relevant contact path. Availability, suitability and the repair scope need confirmation; sending photographs does not establish a diagnosis or authorise work."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Should I replace a leaking outdoor tap myself?",
+          "answer": "This guide does not provide repair instructions. Describe the visible concern and ask an appropriately qualified practitioner what assessment or work is needed."
+        },
+        {
+          "question": "What if I do not know whether a tap uses tank water?",
+          "answer": "Tell the practitioner that the source is unknown and share any existing labels or records. Do not assume drinking-water suitability from appearance."
+        },
+        {
+          "question": "Does a tap repair include irrigation alterations?",
+          "answer": "Not unless they are included in the agreed scope. Identify the existing accessories and discuss proposed alterations separately."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "apartment plumbing water shutdown planning",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Apartment Plumbing Work: Coordinate Access and Water Interruptions",
+      "slug": "apartment-plumbing-access-water-interruption-planning",
+      "metaTitle": "Apartment Plumbing Work: Coordinate Access and Water Interruptions",
+      "metaDescription": "Organise an apartment plumbing visit with clear access permissions, water-interruption questions, resident communication and a record of the agreed scope.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Organise an apartment plumbing visit with clear access permissions, water-interruption questions, resident communication and a record of the agreed scope.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "commercial-plumbing",
+        "burst-pipe-repair"
+      ],
+      "relatedArticles": [
+        "before-booking-a-plumber-in-coburg-photos-access-and-questions-to-prepare"
+      ],
+      "sources": [
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Greater Western Water: fixing a blocked sewer",
+          "url": "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Establish who needs to be involved before a planned visit",
+          "paragraphs": [
+            "A planned plumbing visit in an apartment can involve more people than the resident and the contractor. Access to a cupboard, a shared area or another part of the building may need coordination. Start by identifying the person managing the appointment and the people who need to authorise entry or work. This guide is a practical communication checklist. It does not determine ownership of pipes, interpret an owners corporation plan or give instructions to isolate a building's water supply.",
+            "Give the contractor an accurate address, unit identifier and the location of the problem within the apartment. If your building uses a different number at the vehicle entrance, explain that in the appointment notes. Tell the booking contact whether you are an owner, renter, manager or authorised representative. Those details help direct questions without implying that a particular person has permission to approve every part of the job.",
+            "If the concern is urgent or unsafe, communicate that immediately. Do not delay seeking assistance while collecting routine paperwork or planning a notice. Keep away from sewage or another unsafe area and explain the observed situation when you call. The steps below relate to organising work; they do not replace emergency advice or justify leaving an active hazard unattended."
+          ],
+          "sourceUrls": [
+            "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer"
+          ]
+        },
+        {
+          "heading": "Ask the contractor what access the assessment requires",
+          "paragraphs": [
+            "Describe what is visible and let the contractor explain what they need to inspect. Do not assume that a problem inside the apartment can only involve fixtures within the apartment, or that a shared service must be involved because other residents mention a similar symptom. Those are assessment questions. Give factual observations and distinguish them from unconfirmed explanations from neighbours or previous messages.",
+            "Ask whether the initial visit needs access beyond your lot. If so, identify the building contact who can arrange it. Confirm any required appointment window, keys, escort or service lift arrangements through the authorised process. Do not share master codes or unrelated security information in a public group message. Use the minimum access information necessary for the actual visit and keep the responsible contact available.",
+            "Where records exist, ask the building manager which documents can be supplied to the contractor. A maintenance note or plan may help explain the setting, but do not present it as confirmation of the current arrangement unless that has been checked. State clearly when records are missing. Access planning should reveal uncertainties early rather than hide them behind an apparently complete booking note."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Separate an expected interruption from an authorised shutdown",
+          "paragraphs": [
+            "Ask the practitioner whether the proposed work is expected to require a water interruption and what needs confirmation before that can be planned. Do not infer the affected area from the location of a valve or from a previous visit. A resident should not operate shared equipment to see which apartments lose water. Identification and any necessary isolation are tasks to be addressed through the appropriate professional and building process.",
+            "If an interruption is proposed, ask who confirms the affected services, who authorises the action and who communicates with occupants. Record these as separate responsibilities. The contractor may provide technical advice while the building contact handles permission and notices. A booking confirmation alone should not silently become authority to interrupt services across a building.",
+            "Ask how the estimated window will be communicated and how updates will be provided if the scope changes. Avoid promising neighbours an exact restoration time that the contractor has not confirmed. If someone has an important access or support need, raise it with the building contact through a suitable private channel. Share the practical requirement, not unnecessary medical or personal information."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Write a useful resident message without making technical promises",
+          "paragraphs": [
+            "For a planned visit, a draft notice can identify the date, expected work window, responsible contact and the affected area as confirmed by the appropriate people. Make any uncertainty visible. If a notice is still provisional, label it that way rather than presenting an unapproved plan as final. Ask the building manager about their notice and access process instead of assuming a message to one neighbour is sufficient.",
+            "Include a way to communicate changes. The person receiving a contractor update should know who sends the revised notice and who deals with resident questions. Keep internal diagnosis discussions out of broad communications unless they are necessary and verified. Residents generally need actionable information about access or service availability, not a forwarded chain of conflicting guesses about the pipework.",
+            "Keep a dated copy of the final message with the appointment record. If the contractor's assessment changes the proposed interruption, pause the old communication and arrange a corrected version through the responsible contact. This is an editorial planning suggestion, not a statement of legal notice periods. Requirements depend on the building and circumstances and should be checked through the appropriate channels."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Keep permissions, payment and scope as separate questions",
+          "paragraphs": [
+            "Identify who is commissioning the visit and who can approve additional work. Ask how the contractor will handle a finding outside the authorised scope. This is particularly important when a resident books an investigation but another party must decide on a proposed repair. Do not assume that access permission also establishes responsibility for the invoice or ownership of the affected pipe.",
+            "Consumer Affairs Victoria advises customers to understand the quoted work and document changes. For an apartment job, request a clear description of the assessment or repair, access assumptions and exclusions. If another trade or a finishing task may be needed, ask how it will be arranged. Keep those unresolved items visible rather than telling residents that every affected surface will be restored under an undefined plumbing charge.",
+            "Victorian plumbing practitioners must have the appropriate registration or licence for the work they perform, as explained by the Building and Plumbing Commission. Ask who will undertake the work and what documentation applies. A building manager's referral or an entry permit does not establish those credentials by itself. Check the relevant regulator's information without treating this guide as an endorsement of any provider."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Close the communication loop after the visit",
+          "paragraphs": [
+            "Ask the contractor to explain what was assessed or completed and whether further work is recommended. Keep that explanation separate from permission to proceed with a new task. Where access or service availability was coordinated through a building contact, confirm who will communicate the current status to residents. Do not announce that all faults are resolved merely because the planned visit has ended.",
+            "A simple chronology can help when several people coordinate the visit. Record when the concern was reported, who approved the assessment, what access was arranged and when the contractor provided an update. Use factual entries rather than assigning blame. If the work needs another appointment, identify the outstanding decision and its owner, such as a revised quote awaiting approval. This prevents a provisional recommendation from being mistaken for an already booked repair.",
+            "Save the accepted scope, contractor notes, invoice and any relevant completion documents in the appropriate property record. If another apartment reports a concern afterwards, record the observation and direct it to the responsible contact instead of trying to reproduce the problem yourself. Avoid forwarding resident details to an unnecessarily wide audience. Good follow-up gives the next person a useful factual record without distributing private information.",
+            "To enquire about apartment plumbing work with Grade A Plumbing, call (02) 5837 5457 or email support@gradeaplumbing.store. Include your suburb, unit identifier, observed issue and the building contact arrangements you already know. Use the Melbourne location and relevant service links with this guide. A request does not confirm shutdown permission, responsibility for shared assets, final cost or an appointment time; those details need agreement."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can I turn off a shared building valve before the plumber arrives?",
+          "answer": "Do not operate shared or unidentified equipment. Ask the practitioner and authorised building contact how identification, permission and any interruption will be managed."
+        },
+        {
+          "question": "Who pays for apartment plumbing repairs?",
+          "answer": "This guide does not decide responsibility. Confirm commissioning, payment and approval arrangements with the appropriate parties for the property and work involved."
+        },
+        {
+          "question": "Does an appointment confirmation authorise a building-wide interruption?",
+          "answer": "No. Treat the planned visit, technical assessment, permissions and resident communication as separate arrangements that need confirmation."
+        }
+      ]
+    }
   }
 ]

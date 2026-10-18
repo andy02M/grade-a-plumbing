@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ButtonLink";
+import { ArticlesSection } from "@/components/ArticlesSection";
 import { ContactForm } from "@/components/ContactForm";
 import { CTASection } from "@/components/CTASection";
 import { CustomerReviews } from "@/components/CustomerReviews";
@@ -21,7 +22,9 @@ import {
   trustBadges,
   whyChooseUs,
 } from "@/lib/site";
+import { formatStorefrontAddress } from "@/lib/storefronts";
 import { publicMapsUrl } from "@/lib/google-business-profiles";
+import { LocalGuidanceSection } from "@/components/LocalGuidanceSection";
 import { localGuidance } from "@/lib/local-guidance";
 
 const serviceIcons: Record<string, IconName> = {
@@ -59,6 +62,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const location = await getRequestLocation();
+  const faq = localGuidance[location.slug]?.faqs ?? [];
+  const introduction = localGuidance[location.slug]?.introduction;
   const address = location.address
     ? { "@type": "PostalAddress", ...location.address }
     : undefined;
@@ -74,7 +79,38 @@ export default async function HomePage() {
           ...(address ? { address } : {}),
         }}
       />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }}
+      />
       <ManusApp initialPath="/" embedded />
+      {introduction && (
+        <section className="section">
+          <div className="container">
+            <h2>Plumbing in {location.location}</h2>
+            <p>{introduction}</p>
+            {location.address && (
+              <p>{formatStorefrontAddress(location.address)}</p>
+            )}
+          </div>
+        </section>
+      )}
+      <section className="section">
+        <div className="container">
+          <LocalGuidanceSection
+            slug={location.slug}
+            location={location.location}
+          />
+        </div>
+      </section>
+      <ArticlesSection locationSlug={location.slug} />
     </>
   );
 }
