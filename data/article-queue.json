@@ -565,7 +565,7 @@
     "releasedDate": "2026-10-14"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-15",
     "targetKeyword": "bathroom renovation plumbing fixture schedule",
     "review": {
@@ -669,7 +669,8 @@
           "answer": "No. Ask the appropriate practitioner or authority about the specific work. Product selection alone cannot establish the project's regulatory obligations."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-18"
   },
   {
     "status": "ready",

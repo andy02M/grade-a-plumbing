@@ -385,5 +385,20 @@
     "recordedAt": "2026-10-14T01:02:50.603Z",
     "slug": "reporting-plumbing-repair-victorian-rental-request-evidence-record",
     "url": "https://melbourne.gradeaplumbing.store/blog/reporting-plumbing-repair-victorian-rental-request-evidence-record/"
+  },
+  {
+    "date": "2026-10-18",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-18T08:53:42.288Z",
+    "slug": "bathroom-renovation-plumbing-finalise-fixture-schedule",
+    "words": 1379,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-10",
+      "reviewer": "AI editorial review in this chat; not design certification or a licensed plumbing inspection",
+      "notes": "Distinct fixture schedule and design-change coordination intent. No permit exemption, concealed-pipe diagnosis, staff qualification claim or instructions to undertake plumbing."
+    }
   }
 ]
