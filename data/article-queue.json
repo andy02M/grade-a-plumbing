@@ -1915,5 +1915,1288 @@
         }
       ]
     }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "WaterMark vs WELS plumbing products",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "WaterMark and WELS: Check Plumbing Products Before Buying Online",
+      "slug": "watermark-wels-plumbing-products-online-purchase-checks",
+      "metaTitle": "WaterMark and WELS: Check Plumbing Products Before Buying Online | Grade A Plumbing",
+      "metaDescription": "Learn how to organise model, certification and efficiency checks before ordering plumbing products online, without confusing labels with installation suitability.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Learn how to organise model, certification and efficiency checks before ordering plumbing products online, without confusing labels with installation suitability.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "hot-water",
+        "blocked-drains"
+      ],
+      "relatedArticles": [
+        "choosing-water-efficient-taps-showers-label-and-fit"
+      ],
+      "sources": [
+        {
+          "title": "Australian Building Codes Board: WaterMark Product Search",
+          "url": "https://www.abcb.gov.au/watermark-search",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Australian Government Water Rating: compare products",
+          "url": "https://www.waterrating.gov.au/consumers/compare",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Ask three separate questions about a proposed purchase",
+          "paragraphs": [
+            "An attractive tap or shower listing can answer questions about appearance while leaving essential installation questions unresolved. Before ordering, separate three decisions: is this the exact product you intend to buy, what certification or efficiency information applies, and is it suitable for the proposed installation? These questions are related, but one answer does not settle the others. This guide explains how to organise the evidence for a purchase, not how to certify a product or install plumbing. It does not endorse a marketplace, brand or seller.",
+            "Start with the problem you are trying to solve. Replacing a damaged fitting, reducing water consumption and changing the look of a room are different goals. Tell the installer which goal matters and what existing features you want to retain. A product may appeal visually without meeting the practical brief. Equally, a favourable efficiency comparison does not tell you whether the fixture can be used in the planned position. Make the installation conversation part of selection rather than an obstacle discovered after the parcel arrives.",
+            "Keep the product unconfirmed while key questions remain unanswered. Do not rely on a seller's broad statement that an item is suitable for Australian homes as a replacement for checking the exact model. If you need an urgent repair, discuss that separately from a discretionary purchase that will take time to investigate."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Identify the model behind the marketing name",
+          "paragraphs": [
+            "Record the brand, full model identifier and product description from the proposed order. A colour or finish variant may be listed beside several similar products, so make sure the information describes the actual item in your basket. Save the supplier's specification and any installation documents available before checkout. A screenshot can preserve a sales description, but it is not proof of certification or fit. Ask the seller to clarify missing identifiers rather than assuming the name of a range identifies every version.",
+            "The Australian Building Codes Board provides the WaterMark product search to check certification information. Its search fields include model, brand and certificate details. Use the database record to support a discussion about the exact product, not to declare that every item from the same brand is covered. Where a model cannot be matched confidently, ask the supplier and practitioner to resolve the uncertainty before purchase. Do not infer a current status from an old image of a logo.",
+            "If the supplier proposes a substitute, restart the identity checks. An updated listing, replacement stock code or changed manufacturer may affect which documents apply. Keep a dated selection note so that the order, the product received and the information given to the installer can be compared consistently."
+          ],
+          "sourceUrls": [
+            "https://www.abcb.gov.au/watermark-search"
+          ]
+        },
+        {
+          "heading": "Use efficiency information for its intended purpose",
+          "paragraphs": [
+            "The Australian Government Water Rating comparison guidance explains how efficiency information helps compare relevant products. That is a different task from checking a product's certification record. Ask which label information applies to your selected product category and compare like with like. Do not treat a star rating as an installation approval or a warranty that a particular household will save a fixed amount. Your own usage pattern and the actual installation remain relevant to the decision.",
+            "Write down the practical comparison you are making. For a shower product, you may want to balance the stated efficiency information with the experience and suitability discussed with your installer. For an appliance, ensure the compared models have a similar intended purpose and capacity. A lower consumption figure for a different use case is not automatically the best choice. Keep the original label or official product information with your selection rather than rewriting figures from memory.",
+            "Do not let a sales calculator become a promised result. If a retailer presents estimated savings, ask what assumptions underlie the comparison and which apply to your household. You can choose an efficient product without claiming that an unmeasured reduction has already occurred. Retain the distinction when discussing the purchase with other decision-makers."
+          ],
+          "sourceUrls": [
+            "https://www.waterrating.gov.au/consumers/compare"
+          ]
+        },
+        {
+          "heading": "Confirm suitability with the person doing the installation",
+          "paragraphs": [
+            "Provide the practitioner with the exact specification, the proposed location and any relevant information about the existing fixture. Ask what must be confirmed at the property before they can accept the product for the intended work. Dimensions, access and connections should be questions for assessment, not assumptions based on a photograph of the room. Do not remove fixed fittings to obtain measurements for an online order. Explain when an important dimension cannot be checked safely.",
+            "Discuss who supplies any associated components and who is responsible if the purchased item is unsuitable or incomplete. A product-only price may not cover everything needed for the finished arrangement. Ask how the installer would handle an unexpected incompatibility before the appointment. In Victoria, confirm the practitioner's appropriate registration or licence through the regulator's information. This guide does not establish anyone's qualifications or promise that a chosen product can be installed.",
+            "Keep the assessment outcome with the accepted specification. A general comment about a product family should not become permission to install a different item. If you decide to supply your own product, tell the installer before accepting a quote so that supply, checking and installation responsibilities are understood."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Plan the order and delivery without assuming the return outcome",
+          "paragraphs": [
+            "Before paying, read the seller's stated order, delivery and returns information and ask for clarification where the suitability check is still pending. This guide does not determine your legal rights or tell you that a seller must accept a change-of-mind return. It recommends avoiding an unnecessary commitment while product identity or installation requirements remain unresolved. Keep receipts and correspondence in a place you can retrieve if the delivered item differs from what was ordered.",
+            "On delivery, compare the supplied model and package contents with the order and the information already given to the installer. Report discrepancies through the supplier's process rather than asking a contractor to work around them simply because a visit is scheduled. Do not remove markings or discard documents needed to identify the product. If installation has to be rescheduled, communicate the change promptly and distinguish the delayed purchase from any urgent existing fault.",
+            "Ask who should receive a product question and who should receive an installation question after completion. A manufacturer, retailer and installer may need different details. Keeping the exact model and scope available makes those enquiries clearer without assuming that one party is responsible for every possible issue."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Finish with an evidence-based purchase decision",
+          "paragraphs": [
+            "Your final purchase record can be short: exact item, source of the certification information where applicable, relevant efficiency information, installer's suitability advice, supply responsibilities and unresolved questions. If any essential item is still unknown, leave the selection provisional. A simple record helps prevent a household from ordering one variant while a contractor prepares for another. It also supports future maintenance enquiries without relying on a sales listing that may later change.",
+            "After installation, retain the actual product and completion records supplied. Do not copy a generic certificate or label into your property file as though it relates to the installed model. If you discover a mismatch, raise the specific discrepancy with the appropriate provider and practitioner. Avoid attempting alterations to make an unsuitable purchase work.",
+            "For a plumbing product suitability enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb, intended work and exact product details. The linked Melbourne location and service guides provide the contact route. An enquiry does not confirm certification status, compatibility, availability or an installation price.",
+            "Where several people share purchasing decisions, nominate one current specification so the order is not placed from conflicting saved links."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does a WELS rating mean a product has WaterMark certification?",
+          "answer": "They answer different questions. Check the relevant efficiency information and the exact product's certification information separately, with the practitioner's advice on suitability."
+        },
+        {
+          "question": "Is a certification logo in an online photo enough?",
+          "answer": "Ask for the exact model details and check the appropriate official record. Do not assume a logo shown for a range covers the delivered item."
+        },
+        {
+          "question": "Can the installer adapt any product I buy?",
+          "answer": "Do not assume so. Resolve property-specific suitability and supply responsibilities before committing to a purchase."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "dishwasher leak plumber or appliance repair",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "Dishwasher Leaking: Separate Appliance Support from Plumbing Assessment",
+      "slug": "dishwasher-leak-appliance-support-plumbing-assessment",
+      "metaTitle": "Dishwasher Leaking: Separate Appliance Support from Plumbing Assessment",
+      "metaDescription": "Prepare a safe, useful dishwasher leak report and clarify appliance-support, plumbing and access responsibilities before arranging assessment.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Prepare a safe, useful dishwasher leak report and clarify appliance-support, plumbing and access responsibilities before arranging assessment.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "blocked-drains",
+        "burst-pipe-repair"
+      ],
+      "relatedArticles": [
+        "why-drains-keep-blocking",
+        "higher-water-bill-billing-questions-possible-plumbing-leaks"
+      ],
+      "sources": [
+        {
+          "title": "Bosch Australia: appliance repair service",
+          "url": "https://www.bosch-home.com.au/service/book-a-repair-online/",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Victorian Government: power safety and emergency contacts",
+          "url": "https://www.energy.vic.gov.au/about-energy/safety/power-safety-and-emergency-contacts",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Treat the visible water as a concern, not a diagnosis",
+          "paragraphs": [
+            "Water beside a dishwasher can raise two immediate questions: how to keep the area safe and who should assess the problem. The visible location alone does not establish whether the cause is inside the appliance, at a connection or elsewhere in the kitchen. Begin by reporting what you can see without continuing to run the appliance to investigate. This guide helps organise the support enquiry. It is not an appliance repair manual, an electrical isolation procedure or a set of instructions for disconnecting plumbing.",
+            "Keep people away from water near electrical equipment and seek appropriate advice. The Victorian Government's power-safety guidance warns about electrical hazards associated with water. Do not step into water to reach a plug, operate wet equipment or remove an appliance panel. If the situation presents an immediate danger, use the appropriate emergency assistance rather than waiting to assemble a complete written report. A routine booking form is not an emergency response system.",
+            "From a safe position, note the area affected and whether the machine was operating when the concern appeared. State whether water is still appearing or that you cannot tell. Avoid describing it as a failed hose or faulty seal unless a qualified assessment has established that finding. Accurate initial language makes it easier to direct the enquiry."
+          ],
+          "sourceUrls": [
+            "https://www.energy.vic.gov.au/about-energy/safety/power-safety-and-emergency-contacts"
+          ]
+        },
+        {
+          "heading": "Collect the model and event information already available",
+          "paragraphs": [
+            "Find the model information in your existing purchase records or user documents if you can do so without approaching an unsafe area. Record any displayed message exactly as it appears, without treating the same-looking code from a different model as an explanation. Keep the appliance's purchase and service details available for manufacturer support. The goal is to identify the machine and the reported event, not to open it or search for a hidden component.",
+            "Describe the stage of normal use when the concern was first noticed: shortly after starting, during the cycle or after the machine had finished. Do not restart it to prove the timing. If your recollection is uncertain, say so. Note whether anyone recently moved the appliance or arranged kitchen work, while making clear that the timing does not establish responsibility.",
+            "Bosch Australia provides an appliance repair support route, illustrating why manufacturer assistance belongs in the conversation for an appliance concern. Use the support information relevant to your own brand and exact model. This article does not imply that Grade A Plumbing is a manufacturer's authorised appliance repairer or that one brand's support process applies to all machines."
+          ],
+          "sourceUrls": [
+            "https://www.bosch-home.com.au/service/book-a-repair-online/"
+          ]
+        },
+        {
+          "heading": "Ask which part of the concern each provider will assess",
+          "paragraphs": [
+            "When contacting an appliance support service, explain the visible water, model and any recent work. Ask what its assessment covers and whether the appliance must remain installed for the visit. When contacting a plumber, ask whether the enquiry concerns the water or drainage connections or a broader kitchen plumbing issue. Do not assume either provider will undertake the other's work. Clear scope can prevent two appointments booked on contradictory assumptions.",
+            "If a provider refers you elsewhere, request a short explanation of what remains unconfirmed. A referral is not automatically a diagnosis or a refusal to assist. Share relevant findings with the next assessor so the same question is not repeatedly investigated without context. Avoid turning an informal telephone suggestion into an established component fault on a later booking.",
+            "Keep the distinction between assessment and repair visible. You may need an investigation before anyone can specify the work or the party best placed to do it. Ask what information would enable that decision and whether the initial visit carries a separate fee. Do not request a final repair price for a fault that has not been identified.",
+            "If there is a warranty or existing service case, provide its reference before arranging another appointment. Ask the manufacturer which information it needs about previous attendance and whether an independent assessment affects its proposed process. Do not assume the answer; record it. Avoid sending serial numbers, receipts or household photographs to unrelated public forums simply to obtain a faster opinion."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Plan access without moving a connected appliance yourself",
+          "paragraphs": [
+            "Tell the booking contact whether the machine is freestanding, built into cabinetry or located behind a decorative panel, using the description you already know. Provide a safe overview photograph if helpful. Explain any narrow entrance, difficult parking or building access process. Do not pull the dishwasher out to improve the photograph or make plumbing connections visible. Moving a connected appliance can create additional issues that this guide does not assess.",
+            "Ask who would arrange any access involving cabinetry or another trade. If a panel needs attention, make sure the provider explains the process and its scope. A visit booked as a plumbing assessment should not silently include cabinet alterations. Where a building manager or rental provider must authorise access or work, identify the responsible contact before the appointment.",
+            "Keep household expectations realistic while the concern is assessed. Ask the relevant support service about safe ordinary use rather than assuming the machine can be run carefully. Arrange a different way to manage dishes if advised not to use it, but do not improvise temporary water or waste connections."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Keep the repair decision tied to the findings",
+          "paragraphs": [
+            "After assessment, ask which part was inspected, what was established and whether another investigation is still required. Request an explanation of the proposed task in ordinary language. A repair to one connection should not be described as renewal of the whole appliance or kitchen plumbing. Conversely, an appliance diagnosis should not automatically settle a separate drainage complaint affecting other fixtures.",
+            "If work is proposed, confirm who supplies the relevant component, who performs the task and how changes outside the accepted scope are approved. Ask which records will be provided after completion. Discuss the actual process rather than assuming every part is stocked or every repair can be completed during the first visit. Avoid giving the household a guaranteed completion time not confirmed by the provider.",
+            "For plumbing work in Victoria, use the Building and Plumbing Commission's practitioner-checking information. Match the enquiry with the relevant work rather than assuming a general service listing establishes every qualification. If manufacturer-authorised servicing matters to your circumstances, confirm that status with the manufacturer; this guide makes no claim about it."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Use one clear record for follow-up enquiries",
+          "paragraphs": [
+            "Keep your first observation note, model details, support references and any assessment explanation together. Record whether a proposed repair was actually completed or remains a recommendation. A short timeline helps another provider understand the sequence without relying on a chain of forwarded messages. Remove unrelated household information before sharing photographs or records.",
+            "If water reappears, report the current observation through the agreed support process. Do not restart the appliance repeatedly or remove covers to obtain evidence. Explain whether the visible area is the same and which work was completed, without deciding that the same cause must have returned. The distinction helps the next assessor address the actual concern.",
+            "To discuss the plumbing side of a dishwasher leak enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb and any established appliance-support reference. The Melbourne location and linked service guides provide the booking path. Sending an enquiry does not confirm appliance-repair coverage, a diagnosis, an appointment or final cost.",
+            "For a rental or managed property, identify who will receive the assessment report and who can authorise a further visit. Keep those decisions separate from arranging entry. A person available to open the door may not be the person approving expenditure or holding the appliance purchase records."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Should I pull the dishwasher out to find the leak?",
+          "answer": "Do not move a connected appliance to investigate. Describe the safely visible concern and ask the appropriate service provider how access will be managed."
+        },
+        {
+          "question": "Is every dishwasher leak a plumbing problem?",
+          "answer": "No cause is established from visible water alone. Clarify appliance-support and plumbing assessment scopes for the actual machine and connections."
+        },
+        {
+          "question": "Can Grade A Plumbing provide manufacturer-authorised repairs?",
+          "answer": "This guide makes no such claim. Confirm manufacturer-authorised service directly through the appliance brand if required."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "banging pipes water hammer assessment",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "Banging Pipes: Prepare a Water Hammer Assessment Without DIY Adjustments",
+      "slug": "banging-pipes-water-hammer-assessment-preparation",
+      "metaTitle": "Banging Pipes: Prepare a Water Hammer Assessment Without DIY Adjustments",
+      "metaDescription": "Record pipe-noise timing, affected fixtures and recent changes, then clarify a water hammer assessment without changing valves or guessing the cause.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Record pipe-noise timing, affected fixtures and recent changes, then clarify a water hammer assessment without changing valves or guessing the cause.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "burst-pipe-repair",
+        "hot-water"
+      ],
+      "relatedArticles": [
+        "higher-water-bill-billing-questions-possible-plumbing-leaks"
+      ],
+      "sources": [
+        {
+          "title": "South East Water: water hammer",
+          "url": "https://southeastwater.com.au/faults-and-works/maintenance/water-hammers/",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Describe the sound and the event separately",
+          "paragraphs": [
+            "A bang heard when a tap closes is an observation; water hammer is a possible technical explanation to be assessed. Keep those two ideas separate when arranging a visit. South East Water describes water hammer as a pressure shock associated with water flow stopping or changing direction suddenly. That description provides context, not a diagnosis for every sound in a building. A rattle, hum or knocking noise may need its own explanation. Report what you hear rather than deciding that a particular component has failed.",
+            "This guide is about safe observation and communication. It does not instruct you to drain the system, adjust a pressure valve, remove brackets or change appliance connections. Some published utility material includes checks intended for a plumber; do not treat professional instructions as household experiments. If the noise comes with leaking water, visible damage or another immediate concern, explain that when seeking help instead of continuing a recording exercise.",
+            "Write one sentence about the sound, one about when it occurs and one about where it seems loudest. Those locations may not identify the source. Say appears near the laundry rather than claiming a pipe behind the wall is the cause. Keep approximate information useful by marking it as approximate."
+          ],
+          "sourceUrls": [
+            "https://southeastwater.com.au/faults-and-works/maintenance/water-hammers/"
+          ]
+        },
+        {
+          "heading": "Build a normal-use event record",
+          "paragraphs": [
+            "Notice whether the sound occurs during ordinary tap use, toilet refilling or an appliance cycle. Record the fixture or activity you already observed, without repeatedly operating it to provoke a louder event. The aim is to help an assessor understand the reported pattern. A deliberately recreated sequence can waste water and still fail to show the installation conditions that matter.",
+            "Add dates and ordinary circumstances where known. Was the building quiet when the sound was first noticed, or did someone hear it while several people were using water? Did it happen once or on several separate days? Distinguish the absence of an observation from proof that a sound never occurs. A short account of three relevant events is usually clearer than a long list of guesses about every valve in the property.",
+            "If several residents hear a noise, ask each to describe their own observation without adopting the first explanation offered. One person may report a tap closing while another hears a separate sound later. Keep the accounts labelled by location and time. Avoid circulating private household schedules or audio recordings unnecessarily when a concise event summary can convey the useful information."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Provide recent-change information without assigning blame",
+          "paragraphs": [
+            "Tell the assessor about recent work, appliance replacement or a known meter change if it is relevant and documented. State when it occurred and who holds the record. A sound beginning afterwards is useful chronology, but it does not establish that the person who attended caused it. Keep that distinction in a booking message to avoid presenting an untested allegation as the starting point for the assessment.",
+            "If a product was changed, retain its exact model and any installer paperwork. A generic description such as new mixer may not identify the configuration. Ask the assessor which documents will help before sending a large folder of unrelated renovation records. Do not open equipment or remove a cover to find a hidden label. Existing paperwork and safe observations are sufficient to begin.",
+            "Where an earlier provider has already investigated, share the actual findings rather than a shortened retelling that loses their limits. For example, a note saying one component was checked is not evidence that all plumbing was ruled out. Keeping the original wording available helps the next practitioner decide what, if anything, still needs investigation.",
+            "If the concern was already present before recent work, preserve that part of the chronology too. A maintenance invoice can show what was commissioned but may not record every observation discussed on the day. Ask for clarification rather than treating an absent note as proof that no concern existed. This can be particularly helpful when a property manager or another household member now handles the enquiry."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Agree what the visit needs to establish",
+          "paragraphs": [
+            "Ask whether the proposed visit is an assessment of the reported sound or a quote for a repair already identified by another practitioner. These are different scopes. Clarify which areas need access and whether the noise must be observed during a particular ordinary activity. Do not promise that an intermittent sound can be reproduced on command, and do not authorise an unexplained repair merely because it is offered as a common cure.",
+            "Request an explanation of the findings in plain language. If a practitioner recommends a component or adjustment, ask which observation or measurement supports it and what result the work is intended to achieve. This is not a request for hazardous instructions. It is a way to distinguish a site-specific recommendation from a product sold on the assumption that all pipe noises share the same cause.",
+            "Ask how an inconclusive visit will be handled. An intermittent concern may need further information; that does not prove the sound is harmless or serious. Establish what to record next, who receives it and whether another appointment would require separate approval. A defined next step is more useful than a sequence of unrecorded adjustments.",
+            "Tell the contractor whether an audio clip includes more than the reported sound, and share only the relevant portion through an agreed channel. A quiet recording does not disprove a noise that was clearer in person."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Clarify retailer and shared-building involvement where applicable",
+          "paragraphs": [
+            "South East Water explains that it may need information from a plumber if its assets are thought to contribute to water hammer. That is the utility's process for its customers, not proof that your sound originates in its network. Ask the relevant supplier or practitioner which process applies at your property. Do not submit a plumber's checklist with technical findings you have filled in yourself.",
+            "In an apartment or managed building, tell the contractor about the authorised access process. Do not turn off a shared supply to see whether the sound changes. Identify who can arrange entry to service areas and who would approve any interruption if one becomes necessary. The presence of a noise in several rooms does not establish ownership of an affected component.",
+            "Before plumbing work, check the practitioner's relevant Victorian registration or licence through the regulator's information. For a proposed retailer referral, agree who will send the factual report and who will follow it up. Keep a copy of the material actually submitted so a later enquiry does not rely on assumptions about what another party received."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Record the completed work and the remaining question",
+          "paragraphs": [
+            "If work proceeds, retain the agreed scope and explanation of what was changed. Ask how to report a continuing sound and whether any observation period or follow-up arrangement has actually been agreed. Do not convert a general comment about monitoring into a promise that every future noise will be covered by the same visit. A specific record supports a clearer follow-up enquiry.",
+            "Use normal observations to explain what happens afterwards. Keep new symptoms separate from the original concern and seek assistance if a leak or other hazard develops. Do not attempt further adjustments to obtain a preferred sound level. The purpose of the original record is to support assessment, not create a home testing routine that substitutes for it.",
+            "For a pipe-noise enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb, the ordinary event associated with the sound and any earlier assessment record. Use the Melbourne location and service links alongside this guide. An enquiry does not establish the cause, retailer responsibility, a fixed price or an appointment."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Is every pipe noise water hammer?",
+          "answer": "No diagnosis is established by a description alone. Report the sound and associated activity so the practitioner can decide what assessment is appropriate."
+        },
+        {
+          "question": "Should I adjust the pressure valve to test the noise?",
+          "answer": "No DIY adjustment is recommended here. Leave technical checks and changes to an appropriately qualified practitioner."
+        },
+        {
+          "question": "Can the water retailer investigate?",
+          "answer": "Ask your relevant retailer and practitioner about the applicable process. South East Water publishes a process for suspected involvement of its assets; it does not apply automatically to every property."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "intermittent sewer smell drainage assessment",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "A Sewer Smell That Comes and Goes: Prepare a Useful Drainage Report",
+      "slug": "intermittent-sewer-smell-drainage-assessment-report",
+      "metaTitle": "A Sewer Smell That Comes and Goes: Prepare a Useful Drainage Report",
+      "metaDescription": "Record where and when a sewer-like smell occurs, distinguish it from a confirmed blockage and prepare for a safe professional drainage assessment.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Record where and when a sewer-like smell occurs, distinguish it from a confirmed blockage and prepare for a safe professional drainage assessment.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "blocked-drains",
+        "sewer-repairs"
+      ],
+      "relatedArticles": [
+        "why-drains-keep-blocking",
+        "sewer-repair-vs-pipe-relining"
+      ],
+      "sources": [
+        {
+          "title": "Greater Western Water: fixing a blocked sewer",
+          "url": "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "South East Water: blockages",
+          "url": "https://southeastwater.com.au/faults-and-works/maintenance/blockages/",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Treat the smell as a reportable observation",
+          "paragraphs": [
+            "An intermittent unpleasant smell can be difficult to describe because it may disappear before a contractor arrives. Start with the observation, not a presumed cause. A smell described as sewer-like is not proof of a broken underground pipe, a specific fitting fault or a need for relining. This guide explains how to preserve useful context for a drainage enquiry without attempting to identify the source yourself. It does not provide instructions for opening inspection points, handling sewage or using chemicals to investigate.",
+            "Greater Western Water lists bad smells among possible sewer blockage signs, alongside other symptoms. The important word for a household is possible. Record whether you have also noticed slow drainage, gurgling or visible wastewater, and distinguish what is present from what you have not observed. Do not create additional tests by repeatedly flushing a fixture that is not draining normally.",
+            "If there is sewage spilling, keep away and contact the appropriate service. An odour concern also should not be used to dismiss a possible gas or electrical emergency. If you suspect a different immediate hazard, seek the relevant emergency advice rather than assuming every unpleasant smell belongs in a routine plumbing booking. The article is not a method for identifying a substance by smell."
+          ],
+          "sourceUrls": [
+            "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer"
+          ]
+        },
+        {
+          "heading": "Record location, timing and everyday context",
+          "paragraphs": [
+            "Write down where the smell is noticed in ordinary use: a bathroom doorway, near an outdoor drain or elsewhere. Avoid leaning over an opening to smell it more closely. Describe the area from a safe position and state whether it seems confined to one place. The strongest-smelling point in your observation is useful context, but it is not necessarily the confirmed source of the problem.",
+            "Add the time and any ordinary events that coincided with the observation, such as use of a fixture, a period away from the property or rain. Do not assume the event caused the smell. An assessor can decide whether the pattern is relevant. Mark information you do not know rather than filling gaps with a story that sounds plausible.",
+            "If the concern has occurred several times, keep a short dated log. For example, record the room, approximate duration and whether another symptom was noticed. A few consistent entries are easier to use than repeated messages saying it has happened again. Avoid recording personal household routines beyond what is genuinely needed to explain the plumbing concern.",
+            "Keep the original dates when transferring the notes between devices."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Separate visible symptoms from things you cannot inspect",
+          "paragraphs": [
+            "Include safe photographs of any visible concern, but do not remove a lid or move a fixture to find a more convincing image. Tell the contractor when a location is inaccessible. An honest description of the limit helps plan a visit; attempting access yourself can add risk without producing information that settles the cause.",
+            "Make a simple list of the fixtures relevant to the report. State which ones have shown a change and which have not been observed. Do not describe the whole drainage system as blocked because one fixture behaved differently. Likewise, do not rule out a wider issue merely because a nearby outlet appears normal. The purpose of the list is to preserve the pattern for assessment.",
+            "Ask which existing records might help: a previous drainage report, a completed repair description or a dated invoice for work in the affected area. Keep earlier recommendations distinct from work actually performed. An old proposal does not establish that a section was repaired, and a camera image from one route does not describe every branch serving the property.",
+            "For an apartment or shared property, record whether the observation is inside the private room or in a common area, without determining which party owns the affected service. Identify the building contact who can arrange any necessary access. Keep neighbours' reports separate and avoid sharing names, unit access codes or unrelated personal details in a public message thread."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Avoid masking the issue or experimenting with remedies",
+          "paragraphs": [
+            "Do not pour chemicals into drains or combine cleaning products to see whether the smell disappears. This guide does not recommend a chemical treatment, homemade mixture or mechanical clearing method. If you have already used a product during ordinary cleaning, tell the practitioner its name and when it was used so they have accurate context for their assessment.",
+            "South East Water's blockage prevention guidance advises keeping inappropriate materials out of sewers. Use the relevant utility guidance for normal disposal habits, but do not assume prevention advice diagnoses the current odour. A report about what has been put into a fixture should remain factual, without assigning blame to a household member or claiming a cause that has not been established.",
+            "Avoid repeatedly operating an affected fixture to ensure a smell is present for the appointment. Tell the booking contact that the concern is intermittent and provide the log. Ask what, if anything, they would like recorded during safe normal use. An intermittent pattern can still be investigated without a homeowner attempting to manufacture an event."
+          ],
+          "sourceUrls": [
+            "https://southeastwater.com.au/faults-and-works/maintenance/blockages/"
+          ]
+        },
+        {
+          "heading": "Ask for an investigation with a clear outcome",
+          "paragraphs": [
+            "Clarify what the proposed drainage assessment includes and what access it requires. Ask how the findings will be communicated and whether another type of investigation may need separate approval. The initial purpose may be to identify the source, not immediately quote for a major repair. Keep that distinction visible so a customer does not treat an initial symptom as proof that a particular method is necessary.",
+            "If repair is recommended, request a link between the finding and the proposed task. Ask which area is covered, what remains unconfirmed and how any further work would be approved. Do not compare a limited fixture repair and a wider drainage renewal as interchangeable options simply because both quotes mention the smell.",
+            "In Victoria, check the relevant plumbing practitioner's registration or licence using the regulator's information. Ask who undertakes any proposed specialist work and what documentation applies. A technical-sounding explanation or a dramatic image does not establish credentials. This guide does not endorse a provider or confirm the condition of pipework at your property."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Make follow-up more useful than starting over",
+          "paragraphs": [
+            "After the visit, keep the assessment summary and accepted scope with your original observations. Record what was checked and which questions remain. If work proceeds, distinguish its completed outcome from any further recommendation. This gives a future enquiry a better starting point than a recollection that somebody looked at the drains.",
+            "If the smell returns, report its current location and timing without deciding that the same cause must have returned. Include whether the pattern has changed and which agreed work was completed. Do not enter an unsafe area or open the drainage system to prove the recurrence. Refer to the arranged follow-up process and seek prompt advice where sewage or another hazard is present.",
+            "Contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store for a drainage enquiry. Include your suburb, the intermittent pattern and any earlier report. The linked Melbourne homepage and drainage guides provide the contact route. An enquiry does not confirm a blockage, ownership responsibility, a repair method, appointment availability or price.",
+            "If another assessor attends, give them the same original symptom description and the actual findings from the earlier visit. Ask which question the new assessment is intended to answer. This avoids replacing one unconfirmed explanation with another while paying for repeated visits that are not directed at a clear outstanding issue. Label the latest report so future household members can distinguish it from an earlier estimate."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does a sewer-like smell prove the sewer is blocked?",
+          "answer": "No. Utilities list smells as a possible sign, not a complete diagnosis. Report associated observations and seek an appropriate assessment."
+        },
+        {
+          "question": "Should I open an inspection point to find the source?",
+          "answer": "Do not open drainage access points or approach sewage to investigate. Describe what is safely visible and let the practitioner plan access."
+        },
+        {
+          "question": "What if the smell is gone when the plumber arrives?",
+          "answer": "Explain that it is intermittent and provide a short dated observation record. Do not recreate an unsafe event to make the concern visible."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "stormwater vs sewer drainage problem",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "Stormwater or Sewer? Describe a Wet-Weather Drainage Problem Clearly",
+      "slug": "stormwater-or-sewer-wet-weather-drainage-report",
+      "metaTitle": "Stormwater or Sewer? Describe a Wet-Weather Drainage Problem Clearly",
+      "metaDescription": "Understand the broad difference between stormwater and sewage, record wet-weather observations safely and find the right starting point for an assessment.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Understand the broad difference between stormwater and sewage, record wet-weather observations safely and find the right starting point for an assessment.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "blocked-drains",
+        "sewer-repairs"
+      ],
+      "relatedArticles": [
+        "why-drains-keep-blocking"
+      ],
+      "sources": [
+        {
+          "title": "Melbourne Water: drainage system",
+          "url": "https://www.melbournewater.com.au/water-and-environment/flooding-and-drainage/drainage-system",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Greater Western Water: fixing a blocked sewer",
+          "url": "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "VICSES: when to call for emergency assistance",
+          "url": "https://www.ses.vic.gov.au/when-to-call",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Start by naming the observation, not the system",
+          "paragraphs": [
+            "Water appearing outside during rain can be difficult to describe. A household may call every opening a drain and every overflow a sewer problem, even when the affected system is not established. Start with the visible observation: water collecting beside a doorway, an outdoor opening overflowing, or a fixture behaving unusually indoors. This guide helps you report the event without entering drainage infrastructure or deciding who owns an unassessed pipe. It does not provide instructions for altering connections or diverting water.",
+            "If the property is flooding or about to flood, use the appropriate emergency assistance. VICSES publishes guidance for Victorian flood and storm emergencies; life-threatening situations require emergency services. Do not wait to finish an email while a hazard is developing. Keep away from unsafe water, unstable structures and electrical risks. A routine plumbing enquiry is not a substitute for the relevant emergency response.",
+            "Once it is safe to organise a report, separate things you actually saw from what someone suggested might be happening. You can describe the date, rainfall context and location without claiming that a nearby public drain caused the problem. That distinction helps the receiving organisation direct the next assessment."
+          ],
+          "sourceUrls": [
+            "https://www.ses.vic.gov.au/when-to-call"
+          ]
+        },
+        {
+          "heading": "Understand the broad system difference without tracing pipes",
+          "paragraphs": [
+            "Melbourne Water describes the stormwater network as carrying rainfall runoff through property, local and regional drainage towards waterways. Greater Western Water describes sewer faults in the context of wastewater from property plumbing and its network. Those broad descriptions explain why wet-weather water outside and a malfunctioning toilet are not automatically the same enquiry. They do not establish the connections or condition at an individual property.",
+            "Use existing labels, plans or earlier reports as information for the practitioner, not permission to trace pipes yourself. Tell them which records describe current work and which may be old. A plan for proposed drainage is not proof that the installation matches it. If the property has been changed, provide the known history and identify anything you cannot confirm.",
+            "Never enter a stormwater drain. Melbourne Water warns that conditions inside drains can become dangerous rapidly. Do not lift heavy covers, climb into an opening or stand in floodwater to identify where a pipe leads. An accurate statement that the system is unknown is safer and more useful than a guessed identification obtained through unsafe access."
+          ],
+          "sourceUrls": [
+            "https://www.melbournewater.com.au/water-and-environment/flooding-and-drainage/drainage-system"
+          ]
+        },
+        {
+          "heading": "Build a simple wet-weather event record",
+          "paragraphs": [
+            "Record the date, approximate time and where water was first visible from a safe position. Describe whether it appeared during rain, after rain or at a time you cannot connect with rainfall. Note any relevant ordinary fixture use without recreating it. If a photograph can be taken safely from an already accessible place, include a wide view with recognisable landmarks. Do not approach an overflow to obtain a dramatic close-up.",
+            "Keep observations from different events separate. A puddle during one storm and an indoor drainage symptom on another day may or may not be related. Describe each rather than merging them into a single asserted fault. Where other people contribute information, ask what they personally observed and preserve that distinction in the summary.",
+            "After water recedes, note any visible sign left behind without opening walls, digging or moving fixed fittings. Ask the assessor which additional records are useful. Avoid drawing a route on a property photo as though it is a verified underground plan. A homeowner sketch can show where a concern was noticed while clearly marking pipe locations as unconfirmed."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Contact the organisation relevant to the reported location",
+          "paragraphs": [
+            "Melbourne Water explains that drainage responsibilities involve property owners, councils and regional infrastructure. That is a reason to identify the relevant contact, not to assume one organisation manages every drain in the street. Start with the actual location and observed issue, then ask the recipient whether it falls within its process. A council or utility reference should be recorded with the date and the advice given.",
+            "For a possible sewer concern, use the water retailer serving the property and tell it whether sewage is visible or fixtures are affected. Greater Western Water's guidance distinguishes its network from property pipes and advises keeping away from sewage spills. Do not apply that retailer's property-specific procedure to every suburb or fill in technical findings you cannot establish. Ask the relevant provider how it wants the concern reported.",
+            "If a private assessment is required, provide the same observation record used for the initial enquiry. Include any existing service reference and explain what has already been considered. A referral between organisations does not itself prove ownership or fault. Keep the unresolved question explicit so the next contact is not asked to act on a mistaken conclusion."
+          ],
+          "sourceUrls": [
+            "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer"
+          ]
+        },
+        {
+          "heading": "Ask for a scoped investigation before proposed alterations",
+          "paragraphs": [
+            "Clarify whether the proposed visit is an assessment of the observed event, investigation of an identified system or a quote for work already recommended. Ask what access is required and what findings the practitioner expects to provide. Do not commission a connection change or additional outlet merely because it sounds like a way to move water away. The installation and applicable requirements need professional assessment.",
+            "If further work is proposed, ask what evidence supports it, which area is included and what remains outside the scope. Discuss surfaces, access and finishing responsibilities where relevant. A recommendation about a property drain should not silently become a claim that wider public drainage issues will be resolved. Keep the proposed outcome tied to what the contractor can actually assess and undertake.",
+            "Record any further authority contact or permission that the practitioner says is necessary. Ask who obtains it and what work must wait for the answer. This guide does not establish an exemption, a drainage approval or the suitability of a proposed design. It is intended to make those questions visible before a customer treats a suggestion as an agreed solution."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "An example of a clear report",
+          "sourceUrls": [],
+          "paragraphs": [
+            "Consider this hypothetical reporting format, not a Grade A Plumbing job: water was observed beside the side gate during rain on a stated date; the observer did not enter the water; no indoor fixture symptoms were noted during normal use; the type of underground drain is unknown. This gives the receiving contact a location, context and limits without asserting a diagnosis.",
+            "A less useful report would state that the council sewer is definitely blocked, demand a particular repair and omit that the concern was observed only outdoors. That wording invents both the system and responsibility. Keep the first version factual, add any relevant reference supplied by an authority, and let the appropriate assessor explain the next step. If the situation becomes unsafe, the emergency pathway takes precedence over improving the wording of the report."
+          ]
+        },
+        {
+          "heading": "Retain the event history for follow-up",
+          "paragraphs": [
+            "Keep the observation log, organisation references and assessment findings together. If work is completed, record the final scope separately from any longer-term recommendation. A later wet-weather event can then be described against the same factual record. Do not deliberately create a flood or run water into drainage infrastructure to demonstrate performance.",
+            "Use the relevant emergency pathway again if a later event is unsafe. For routine follow-up, explain what you observed, how it differs from the earlier event and which work was actually completed. Avoid claiming that a particular repair failed solely because water was seen somewhere else after a different storm. Equally, do not ignore a recurring concern because one earlier event was assessed.",
+            "For a private drainage enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store with your suburb, safe location description and any existing authority reference. The Melbourne location and drainage service links provide the contact path. An enquiry does not determine system ownership, approval requirements, a repair design or availability."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does water outside during rain mean the sewer is blocked?",
+          "answer": "Not necessarily. Describe the event and any fixture symptoms without assuming which system is involved."
+        },
+        {
+          "question": "Can I enter a drain to trace where it goes?",
+          "answer": "No. Keep out of stormwater drains and away from unsafe water. Ask the appropriate organisation or practitioner how assessment should be arranged."
+        },
+        {
+          "question": "Who manages the drain?",
+          "answer": "Responsibility depends on the specific asset and location. Ask the relevant property contact, council or water organisation rather than assuming one body manages all drainage."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "fridge water connection plumbing checklist",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "A Fridge Water Connection: Plan the Plumbing Before Delivery",
+      "slug": "fridge-water-connection-plumbing-before-delivery",
+      "metaTitle": "A Fridge Water Connection: Plan the Plumbing Before Delivery | Grade A Plumbing",
+      "metaDescription": "Prepare model information, access and supply questions before a plumbed fridge arrives, and separate appliance support from installation responsibilities.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Prepare model information, access and supply questions before a plumbed fridge arrives, and separate appliance support from installation responsibilities.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "burst-pipe-repair"
+      ],
+      "relatedArticles": [
+        "bathroom-renovation-plumbing-finalise-fixture-schedule"
+      ],
+      "sources": [
+        {
+          "title": "Samsung Australia: ice maker and water dispenser troubleshooting",
+          "url": "https://www.samsung.com/au/support/home-appliances/troubleshooting-ice-water-dispenser/",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Australian Building Codes Board: WaterMark Product Search",
+          "url": "https://www.abcb.gov.au/watermark-search",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Confirm what the selected refrigerator actually requires",
+          "paragraphs": [
+            "A refrigerator with a water or ice feature is not a complete plumbing plan. Before delivery, identify the exact model and read the relevant manufacturer's installation information. Some products have different arrangements, accessories or user instructions within the same broad range. This guide helps coordinate the property assessment and delivery. It does not tell you to connect a water line, modify a valve or select a fitting from a generic internet diagram.",
+            "Keep the product choice provisional if the plumbing requirements are unresolved. A convenient space in the kitchen does not establish that the selected model can be installed there as intended. Ask the supplier which documents identify the arrangement and give those to the practitioner assessing the connection. Avoid relying on a showroom photograph or a sales phrase such as ready for water.",
+            "State whether the project is a first connection, replacement of an existing plumbed fridge or relocation to another position. Those are different scopes. If you do not know the existing arrangement, say so. A visible tube behind another appliance is not evidence that it is suitable for the proposed model or that it can be reused without assessment."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Use manufacturer information without generalising settings",
+          "paragraphs": [
+            "Samsung Australia's support guidance explains that dispenser and ice-maker concerns can involve model-specific settings, supply or filter information, and directs owners to their own manual. That demonstrates why the exact appliance belongs in the preparation conversation. It does not make Samsung instructions universal or establish a fault in a refrigerator from another brand.",
+            "Provide the practitioner with the selected model details and the installation documents you actually have. Ask which requirements they need to assess at the property. Do not copy a pressure figure, connection diagram or start-up instruction from a different appliance and treat it as the specification. Where the manufacturer offers several regional versions, ensure the information relates to the product being supplied.",
+            "If product information changes before delivery, update the installer rather than assuming the original assessment still applies. A substitute model can raise different questions. Keep the latest order confirmation with the specification so that the person providing access on the day can identify what has been agreed without relying on a conversation with the retailer."
+          ],
+          "sourceUrls": [
+            "https://www.samsung.com/au/support/home-appliances/troubleshooting-ice-water-dispenser/"
+          ]
+        },
+        {
+          "heading": "Describe the location and access without moving connected equipment",
+          "paragraphs": [
+            "Take a safe overview photograph of the intended area and describe how the appliance will be delivered. Mention narrow doorways, stairs, a lift booking or a restricted loading area where relevant. Ask the supplier and contractor to confirm the access information they depend on. Homeowner measurements can start a discussion but should not silently become a guarantee that a large appliance can be moved through every opening.",
+            "If an existing connected fridge occupies the space, do not pull it out or disconnect it to obtain a better photograph. Explain what is accessible and let the relevant provider describe the access process. Keep electrical and water work within the appropriate professional scope. The photograph should show the setting without requiring a household to disturb equipment.",
+            "Tell the assessor about cabinetry work or other appliances planned for the same area. A connection agreed in isolation may need reconsideration if the kitchen layout changes. Keep the plumbing enquiry focused on the intended permanent arrangement rather than asking for a temporary extension to bridge an unresolved design. Any temporary proposal still needs its own assessment and clear scope."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Agree the supply and installation responsibilities",
+          "paragraphs": [
+            "Ask whether the proposed service includes assessment, a new connection, work on an existing arrangement or only an identified task. Clarify who supplies associated components and who confirms their suitability for the appliance and property. Do not assume the item delivered in a retail box includes every part needed for the finished installation. Equally, do not order extra fittings from a generic checklist before the practitioner has reviewed the proposal.",
+            "The ABCB WaterMark search provides certification information for relevant plumbing and drainage products. Ask the practitioner which components need checking and how the exact products will be identified. A matching-looking fitting or an online compatibility statement is not the whole suitability assessment. This guide does not certify a kit or endorse an accessory supplier.",
+            "Separate appliance delivery from plumbing completion. Ask the retailer what its delivery team will and will not do, and ask the plumbing provider the same about its attendance. If one appointment depends on another task being ready, nominate who confirms readiness and who communicates a changed date. A delivery booking should not silently become an installation guarantee."
+          ],
+          "sourceUrls": [
+            "https://www.abcb.gov.au/watermark-search"
+          ]
+        },
+        {
+          "heading": "Plan first use and support as part of the handover",
+          "paragraphs": [
+            "Before the work, ask who will explain the manufacturer's ordinary first-use instructions and which documents will be retained. Do not assume a water dispenser is ready for use solely because the refrigerator has arrived or a line is visible. Follow the actual model's handover guidance rather than a general waiting period or flushing routine found in an unrelated article.",
+            "Clarify the contact route for a later appliance concern and for a concern about the completed plumbing work. An installer may need different information from manufacturer support. Keep the model, invoice and accepted scope together so either enquiry starts from the correct arrangement. If a support case is opened, record its reference and any findings without presenting a telephone suggestion as a confirmed cause.",
+            "In Victoria, verify the relevant practitioner's registration or licence using the regulator's information before plumbing work. If a service claims manufacturer-authorised status, confirm that separately with the manufacturer. This article makes no such business claim. Ask about the actual work and provider instead of treating an attractive package description as proof of every qualification."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "A practical readiness note for the appointment",
+          "sourceUrls": [],
+          "paragraphs": [
+            "Create a one-page readiness note containing the exact refrigerator model, current specification, proposed location, agreed access arrangements and the tasks each provider has accepted. Add the person who can approve a change and the contact who will be present. Mark any dependency still outstanding, such as confirmation from a cabinetmaker or a revised delivery date. This is your own coordination aid, not an installation standard.",
+            "Read that note back against the order before the appointment. If it describes a different product or a room layout that has changed, correct the information with the relevant providers instead of treating the earlier plan as final. The exercise is particularly useful when a household member who did not select the appliance will provide access. It gives them enough information to identify a discrepancy without asking them to make a technical decision on the spot."
+          ]
+        },
+        {
+          "heading": "Keep later changes controlled and documented",
+          "paragraphs": [
+            "If the fridge is moved or replaced later, revisit the connection questions rather than assuming the original arrangement suits every future model. Retain the installed product information and completion record so a new practitioner can understand what was done. Do not hide a change of model or location merely because an earlier assessment has already been paid for.",
+            "If water appears near the appliance, keep clear of electrical hazards and seek appropriate assistance. Do not continue operating it to trace the source or move it while connected. Report the visible concern and the current appliance details. A manufacturer support article is not permission to undertake plumbing work or bypass an installed protective arrangement.",
+            "For a fridge connection enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb, selected model, proposed location and delivery timing if known. The Melbourne location page provides the contact route. An enquiry does not confirm product compatibility, appliance-servicing coverage, a final price or an appointment."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Will the delivery team connect a plumbed fridge?",
+          "answer": "Confirm the retailer's exact delivery scope and separately confirm the plumbing responsibilities. Do not assume delivery includes a property-specific connection."
+        },
+        {
+          "question": "Can an existing line be reused for any new model?",
+          "answer": "Ask the practitioner to assess the proposed appliance and existing arrangement. Appearance alone does not confirm suitability."
+        },
+        {
+          "question": "Can I use another model's start-up instructions?",
+          "answer": "Use the actual manufacturer's instructions for the exact supplied model. A general support guide may not describe your product."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "hot water running cost comparison",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "Hot Water Running Costs: Compare Assumptions Before Comparing Savings",
+      "slug": "hot-water-running-cost-comparison-assumptions",
+      "metaTitle": "Hot Water Running Costs: Compare Assumptions Before Comparing Savings",
+      "metaDescription": "Compare hot water running-cost estimates using clear household, tariff and installation assumptions rather than treating advertised savings as a promise.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Compare hot water running-cost estimates using clear household, tariff and installation assumptions rather than treating advertised savings as a promise.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "hot-water"
+      ],
+      "relatedArticles": [
+        "how-long-does-a-hot-water-system-last",
+        "after-hot-water-installation-handover-recordkeeping-checklist"
+      ],
+      "sources": [
+        {
+          "title": "Australian Government: hot water systems",
+          "url": "https://www.energy.gov.au/households/hot-water-systems",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "YourHome: hot water systems",
+          "url": "https://www.yourhome.gov.au/energy/hot-water-systems",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Separate the installation price from the ongoing estimate",
+          "paragraphs": [
+            "A hot water proposal may combine a purchase price, a claimed annual saving and a description of future bills. Those are different kinds of information. Before deciding, separate the actual installed scope from the assumptions used to estimate ongoing costs. This guide offers a comparison method for household discussions. It is not a personalised energy forecast, a tariff recommendation or confirmation that a proposed system will achieve a particular financial result.",
+            "Identify which decision you are making: choosing between suitable replacements, planning an eventual upgrade or investigating an unexpected bill. A comparison prepared for one purpose may not answer another. For example, a general model illustration cannot establish how much of a particular electricity bill came from water heating. Keep the question clear before requesting a new set of figures.",
+            "Ask the provider to distinguish known amounts, conditional amounts and estimates. A written installed price may still have exclusions, while a running-cost figure may use assumptions that do not match your home. Label both rather than combining them into a single attractive number. The result should help you understand a choice, not hide uncertainty behind a precise-looking annual total."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Identify the systems being compared",
+          "paragraphs": [
+            "The Australian Government describes different water-heating arrangements, including storage and instantaneous systems and several energy sources. Use the actual system types and model references in a comparison rather than labels such as old heater and efficient replacement. If the existing model is unknown, state that limitation. A comparison against an assumed baseline should not be presented as a measurement of your current installation.",
+            "Record whether the proposed option includes a change in energy source or other associated work. Ask which part of the installation description belongs in the cost comparison and which tasks are separate. Do not assume a hot water project removes every ongoing charge associated with another energy service if that service will still supply other appliances.",
+            "Keep the proposed models distinct. An estimate for one capacity or configuration should not automatically carry over to a different selected product. If stock, location or household needs lead to a substitution, ask whether the assumptions need revision. A model change can be a normal part of planning, but the comparison should remain connected to the current proposal."
+          ],
+          "sourceUrls": [
+            "https://www.energy.gov.au/households/hot-water-systems"
+          ]
+        },
+        {
+          "heading": "Write down the household-use assumptions",
+          "paragraphs": [
+            "Ask which household pattern underlies the estimate: number of occupants, ordinary shower use and other relevant demand. Give the provider a realistic description rather than altering your account to resemble an advertised example. If occupancy varies, describe the range. A useful comparison can acknowledge variation without pretending that every future day will look like the average.",
+            "YourHome explains that the appropriate hot water choice depends on factors including household needs and climate. Apply that broad principle by asking what circumstances the estimate represents. Do not convert a general efficiency statement into a guaranteed saving for a particular property. Keep the climate or use assumptions visible if a proposal relies on them.",
+            "Distinguish what the household can observe from what requires analysis. You can describe your routine and available bills, but you may not know how much energy the water heater used separately. Do not attribute the whole bill to it. If a professional comparison needs more information, ask what records would make it more meaningful and whether the expected benefit justifies obtaining them."
+          ],
+          "sourceUrls": [
+            "https://www.yourhome.gov.au/energy/hot-water-systems"
+          ]
+        },
+        {
+          "heading": "Check price and scheduling assumptions without changing equipment",
+          "paragraphs": [
+            "Ask which energy price or tariff information the estimate uses and when it was checked. A generic rate is not necessarily the household's current arrangement. Retain the source information so a later price change can be distinguished from a change in equipment performance. This article does not tell you to switch plans or accept a particular retail offer.",
+            "If solar generation or a proposed operating schedule appears in the illustration, ask how it has been represented and what remains uncertain. Do not assume every unit of electricity will be supplied at the same cost or that a timer can be changed safely without model-specific advice. The estimate should explain the scenario, not become an instruction to alter system controls.",
+            "Keep any ordinary user guidance separate from installation settings or electrical work. Ask the appropriate provider how the actual model is intended to operate and who assesses compatibility with any proposed arrangement. A projected saving should not depend on a household making unapproved adjustments or using the system in a way the manufacturer has not described."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Compare the same scenario across suitable options",
+          "paragraphs": [
+            "Create a small comparison sheet with the actual models, installation inclusions, household assumptions and source of the energy-cost figures. Put unknown items in their own column. If one proposal uses a different baseline or routine, request a comparable illustration rather than concluding that its equipment is necessarily better. Comparability matters more than the visual precision of a chart.",
+            "Keep incentives separate. A discount can affect the initial price without proving a lower operating cost, and eligibility needs its own current checks. Avoid describing a conditional rebate as money already received. If an illustration includes maintenance, replacement parts or another ongoing item, ask what it covers and whether the same treatment is used for all options.",
+            "Do not assume the option with the lowest modelled running cost is suitable for the site. The property assessment still needs to establish the proposed arrangement. Treat cost comparison and installation suitability as connected but separate decisions, and keep any unresolved feasibility question visible before accepting a final scope.",
+            "Keep superseded estimates clearly labelled as such."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Use a simple sensitivity question",
+          "paragraphs": [
+            "Ask what happens to the comparison if a major assumption changes. This is not a request to predict the market. It is a way to see which inputs matter most: a different household routine, another energy price or a different assumed baseline. The provider may offer a range or explain why a useful calculation is not possible from the available information.",
+            "For a hypothetical example, two proposals may show different savings because one assumes the household replaces an old electric storage unit while the other compares against a gas system. The difference in baseline should be identified before comparing the claimed savings. This is not a case study or a statement about which choice is better for your property.",
+            "If you cannot reconcile the assumptions, retain the figures as non-comparable estimates rather than forcing a ranking. You can still compare the actual installation scopes and ask further questions. A decision that openly acknowledges uncertainty is more useful than a calculation that produces a definite answer from information nobody has confirmed."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Keep the decision and the later bills in perspective",
+          "paragraphs": [
+            "After selecting a system, retain the comparison and actual installed model details. If you later review bills, account for changed occupancy, usage, prices and other household energy use rather than attributing every difference to the hot water installation. An estimate made before purchase is not a measured result after installation.",
+            "Use model-specific support and appropriate professional advice for concerns about performance. Do not alter safety controls to make a bill resemble an advertisement. Report the actual issue, whether it concerns supply, operation or an unexpected account, and distinguish the question from the original purchase comparison.",
+            "For a hot water enquiry, call Grade A Plumbing on (02) 5837 5457 or email support@gradeaplumbing.store with your suburb and current system details. Use the Melbourne location and hot water service links for the contact route. An enquiry does not confirm personalised savings, tariff suitability, rebate eligibility, an appointment or an installed price."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Are advertised annual savings guaranteed?",
+          "answer": "Treat them as estimates unless the actual proposal establishes otherwise. Ask for the baseline, household use, energy-price assumptions and limitations."
+        },
+        {
+          "question": "Can I compare savings figures from different providers directly?",
+          "answer": "Only after checking whether they describe comparable systems and assumptions. Different baselines can produce figures that do not answer the same question."
+        },
+        {
+          "question": "Does the lowest estimated running cost establish suitability?",
+          "answer": "No. The property and proposed installation still require assessment independently of the cost illustration."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "hidden water leak investigation scope",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "A Suspected Hidden Water Leak: Define the Investigation Before Opening Surfaces",
+      "slug": "suspected-hidden-water-leak-investigation-before-opening-surfaces",
+      "metaTitle": "A Suspected Hidden Water Leak: Define the Investigation Before Opening Surfaces",
+      "metaDescription": "Prepare a safe observation record and clarify investigation, access, repair and reinstatement responsibilities when a water leak is suspected but unconfirmed.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Prepare a safe observation record and clarify investigation, access, repair and reinstatement responsibilities when a water leak is suspected but unconfirmed.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "burst-pipe-repair",
+        "emergency-plumber"
+      ],
+      "relatedArticles": [
+        "higher-water-bill-billing-questions-possible-plumbing-leaks"
+      ],
+      "sources": [
+        {
+          "title": "Victorian Government: power safety and emergency contacts",
+          "url": "https://www.energy.vic.gov.au/about-energy/safety/power-safety-and-emergency-contacts",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "VICSES: when to call for emergency assistance",
+          "url": "https://www.ses.vic.gov.au/when-to-call",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "YourHome: reducing water use",
+          "url": "https://www.yourhome.gov.au/water/reducing-water-use",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Put immediate safety ahead of finding the source",
+          "paragraphs": [
+            "A damp patch, a new stain or unexplained water can raise concern about a hidden leak without establishing its source. Before deciding what needs opening, consider whether the situation is safe to approach. Water near electrical equipment, an unstable ceiling or an active flood requires the appropriate urgent advice, not a homeowner investigation. Keep people away from unsafe areas and explain the visible situation when requesting help.",
+            "The Victorian Government publishes power-safety guidance for situations involving water and electricity. Do not enter water to reach a switch, touch wet electrical equipment or remove covers to look behind a surface. If a flood or storm emergency is involved, use the relevant VICSES guidance; life-threatening danger requires emergency services. These pathways take priority over completing a photo record or waiting for a routine plumbing callback.",
+            "This guide concerns planning a professional investigation when it is appropriate to do so. It does not tell you to puncture a ceiling, lift flooring, enter a roof space or cut a wall. The suspected leak remains a question until an assessment establishes more. A visible mark alone does not identify the affected service or the extent of any concealed damage."
+          ],
+          "sourceUrls": [
+            "https://www.energy.vic.gov.au/about-energy/safety/power-safety-and-emergency-contacts"
+          ]
+        },
+        {
+          "heading": "Preserve a useful description from safe observations",
+          "paragraphs": [
+            "Record where the concern is visible using room names and fixed landmarks. Add when it was first noticed and any change you have observed from a safe place. If a photograph can be taken without approaching a hazard, include an overview as well as a closer view. Do not move furniture against a wet area or disturb finishes simply to make the evidence clearer.",
+            "Keep timing information factual. A stain noticed after rain, after bathroom use or after a period away may provide context, but the sequence is not proof of a cause. State whether the surface is currently wet or whether that is uncertain. Avoid asserting that a specific concealed pipe has failed because it appears to run nearby on an old plan.",
+            "Gather any existing relevant records, such as earlier repair descriptions or a recent water-use concern. YourHome advises attention to leaks and unusual usage information, but a bill does not locate a hidden fault. Keep that account question linked to the investigation without presenting it as evidence of a particular pipe failure."
+          ],
+          "sourceUrls": [
+            "https://www.yourhome.gov.au/water/reducing-water-use"
+          ]
+        },
+        {
+          "heading": "Separate investigation from opening up and repair",
+          "paragraphs": [
+            "Ask the practitioner what the initial assessment is intended to establish and what access it requires. An investigation, removal of a surface, repair of an identified component and restoration of finishes are different tasks. They may not all be possible or appropriate during the same visit. Request an explanation of those boundaries before treating an assessment booking as approval for extensive work.",
+            "If a method is proposed for investigating the concern, ask what information it can provide and what it cannot rule out. Do not assume a named instrument or a non-invasive description guarantees an exact diagnosis without further access. The relevant professional should explain its suitability for the situation rather than promise that every hidden problem can be located in the same way.",
+            "Agree what happens if the first assessment is inconclusive. Ask for the next question, the reason for another step and the approval process. That keeps staged investigation purposeful. An unresolved result does not prove there is no problem, nor does it establish that a major opening-up exercise is automatically necessary.",
+            "Ask how any further investigation is approved before a provider returns to the property."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Control access and decisions about affected surfaces",
+          "paragraphs": [
+            "If opening a surface is recommended, ask which area, why that access is needed and who performs the task. Tell the provider about known property conditions or prior reports that could affect safe work. Do not scrape, drill or remove unknown materials yourself to prepare for attendance. Ask the relevant qualified provider what assessment or precautions are required.",
+            "Identify who can approve that work, especially in a rental, apartment or shared property. Entry permission is not automatically permission to alter a surface, and the person present may not control expenditure. Keep the authorised contact available and agree how a changed proposal will be communicated. This guide does not determine ownership or legal responsibility for the affected structure.",
+            "Ask how property protection and access arrangements will be handled. If a room must be kept unavailable, seek clear advice about the actual situation rather than guessing when it can be used. A practical plan should address the household's needs without promising that all surfaces will remain undisturbed or every task will finish during one appointment."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Keep repair, reinstatement and insurance questions distinct",
+          "paragraphs": [
+            "Once a fault is identified, request a clear description of the proposed repair and any limits. A plumbing repair may not include drying, painting, cabinetry or other building work. Ask what each provider has accepted and what remains to be arranged. Avoid comparing a full restoration proposal with a plumbing-only scope as though they buy the same outcome.",
+            "If an insurer or property manager is involved, ask that organisation about its reporting and approval process. This article does not confirm cover, reimbursement or authority to proceed. Keep the professional findings available, but distinguish a repair recommendation from an insurance decision. Do not delay urgent safety action solely to obtain a more complete ordinary claim record.",
+            "For plumbing work in Victoria, check the relevant practitioner's registration or licence through the regulator. Ask who provides applicable completion documents for the agreed work. The need for another trade should be explained rather than silently assumed to be part of the same service. A suspected source is not a completed scope until the necessary assessment and agreement occur."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "A staged-decision example",
+          "paragraphs": [
+            "Consider a hypothetical planning sequence, not an actual Grade A Plumbing job: a homeowner notices a mark, provides a safe overview photograph, and asks for an assessment. The practitioner then explains what was checked, which questions remain and why additional access might be needed. The owner considers that defined proposal and separately confirms who restores any affected finish. Nothing in this sequence requires the homeowner to cut a hole first.",
+            "The useful distinction is between an observation, a finding and an authorised next task. If the first assessment cannot establish the source, the record should say so rather than convert the suspected location into a proven one. Each further step can then be explained against a clear outstanding question. This approach supports communication; it does not prescribe a technical sequence or guarantee that every investigation follows the same path."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Keep the follow-up record tied to what was established",
+          "paragraphs": [
+            "Retain the original observations, assessment findings and actual completed scope. If a surface changes later, describe the new observation and contact the appropriate provider. Do not assume appearance alone establishes whether moisture is active, residual or unrelated. That question may need further assessment, and this guide does not provide a drying or clearance standard.",
+            "Where a hazard develops or returns, seek the relevant urgent assistance rather than continuing a routine monitoring exercise. Do not enter unsafe spaces to compare photographs. For ordinary follow-up, refer to the agreed task and the remaining question so the next provider can understand what is known without reviewing an unstructured collection of guesses.",
+            "For a plumbing investigation enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb and the safely observed concern. Use the Melbourne location and service links for the enquiry route. A message does not confirm the source, safe occupancy, insurance cover, restoration scope, response time or price."
+          ],
+          "sourceUrls": [
+            "https://www.ses.vic.gov.au/when-to-call"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Should I open a wall to help find the leak?",
+          "answer": "No opening-up instructions are provided here. Ask the appropriate practitioner to explain the assessment and any proposed access before surfaces are disturbed."
+        },
+        {
+          "question": "Does a damp mark prove a pipe behind it is leaking?",
+          "answer": "No. Record the observation and seek assessment without deciding the source or extent of concealed damage."
+        },
+        {
+          "question": "Does a plumbing quote include repainting and drying?",
+          "answer": "Only if those tasks are expressly included. Clarify repair, drying and reinstatement responsibilities separately."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "food premises trade waste plumbing handover",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "Taking Over a Food Premises: Prepare the Trade Waste Plumbing Questions",
+      "slug": "food-premises-takeover-trade-waste-plumbing-questions",
+      "metaTitle": "Taking Over a Food Premises: Prepare the Trade Waste Plumbing Questions",
+      "metaDescription": "Prepare a food-premises plumbing handover with accurate activities, existing records, retailer questions and separate assessment and approval responsibilities.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Prepare a food-premises plumbing handover with accurate activities, existing records, retailer questions and separate assessment and approval responsibilities.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "commercial-plumbing",
+        "blocked-drains"
+      ],
+      "relatedArticles": [
+        "why-drains-keep-blocking",
+        "bathroom-renovation-plumbing-finalise-fixture-schedule"
+      ],
+      "sources": [
+        {
+          "title": "South East Water: trade waste",
+          "url": "https://southeastwater.com.au/water-waste-and-environment/trade-waste/",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Do not treat an existing fit-out as an approved plan for your business",
+          "paragraphs": [
+            "Taking over a food premises can make the plumbing appear settled: sinks are installed, equipment is in place and the previous operator traded from the site. Those observations do not establish that the current arrangement suits your proposed activities or that every relevant approval applies to the new operation. Start by describing what your business will actually do and which questions remain. This guide is a preparation checklist, not legal advice, a lease review or a trade waste approval.",
+            "Separate three decisions: whether the premises meets your business needs, what plumbing assessment or work may be required, and what the relevant authorities or utility need to confirm. A property handover can provide documents without answering all three. Keep assumptions visible while you investigate rather than describing the business as ready to trade solely because the equipment is present.",
+            "South East Water provides trade waste information and an application route for businesses in its area. Use the retailer relevant to the actual address, not the one associated with a supplier or another premises. Ask that retailer which process applies to your proposed activities and operator change. This article does not determine consent eligibility or say that a previous operator's arrangement automatically transfers."
+          ],
+          "sourceUrls": [
+            "https://southeastwater.com.au/water-waste-and-environment/trade-waste/"
+          ]
+        },
+        {
+          "heading": "Describe the proposed activities before selecting equipment",
+          "paragraphs": [
+            "Prepare a plain-language description of the business, including the food preparation and cleaning activities relevant to wastewater. Identify which parts are planned, which already occur and which have not been decided. A small takeaway operation and a different food-production use should not be treated as identical because both occupy a kitchen. Give the assessor and retailer the actual proposed operation instead of a generic label copied from a lease advertisement.",
+            "List equipment you intend to keep, replace or add. Include exact model information where available and mark unknown items. Ask which technical specifications the practitioner or retailer needs. Do not alter connections, run unusual discharges or start a new activity simply to collect information. A proposed operational change should remain a question for assessment until the necessary decisions have been made.",
+            "Keep business aspirations separate from confirmed scope. If you may expand production later, explain that as a future possibility rather than stating that the existing fit-out already supports it. This helps the parties identify which decisions concern opening and which require a later review. It also reduces the risk of an assessment being based on a menu or process you no longer intend to use."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Gather the handover documents without assuming they are current",
+          "paragraphs": [
+            "Request the available plumbing records, equipment information and utility correspondence through the authorised handover process. Record the property, operator and dates each document describes. An old invoice may show work that was commissioned, while a proposed drawing may show only an intended arrangement. Keep those distinctions visible when you share the material with a practitioner.",
+            "Ask where maintenance records are kept for any existing treatment equipment or other relevant installation. Do not invent missing service history or assume a clean-looking area proves regular maintenance. If a record cannot be located, state that clearly. The next assessment can then identify which information still needs to be established rather than relying on an apparently complete but inaccurate handover folder.",
+            "Protect commercial and personal information when forwarding documents. Share the relevant technical pages rather than an entire lease, account file or staff record by default. Confirm which provider needs the material and for what question. A landlord's access permission does not itself establish responsibility for an application or authority to commission plumbing work."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Ask the retailer about the actual site and activity",
+          "paragraphs": [
+            "South East Water's trade waste information distinguishes business wastewater questions from ordinary household sewage. Use the relevant retailer's current guidance to discuss your operation. Ask what information it requires, which party makes an application where needed and how proposed changes should be reported. Do not substitute another business's consent document for a decision about your own address and activities.",
+            "Keep a record of the enquiry and any reference supplied. If further information is requested, identify who will obtain it and whether it depends on a plumbing assessment. Avoid telling a landlord, contractor or staff member that approval has been granted when the response is only a request for details. An application, an acknowledgement and a consent decision are not interchangeable records.",
+            "Ask about the sequence before relying on an opening date. The retailer, other authorities and your contracted providers may have separate steps. This guide gives no approval timeframe and makes no statement about which permissions a particular business requires. Treat the proposed date as a planning question until the relevant process and outstanding work are understood."
+          ],
+          "sourceUrls": [
+            "https://southeastwater.com.au/water-waste-and-environment/trade-waste/"
+          ]
+        },
+        {
+          "heading": "Commission an assessment with defined responsibilities",
+          "paragraphs": [
+            "Tell the plumbing provider which parts of the handover and retailer enquiry are complete. Ask what the proposed assessment covers and what findings it will provide. If equipment suitability, connections or access remain unconfirmed, request an explanation of those limits. Do not commission a generic service visit on the assumption that it will certify the whole premises for the proposed business.",
+            "Before plumbing work in Victoria, check the practitioner's relevant registration or licence through the regulator's information. Ask who will undertake any specialised task and whether another provider is needed. This guide makes no claim that Grade A Plumbing holds a particular trade waste approval, accreditation or authority to provide a regulatory decision.",
+            "Keep repair, alteration and ongoing maintenance scopes separate. If work is recommended, ask how it addresses the established findings and what remains outside the proposal. Where access, interruption or another contractor is involved, nominate the responsible contact. Staff should not be left to approve an unexplained change merely because they are present when someone attends."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Build an operational handover, not just a document folder",
+          "paragraphs": [
+            "Identify who will receive the completed records and manage future enquiries. Keep the exact equipment details, accepted work scope, relevant authority correspondence and actual maintenance arrangements accessible to that person. A folder that nobody can find does little to support a new operator when a question arises during service.",
+            "Make responsibilities practical: who books an agreed service, who maintains the contact list, who communicates a changed process and who authorises further expenditure. These are internal coordination suggestions, not a prescribed legal register. Confirm any actual reporting or recordkeeping requirement with the relevant authority or provider. Do not let an informal staff checklist substitute for a required professional task.",
+            "For a hypothetical example, a new operator might find an old equipment manual but no current service record. The useful next step is to identify the uncertainty and ask the appropriate provider what assessment or information is needed. It is not to assume the installation has failed or to mark maintenance complete in a new spreadsheet without evidence."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Use the enquiry to resolve the next decision",
+          "paragraphs": [
+            "Before accepting a final proposal, check that it describes the intended operation rather than the previous occupant's use. Keep outstanding authority decisions separate from the contractor's work. If the plan changes, update the relevant parties instead of relying on an assessment made for a different set of activities.",
+            "After work is completed, retain the actual findings and scope and identify any remaining recommendation. Do not describe a partial repair as confirmation that every plumbing or trade waste issue is resolved. Seek the relevant advice promptly if a blockage, spill or other unsafe concern occurs during operation.",
+            "To enquire about commercial plumbing assessment, call Grade A Plumbing on (02) 5837 5457 or email support@gradeaplumbing.store. Include the suburb, proposed activities and any established retailer reference. The Melbourne location and commercial service links provide the contact route. An enquiry does not confirm consent, regulatory compliance, specialist coverage, opening readiness, availability or price."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can I rely on the previous operator's trade waste arrangements?",
+          "answer": "Ask the relevant retailer what applies to your business, activities and change of operator. Do not assume old documents establish the current position."
+        },
+        {
+          "question": "Does a plumbing inspection approve the business to open?",
+          "answer": "Do not treat a contractor's assessment as every required authority decision. Clarify the scope and seek the relevant approvals separately."
+        },
+        {
+          "question": "What should I prepare for an enquiry?",
+          "answer": "Describe the intended activities, exact address, equipment changes, available records and any current retailer correspondence, while clearly marking missing information."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "business backflow testing preparation",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    },
+    "article": {
+      "title": "Backflow Testing at a Business: Organise the Visit and Keep the Result Clear",
+      "slug": "business-backflow-testing-visit-records",
+      "metaTitle": "Backflow Testing at a Business: Organise the Visit and Keep the Result Clear",
+      "metaDescription": "Organise a backflow testing enquiry with the correct property and device records, authorised access, provider requirements and clear follow-up responsibilities.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Organise a backflow testing enquiry with the correct property and device records, authorised access, provider requirements and clear follow-up responsibilities.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "commercial-plumbing"
+      ],
+      "relatedArticles": [
+        "higher-water-bill-billing-questions-possible-plumbing-leaks"
+      ],
+      "sources": [
+        {
+          "title": "South East Water: backflow prevention",
+          "url": "https://southeastwater.com.au/building-and-development/builders-and-plumbers/backflow-prevention/",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Start with the notice or requirement that prompted the enquiry",
+          "paragraphs": [
+            "A reminder about backflow testing should lead to a specific booking enquiry, not a generic request to service the plumbing. Identify the property, the notice date and the device or installation described. If you do not understand which equipment the notice refers to, ask the issuing organisation to clarify. This guide helps coordinate the visit and records. It does not classify a property's risk, prescribe a testing interval or provide instructions to test or adjust a device.",
+            "South East Water explains that backflow can allow contaminated water to move towards the supply and publishes requirements for applicable properties and devices. Its guidance includes testing by a suitably endorsed licensed plumber in specified circumstances. Ask the retailer relevant to your site what applies to the actual installation. Do not assume every business has identical requirements or that guidance for one retailer automatically governs another address.",
+            "Keep urgent concerns separate from the ordinary testing booking. If there is a suspected contamination incident or other unsafe situation, seek advice from the appropriate authority promptly rather than treating the next routine visit as the only response. This article does not provide advice on drinking-water safety or clearance after an incident."
+          ],
+          "sourceUrls": [
+            "https://southeastwater.com.au/building-and-development/builders-and-plumbers/backflow-prevention/"
+          ]
+        },
+        {
+          "heading": "Identify the site and available device records",
+          "paragraphs": [
+            "Gather the notice, prior report and any existing device information through the authorised property process. Keep the site address, recorded device location and identifiers together. If the report names more than one device, preserve that distinction rather than booking a visit for a single assumed item. Tell the provider what information is missing before attendance.",
+            "Do not dismantle a cover, move equipment or operate a valve to find an identifier. A safe overview photograph can supplement the written record where access is straightforward. If the installation is in a locked service area, provide the authorised access contact instead of trying to enter it yourself. A report describing an inaccessible device is more useful than an incomplete or unsafe homeowner inspection.",
+            "Label old reports by date and keep replacement or alteration records with them. A device description from an earlier installation may not identify what is currently in place. Where the property changed hands or the business has a new manager, ask who holds the previous records rather than treating their absence in your inbox as proof that testing never occurred."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Confirm the provider's scope and relevant qualification",
+          "paragraphs": [
+            "Give the provider the actual notice and ask whether it can undertake the required task for the described installation. Backflow testing should not be assumed from a general plumbing advertisement. Ask who will attend, what relevant endorsement or qualification applies and what the booking includes. This article makes no claim about a particular business holding a backflow testing endorsement.",
+            "The Building and Plumbing Commission provides information about Victorian practitioner registration and licensing. Use the appropriate checking process and confirm any additional requirement identified by the retailer. If another qualified provider is needed, ask how the referral is handled. Do not describe an ordinary plumbing visit as a completed specialist test because the contractor has attended the site.",
+            "Clarify what happens if records do not match the installation or the expected device cannot be located. Ask whether the first visit would become an assessment and how a changed task would be approved. A clear scope protects the customer from expecting a report that the provider cannot reasonably issue from the information or access available."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        },
+        {
+          "heading": "Coordinate access and any operational interruption",
+          "paragraphs": [
+            "Ask the testing provider what access and operational arrangements it needs before the appointment. Do not decide yourself that the visit can proceed without affecting water use or that an interruption is unavoidable. The provider should explain the requirements for the actual task. Keep its advice separate from assumptions based on a previous visit to a different device.",
+            "Nominate the building or business contact who can authorise access and coordinate any required notice. If a shared area or service is involved, follow the relevant property process. Do not operate shared valves or remove security devices in advance. A staff member available to open a door may not be authorised to approve an interruption or additional repair.",
+            "Make the plan usable during the business day. Identify who receives an arrival update, who answers an access question and who communicates a changed window to affected people. Avoid sharing master codes or unnecessary staff details in broad messages. If an important operational dependency exists, raise it early so the provider can discuss arrangements without promising an unconfirmed duration."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Keep attendance, result and submission as separate milestones",
+          "paragraphs": [
+            "A contractor attending does not by itself establish that testing was completed, that the result was satisfactory or that a report reached the relevant organisation. Ask what documents you will receive and which party submits any required record. Keep each milestone visible so the business does not mark an obligation complete merely because the appointment appears on a calendar.",
+            "Read the actual result and ask for clarification if it is unclear. Do not turn an observation, recommendation or incomplete visit into a pass in your internal records. If the provider identifies further work, request its explanation and the next step. Keep the result associated with the specific device and date rather than describing the whole property as approved.",
+            "If a report is submitted, retain the confirmation available through the relevant process. Do not invent an acceptance or assume an emailed attachment was received merely because it was sent. Ask the responsible organisation how to check an outstanding record. This guide does not replace the retailer's process or set a deadline for repairs or retesting."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Agree the response to an unresolved or unsuccessful result",
+          "paragraphs": [
+            "If testing or assessment identifies a concern, ask the qualified provider what action is needed and which operational advice applies while it is addressed. Do not adjust or bypass a protective device to keep normal use going. Seek the relevant authority's guidance where required. A general business checklist cannot determine whether the installation is safe to use.",
+            "Clarify the scope of any proposed repair, replacement or further test and the approval needed. Keep the original result with the new proposal so the reason for the work remains understandable. Ask which party arranges a return visit and how any required reporting is completed. Do not mark a repair recommendation as completed or assume a replacement automatically closes every recordkeeping step.",
+            "For a hypothetical coordination example, a manager may receive a report requiring follow-up, authorise a defined task and later obtain a separate completion or testing record. Each document answers a different question. Keeping all three prevents a future manager from relying on an early invoice as though it contains the final result."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Maintain a record that survives staff changes",
+          "paragraphs": [
+            "Store the current site and device information, reports, submission evidence and agreed next-action reminder in the appropriate business record. Assign a responsible contact and an alternate who can find the information. Do not set a future interval from this article; use the actual requirement and professional advice for the installation.",
+            "When occupancy, activities or equipment change, ask the relevant provider or authority whether the existing information needs review. A previous satisfactory result should not become a blanket statement about every later arrangement. Keep amendments dated so an incoming manager can distinguish the current record from an obsolete device description.",
+            "For a commercial plumbing or backflow-related enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include the suburb and actual notice or device records, and ask whether the required specialist task can be arranged. The Melbourne location and commercial service links provide the enquiry path. No endorsement, test outcome, authority acceptance, appointment or price is confirmed by this guide."
+          ],
+          "sourceUrls": []
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does every plumber perform backflow testing?",
+          "answer": "Do not assume so. Confirm the relevant qualification or endorsement and the retailer's requirements for the specific task before booking."
+        },
+        {
+          "question": "Is a completed appointment proof of a satisfactory result?",
+          "answer": "No. Retain the actual report, clarify its result and confirm any required submission separately."
+        },
+        {
+          "question": "Can I use this guide to set the next testing date?",
+          "answer": "No. Use the actual requirement and qualified advice for the property and device. Requirements are not assumed to be identical across all businesses."
+        }
+      ]
+    }
   }
 ]
