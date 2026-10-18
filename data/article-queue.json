@@ -1528,5 +1528,392 @@
         }
       ]
     }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "hot water takes too long to reach tap",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Hot Water Takes Too Long: What to Record Before an Assessment",
+      "slug": "hot-water-takes-too-long-assessment-observations",
+      "metaTitle": "Hot Water Takes Too Long: What to Record Before an Assessment | Grade A Plumbing",
+      "metaDescription": "Describe delayed hot water clearly: which outlets are affected, when the delay occurs and what to ask before approving an assessment or alteration.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Describe delayed hot water clearly: which outlets are affected, when the delay occurs and what to ask before approving an assessment or alteration.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "hot-water"
+      ],
+      "relatedArticles": [
+        "how-long-does-a-hot-water-system-last"
+      ],
+      "sources": [
+        {
+          "title": "YourHome: hot water systems",
+          "url": "https://www.yourhome.gov.au/energy/hot-water-systems",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Describe the delay without deciding the cause",
+          "paragraphs": [
+            "Waiting for hot water can mean several different things to a household. One person means that the first shower of the day takes longer than expected; another means that the water never becomes comfortably warm; a third means that temperature changes during use. Start by separating those experiences. Tell the booking contact what you observe and which outlet is involved. A precise description helps an assessment begin in the right place without turning a familiar frustration into a diagnosis that nobody has checked.",
+            "This guide concerns information to gather during normal, safe use. It is not an instruction to adjust the heater, change valves, remove controls or repeatedly run water until a particular result occurs. If there is a leak, an unsafe temperature or another immediate concern, seek appropriate assistance and explain that first. Do not postpone a safety enquiry while completing an observation checklist.",
+            "Write your concern as a short sentence: the upstairs basin has a long initial wait, the kitchen never seems to warm normally, or the shower changes temperature unexpectedly. These examples are descriptions, not explanations. Keep a note of when the pattern started and whether anything changed around that time. A new appliance, a recent service or a changed household routine can be relevant context without proving the cause."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Distinguish first-use waiting from an ongoing temperature problem",
+          "paragraphs": [
+            "During ordinary use, notice whether the complaint is about the initial wait, the temperature once it arrives or a change later in the same use. You do not need a specialised measurement to make that distinction. Record only what you can observe safely. Avoid putting your hand into unexpectedly hot water to produce a temperature estimate, and do not use a child or another household member to test the result.",
+            "YourHome distinguishes storage and instantaneous systems and discusses the relationship between hot water use and pipework losses. That context is a reason to ask about the complete arrangement rather than assume the heater alone explains a delayed outlet. It does not establish the expected wait at your tap. Ask the assessor which parts of the installation they need to examine before commenting on the specific delay.",
+            "If your description includes both waiting and an unstable temperature, tell the practitioner about both. Do not simplify the booking to slow hot water if that would conceal a more important concern. A useful note preserves the sequence: what happened when the outlet was first used, what happened afterwards and whether the concern was consistent or intermittent."
+          ],
+          "sourceUrls": [
+            "https://www.yourhome.gov.au/energy/hot-water-systems"
+          ]
+        },
+        {
+          "heading": "Make a simple outlet and timing note",
+          "paragraphs": [
+            "List the affected outlets by room, not just by distance from where you think the heater sits. State whether you have noticed the same concern at other fixtures during normal use. If you have not checked another outlet, mark it unknown. There is no need to run every tap to complete a comprehensive comparison, especially if the system is malfunctioning or water is being wasted.",
+            "Note the ordinary context: first use after several hours, a short use following another shower, or use while an appliance was already operating. Do not deliberately create an extreme demand to see whether the system fails. Your observations are a starting point for an assessment, not a stress test. Where the timing is approximate, use words such as about or usually rather than inventing a precise figure from memory.",
+            "Identify the information you can provide about the current system without interfering with it. An existing invoice, user manual or visible model label may help. If you cannot safely see the equipment, say so and leave inspection to the practitioner. A household account of the symptoms remains useful even when the system type is uncertain.",
+            "If different household members describe the issue differently, keep both observations with the outlet name and usual time of use. One person may use the kitchen briefly while another notices a bathroom problem during a longer shower. Do not average those accounts into a single number. Give the practitioner the pattern and let them decide which comparison is useful. This can also help plan a visit at a time when the reported concern is normally noticeable without asking anyone to manufacture a fault."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Avoid buying a proposed fix before the arrangement is assessed",
+          "paragraphs": [
+            "A product promoted as reducing hot water waiting is not automatically suitable for your existing installation. Ask what the proposal changes, which concern it addresses and what information is required to assess suitability. Do not assume a new heater, pump or outlet fitting will resolve every delayed-water complaint. Each is a different proposition that needs an explanation for the property and the household's intended use.",
+            "Ask the assessor to distinguish a fault investigation from an improvement request. If the installation operates as assessed but you want a different experience, ask what options could be considered and what trade-offs they involve. A desired convenience, water-use goal and actual malfunction should not become interchangeable labels in a quote. Separate them so you can decide which problem you are paying to address.",
+            "Record any unanswered questions. An installer might need product information or a further inspection before giving a firm proposal. Ask what the additional step is expected to establish and whether it has a separate charge. This avoids treating an initial suggestion made in conversation as a final specification or an assurance that alterations will achieve a particular wait time."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Request an assessment scope and an explanation of findings",
+          "paragraphs": [
+            "Consumer Affairs Victoria recommends understanding quote inclusions and documenting changes. For delayed hot water, ask whether the proposed visit is limited to investigation or includes an identified repair. Ask how the practitioner will explain the findings and obtain approval if the recommended task differs from the booking description. Avoid comparing an assessment charge with a repair price as though they purchase the same service.",
+            "Keep user guidance separate from technical alterations. Ask which ordinary operating instructions apply to your installed model, but do not change safety controls based on a general article. If the proposed work involves another trade, ask who arranges it and which responsibilities remain outside the plumbing scope. The written record should identify the actual proposed task rather than simply promising better hot water.",
+            "Check the practitioner's relevant Victorian registration or licence through the Building and Plumbing Commission's information. Its guidance explains that classes of plumbing work matter. Ask what completion documentation applies to the work actually agreed. A product advertisement or a household comparison does not establish a contractor's qualifications, and this article makes no claim about a particular provider's credentials."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        },
+        {
+          "heading": "Keep a useful record for follow-up",
+          "paragraphs": [
+            "After the assessment, retain the explanation of what was checked, what was found and whether an alteration or repair was recommended. If work proceeds, keep the final scope and any model-specific instructions together. Do not discard the initial symptom note: it provides a consistent way to explain whether the original concern has changed during normal use.",
+            "If the complaint continues, report the current observation without assuming the same cause or declaring that an entire installation needs replacement. Describe the outlet, the circumstances and the difference from before the visit. Follow the agreed contact process instead of adjusting components yourself. This lets the practitioner address the actual report rather than a series of unrecorded experiments.",
+            "To enquire about delayed or unreliable hot water, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb and a short account of the affected outlets. The Melbourne homepage, hot water service link and related guide provide the appropriate contact path. An enquiry does not confirm a diagnosis, a repair price, an appointment or a guaranteed hot water arrival time."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does a long wait mean the hot water heater is failing?",
+          "answer": "Not by itself. Distinguish the initial waiting period from water that never warms normally or changes temperature during use, and request an assessment of the actual arrangement."
+        },
+        {
+          "question": "Should I turn the system temperature up?",
+          "answer": "Do not change safety controls based on this guide. Ask the practitioner about the installed model and follow its ordinary user instructions."
+        },
+        {
+          "question": "What information helps when booking?",
+          "answer": "Identify the affected outlet, the timing pattern, when the concern started and any model information you already have safely available."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "kitchen sink replacement plumbing checklist",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Replacing a Kitchen Sink: Confirm the Plumbing Before the Benchtop Cut",
+      "slug": "replacing-kitchen-sink-plumbing-before-benchtop-cut",
+      "metaTitle": "Replacing a Kitchen Sink: Confirm the Plumbing Before the Benchtop Cut",
+      "metaDescription": "Check the sink model, cabinet space, waste arrangement and trade responsibilities before committing to a benchtop cut or kitchen sink replacement.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Check the sink model, cabinet space, waste arrangement and trade responsibilities before committing to a benchtop cut or kitchen sink replacement.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "blocked-drains"
+      ],
+      "relatedArticles": [
+        "bathroom-renovation-plumbing-finalise-fixture-schedule"
+      ],
+      "sources": [
+        {
+          "title": "Australian Building Codes Board: WaterMark Product Search",
+          "url": "https://www.abcb.gov.au/watermark-search",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Australian Government Water Rating: compare products",
+          "url": "https://www.waterrating.gov.au/consumers/compare",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Treat the sink and the surrounding kitchen as one decision",
+          "paragraphs": [
+            "A kitchen sink is often chosen for its finish and bowl layout, while the plumbing questions are left until delivery. Before a benchtop is cut or the old unit removed, connect the product decision with the actual space and the proposed installation. This guide is a homeowner coordination checklist, not a cutting template or a set of plumbing instructions. The exact product and the property need assessment by the people responsible for the work.",
+            "Start by deciding what is being changed. You may be replacing a damaged sink while keeping the cabinet, altering the bench and tap together, or redesigning a larger part of the kitchen. Those projects have different boundaries. Describe the scope in writing so a plumber, cabinetmaker and benchtop supplier are not each working from a different understanding of the job.",
+            "List what you want to preserve as carefully as what you want to change. That might include a particular cupboard, an existing appliance or storage beneath the bowl. Do not assume those preferences are all compatible with the first product you find. Share them before ordering so the relevant trades can explain what needs to be checked."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Use exact product information, not an approximate photograph",
+          "paragraphs": [
+            "Keep the selected sink's full model reference and the manufacturer's current installation information. A product family can include different sizes, bowl arrangements or mounting options, so a retailer screenshot alone may not identify the item you intend to purchase. Ask the responsible installer and benchtop provider to confirm the information they need. Do not turn a homeowner measurement into authority for an irreversible cut.",
+            "Ask which supplied parts are included and which associated items need separate selection. Identify the proposed tap and any connected appliance as separate products rather than assuming that a sink package covers the whole installation. If the model changes because stock is unavailable, return to the suitability checks. A visually similar substitute may still require a revised discussion.",
+            "The Australian Building Codes Board provides a WaterMark product database for checking certification information for plumbing and drainage products. Ask the practitioner which selected products require checking and how the exact model is identified. A database record is not a substitute for confirming fit at your property. Equally, do not assume an online listing or an imported product is suitable merely because its description says it is universal.",
+            "Before accepting delivery, ask the supplier how to identify the supplied model against the order and how to report visible damage through its stated process. Keep the packaging information until the installation decision is resolved. Do not allow a product that differs from the specification to become the assumed basis for a benchtop cut simply because the appointment is approaching. Ask the relevant provider to confirm the change first."
+          ],
+          "sourceUrls": [
+            "https://www.abcb.gov.au/watermark-search"
+          ]
+        },
+        {
+          "heading": "Discuss what happens below and around the bowl",
+          "paragraphs": [
+            "Provide a safe overview of the cabinet space and the items ordinarily stored there. Ask the plumber what needs inspection rather than trying to identify connections yourself. A deeper bowl, different waste position or changed appliance arrangement should be raised as a question before the cabinet is treated as a finished design. Do not move fixed pipework or disconnect an appliance to make the photograph clearer.",
+            "Tell the kitchen supplier if storage access matters to you. Ask the relevant trades to confirm whether their proposal allows for the intended arrangement, while avoiding promises that all existing drawers or organisers can remain unchanged. If something has to be modified, identify who carries out that task and whether it affects the order or installation sequence.",
+            "Keep water-efficiency information distinct from layout compatibility. The Australian Government's Water Rating comparison guidance helps consumers compare relevant labelled products, including taps. A tap's rating does not tell you whether its reach, mounting or connection arrangement suits the chosen sink. Obtain the product details and ask for the practical compatibility checks before making the selection final."
+          ],
+          "sourceUrls": [
+            "https://www.waterrating.gov.au/consumers/compare"
+          ]
+        },
+        {
+          "heading": "Agree the hand-off between trades before booking removal",
+          "paragraphs": [
+            "Write a simple sequence showing who confirms the sink choice, who supplies the template or dimensions, who prepares the benchtop and who performs plumbing work. This is not a universal installation order. Ask the actual providers to agree a sequence for the products and property involved. Do not assume the plumber will cut a bench or the benchtop supplier will reconnect water services unless that work is expressly included.",
+            "Clarify the point at which the old sink becomes unavailable and what temporary household arrangements are needed. Discuss realistic access and timing without demanding an exact duration before the scope is assessed. If the installation depends on another trade completing something first, nominate who confirms readiness and how the booking is updated when a delivery changes.",
+            "Identify who can approve a product substitution or additional work. If one household member orders the sink while another attends the appointment, share the accepted details with both. Keep the latest specification accessible so the contractor is not shown an old model after a revised item has arrived. A brief dated selection record can prevent expensive confusion without adding unnecessary administration.",
+            "Where the project is phased, record what will remain incomplete after each visit. For example, separate a benchtop appointment from a later plumbing connection without describing the kitchen as ready for normal use in between. Ask who provides the next confirmation and what information they need. A short hand-over note is particularly useful when an owner cannot attend and another person is providing access to the property."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Compare the whole plumbing scope",
+          "paragraphs": [
+            "Ask whether the proposal covers only an assessment or also removal, installation and particular associated components. Consumer Affairs Victoria advises customers to clarify inclusions and how variations are managed. For this kitchen project, record what happens if the existing arrangement differs from the information supplied. Obtain approval for changed work rather than relying on an informal assumption that everything beneath the sink is included.",
+            "Discuss disposal and finishing work separately. Ask who removes the old sink, who handles packaging and who is responsible for any cabinet or surface work. Explain a wish to preserve finishes, but do not treat it as a guarantee that existing materials can be retained without assessment. Keep optional upgrades outside the immediate repair or replacement scope until you choose them.",
+            "In Victoria, check the relevant plumbing practitioner's registration or licence using the Building and Plumbing Commission's guidance. Ask who will perform the agreed work and what documentation applies. The source does not endorse a kitchen retailer or prove that a person advertised by a retailer is qualified for every task. Confirm the actual provider rather than relying on the appearance of the product package."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        },
+        {
+          "heading": "Check the completed arrangement against the accepted decision",
+          "paragraphs": [
+            "At completion, ask for an explanation of the work performed and the ordinary user information supplied with the selected products. Keep product details, invoices and any applicable completion records together. If something differs from the accepted specification, raise it with the responsible provider while referring to the recorded model and scope rather than an earlier showroom conversation.",
+            "Do not treat a new sink as a confirmed solution to a separate recurring drainage complaint. If that concern existed before the project, report it during assessment and ask whether it is included. The existing blocked-drain guide can help frame a distinct enquiry. Keeping the questions separate avoids assuming that a product replacement renewed unassessed pipework elsewhere.",
+            "For a kitchen plumbing enquiry, call Grade A Plumbing on (02) 5837 5457 or email support@gradeaplumbing.store with your suburb, project outline and selected product details if available. Use the Melbourne contact route alongside this guide. Suitability, trade coordination, availability and cost need confirmation. No appointment or installation outcome is established by sending a product link or photograph."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can I order a sink from its overall width?",
+          "answer": "Ask the installer and benchtop provider what exact model information and site checks they require. Overall width alone does not establish the complete installation arrangement."
+        },
+        {
+          "question": "Does WaterMark certification mean a product will fit?",
+          "answer": "Certification information and property-specific compatibility are different questions. Ask the practitioner to confirm the relevant requirements for the exact item."
+        },
+        {
+          "question": "Will changing the sink fix a recurring blocked drain?",
+          "answer": "Do not assume so. Report the drainage history separately and clarify whether investigation of that concern is included in the scope."
+        }
+      ]
+    }
+  },
+  {
+    "status": "ready",
+    "availableFrom": "2026-10-18",
+    "targetKeyword": "low water pressure what to tell plumber",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    },
+    "article": {
+      "title": "Low Water Pressure: Build a Clear Report Before Buying a Fix",
+      "slug": "low-water-pressure-report-before-buying-fix",
+      "metaTitle": "Low Water Pressure: Build a Clear Report Before Buying a Fix | Grade A Plumbing",
+      "metaDescription": "Record which taps are affected, distinguish observations from measurements, check relevant utility notices and clarify a low water pressure assessment.",
+      "author": "Grade A Plumbing",
+      "status": "draft",
+      "excerpt": "Record which taps are affected, distinguish observations from measurements, check relevant utility notices and clarify a low water pressure assessment.",
+      "locationSlugs": [
+        "melbourne"
+      ],
+      "relatedServices": [
+        "burst-pipe-repair",
+        "hot-water"
+      ],
+      "relatedArticles": [
+        "higher-water-bill-billing-questions-possible-plumbing-leaks"
+      ],
+      "sources": [
+        {
+          "title": "Yarra Valley Water: low water pressure",
+          "url": "https://www.yvw.com.au/faults-works/water-pressure-and-quality/low-water-pressure",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "YourHome: reducing water use",
+          "url": "https://www.yourhome.gov.au/water/reducing-water-use",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Consumer Affairs Victoria: getting quotes",
+          "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+          "checkedDate": "2026-10-18"
+        },
+        {
+          "title": "Building and Plumbing Commission: engaging a plumber",
+          "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+          "checkedDate": "2026-10-18"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Start with what has changed at the outlet",
+          "paragraphs": [
+            "A weak shower or slowly filling kitchen sink is frustrating, but the phrase low pressure does not tell a contractor everything they need to know. Begin with the observable change: where it happens, when it started and whether it is continuous. A professional assessment can then address what measurements or inspections are appropriate. This article is a reporting guide, not a pressure-test procedure, a diagnosis or an instruction to adjust the water service.",
+            "Distinguish a new change from something the household has always noticed. If you recently moved in, say that you do not know the previous performance. If a product or appliance was changed, give the date and model information without asserting that it caused the problem. Accurate uncertainty is more useful than a confident explanation based only on timing. The next person should be able to tell which statements are observations and which are questions.",
+            "Do not keep operating a fixture that is leaking, backing up or otherwise unsafe to complete the checklist. Describe the immediate concern when you seek help. Never enter an unsafe space, adjust an unfamiliar valve or interfere with shared equipment to gather a better report. Normal observations and safely available information are enough to start the booking conversation."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Check notices from the supplier relevant to your property",
+          "paragraphs": [
+            "Yarra Valley Water advises its customers that planned or emergency works can affect water pressure and points them to reported faults and planned-work information. If that is your supplier, check its current notices for your address. If another retailer serves the property, use that retailer's information instead. This guide does not suggest that Yarra Valley Water covers every Melbourne suburb or that a nearby notice necessarily explains your particular concern.",
+            "Keep a brief record of any relevant notice, including the date you checked it and the affected location described by the supplier. Tell the contractor if you have already contacted the retailer and whether a reference was provided. Do not treat an expected restoration time as a guarantee, and do not repeat an old outage notice as though it is current. The source page should remain available for checking changes.",
+            "A retailer may offer a specific checking procedure, but a general article should not silently turn it into a universal test or modify its instructions. Ask the relevant retailer if you are uncertain whether its procedure applies to a shared supply or your circumstances. Do not improvise on valves or inaccessible equipment. The aim is to establish the correct contact and current information, not determine responsibility through a guessed threshold."
+          ],
+          "sourceUrls": [
+            "https://www.yvw.com.au/faults-works/water-pressure-and-quality/low-water-pressure"
+          ]
+        },
+        {
+          "heading": "Compare ordinary observations across fixtures",
+          "paragraphs": [
+            "During safe, normal use, note whether the concern appears limited to one outlet or has also been noticed elsewhere. Record which outlets you have not observed. Do not describe the entire house as affected because one shower feels different. Equally, do not leave out a separate kitchen complaint simply because the shower was the first problem noticed. A short room-by-room note can keep the booking description accurate without becoming a household testing programme.",
+            "State whether the concern relates to hot water, cold water or an observation you cannot confidently distinguish. Avoid testing unexpectedly hot water by touch. If a tap has changed since a new fitting was installed, supply the product details and the circumstances of the change. Let the practitioner decide whether the comparison calls for a fixture assessment, a wider plumbing investigation or a discussion with the retailer.",
+            "Record a visible rate change as an observation rather than a measured pressure reading. If you already have a professional measurement, retain its date, location and accompanying explanation. A video of a tap is not equivalent to a pressure measurement. Use the information you actually have, and ask the assessor to explain any further testing before treating a number found online as a target for your property."
+          ],
+          "sourceUrls": []
+        },
+        {
+          "heading": "Keep simultaneous use and efficiency information in context",
+          "paragraphs": [
+            "Tell the assessor what else was normally happening when the concern appeared: another shower, laundry use or an occasional garden task. Do not deliberately run numerous outlets to reproduce an extreme condition. Ask whether the ordinary household pattern is relevant to the investigation. The distinction matters because a complaint during a particular routine should not automatically be presented as a permanent supply failure.",
+            "YourHome explains that water-efficiency labels provide information such as consumption or flow for relevant products. That helps explain why product information belongs in the discussion, but the label is not a diagnosis of your plumbing. A labelled flow figure does not prove that a weak shower is normal, and a new fixture does not establish that the retailer is at fault. Ask the practitioner to interpret the actual arrangement.",
+            "If a retailer, installer or product supplier gives an explanation, write down its scope. The statement may concern a particular outlet or a proposed model rather than the whole property. If two explanations appear inconsistent, provide both to the assessor and ask which facts are still missing. Avoid resolving the disagreement by ordering a pressure-related product before the cause has been assessed."
+          ],
+          "sourceUrls": [
+            "https://www.yourhome.gov.au/water/reducing-water-use"
+          ]
+        },
+        {
+          "heading": "Ask what the assessment will establish before approving alterations",
+          "paragraphs": [
+            "Clarify whether the booking covers investigation only or a specifically identified task. Ask what the practitioner expects to measure or inspect and how the findings will be explained. You are not asking for a complete diagnosis by telephone; you are making sure the proposed service addresses the concern. If a further visit or specialist input may be needed, ask how approval and charges will be handled.",
+            "Consumer Affairs Victoria recommends understanding quote inclusions and the process for changes. For this enquiry, keep the assessment separate from any later proposal to alter fittings, replace equipment or change pipework. Ask which finding supports the proposed action and what limitation remains. Do not compare a supply-only product price with a completed assessment and installation proposal as if they cover the same work.",
+            "Check the relevant Victorian practitioner information through the Building and Plumbing Commission when engaging someone to carry out plumbing work. Its guidance distinguishes classes of registration and licensing. Ask who will undertake the agreed task and what completion documentation applies. This article does not establish that a particular provider is qualified or that an advertised product is appropriate for the property."
+          ],
+          "sourceUrls": [
+            "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+          ]
+        },
+        {
+          "heading": "Turn the findings into a useful follow-up record",
+          "paragraphs": [
+            "After the assessment, ask for a clear distinction between the reported symptom, findings and recommended action. Keep any measurements with their location and date so they are not later quoted without context. If a retailer needs to be contacted, agree who will do that and what information will be supplied. An instruction to make contact is not itself confirmation that the retailer owns the fault or has approved repair work.",
+            "Use the original observation note when reporting what happens afterwards. Describe whether the concern remains at the same outlet under normal use rather than declaring that all plumbing is fixed or faulty. Do not make unapproved adjustments to chase a preferred reading. If another household member raises a different concern, add that as a separate observation so the next enquiry does not overwrite the original account.",
+            "For help arranging an assessment enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb, the affected fixtures and any current retailer reference. The Melbourne location page and related service guides provide the contact route. A request does not confirm the cause, responsibility, final price or appointment availability; those need the appropriate assessment and agreement."
+          ],
+          "sourceUrls": [
+            "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can a video prove the water pressure is too low?",
+          "answer": "A video may illustrate a reported change, but it is not a professional pressure measurement. Ask what assessment is appropriate for the actual complaint."
+        },
+        {
+          "question": "Should I buy a pressure booster first?",
+          "answer": "Do not select a proposed fix before the cause and suitability are assessed. Ask which finding supports any recommended alteration."
+        },
+        {
+          "question": "Does a utility fault notice explain every weak tap nearby?",
+          "answer": "Not necessarily. Check the notice relevant to your address and supplier, then report any remaining concern with accurate observations."
+        }
+      ]
+    }
   }
 ]
