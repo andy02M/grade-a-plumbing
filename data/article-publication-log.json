@@ -422,5 +422,12 @@
       "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
       "notes": "Distinct appliance purchase and installation-scope intent. Manufacturer guidance is explicitly model-specific. No hose heights, pressure limits, wiring or DIY connection procedure supplied."
     }
+  },
+  {
+    "date": "2026-10-19",
+    "outcome": "verified",
+    "recordedAt": "2026-10-19T00:04:07.674Z",
+    "slug": "replacing-washing-machine-laundry-plumbing-questions-before-delivery",
+    "url": "https://melbourne.gradeaplumbing.store/blog/replacing-washing-machine-laundry-plumbing-questions-before-delivery/"
   }
 ]
