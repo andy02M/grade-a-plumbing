@@ -71,6 +71,11 @@ button { cursor: pointer; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4, 18, 33, .98) 0%, rgba(5, 19, 33, .92) 35%, rgba(4, 16, 28, .28) 71%, rgba(4, 16, 28, .12)); }
 .hero-content { position: relative; z-index: 1; padding-block: clamp(56px, 6vw, 92px); max-width: var(--container); }
 .hero .eyebrow { color: #d6e7f8; font-size: 12px; }
+.hero-google-rating { display: flex; align-items: center; gap: 9px; width: fit-content; max-width: 100%; margin-bottom: 16px; padding: 8px 13px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(7,24,43,.65); color: #fff; font-size: 13px; font-weight: 700; line-height: 1.4; }
+.hero-google-rating-mark { display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; }
+.hero-google-rating-mark img { display: block; width: 20px; height: 20px; object-fit: contain; }
+.hero-google-rating:hover { background: #0d233c; }
+.hero-google-rating:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
 .hero h1 { margin: 12px 0 16px; font-family: var(--font-display); text-transform: uppercase; font-size: var(--type-display); letter-spacing: -1.5px; line-height: .82; max-width: 790px; font-weight: 800; }
 .hero h1 strong { white-space: nowrap; }
 .hero h1 strong { color: var(--blue); font-weight: 900; }

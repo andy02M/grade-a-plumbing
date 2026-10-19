@@ -40,6 +40,12 @@ function Hero() {
     <section className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
       <div className="hero-overlay" />
       <div className="container hero-content">
+        <a className="hero-google-rating" href="/reviews/">
+          <span className="hero-google-rating-mark" aria-hidden="true">
+            <img src="/assets/google-g-logo.webp" alt="" width={20} height={20} />
+          </span>
+          <span>Highly Rated on Google</span>
+        </a>
         <span className="eyebrow">MELBOURNE'S LOCAL PLUMBING TEAM</span>
         <h1>
           Plumbing done
