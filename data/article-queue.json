@@ -673,7 +673,7 @@
     "releasedDate": "2026-10-18"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-16",
     "targetKeyword": "washing machine replacement laundry plumbing checks",
     "review": {
@@ -779,7 +779,8 @@
           "answer": "Not necessarily. Describe the observation and ask whether assessment of its cause is included. Appliance replacement is not a diagnosis of the existing plumbing."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-19"
   },
   {
     "status": "ready",
@@ -3198,8 +3199,7 @@
         }
       ]
     }
-  }
-,
+  },
   {
     "status": "ready",
     "availableFrom": "2026-10-19",

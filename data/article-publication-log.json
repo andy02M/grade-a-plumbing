@@ -407,5 +407,20 @@
     "recordedAt": "2026-10-18T08:54:36.300Z",
     "slug": "bathroom-renovation-plumbing-finalise-fixture-schedule",
     "url": "https://melbourne.gradeaplumbing.store/blog/bathroom-renovation-plumbing-finalise-fixture-schedule/"
+  },
+  {
+    "date": "2026-10-19",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-19T00:03:48.282Z",
+    "slug": "replacing-washing-machine-laundry-plumbing-questions-before-delivery",
+    "words": 1338,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-10",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Distinct appliance purchase and installation-scope intent. Manufacturer guidance is explicitly model-specific. No hose heights, pressure limits, wiring or DIY connection procedure supplied."
+    }
   }
 ]
