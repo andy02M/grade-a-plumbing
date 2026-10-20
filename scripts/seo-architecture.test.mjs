@@ -140,6 +140,15 @@ test("local guidance is distinct, sourced and limited to configured locations", 
   }
  }
 });
+test("advice library includes the newest featured article and uses full filtered pagination", () => {
+ const advice = readFileSync(new URL("../components/PlumbingAdvicePage.tsx", import.meta.url), "utf8");
+ assert.match(advice, /publishedDate.localeCompare\(a.publishedDate\)/);
+ assert.match(advice, /const visible = filtered.slice\(0, visibleCount\)/);
+ assert.match(advice, /\{visible.map\(\(article\)/);
+ assert.match(advice, /visible.length < filtered.length/);
+ assert.doesNotMatch(advice, /article.slug !== featured\?\.slug/);
+});
+
 test("homepage omits removed supplementary sections and their FAQ schema", () => {
  const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
  assert.doesNotMatch(home, /<LocalGuidanceSection|<ArticlesSection|Plumbing in \{/);
