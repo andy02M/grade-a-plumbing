@@ -140,11 +140,12 @@ test("local guidance is distinct, sourced and limited to configured locations", 
   }
  }
 });
-test("local guidance FAQs are visible and included in homepage schema", () => {
+test("homepage omits removed supplementary sections and their FAQ schema", () => {
  const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
- assert.match(home, /localGuidance\[location.slug\]\?\.faqs/);
- assert.match(home, /<LocalGuidanceSection/);
- assert.match(home, /mainEntity: faq.map/);
+ assert.doesNotMatch(home, /<LocalGuidanceSection|<ArticlesSection|Plumbing in \{/);
+ assert.doesNotMatch(home, /FAQPage|mainEntity: faq.map/);
+ assert.match(home, /<ManusApp/);
+ assert.match(home, /"@type": "Plumber"/);
  assert.match(readFileSync(new URL('../components/LocalGuidanceSection.tsx',import.meta.url),'utf8'), /guidance.faqs.map/);
  assert.doesNotMatch(home, /Recent plumbing work for homes and businesses near/);
 });
@@ -159,7 +160,7 @@ test("second location batch has distinct introductions and meta descriptions", (
  }
  const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
  assert.match(home, /localGuidance\[location.slug\]\?\.metaDescription/);
- assert.match(home, /localGuidance\[location.slug\]\?\.introduction/);
+ assert.match(home, /alternates: \{ canonical:/);
 });
 test("all location batches have distinct customer-facing content and valid service links", () => {
  const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
