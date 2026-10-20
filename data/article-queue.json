@@ -783,7 +783,7 @@
     "releasedDate": "2026-10-19"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-17",
     "targetKeyword": "hot water rebate quote questions Victoria",
     "review": {
@@ -891,7 +891,8 @@
           "answer": "Amounts and conditions can change and may depend on the proposed system and circumstances. Use current official information and the actual written proposal."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-20"
   },
   {
     "status": "ready",
