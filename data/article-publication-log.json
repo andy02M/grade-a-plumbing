@@ -451,5 +451,20 @@
     "recordedAt": "2026-10-20T01:00:19.576Z",
     "slug": "hot-water-rebate-quotes-victoria-check-conditions-before-price",
     "url": "https://melbourne.gradeaplumbing.store/blog/hot-water-rebate-quotes-victoria-check-conditions-before-price/"
+  },
+  {
+    "date": "2026-10-21",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-21T00:29:12.544Z",
+    "slug": "drain-camera-report-questions-before-approving-repairs",
+    "words": 1314,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    }
   }
 ]

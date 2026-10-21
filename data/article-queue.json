@@ -895,7 +895,7 @@
     "releasedDate": "2026-10-20"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "drain camera inspection report questions",
     "review": {
@@ -1023,7 +1023,8 @@
           "answer": "Clarify what the inspection service included and request the information needed to understand the recommendation. Not every service is offered with the same reporting package."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-21"
   },
   {
     "status": "ready",
