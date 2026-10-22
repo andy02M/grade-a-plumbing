@@ -926,5 +926,126 @@
     ],
     "publishedDate": "2026-10-21",
     "updatedDate": "2026-10-21"
+  },
+  {
+    "title": "Heat Pump Hot Water: Prepare for a Site Assessment",
+    "slug": "heat-pump-hot-water-site-assessment-preparation",
+    "metaTitle": "Heat Pump Hot Water: Prepare for a Site Assessment | Grade A Plumbing",
+    "metaDescription": "Prepare useful information for a heat pump hot water assessment, including household demand, proposed location, access, responsibilities and quote exclusions.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Prepare useful information for a heat pump hot water assessment, including household demand, proposed location, access, responsibilities and quote exclusions.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "hot-water"
+    ],
+    "relatedArticles": [
+      "how-long-does-a-hot-water-system-last",
+      "after-hot-water-installation-handover-recordkeeping-checklist"
+    ],
+    "sources": [
+      {
+        "title": "Australian Government: hot water systems",
+        "url": "https://www.energy.gov.au/households/hot-water-systems",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "YourHome: hot water systems",
+        "url": "https://www.yourhome.gov.au/energy/hot-water-systems",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Consumer Affairs Victoria: getting quotes",
+        "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Building and Plumbing Commission: engaging a plumber",
+        "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+        "checkedDate": "2026-10-18"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Make the assessment about your home, not a catalogue package",
+        "paragraphs": [
+          "A heat pump advertisement cannot establish whether a particular model and installation arrangement suit your property. A useful site assessment connects the equipment with the household, the available space and the work needed to install it. This guide is about preparing information and questions before that assessment. It does not provide design clearances, electrical instructions, temperature settings or a recommendation to replace a system that has not been examined. Keep the proposed equipment unconfirmed until the installer has explained the site-specific requirements.",
+          "The Australian Government describes heat pump water heaters as drawing heat from surrounding air and distinguishes integrated and split arrangements. YourHome recommends considering household needs and climate when choosing hot water equipment. Those broad principles explain why a model name and tank size are only part of the conversation. Ask the assessor to connect the proposed configuration with your actual property rather than assuming that a package suitable elsewhere will fit your home.",
+          "Begin with your reason for enquiring. You may be planning an eventual replacement, responding to a current fault or considering a change in energy use. State that priority plainly. An urgent loss of hot water needs a different discussion from a long-term upgrade, and neither situation justifies skipping the explanation of installation scope."
+        ],
+        "sourceUrls": [
+          "https://www.energy.gov.au/households/hot-water-systems"
+        ]
+      },
+      {
+        "heading": "Describe household demand without guessing the required capacity",
+        "paragraphs": [
+          "Prepare a short account of who uses hot water and when. Useful details include the number of regular occupants, whether showers usually happen together or across the day, and whether occupancy changes substantially during visits. Explain if your household routine is likely to change. You do not need to turn those observations into an engineering calculation. Give the assessor enough information to explain the proposed capacity and recovery assumptions in plain language.",
+          "List the fixtures and appliances you actually use, while avoiding assumptions about how each appliance connects. If the dishwasher or laundry machine has a readily available manual, keep the model details handy. Tell the assessor about a bath that is frequently used or a bathroom that is rarely occupied. The point is to reveal the pattern behind demand, not to promise a precise daily volume from memory. Where your information is approximate, label it as approximate.",
+          "Ask the installer to describe the circumstances in which the recommended arrangement might not meet your expectations. For example, discuss an unusual peak day rather than only the household average. Ask how normal user instructions address changes in demand. Do not experiment with existing controls to recreate a peak while the equipment is malfunctioning. A good preparation note explains your needs without becoming an instruction to alter the current installation."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Record the proposed location and access constraints",
+        "paragraphs": [
+          "Take wide photographs of the existing installation and the route a contractor would use to reach it, provided both are safely accessible. Include an overview that shows nearby doors, windows and everyday pathways without entering a neighbour's property. A close-up of a model label can supplement that overview if it is visible without moving equipment. Do not remove covers or climb to reach a label. Tell the assessor when a photograph cannot capture the full space.",
+          "Describe what shares the proposed area: a narrow side passage, regular clothes drying, a gate or a frequently used outdoor sitting space. Ask the installer to check the manufacturer's location requirements and explain any practical implications. The government notes that a heat pump compressor can produce noise. Do not turn that general observation into an unsupported claim that any particular boundary location is permissible or unsuitable. Request an assessment for the exact model and setting.",
+          "Confirm how delivery and removal will be handled. Ask whether equipment can use the visible access route and whether anything needs separate permission or preparation. Mark uncertainties such as a shared gate or controlled basement entrance in the booking notes. Measurements supplied by a homeowner can help start a conversation, but the contractor should confirm dimensions that the installation depends on."
+        ],
+        "sourceUrls": [
+          "https://www.energy.gov.au/households/hot-water-systems"
+        ]
+      },
+      {
+        "heading": "Clarify which trades and associated work the proposal covers",
+        "paragraphs": [
+          "Ask for an explanation of each work responsibility rather than assuming the hot water installer performs every associated task. The discussion may need to cover plumbing, electrical assessment, removal of previous equipment and any finishing work. Do not commission electrical alterations from this checklist. Request confirmation of who assesses the existing supply and whether a separate qualified provider is involved. Keep that responsibility visible in the proposal so a missing task does not appear only on installation day.",
+          "If another energy source or appliance will remain, explain that to the assessor. A hot water replacement should not be described as disconnecting a whole property from an energy service unless that broader work has actually been agreed. Ask what happens to the old unit and which redundant connections, if any, are included in the scope. Record the answer without making changes to valves, wiring or pipework yourself.",
+          "The Building and Plumbing Commission explains that Victorian practitioners need the appropriate registration or licence for their class of plumbing work. Check the person or business proposed for the work through the regulator's available tools, and ask what completion documents apply to the agreed installation. A quote heading does not establish those details. This guide makes no claim about the qualifications or accreditation of a particular provider."
+        ],
+        "sourceUrls": [
+          "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+        ]
+      },
+      {
+        "heading": "Compare a site-specific total rather than a headline discount",
+        "paragraphs": [
+          "Request a written proposal that identifies the exact model, included works and exclusions. Record whether the amount is conditional on a later site check or other information. Consumer Affairs Victoria recommends understanding what a quote covers and how changes are managed. For this assessment, the useful question is what could still change between the advertised offer and the final installed arrangement. Ask for the process used to approve additional work before it is carried out.",
+          "Keep incentives separate from the physical installation description. Ask which conditions affect a proposed discount, who handles any application and what happens if eligibility is not confirmed. Do not treat a general statement about rebates as approval for your household. This article deliberately does not publish dollar amounts, application rules or promised savings. Those details can change and need checking with the current scheme information when you make your decision.",
+          "Distinguish estimated running costs from a measured household result. If a proposal includes a comparison, ask which assumptions it uses about household consumption, electricity prices and the system being replaced. A useful comparison states its limits. You can then decide whether the assumptions resemble your circumstances rather than accepting a single savings figure as a promise about future bills."
+        ],
+        "sourceUrls": [
+          "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+        ]
+      },
+      {
+        "heading": "Prepare the appointment and the handover questions together",
+        "paragraphs": [
+          "Before the assessment, gather the existing model information, safe overview photographs, household demand notes and known access restrictions in one place. Confirm who is authorised to approve work, particularly if a rental provider or another property owner needs to decide. Avoid assuming that a site visit itself commits you to installation. Ask what the visit includes and whether any assessment fee applies.",
+          "Prepare a few handover questions in advance: which user manual will be supplied, who explains ordinary operation, where warranty details will be recorded and how to request follow-up assistance. Keep those questions linked to the actual model eventually selected. They do not need to become a requirement to predict every future fault. The aim is to make a considered selection and leave the household with usable information after the work.",
+          "To discuss a hot water assessment with Grade A Plumbing, call (02) 5837 5457 or email support@gradeaplumbing.store with your suburb and current system details. The linked Melbourne homepage and hot water service page provide the relevant booking routes. Contact establishes an enquiry, not guaranteed availability, a final design, rebate eligibility or an installation price. If the existing system is unsafe or malfunctioning, explain the immediate concern instead of waiting to complete every preparation note."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Can photos replace a heat pump site assessment?",
+        "answer": "They can help describe access and existing equipment, but the contractor must confirm the information needed for a suitable proposal. Do not assume photographs establish clearances, electrical suitability or approval requirements."
+      },
+      {
+        "question": "Should I choose capacity before talking to an installer?",
+        "answer": "Prepare your household demand pattern and ask the installer to explain the recommendation. Avoid converting a generic household-size chart into a final design decision."
+      },
+      {
+        "question": "Does this guide confirm rebate eligibility?",
+        "answer": "No. Check the current scheme conditions for the property, equipment and provider before relying on an advertised incentive."
+      }
+    ],
+    "publishedDate": "2026-10-22",
+    "updatedDate": "2026-10-22"
   }
 ]

@@ -1027,7 +1027,7 @@
     "releasedDate": "2026-10-21"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "heat pump hot water site assessment",
     "review": {
@@ -1155,7 +1155,8 @@
           "answer": "No. Check the current scheme conditions for the property, equipment and provider before relying on an advertised incentive."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-22"
   },
   {
     "status": "ready",

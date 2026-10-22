@@ -473,5 +473,20 @@
     "recordedAt": "2026-10-21T00:29:35.801Z",
     "slug": "drain-camera-report-questions-before-approving-repairs",
     "url": "https://melbourne.gradeaplumbing.store/blog/drain-camera-report-questions-before-approving-repairs/"
+  },
+  {
+    "date": "2026-10-22",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-22T00:32:56.531Z",
+    "slug": "heat-pump-hot-water-site-assessment-preparation",
+    "words": 1261,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    }
   }
 ]
