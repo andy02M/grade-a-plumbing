@@ -1159,7 +1159,7 @@
     "releasedDate": "2026-10-22"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "repair or replace toilet",
     "review": {
@@ -1281,7 +1281,8 @@
           "answer": "Compare the problem each option addresses, the included work, product and disposal responsibilities, exclusions and remaining uncertainties. Avoid comparing totals for different scopes."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-23"
   },
   {
     "status": "ready",
