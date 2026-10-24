@@ -1,3 +1,7 @@
+import ownerUpdate from '@/data/owner-location-update-20261025.json'
+
+const ownerApprovedNames = new Set(ownerUpdate.locationsInSuppliedOrder)
+
 export type LocationRecord = {
   id: string
   name: string
@@ -25,6 +29,10 @@ let cataloguePromise: Promise<LocationCatalogue> | null = null
 // Keep the supplied records and enquiry paths; restore website links only after validation.
 const unavailableWebsites = new Set(['https://penrith.gradeaplumbing.store', 'https://blacktown.gradeaplumbing.store', 'https://northsydney.gradeaplumbing.store'])
 function withWorkingWebsite(location: LocationRecord): LocationRecord {
+  if (location.state === 'VIC' && ownerApprovedNames.has(location.name)) {
+    const slug = location.name.toLowerCase().replace(/[^a-z0-9]/g, '')
+    return {...location, activeService: true, coverageStatus: 'owner-confirmed', businessName: `${ownerUpdate.businessNamePrefix} ${location.name}`, website: `https://${slug}.gradeaplumbing.store`}
+  }
   return location.website && unavailableWebsites.has(location.website.replace(/\/$/, '')) ? {...location, website: null} : location
 }
 

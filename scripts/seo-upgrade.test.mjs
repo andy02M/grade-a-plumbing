@@ -62,3 +62,29 @@ test('Sydney enquiries remain while known 404 website links are suppressed',()=>
  for(const city of ['Penrith','Blacktown','North Sydney'])assert.ok(source.includes(city));
  assert.match(read('components/manus/App.tsx'),/Request plumbing help/);
 });
+test("owner update configures every supplied location once without deleting omitted hosts", async () => {
+  const update = readSeoConfiguration('data/owner-location-update-20261025.json');
+  const {locations, isUnconfiguredLocationHost} = readSeoConfiguration('lib/locations.ts');
+  assert.equal(locations.length, 96);
+  assert.equal(new Set(locations.map(location => location.slug)).size, 96);
+  for (const name of new Set(update.locationsInSuppliedOrder)) {
+    const location = locations.find(item => item.location === name);
+    assert.ok(location, name);
+    assert.equal(isUnconfiguredLocationHost(location.hostname), false);
+    assert.equal(location.website, `https://${location.slug}.gradeaplumbing.store`);
+  }
+  for (const name of ['Geelong', 'Deanside', 'Thomastown']) assert.ok(locations.some(item => item.location === name));
+  const {locationHasService} = readSeoConfiguration('lib/seo-services.ts');
+  const {loadLocationCatalogue} = readSeoConfiguration('components/manus/locationData.ts');
+  const catalogue = await loadLocationCatalogue();
+  for (const slug of ['mordialloc','huntingdale','truganina','doreen','noblepark','docklands','macleod','mooneeponds','pascoevale','tullamarine','aspendale','kingspark','keilor','mernda']) {
+    const location = locations.find(item => item.slug === slug);
+    assert.equal(locationHasService(location), false, `${slug}: keep evidence-based service indexing safeguards`);
+    assert.equal(location.address, undefined, `${slug}: no invented storefront`);
+    const directoryEntry = catalogue.locations.find(item => item.name === location.location && item.state === 'VIC');
+    assert.equal(directoryEntry.activeService, true);
+    assert.equal(directoryEntry.coverageStatus, 'owner-confirmed');
+    assert.equal(directoryEntry.website, location.website);
+    assert.match(directoryEntry.postcode, /^\d{4}$/);
+  }
+});

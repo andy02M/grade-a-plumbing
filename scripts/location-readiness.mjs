@@ -27,7 +27,7 @@ function loadConfig(filename) {
 }
 
 export function locationReadiness() {
-  const { locations } = loadConfig(resolve(root, "lib/locations.ts"));
+  const { locations, ownerApprovedLocationSlugs } = loadConfig(resolve(root, "lib/locations.ts"));
   const { localGuidance } = loadConfig(resolve(root, "lib/local-guidance.ts"));
   const { googleBusinessRegister } = loadConfig(resolve(root, "lib/google-business-profiles.ts"));
   const { locationHasService } = loadConfig(resolve(root, "lib/seo-services.ts"));
@@ -58,7 +58,7 @@ export function locationReadiness() {
       sourceLinkedLocalGuidance: Boolean(guidance),
       sources: guidance?.sources ?? [],
       serviceIndexingCurrentlyEnabled: location ? locationHasService(location) : false,
-      expansionApproved: false,
+      expansionApproved: ownerApprovedLocationSlugs.has(slug),
       priority: !location ? "expansion-review" : active && !locationHasService(location) ? "active-content-and-evidence" : "existing-page-review",
       issues,
     };

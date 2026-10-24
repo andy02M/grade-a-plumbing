@@ -114,11 +114,11 @@ test("sitemap dates reflect recorded homepage and editorial changes, not request
 test("location readiness accounts for every target without silently expanding hosts", () => {
  const report = locationReadiness();
  assert.equal(report.summary.targets, 100);
- assert.equal(report.summary.configured, 82);
- assert.equal(report.summary.expansionTargets, 18);
+ assert.equal(report.summary.configured, 96);
+ assert.equal(report.summary.expansionTargets, 4);
  assert.equal(report.summary.sourceLinkedLocalGuidance, 82);
  assert.equal(report.summary.incompleteRecordedAddresses, 2);
- assert.ok(report.inventory.every(item => item.expansionApproved === false));
+ assert.ok(report.inventory.filter(item => !item.configured).every(item => item.expansionApproved === false));
  assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
  assert.equal(report.inventory.find(item => item.slug === "melbourne").suppliedProfiles.length, 2);
 });
@@ -202,7 +202,7 @@ test("remaining batch covers exactly the previously missing configured locations
  const previous = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
  const rows = JSON.parse(readFileSync(new URL("../data/remaining-local-guidance.json", import.meta.url), "utf8"));
  const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
- const expected = locationReadiness().inventory.filter(item => item.configured && !previous[item.slug]).map(item => item.slug).sort();
+ const expected = locationReadiness().inventory.filter(item => item.configured && guidance[item.slug] && !previous[item.slug]).map(item => item.slug).sort();
  assert.equal(rows.length, 61);
  assert.deepEqual(rows.map(row => row[0]).sort(), expected);
  for (const row of rows) {

@@ -1,6 +1,7 @@
 import { generatedNearbySuburbs } from "./generated-nearby-suburbs";
 import { googleBusinessProfiles, type GoogleBusinessProfile } from "./google-business-profiles";
 import { storefronts, type StorefrontAddress } from "./storefronts";
+import ownerUpdate from "@/data/owner-location-update-20261025.json";
 
 export type LocationTier = 1 | 2 | 3;
 
@@ -92,7 +93,12 @@ const greenvaleOverrides: Partial<LocationConfig> = {
     "Yuroke"
   ]
 };
-export const locations: LocationConfig[] = profiles.map((name) => {
+// Owner approved configuring the updated list on 25 October. Preserve omitted
+// existing hosts and deduplicate Melbourne; names do not verify GBP status.
+const configuredNames = [...profiles, ...ownerUpdate.locationsInSuppliedOrder.map(location => `${ownerUpdate.businessNamePrefix} ${location}`)]
+  .filter((name, index, names) => names.findIndex(other => locationSlug(other.replace(/^Grade A Plumb(?:er|ing) /, "")) === locationSlug(name.replace(/^Grade A Plumb(?:er|ing) /, ""))) === index);
+export const ownerApprovedLocationSlugs = new Set(ownerUpdate.locationsInSuppliedOrder.map(locationSlug));
+export const locations: LocationConfig[] = configuredNames.map((name) => {
   const location = name.replace(/^Grade A Plumb(?:er|ing) /, "");
   const slug = locationSlug(location);
   const base: LocationConfig = {
@@ -105,7 +111,9 @@ export const locations: LocationConfig[] = profiles.map((name) => {
     tier: location === "Melbourne" ? 2 : 3,
     phone: "(02) 5837 5457",
     phoneHref: "tel:0258375457",
-    nearbySuburbs: generatedNearbySuburbs[location] ?? [],
+    // Reuse existing geographic evidence in reverse where a forward list is
+    // absent. Do not invent ten neighbours or imply guaranteed availability.
+    nearbySuburbs: generatedNearbySuburbs[location] ?? Object.entries(generatedNearbySuburbs).filter(([, nearby]) => nearby.includes(location)).map(([nearby]) => nearby),
     address: storefronts[slug],
     googleBusinessProfile: googleBusinessProfiles[slug]
   };
