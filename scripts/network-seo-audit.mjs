@@ -15,7 +15,8 @@ const marketing=['services','about','our-work','reviews','service-areas','contac
 const inventory=locations.flatMap(l=>[...['/',...marketing.map(x=>'/'+x+'/')],...(eligible(l)?services.map(x=>'/'+x+'/'):[])].map(path=>({url:l.website+path,location:l.slug,kind:path==='/'?'location':marketing.some(x=>path==='/'+x+'/')?'marketing':'service'})));
 inventory.push(...publishedArticles.map(a=>({url:'https://melbourne.gradeaplumbing.store/blog/'+a.slug+'/',location:'melbourne',kind:'article'})),{url:'https://melbourne.gradeaplumbing.store/blog/',location:'melbourne',kind:'article-index'});
 const linkBaseline=value('--links-from');
-let targets=base?inventory.filter(x=>x.location==='melbourne'):[...inventory];
+let targets=base&&!args.includes('--all-hosts')?inventory.filter(x=>x.location==='melbourne'):[...inventory];
+if(base&&args.includes('--all-hosts'))targets.push(...locations.flatMap(l=>['/robots.txt','/sitemap.xml'].map(path=>({url:l.website+path,location:l.slug,kind:path.endsWith('xml')?'sitemap':'robots'}))));
 if(linkBaseline){
  const baseline=JSON.parse(await readFile(linkBaseline,'utf8')), checked=new Set(baseline.results.map(r=>new URL(r.url).href));
  const links=new Set(baseline.results.flatMap(r=>(r.links??[]).map(h=>{try{const u=new URL(h,r.url);if(!u.hostname.endsWith('gradeaplumbing.store')||/^\/(api|dashboard|seo-dashboard)(\/|$)/.test(u.pathname))return null;u.hash='';u.search='';return u.href;}catch{return null;}})).filter(Boolean));
@@ -30,7 +31,7 @@ async function inspect(item){
  try{
   let current=url, response, chain=[];
   for(let i=0;i<6;i++){
-   response=await fetch(current,{redirect:'manual',signal:AbortSignal.timeout(25000),headers:{'User-Agent':'GradeA-SEO-Audit/1.0'}});
+   response=await fetch(current,{redirect:'manual',signal:AbortSignal.timeout(25000),headers:{'User-Agent':'GradeA-SEO-Audit/1.0',...(base?{'x-forwarded-host':new URL(item.url).host}:{})}});
    chain.push({url:current,status:response.status});
    if(response.status>=300&&response.status<400&&response.headers.get('location')){await response.body?.cancel();current=new URL(response.headers.get('location'),current).href;continue;}break;
   }
@@ -49,5 +50,5 @@ const html=results.filter(r=>r.contentType?.includes('text/html')&&r.status===20
 const duplicate=(key)=>Object.entries(Object.groupBy(html,r=>typeof key==='function'?key(r):r[key])).filter(([v,rows])=>v&&rows.length>1).map(([value,rows])=>({value,count:rows.length,urls:rows.map(r=>r.url)}));
 const summary={targets:targets.length,completed:results.length,errors:results.filter(r=>r.error).length,non200:results.filter(r=>r.status&&r.status!==200).length,html:html.length,missingTitles:html.filter(r=>!r.title).length,missingDescriptions:html.filter(r=>!r.description).length,missingCanonicals:html.filter(r=>r.canonical.length!==1).length,canonicalMismatch:html.filter(r=>r.canonical[0]&&new URL(r.canonical[0]).href!==new URL(base?r.url:r.finalUrl).href).length,h1NotOne:html.filter(r=>r.headings.filter(h=>h.level===1).length!==1).length,invalidJsonLd:html.filter(r=>r.schemas.some(s=>s.parseError)).length};
 await mkdir(dirname(out),{recursive:true});
-await writeFile(out,JSON.stringify({checkedAt:new Date().toISOString(),scope:base?'Local candidate: Melbourne routes; host handling checked separately':'Configured network HTTP crawl; not Google indexation, rankings or field CWV',summary,readiness:locationReadiness(),inventory,duplicates:{titles:duplicate('title'),h1:duplicate(r=>r.headings.find(h=>h.level===1)?.text??'')},results},null,2)+'\n');
+await writeFile(out,JSON.stringify({checkedAt:new Date().toISOString(),scope:base?(args.includes('--all-hosts')?'Local candidate: all configured host contexts via forwarded host header':'Local candidate: Melbourne routes'):'Configured network HTTP crawl; not Google indexation, rankings or field CWV',summary,readiness:locationReadiness(),inventory,duplicates:{titles:duplicate('title'),h1:duplicate(r=>r.headings.find(h=>h.level===1)?.text??'')},results},null,2)+'\n');
 console.log(JSON.stringify(summary));
