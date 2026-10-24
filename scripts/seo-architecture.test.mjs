@@ -169,7 +169,8 @@ test("second location batch has distinct introductions and meta descriptions", (
  }
  const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
  assert.match(home, /localGuidance\[location.slug\]\?\.metaDescription/);
- assert.match(home, /alternates: \{ canonical:/);
+ assert.match(home, /pageMetadata\(title, description, /);
+ assert.match(readFileSync(new URL('../lib/page-seo.ts', import.meta.url),'utf8'), /alternates: \{ canonical \}/);
 });
 test("all location batches have distinct customer-facing content and valid service links", () => {
  const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
@@ -376,7 +377,7 @@ test("the network has a sitemap index and crawlable storefront links", () => {
   assert.match(index, /sitemap\.xml/);
   assert.match(areas, /href=\{l.website\s*\+\s*["']\/["']\}/);
 });
-test("known storefront addresses are structured and never generated", () => {
+test("recorded storefront addresses are retained but hidden addresses are not marked up on the homepage", () => {
   const storefronts = readFileSync(
     new URL("../lib/storefronts.ts", import.meta.url),
     "utf8",
@@ -387,6 +388,6 @@ test("known storefront addresses are structured and never generated", () => {
   );
   assert.match(storefronts, /streetAddress/);
   assert.match(storefronts, /addressCountry: "AU"/);
-  assert.match(home, /PostalAddress/);
-  assert.match(home, /location\.address/);
+  assert.doesNotMatch(home, /PostalAddress|aggregateRating/);
+  assert.match(home, /areaServed:/);
 });

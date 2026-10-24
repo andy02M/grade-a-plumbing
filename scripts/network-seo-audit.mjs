@@ -1,4 +1,4 @@
-import {mkdir, writeFile} from 'node:fs/promises';
+import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {dirname} from 'node:path';
 import {readSeoConfiguration, locationReadiness} from './location-readiness.mjs';
@@ -14,8 +14,13 @@ const services=['blocked-drains','sewer-repairs','pipe-relining','hot-water','em
 const marketing=['services','about','our-work','reviews','service-areas','contact'];
 const inventory=locations.flatMap(l=>[...['/',...marketing.map(x=>'/'+x+'/')],...(eligible(l)?services.map(x=>'/'+x+'/'):[])].map(path=>({url:l.website+path,location:l.slug,kind:path==='/'?'location':marketing.some(x=>path==='/'+x+'/')?'marketing':'service'})));
 inventory.push(...publishedArticles.map(a=>({url:'https://melbourne.gradeaplumbing.store/blog/'+a.slug+'/',location:'melbourne',kind:'article'})),{url:'https://melbourne.gradeaplumbing.store/blog/',location:'melbourne',kind:'article-index'});
-const targets=base?inventory.filter(x=>x.location==='melbourne'):[...inventory];
-if(!base)targets.push(...locations.flatMap(l=>['/robots.txt','/sitemap.xml'].map(path=>({url:l.website+path,location:l.slug,kind:path.endsWith('xml')?'sitemap':'robots'}))),...['https://gradeaplumbing.store/','https://www.gradeaplumbing.store/','http://gradeaplumbing.store/','https://melbourne.gradeaplumbing.store/sitemap-index.xml'].map(url=>({url,kind:'entry'})));
+const linkBaseline=value('--links-from');
+let targets=base?inventory.filter(x=>x.location==='melbourne'):[...inventory];
+if(linkBaseline){
+ const baseline=JSON.parse(await readFile(linkBaseline,'utf8')), checked=new Set(baseline.results.map(r=>new URL(r.url).href));
+ const links=new Set(baseline.results.flatMap(r=>(r.links??[]).map(h=>{try{const u=new URL(h,r.url);if(!u.hostname.endsWith('gradeaplumbing.store')||/^\/(api|dashboard|seo-dashboard)(\/|$)/.test(u.pathname))return null;u.hash='';u.search='';return u.href;}catch{return null;}})).filter(Boolean));
+ targets=[...links].filter(url=>!checked.has(url)).map(url=>({url,kind:'discovered-link'}));
+}else if(!base)targets.push(...locations.flatMap(l=>['/robots.txt','/sitemap.xml'].map(path=>({url:l.website+path,location:l.slug,kind:path.endsWith('xml')?'sitemap':'robots'}))),...['https://gradeaplumbing.store/','https://www.gradeaplumbing.store/','http://gradeaplumbing.store/','https://melbourne.gradeaplumbing.store/sitemap-index.xml'].map(url=>({url,kind:'entry'})));
 const strip=s=>s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
 const attrs=tag=>Object.fromEntries([...tag.matchAll(/([\w-]+)\s*=\s*["']([^"']*)["']/g)].map(m=>[m[1].toLowerCase(),m[2]]));
 const results=[];let next=0;
@@ -42,7 +47,7 @@ async function inspect(item){
 await Promise.all(Array.from({length:8},async()=>{while(next<targets.length){const item=targets[next++];results.push(await inspect(item));if(results.length%100===0)console.log(`Audited ${results.length}/${targets.length}`);}}));
 const html=results.filter(r=>r.contentType?.includes('text/html')&&r.status===200);
 const duplicate=(key)=>Object.entries(Object.groupBy(html,r=>typeof key==='function'?key(r):r[key])).filter(([v,rows])=>v&&rows.length>1).map(([value,rows])=>({value,count:rows.length,urls:rows.map(r=>r.url)}));
-const summary={targets:targets.length,completed:results.length,errors:results.filter(r=>r.error).length,non200:results.filter(r=>r.status&&r.status!==200).length,html:html.length,missingTitles:html.filter(r=>!r.title).length,missingDescriptions:html.filter(r=>!r.description).length,missingCanonicals:html.filter(r=>r.canonical.length!==1).length,canonicalMismatch:html.filter(r=>r.canonical[0]!==r.finalUrl).length,h1NotOne:html.filter(r=>r.headings.filter(h=>h.level===1).length!==1).length,invalidJsonLd:html.filter(r=>r.schemas.some(s=>s.parseError)).length};
+const summary={targets:targets.length,completed:results.length,errors:results.filter(r=>r.error).length,non200:results.filter(r=>r.status&&r.status!==200).length,html:html.length,missingTitles:html.filter(r=>!r.title).length,missingDescriptions:html.filter(r=>!r.description).length,missingCanonicals:html.filter(r=>r.canonical.length!==1).length,canonicalMismatch:html.filter(r=>r.canonical[0]&&new URL(r.canonical[0]).href!==new URL(base?r.url:r.finalUrl).href).length,h1NotOne:html.filter(r=>r.headings.filter(h=>h.level===1).length!==1).length,invalidJsonLd:html.filter(r=>r.schemas.some(s=>s.parseError)).length};
 await mkdir(dirname(out),{recursive:true});
 await writeFile(out,JSON.stringify({checkedAt:new Date().toISOString(),scope:base?'Local candidate: Melbourne routes; host handling checked separately':'Configured network HTTP crawl; not Google indexation, rankings or field CWV',summary,readiness:locationReadiness(),inventory,duplicates:{titles:duplicate('title'),h1:duplicate(r=>r.headings.find(h=>h.level===1)?.text??'')},results},null,2)+'\n');
 console.log(JSON.stringify(summary));

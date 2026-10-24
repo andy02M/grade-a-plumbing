@@ -4,13 +4,10 @@ import { publishedArticles } from "@/lib/articles";
 import { getRequestLocation } from "@/lib/location-request";
 import { site } from "@/lib/site";
 import { PlumbingAdvicePage } from "@/components/PlumbingAdvicePage";
+import { pageMetadata, pageBreadcrumbs } from "@/lib/page-seo";
+import { JsonLd } from "@/lib/seo";
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Plumbing Advice | Grade A Plumbing",
-    description:
-      "Practical plumbing guides for Melbourne homes and businesses, with sources and clear next steps.",
-    alternates: { canonical: site.baseUrl + "/blog/" },
-  };
+  return pageMetadata("Plumbing Advice | Grade A Plumbing", "Practical plumbing guides for Melbourne homes and businesses, with sources and clear next steps.", site.baseUrl + "/blog/");
 }
 export default async function Blog() {
   const l = await getRequestLocation();
@@ -35,5 +32,9 @@ export default async function Blog() {
       ),
     ),
   }));
-  return <PlumbingAdvicePage articles={adviceArticles} />;
+  return <>
+    <JsonLd data={{"@context": "https://schema.org", "@type": "CollectionPage", name: "Plumbing Advice", url: site.baseUrl + "/blog/", inLanguage: "en-AU"}} />
+    <JsonLd data={pageBreadcrumbs(site.baseUrl, [{name: "Home", path: "/"}, {name: "Advice", path: "/blog/"}])} />
+    <PlumbingAdvicePage articles={adviceArticles} />
+  </>;
 }

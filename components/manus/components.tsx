@@ -1,4 +1,6 @@
 "use client";
+import Image from "next/image";
+import { publicPageHref } from "./routes";
 import { ContactForm } from "../ContactForm";
 import { usePathname } from "next/navigation";
 import {
@@ -172,7 +174,7 @@ export function Button({
   );
   const classes = `button button-${variant} ${className}`;
   return href ? (
-    <a className={classes} href={href}>
+    <a className={classes} href={publicPageHref(href)}>
       {content}
     </a>
   ) : (
@@ -194,9 +196,12 @@ export function Logo({ invert = false }: { invert?: boolean }) {
       href="/"
       aria-label="Grade A Plumbing home"
     >
-      <img
+      <Image
         src="/assets/GradeAPlumberLogo-horizontal.png"
         alt="Grade A Plumbing"
+        width={1369}
+        height={542}
+        sizes="(max-width: 768px) 146px, 184px"
       />
     </a>
   );
@@ -332,7 +337,7 @@ export function Footer() {
               {serviceColumns.map((column, index) => (
                 <div key={index}>
                   {column.map((service) => (
-                    <a key={service.slug} href={service.route}>
+                    <a key={service.slug} href={publicPageHref(service.route)}>
                       {service.title}
                       <img src={icon("chevron-right")} alt="" />
                     </a>
@@ -523,7 +528,7 @@ export function ServiceCard({
       {inner}
     </button>
   ) : (
-    <a className="service-card" href={service.route}>
+    <a className="service-card" href={publicPageHref(service.route)}>
       {inner}
     </a>
   );

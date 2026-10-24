@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { publicPageHref } from "./routes";
 import { Icon } from "./components";
 import type {
   SeoPricingFactor,
@@ -157,7 +158,7 @@ function SectionBody({ section }: { section: SeoSection }) {
         <ul className="svc-links">
           {(section.links ?? []).map((link, index) => (
             <li key={index}>
-              <a href={link.route}>
+              <a href={publicPageHref(link.route)}>
                 {link.label}
                 <Icon name="arrow" size={14} />
               </a>
@@ -271,7 +272,7 @@ export function RelatedServices({ items }: { items: SeoRelatedService[] }) {
           {items.map((item) => (
             <a
               className="svc-related-card"
-              href={item.route}
+              href={publicPageHref(item.route)}
               key={`${item.route}-${item.label}`}
             >
               <b>{item.label}</b>
@@ -319,7 +320,7 @@ export function InlineLinks({ items }: { items: SeoRelatedService[] }) {
       {items.map((item, index) => (
         <Fragment key={`${item.route}-${index}`}>
           {index > 0 && <span aria-hidden="true"> · </span>}
-          <a href={item.route}>{item.label}</a>
+          <a href={publicPageHref(item.route)}>{item.label}</a>
         </Fragment>
       ))}
     </p>

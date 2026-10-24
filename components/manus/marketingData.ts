@@ -36,7 +36,7 @@ const commonFAQs: PageFAQ[] = [
   { question: 'What information should I provide?', answer: 'Tell us your suburb, the affected fixture or pipe, what you have noticed and when it began. Photos can help if it is safe to take them.' },
   { question: 'When can someone attend?', answer: 'Availability depends on location, current bookings and the work required. Call to discuss the next available option; no arrival time is guaranteed by this preview.' },
   { question: 'Will I know the cost before work starts?', answer: 'The scope and price depend on the cause and access. Where the work can be properly assessed, the proposed work and pricing should be explained before it proceeds.' },
-  { question: 'Can I request a quote online?', answer: 'Yes. The form can collect your details in this preview, but an enquiry-receiving service has not been connected. For a live enquiry, call (02) 5837 5457 or email support@gradeaplumbing.store.' },
+  { question: 'Can I request a quote online?', answer: 'Yes. Submit your contact details, suburb and description through the quote form. A success message appears only after the request is accepted. For urgent help, call (02) 5837 5457; you can also email support@gradeaplumbing.store.' },
 ]
 
 export const serviceDetails: Record<string, ServiceDetail> = {

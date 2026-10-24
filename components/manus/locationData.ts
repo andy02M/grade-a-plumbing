@@ -21,10 +21,19 @@ export type LocationRecord = {
 
 export type LocationCatalogue = { metadata: Record<string, unknown>; locations: LocationRecord[] }
 let cataloguePromise: Promise<LocationCatalogue> | null = null
+// These published destinations returned 404 in the 21 Oct 2026 network audit.
+// Keep the supplied records and enquiry paths; restore website links only after validation.
+const unavailableWebsites = new Set(['https://penrith.gradeaplumbing.store', 'https://blacktown.gradeaplumbing.store', 'https://northsydney.gradeaplumbing.store'])
+function withWorkingWebsite(location: LocationRecord): LocationRecord {
+  return location.website && unavailableWebsites.has(location.website.replace(/\/$/, '')) ? {...location, website: null} : location
+}
 
 export function loadLocationCatalogue(): Promise<LocationCatalogue> {
   if (!cataloguePromise) {
-    cataloguePromise = import('./location-catalog.json').then(module => module.default as unknown as LocationCatalogue)
+    cataloguePromise = import('./location-catalog.json').then(module => {
+      const catalogue = module.default as unknown as LocationCatalogue
+      return {...catalogue, locations: catalogue.locations.map(withWorkingWebsite)}
+    })
   }
   return cataloguePromise
 }
@@ -69,9 +78,10 @@ export function locationLabel(location: LocationRecord): string {
 }
 
 // Owner-specified cards are small and immediate; the 600+ row official catalogue is lazy-loaded.
-export const SYDNEY_LOCATIONS: LocationRecord[] = [
+const suppliedSydneyLocations: LocationRecord[] = [
   { id: 'sydney-penrith-nsw-2750', name: 'Penrith', city: 'Sydney', state: 'NSW', postcode: '2750', region: 'Sydney — confirmed locations', lga: 'Penrith City Council', lgaCode: null, serviceAvailability: null, activeService: true, coverageStatus: 'owner-confirmed', greaterMelbourne: false, source: 'Owner-provided location', sourceId: null, businessName: 'Grade A Plumber Penrith', website: 'https://penrith.gradeaplumbing.store', phone: null, bookingUrl: null },
   { id: 'sydney-blacktown-nsw-2148', name: 'Blacktown', city: 'Sydney', state: 'NSW', postcode: '2148', region: 'Sydney — confirmed locations', lga: 'Blacktown City Council', lgaCode: null, serviceAvailability: null, activeService: true, coverageStatus: 'owner-confirmed', greaterMelbourne: false, source: 'Owner-provided location', sourceId: null, businessName: 'Grade A Plumber Blacktown', website: 'https://blacktown.gradeaplumbing.store', phone: null, bookingUrl: null },
   { id: 'sydney-north-sydney-nsw-2060', name: 'North Sydney', city: 'Sydney', state: 'NSW', postcode: '2060', region: 'Sydney — confirmed locations', lga: 'North Sydney Council', lgaCode: null, serviceAvailability: null, activeService: true, coverageStatus: 'owner-confirmed', greaterMelbourne: false, source: 'Owner-provided location', sourceId: null, businessName: 'Grade A Plumber North Sydney', website: 'https://northsydney.gradeaplumbing.store', phone: null, bookingUrl: null },
 ]
+export const SYDNEY_LOCATIONS = suppliedSydneyLocations.map(withWorkingWebsite)
 

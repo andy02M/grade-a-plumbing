@@ -1,5 +1,6 @@
 "use client";
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import "./pages.css";
 import {
   Button,
@@ -19,7 +20,7 @@ import {
   type ServiceDetail,
 } from "./marketingData";
 import { LocationDirectory } from "./LocationFeatures";
-import { normalizePageRoute } from "./routes";
+import { normalizePageRoute, publicPageHref } from "./routes";
 import {
   Breadcrumbs,
   ContentSections,
@@ -44,7 +45,7 @@ function PageImage({
 }) {
   return (
     <div className={`page-image ${className}`}>
-      <img src={src} alt={alt} loading="lazy" />
+      <Image src={src} alt={alt} width={960} height={640} sizes="(max-width: 768px) 100vw, 33vw" />
       <span className="image-disclosure">concept</span>
     </div>
   );
@@ -75,11 +76,11 @@ function PageHero({
 }) {
   return (
     <section className="interior-hero">
-      <img
+      <Image
         className="interior-hero-image"
         src={image}
         alt={imageAlt}
-        fetchPriority="high"
+        fill priority sizes="100vw"
       />
       <div className="interior-hero-shade" />
       <div className="container interior-hero-inner">
@@ -134,7 +135,7 @@ function PageServiceCard({
     </>
   );
   return (
-    <a className="page-service-card" href={item.route || linkFallback}>
+    <a className="page-service-card" href={publicPageHref(item.route || linkFallback)}>
       {content}
     </a>
   );
@@ -289,10 +290,12 @@ function ServiceLanding({
   detail,
   slug,
   route,
+  locationName,
 }: {
   detail: ServiceDetail;
   slug: string;
   route: string;
+  locationName: string;
 }) {
   const formPlacement = slug === "emergency-plumbing" ? "top" : "faq";
   const isEmergency = slug === "emergency-plumbing";
@@ -310,10 +313,10 @@ function ServiceLanding({
   return (
     <div className="marketing-page" data-page={slug}>
       <PageHero
-        eyebrow={seo?.heroEyebrow ?? detail.eyebrow}
-        lead={seo?.heroLead ?? detail.lead}
-        highlight={seo?.heroHighlight ?? detail.highlight}
-        description={seo?.heroDescription ?? detail.description}
+        eyebrow={(seo?.heroEyebrow ?? detail.eyebrow).replace(/Melbourne/gi, locationName)}
+        lead={locationName === "Melbourne" ? (seo?.heroLead ?? detail.lead) : detail.title}
+        highlight={locationName === "Melbourne" ? (seo?.heroHighlight ?? detail.highlight) : locationName}
+        description={(seo?.heroDescription ?? detail.description).replace(/\bMelbourne\b/g, locationName)}
         image={detail.image}
         imageAlt={detail.imageAlt}
       />
@@ -524,14 +527,14 @@ function PageAreaCallout() {
   );
 }
 
-function ServicesOverview() {
+function ServicesOverview({ locationName }: { locationName: string }) {
   return (
     <div className="marketing-page" data-page="services">
       <PageHero
         eyebrow="GRADE A PLUMBING SERVICES"
         lead="Our Plumbing Services"
-        highlight="Melbourne"
-        description="From everyday plumbing issues to urgent repairs, explore the service pathways available across Melbourne."
+        highlight={locationName}
+        description={`From everyday plumbing issues to urgent repairs, explore service enquiries in ${locationName}. Confirm availability and the assessment required for your property.`}
         image="/assets/grade-a/hero-plumber-under-sink.webp"
         imageAlt="Plumber at work"
         primaryHref="/contact/"
@@ -1062,12 +1065,12 @@ function PageMeta({ path }: { path: string }) {
   return null;
 }
 
-export default function MarketingPage({ path }: { path: string }) {
+export default function MarketingPage({ path, locationName = "Melbourne" }: { path: string; locationName?: string }) {
   const canonical = normalizePageRoute(path);
   const detail = serviceList.find((item) => item.route === canonical);
   const detailConfig = detail ? serviceDetails[detail.slug] : undefined;
   let page: ReactNode;
-  if (canonical === "/services/") page = <ServicesOverview />;
+  if (canonical === "/services/") page = <ServicesOverview locationName={locationName} />;
   else if (canonical === "/our-work/") page = <OurWorkPage />;
   else if (canonical === "/about/") page = <AboutPage />;
   else if (canonical === "/service-areas/") page = <ServiceAreaPage />;
@@ -1080,8 +1083,9 @@ export default function MarketingPage({ path }: { path: string }) {
         detail={detailConfig}
         slug={detail.slug}
         route={canonical}
+        locationName={locationName}
       />
     );
-  else page = <ServicesOverview />;
+  else page = <ServicesOverview locationName={locationName} />;
   return <>{page}</>;
 }

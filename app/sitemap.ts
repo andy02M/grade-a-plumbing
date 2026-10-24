@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...(locationHasService(location) ? services : []).map((service) => ({ url: `${location.website}${serviceUrl(service.slug)}`, lastModified: locationContentUpdated, changeFrequency: "monthly" as const, priority: 0.9 })),
     ...(locationHasService(location)?additionalServices:[]).map(slug=>({url:location.website+'/'+slug+'/',lastModified:locationContentUpdated,changeFrequency:'monthly' as const,priority:0.8})),
     { url: `${location.website}/service-areas/`, lastModified: locationContentUpdated, changeFrequency: "monthly", priority: 0.8 },
+    ...["services", "about", "our-work", "reviews"].map(path => ({url: `${location.website}/${path}/`, changeFrequency: "monthly" as const, priority: path === "services" ? 0.8 : 0.5})),
     ...(isEditorialHost ? [
       { url: `${location.website}/blog/`, lastModified: new Date(Math.max(locationContentUpdated.getTime(), ...publishedArticles.map(article => new Date(article.updatedDate ?? article.publishedDate).getTime()))), changeFrequency: "weekly" as const, priority: 0.7 },
       ...publishedArticles.map((article) => ({ url: `${location.website}/blog/${article.slug}/`, lastModified: new Date(article.updatedDate ?? article.publishedDate), changeFrequency: "monthly" as const, priority: 0.7 })),

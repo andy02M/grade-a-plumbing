@@ -69,6 +69,8 @@ button { cursor: pointer; }
 .section-heading p { color: var(--muted); max-width: 620px; line-height: 1.55; margin: 0; font-size: 15px; }
 .hero { min-height: clamp(520px, 38vw, 660px); display: flex; align-items: center; position: relative; background-color: var(--navy); background-size: cover; background-position: center 54%; color: var(--white); overflow: hidden; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4, 18, 33, .98) 0%, rgba(5, 19, 33, .92) 35%, rgba(4, 16, 28, .28) 71%, rgba(4, 16, 28, .12)); }
+.hero-photo { object-fit: cover; object-position: center 54%; }
+@media (max-width: 768px) { .hero-photo { object-position: 67% center; } }
 .hero-content { position: relative; z-index: 1; padding-block: clamp(56px, 6vw, 92px); max-width: var(--container); }
 .hero .eyebrow { color: #d6e7f8; font-size: 12px; }
 .hero-google-rating { display: flex; align-items: center; gap: 9px; width: fit-content; max-width: 100%; margin-bottom: 16px; padding: 8px 13px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(7,24,43,.65); color: #fff; font-size: 13px; font-weight: 700; line-height: 1.4; }

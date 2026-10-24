@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   icons: {
-    icon: "/favicon.png",
+    icon: "/icon-64.png",
   },
   openGraph: {
     siteName: site.name,

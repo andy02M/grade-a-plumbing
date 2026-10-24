@@ -16,7 +16,7 @@ function loadConfig(filename) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, esModuleInterop: true },
   }).outputText;
   runInNewContext(source, {
-    module, exports: module.exports,
+    module, exports: module.exports, URL,
     require(specifier) {
       if (!specifier.startsWith(".") && !specifier.startsWith("@/")) throw new Error(`Non-config import: ${specifier}`);
       const target = specifier.startsWith("@/") ? resolve(root, specifier.slice(2)) : resolve(dirname(filename), specifier);

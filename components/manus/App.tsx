@@ -1,5 +1,6 @@
 "use client";
 import { lazy, Suspense, useEffect, useState } from "react";
+import Image from "next/image";
 import {
   Button,
   EmergencyPanel,
@@ -35,9 +36,10 @@ function setMeta(title: string, description: string) {
   if (meta) meta.setAttribute("content", description);
 }
 
-function Hero() {
+function Hero({ locationName }: { locationName: string }) {
   return (
-    <section className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
+    <section className="hero">
+      <Image src={heroImage} alt="" fill priority sizes="100vw" className="hero-photo" />
       <div className="hero-overlay" />
       <div className="container hero-content">
         <a className="hero-google-rating" href="/reviews/">
@@ -46,16 +48,16 @@ function Hero() {
           </span>
           <span>Highly Rated on Google</span>
         </a>
-        <span className="eyebrow">MELBOURNE'S LOCAL PLUMBING TEAM</span>
+        <span className="eyebrow">{locationName.toUpperCase()} · LOCAL PLUMBING TEAM</span>
         <h1>
-          Plumbing done
+          {locationName} plumbing
           <br />
-          right. <strong>Day or night.</strong>
+          done right. <strong>Day or night.</strong>
         </h1>
         <p>
           From blocked drains and burst pipes to hot water repairs and emergency
           plumbing, Grade A Plumbing provides practical plumbing solutions
-          across Melbourne and surrounding suburbs.
+          in {locationName} and surrounding service areas.
         </p>
         <div className="hero-actions">
           <Button href={PHONE_LINK}>Call a plumber now</Button>
@@ -255,7 +257,8 @@ function ProcessSection() {
   );
 }
 
-function AreasSection() {
+type NearbyLink = { name: string; url: string };
+function AreasSection({ locationName, nearbyLocations }: { locationName: string; nearbyLocations: NearbyLink[] }) {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationRecord | null>(null);
   const sydneyLocations = SYDNEY_LOCATIONS;
@@ -271,7 +274,7 @@ function AreasSection() {
         <div className="container areas-inner">
           <SectionHeading
             eyebrow="SERVICE AREA"
-            title="Local plumbing help across Melbourne and selected Sydney locations."
+            title={locationName === "Melbourne" ? "Local plumbing help across Melbourne and selected Sydney locations." : `Plumbing service enquiries near ${locationName}.`}
             body="Search by official suburb/locality and postcode. Coverage is marked separately; new areas remain unconfirmed until checked."
             action={
               <Button href="/service-areas/" variant="outline">
@@ -308,6 +311,10 @@ function AreasSection() {
             <a href="/service-areas/?state=VIC">Browse Melbourne A–Z</a>
             <a href="/service-areas/?state=NSW">Browse Sydney locations</a>
           </p>
+          {nearbyLocations.length > 0 && <nav className="location-home-links" aria-label={`Nearby service areas around ${locationName}`}>
+            <span>Nearby location websites:</span>
+            {nearbyLocations.map(item => <a key={item.url} href={item.url}>{item.name}</a>)}
+          </nav>}
           <div
             className="location-home-sydney"
             aria-label="Confirmed Sydney locations"
@@ -329,11 +336,9 @@ function AreasSection() {
                     target={location.website ? "_blank" : undefined}
                     rel={location.website ? "noopener noreferrer" : undefined}
                   >
-                    {location.website ? "Open local website" : "Visit location"}
+                    {location.website ? "Open local website" : "Request plumbing help"}
                   </a>
-                  <a href={locationEnquiryHref(location)}>
-                    Enquire on this preview
-                  </a>
+                  {location.website && <a href={locationEnquiryHref(location)}>Enquire about this location</a>}
                 </div>
               </article>
             ))}
@@ -365,17 +370,17 @@ function NotFoundPage() {
   );
 }
 
-function HomePage() {
+function HomePage({ locationName, nearbyLocations }: { locationName: string; nearbyLocations: NearbyLink[] }) {
   return (
     <>
-      <Hero />
+      <Hero locationName={locationName} />
       <TrustStrip showGoogleRating />
       <ServicesSection />
       <ReviewsSection />
       <DifferenceSection />
       <GallerySection />
       <ProcessSection />
-      <AreasSection />
+      <AreasSection locationName={locationName} nearbyLocations={nearbyLocations} />
     </>
   );
 }
@@ -383,7 +388,9 @@ function HomePage() {
 export default function App({
   initialPath,
   embedded = false,
-}: { initialPath?: string; embedded?: boolean } = {}) {
+  locationName = "Melbourne",
+  nearbyLocations = [],
+}: { initialPath?: string; embedded?: boolean; locationName?: string; nearbyLocations?: NearbyLink[] } = {}) {
   const rawPath =
     initialPath ??
     (typeof window === "undefined" ? "/" : window.location.pathname);
@@ -395,10 +402,10 @@ export default function App({
       {!embedded && <Header />}
       <main>
         {isHome ? (
-          <HomePage />
+          <HomePage locationName={locationName} nearbyLocations={nearbyLocations} />
         ) : isKnown ? (
           <Suspense fallback={null}>
-            <MarketingPage path={path} />
+            <MarketingPage path={path} locationName={locationName} />
           </Suspense>
         ) : (
           <NotFoundPage />

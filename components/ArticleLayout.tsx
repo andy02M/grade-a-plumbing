@@ -35,6 +35,11 @@ function selectTopic(article: Article): TopicMedia {
   return topicMedia.find((m) => m.key === "hot-water")!;
 }
 
+export function articleHeroMedia(article: Article) {
+  const media = selectTopic(article);
+  return {src: article.heroImage || `/images/plumbing-advice/hero/${media.hero}-hero.webp`, alt: article.heroImageAlt || media.alt};
+}
+
 function readingMinutes(article: Article) {
   const words = article.sections.reduce((total, section) => total + section.heading.split(/\s+/).length + section.paragraphs.join(" ").split(/\s+/).length, 0);
   return Math.max(3, Math.ceil(words / 220));
@@ -53,8 +58,7 @@ function categoryLabel(article: Article, media: TopicMedia) {
 export function ArticleLayout({ article, publishedArticles }: ArticleLayoutProps) {
   const media = selectTopic(article);
   const category = categoryLabel(article, media);
-  const heroSrc = article.heroImage || `/images/plumbing-advice/hero/${media.hero}-hero.webp`;
-  const heroAlt = article.heroImageAlt || media.alt;
+  const {src: heroSrc, alt: heroAlt} = articleHeroMedia(article);
   const minutes = readingMinutes(article);
   const sections = article.sections.map((section, index) => ({ ...section, id: anchorFor(section.heading, index) }));
   const related = article.relatedArticles.map((slug) => publishedArticles.find((candidate) => candidate.slug === slug)).filter((candidate): candidate is Article => Boolean(candidate));

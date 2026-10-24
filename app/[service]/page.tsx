@@ -13,6 +13,7 @@ import { publishedArticles } from "@/lib/articles";
 import { selectLocationArticles } from "@/lib/article-selection";
 import { site } from "@/lib/site";
 import { JsonLd } from "@/lib/seo";
+import { pageMetadata, pageBreadcrumbs, serviceIdentity } from "@/lib/page-seo";
 const legacy: Record<string, string> = {
   "/emergency-plumbing/": "/emergency-plumber/",
   "/hot-water-systems/": "/hot-water/",
@@ -30,15 +31,12 @@ export async function generateMetadata({
   if (!isMarketingRoute(path)) return {};
   const l = await getRequestLocation();
   const meta = getRouteMeta(normalizePageRoute(path));
-  const definition = serviceBySlug.get(service);
+  const identity = serviceIdentity(service, l.location);
   const canonical = l.website + (legacy[path] ?? path);
-  const title = definition?.title(l.location) ?? meta.title,
-    description = definition?.description(l.location) ?? meta.description;
+  const title = identity?.title ?? (service === "services" ? `Plumbing Services ${l.location} | Grade A Plumbing` : meta.title),
+    description = identity?.description ?? (service === "services" ? `Explore plumbing assessment and repair services in ${l.location}. Compare service information and contact Grade A Plumbing to confirm availability.` : meta.description);
   return {
-    title,
-    description,
-    alternates: { canonical },
-    openGraph: { title, description, url: canonical },
+    ...pageMetadata(title, description, canonical),
     robots:
       !locationHasService(l) &&
       !["services", "about", "our-work", "reviews"].includes(service)
@@ -58,6 +56,7 @@ export default async function Page({
   const l = await getRequestLocation();
   const meta = getRouteMeta(normalizePageRoute(path));
   const seo = serviceSeoFor(normalizePageRoute(path).replaceAll("/", ""));
+  const identity = serviceIdentity(service, l.location);
   const related = selectLocationArticles(
     publishedArticles.filter((article) =>
       article.relatedServices.includes(service),
@@ -70,19 +69,23 @@ export default async function Page({
         data={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: meta.title,
+          name: identity?.title ?? meta.title,
           url: l.website + path,
         }}
       />
+      <JsonLd data={pageBreadcrumbs(l.website, meta.breadcrumbs.map((crumb, index) => ({name: crumb.label, path: index === meta.breadcrumbs.length - 1 ? path : crumb.href ?? "/"})))} />
       {seo && (
         <>
           <JsonLd
             data={{
               "@context": "https://schema.org",
               "@type": "Service",
-              name: meta.title,
+              name: identity?.label ?? meta.title,
+              description: identity?.description ?? meta.description,
+              serviceType: identity?.label,
               url: l.website + path,
-              provider: { "@type": "Plumber", name: l.name, url: l.website },
+              areaServed: { "@type": "Place", name: `${l.location}, ${l.state}, Australia` },
+              provider: { "@type": "Plumber", "@id": l.website + "/#business", name: l.name, url: l.website, telephone: l.phone ?? site.phone },
             }}
           />
           <JsonLd
@@ -98,7 +101,7 @@ export default async function Page({
           />
         </>
       )}
-      <ManusApp initialPath={path} embedded />
+      <ManusApp initialPath={path} embedded locationName={l.location} />
       {related.length > 0 && (
         <section className="section">
           <div className="container">

@@ -1,5 +1,12 @@
 import { services } from './data'
 
+// Link directly to existing public endpoints instead of the visual-export aliases.
+export function publicPageHref(href: string): string {
+  const paths: Record<string, string> = {'/emergency-plumbing/':'/emergency-plumber/', '/hot-water-systems/':'/hot-water/', '/burst-pipe-repairs/':'/burst-pipe-repair/', '/contact-us/':'/contact/', '/about-us/':'/about/'}
+  const match = href.match(/^(\/[^?#]*)(.*)$/)
+  return match ? (paths[match[1]] ?? match[1]) + match[2] : href
+}
+
 const aliasRoutes: Record<string, string> = {
   '/emergency-plumber/': '/emergency-plumbing/',
   '/about-us/': '/about/',

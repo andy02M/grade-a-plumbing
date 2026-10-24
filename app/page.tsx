@@ -22,6 +22,8 @@ import {
 } from "@/lib/site";
 import { publicMapsUrl } from "@/lib/google-business-profiles";
 import { localGuidance } from "@/lib/local-guidance";
+import { pageMetadata } from "@/lib/page-seo";
+import { locations } from "@/lib/locations";
 
 const serviceIcons: Record<string, IconName> = {
   "blocked-drains": "drain",
@@ -42,38 +44,31 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     localGuidance[location.slug]?.metaDescription ??
     `Need a local plumber in ${location.location}? Grade A Plumbing provides drain, hot water, emergency, gas and commercial plumbing services.`;
-  return {
-    title,
-    description,
-    alternates: { canonical: `${location.website}/` },
-    openGraph: {
-      title,
-      description,
-      url: `${location.website}/`,
-      type: "website",
-    },
-    twitter: { card: "summary_large_image", title, description },
-  };
+  return pageMetadata(title, description, `${location.website}/`);
 }
 
 export default async function HomePage() {
   const location = await getRequestLocation();
-  const address = location.address
-    ? { "@type": "PostalAddress", ...location.address }
-    : undefined;
+  const nearbyLocations = location.nearbySuburbs.flatMap(name => {
+    const nearby = locations.find(item => item.location.toLowerCase() === name.toLowerCase());
+    return nearby && nearby.slug !== location.slug ? [{name: nearby.location, url: nearby.website + "/"}] : [];
+  }).slice(0, 6);
   return (
     <>
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "Plumber",
+          "@id": location.website + "/#business",
           name: location.name,
           url: location.website,
           telephone: location.phone ?? site.phone,
-          ...(address ? { address } : {}),
+          email: site.email,
+          areaServed: {"@type": "Place", name: location.location + ", VIC, Australia"},
         }}
       />
-      <ManusApp initialPath="/" embedded />
+      <JsonLd data={{"@context": "https://schema.org", "@type": "WebSite", "@id": location.website + "/#website", name: "Grade A Plumbing " + location.location, url: location.website + "/", inLanguage: "en-AU"}} />
+      <ManusApp initialPath="/" embedded locationName={location.location} nearbyLocations={nearbyLocations} />
     </>
   );
 }
