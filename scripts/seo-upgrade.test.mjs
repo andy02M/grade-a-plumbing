@@ -88,3 +88,16 @@ test("owner update configures every supplied location once without deleting omit
     assert.match(directoryEntry.postcode, /^\d{4}$/);
   }
 });
+test("article media adds topic variety without overriding editorial images", () => {
+  const {withArticleMedia} = readSeoConfiguration('lib/article-media.ts');
+  const {publishedArticles} = readSeoConfiguration('lib/articles.ts');
+  const generated = publishedArticles.filter(article => article.heroImage?.includes('/generated/'));
+  assert.equal(new Set(generated.map(article => article.heroImage)).size, 4);
+  for (const article of generated) {
+    assert.ok(article.heroImageAlt.startsWith('Illustrative'));
+    assert.ok(readFileSync(new URL('../public'+article.heroImage, import.meta.url)).length > 0);
+  }
+  const custom = {title:'Hot water',slug:'hot-water',heroImage:'/custom.webp'};
+  assert.equal(withArticleMedia(custom), custom);
+  assert.match(withArticleMedia({title:'Washing machine laundry',slug:'laundry'}).heroImage, /laundry-connections/);
+});
