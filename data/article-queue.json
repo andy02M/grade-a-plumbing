@@ -895,7 +895,7 @@
     "releasedDate": "2026-10-20"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "drain camera inspection report questions",
     "review": {
@@ -1023,10 +1023,11 @@
           "answer": "Clarify what the inspection service included and request the information needed to understand the recommendation. Not every service is offered with the same reporting package."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-21"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "heat pump hot water site assessment",
     "review": {
@@ -1154,10 +1155,11 @@
           "answer": "No. Check the current scheme conditions for the property, equipment and provider before relying on an advertised incentive."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-22"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "repair or replace toilet",
     "review": {
@@ -1279,10 +1281,11 @@
           "answer": "Compare the problem each option addresses, the included work, product and disposal responsibilities, exclusions and remaining uncertainties. Avoid comparing totals for different scopes."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-23"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "outdoor tap repair assessment",
     "review": {
@@ -1404,7 +1407,8 @@
           "answer": "Not unless they are included in the agreed scope. Identify the existing accessories and discuss proposed alterations separately."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-24"
   },
   {
     "status": "ready",

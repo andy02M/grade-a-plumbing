@@ -69,7 +69,7 @@ type LeadDetails = {
   nextAction: string;
 };
 
-type AlertStage = "started" | "completed" | "missed" | "recording" | "ignored";
+type AlertStage = "started" | "ended" | "completed" | "missed" | "recording" | "ignored";
 type AlertContext = {
   plumberEtaLines: string[];
 };
@@ -209,7 +209,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, ignored: true });
     }
 
-    queueCallStatistic(call);
+    if (alertStage !== "ended") queueCallStatistic(call);
 
     if (!(await claimRecentAlert(dedupeKey, dedupeWindowMs))) {
       return NextResponse.json({ ok: true, deduped: true });
@@ -232,8 +232,8 @@ export async function POST(request: Request) {
 }
 
 async function sendCallAlert(call: NormalizedCall, alertStage: AlertStage) {
-  const alertContext = await buildAlertContext(call);
-  const phoneLabel = await resolveVapiPhoneLabel({ id: call.businessPhoneId, label: call.businessPhoneLabel, number: call.businessNumber });
+  const alertContext = alertStage === "ended" ? { plumberEtaLines: [] } : await buildAlertContext(call);
+  const phoneLabel = alertStage === "ended" ? call.businessPhoneLabel : await resolveVapiPhoneLabel({ id: call.businessPhoneId, label: call.businessPhoneLabel, number: call.businessNumber });
   const message = insertPhoneLabel(formatCallAlert(call, alertStage, alertContext), phoneLabel);
   const callMessageKeys = getCallMessageKeys(call);
   const actionKeys = getCallActionKeys(callMessageKeys);
@@ -463,6 +463,19 @@ async function buildAlertContext(call: NormalizedCall): Promise<AlertContext> {
 }
 
 function formatCallAlert(call: NormalizedCall, alertStage: AlertStage, context: AlertContext) {
+  if (alertStage === "ended") {
+    return formatAlertLines([
+      ...formatAlertHeader("🟦🟦🟦", "🚰 GRADE A PLUMBING", "📞 CALL ENDED"),
+      ...formatSection("📞 CUSTOMER", [
+        `Caller: ${formatKnownPhoneNumber(call.customerNumber)}`,
+        ...(call.lead.customerName ? [`Name: ${call.lead.customerName}`] : []),
+        ...(getCallLocationInput(call) ? [`Location: ${getCallLocationInput(call)}`] : []),
+        ...(call.lead.issueSummary ? [`Issue: ${call.lead.issueSummary}`] : [])
+      ]),
+      ...formatSection("🎯 NEXT ACTION", ["Call finished. Final details and recording are processing; this notification will update automatically."])
+    ]);
+  }
+
   if (alertStage === "started") {
     return formatStartedAlert(call);
   }
@@ -909,11 +922,11 @@ function getAlertStage(call: NormalizedCall): AlertStage {
       return "missed";
     }
 
-    return hasRecording ? "completed" : "ignored";
+    return hasRecording ? "completed" : "ended";
   }
 
   if (["ended", "completed"].includes(status)) {
-    return type.includes("status-update") || !hasRecording ? "ignored" : "completed";
+    return hasRecording ? "completed" : "ended";
   }
 
   if (["busy", "failed", "no-answer", "canceled", "cancelled"].includes(status)) {
@@ -953,7 +966,7 @@ function shouldPollForRecording(call: NormalizedCall, alertStage: AlertStage) {
   }
 
   return (
-    alertStage === "ignored" &&
+    (alertStage === "ignored" || alertStage === "ended") &&
     (call.status.toLowerCase() === "ended" ||
       call.eventType.toLowerCase().includes("end-of-call") ||
       call.eventType.toLowerCase().includes("hang") ||
