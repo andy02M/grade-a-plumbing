@@ -9,7 +9,7 @@ import {
   SectionHeading,
   TrustStrip,
 } from "./components";
-import { customerReviews } from "@/lib/customer-reviews";
+import { customerReviews, reviewDateReference } from "@/lib/customer-reviews";
 import { EMAIL, PHONE, PHONE_LINK } from "./data";
 import {
   Gallery,
@@ -990,6 +990,7 @@ function ReviewsPage() {
       />
       <section className="section reviews-section">
         <div className="container">
+          <p className="mb-6 text-sm text-slate-500">Review ages as at {reviewDateReference}.</p>
           <div className="review-grid">
             {customerReviews
               .map((r, index) => (
@@ -1000,6 +1001,7 @@ function ReviewsPage() {
                   {r.text ? <p className="whitespace-pre-line">{r.text}</p> : null}
                   <footer>
                     <b>{r.name}</b>
+                    <small>{r.date}</small>
                   </footer>
                 </article>
               ))}

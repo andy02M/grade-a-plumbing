@@ -110,10 +110,12 @@ test("supplied reviews preserve all entries without adding locations or invented
   for(const review of customerReviews) {
     assert.equal(review.rating, 5);
     assert.ok(review.name.trim());
-    assert.ok(Object.keys(review).every(key=>['name','text','rating'].includes(key)));
+    assert.ok(Object.keys(review).every(key=>['name','text','rating','date'].includes(key)));
   }
   assert.match(customerReviews.find(review=>review.name==='Abe Van').text, /\n/);
   const page = readFileSync(new URL('../components/manus/MarketingPages.tsx',import.meta.url),'utf8').split('function ReviewsPage()')[1].split('function upsertMeta')[0];
-  assert.doesNotMatch(page, /r\.date|sourceUrl|\.filter\(\(r\) => r.text\)/);
-  assert.doesNotMatch(readFileSync(new URL('../components/CustomerReviews.tsx',import.meta.url),'utf8'), /location-reviews|sourceUrl|review\.date/);
+  assert.doesNotMatch(page, /sourceUrl|\.filter\(\(r\) => r.text\)/);
+  assert.doesNotMatch(readFileSync(new URL('../components/CustomerReviews.tsx',import.meta.url),'utf8'), /location-reviews|sourceUrl/);
+  for(const [label,count] of [['2 months ago',50],['1 month ago',50],['3 weeks ago',50],['1 week ago',41]]) assert.equal(customerReviews.filter(review=>review.date===label).length,count);
+  assert.match(page, /reviewDateReference/);
 });

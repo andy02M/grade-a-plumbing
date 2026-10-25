@@ -161,7 +161,7 @@ export const reviews = customerReviews
   .slice(0, 3)
   .map((review) => ({
     name: review.name,
-    time: "",
+    time: review.date + " (as at 25 October 2026)",
     quote: review.text!,
   }));
 
