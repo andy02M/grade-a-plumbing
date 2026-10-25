@@ -980,7 +980,7 @@ function ReviewsPage() {
         eyebrow="GRADE A PLUMBING · REVIEWS"
         lead="Customer Feedback"
         highlight="Matters"
-        description="We value feedback about plumbing service. Only authenticated customer reviews with a verifiable source belong on this page."
+        description="Five-star feedback shared by our customers."
         image="/assets/grade-a/melbourne-community-concept.webp"
         imageAlt="Melbourne service area"
         primaryHref="/contact/"
@@ -992,17 +992,14 @@ function ReviewsPage() {
         <div className="container">
           <div className="review-grid">
             {customerReviews
-              .filter((r) => r.text)
-              .map((r) => (
-                <article className="review-card" key={r.name}>
-                  <div className="review-source-rating" aria-label="Google review, 5 out of 5 stars">
-                    <span className="review-google-mark" aria-hidden="true">G</span>
+              .map((r, index) => (
+                <article className="review-card" key={r.name+'-'+index}>
+                  <div className="review-source-rating" aria-label="5 out of 5 stars">
                     <span className="review-stars" aria-hidden="true">★★★★★</span>
                   </div>
-                  <p>{r.text}</p>
+                  {r.text ? <p className="whitespace-pre-line">{r.text}</p> : null}
                   <footer>
                     <b>{r.name}</b>
-                    <small>Date as supplied: {r.date}</small>
                   </footer>
                 </article>
               ))}
