@@ -561,5 +561,20 @@
     "recordedAt": "2026-10-25T00:09:56.389Z",
     "slug": "apartment-plumbing-access-water-interruption-planning",
     "url": "https://melbourne.gradeaplumbing.store/blog/apartment-plumbing-access-water-interruption-planning/"
+  },
+  {
+    "date": "2026-10-26",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-26T00:00:57.289Z",
+    "slug": "hot-water-takes-too-long-assessment-observations",
+    "words": 1228,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    }
   }
 ]
