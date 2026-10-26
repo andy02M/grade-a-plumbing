@@ -399,3 +399,38 @@
   .marketing-page .page-mini-reference .page-image { height: 110px; }
   .marketing-page .page-mini-reference > b { padding: 10px; font-size: 18px; }
 }
+
+/* Reviews library: scoped to leave homepage testimonials unchanged. */
+[data-page="reviews"] .reviews-section { background: #f4f7fb; }
+[data-page="reviews"] .reviews-library-heading { display:flex; align-items:end; justify-content:space-between; gap:32px; margin-bottom:28px; }
+[data-page="reviews"] .reviews-library-eyebrow { color:#0864c7; font-size:11px; font-weight:800; letter-spacing:.16em; }
+[data-page="reviews"] .reviews-library-heading h2 { font-family:inherit; color:#102d4b; font-size:clamp(25px,3vw,38px); letter-spacing:-.04em; line-height:1.15; margin:10px 0; }
+[data-page="reviews"] .reviews-library-heading p { color:#627488; margin:0; font-size:14px; }
+[data-page="reviews"] .reviews-search { display:grid; gap:8px; width:320px; max-width:100%; font-size:12px; color:#344d65; font-weight:700; }
+[data-page="reviews"] .reviews-search input { width:100%; border:1px solid #d3deea; border-radius:10px; background:white; color:#102d4b; padding:13px 15px; font:inherit; font-size:14px; font-weight:400; }
+[data-page="reviews"] .reviews-library-meta { display:flex; justify-content:space-between; gap:12px; margin-bottom:18px; color:#718094; font-size:12px; }
+[data-page="reviews"] .reviews-library-meta p { margin:0; }
+[data-page="reviews"] .reviews-library-grid { gap:20px; align-items:start; }
+[data-page="reviews"] .review-card { padding:26px; border:1px solid #e2e8f0; border-radius:16px; box-shadow:0 5px 20px #15385805; min-height:320px; display:flex; flex-direction:column; }
+[data-page="reviews"] .reviews-card-person { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+[data-page="reviews"] .reviews-avatar { display:grid; place-items:center; flex:none; width:42px; height:42px; border-radius:50%; background:#eaf2fc; color:#075bb1; font-size:13px; font-weight:800; }
+[data-page="reviews"] .reviews-card-person b { display:block; font-size:14px; color:#152f49; }
+[data-page="reviews"] .reviews-card-person small { display:block; margin-top:4px; color:#718094; font-size:11px; }
+[data-page="reviews"] .review-stars { font-size:16px; letter-spacing:.13em; }
+[data-page="reviews"] .review-card .reviews-card-copy { min-height:0; font-size:14px; line-height:1.8; color:#4c6074; margin:16px 0; white-space:pre-line; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:5; overflow:hidden; }
+[data-page="reviews"] .review-card .reviews-card-copy.is-expanded { display:block; overflow:visible; }
+[data-page="reviews"] .reviews-read-more { margin-top:auto; align-self:start; border:0; background:transparent; color:#075fc3; padding:8px 0 0; font:inherit; font-size:12px; font-weight:700; cursor:pointer; }
+[data-page="reviews"] .reviews-rating-only { margin-top:20px; font-size:14px; color:#718094; }
+[data-page="reviews"] .reviews-show-more { display:flex; justify-content:center; margin-top:36px; }
+[data-page="reviews"] .reviews-show-more button { background:#075fc3; color:white; border:0; padding:15px 26px; border-radius:9px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+[data-page="reviews"] .reviews-show-more span { margin-left:14px; }
+[data-page="reviews"] .reviews-empty { padding:30px 0; color:#627488; text-align:center; }
+[data-page="reviews"] input:focus-visible, [data-page="reviews"] button:focus-visible { outline:3px solid #8cc7ff; outline-offset:4px; }
+@media (max-width:1024px) { [data-page="reviews"] .reviews-library-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:640px) {
+  [data-page="reviews"] .reviews-library-heading { align-items:stretch; flex-direction:column; gap:22px; }
+  [data-page="reviews"] .reviews-search { width:100%; }
+  [data-page="reviews"] .reviews-library-grid { grid-template-columns:1fr; gap:14px; }
+  [data-page="reviews"] .review-card { padding:22px; min-height:0; }
+  [data-page="reviews"] .reviews-library-meta { flex-direction:column; gap:6px; }
+}

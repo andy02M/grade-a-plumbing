@@ -119,3 +119,13 @@ test("supplied reviews preserve all entries without adding locations or invented
   for(const [label,count] of [['2 months ago',50],['1 month ago',50],['3 weeks ago',50],['1 week ago',41]]) assert.equal(customerReviews.filter(review=>review.date===label).length,count);
   assert.match(page, /reviewDateReference/);
 });
+test("reviews library keeps the complete collection behind search and incremental browsing", () => {
+  const page = readFileSync(new URL('../components/manus/MarketingPages.tsx',import.meta.url),'utf8').split('function ReviewsPage()')[1].split('function upsertMeta')[0];
+  assert.match(page, /useState\(12\)/);
+  assert.match(page, /matchingReviews.slice\(0,reviewLimit\)/);
+  assert.match(page, /limit => limit\+12/);
+  assert.match(page, /setReviewLimit\(12\)/);
+  assert.match(page, /aria-expanded/);
+  assert.match(page, /aria-controls/);
+  assert.match(page, /No reviews match your search/);
+});

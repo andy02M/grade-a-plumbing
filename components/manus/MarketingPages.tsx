@@ -974,6 +974,13 @@ function ContactPage() {
 }
 
 function ReviewsPage() {
+  const [reviewSearch, setReviewSearch] = useState('');
+  const [reviewLimit, setReviewLimit] = useState(12);
+  const [expandedReviews, setExpandedReviews] = useState<Set<number>>(() => new Set());
+  const matchingReviews = useMemo(() => {
+    const query = reviewSearch.trim().toLocaleLowerCase('en-AU');
+    return customerReviews.map((review,index) => ({...review,index})).filter(review => !query || `${review.name} ${review.text ?? ''}`.toLocaleLowerCase('en-AU').includes(query));
+  }, [reviewSearch]);
   return (
     <div className="marketing-page" data-page="reviews">
       <PageHero
@@ -990,22 +997,25 @@ function ReviewsPage() {
       />
       <section className="section reviews-section">
         <div className="container">
-          <p className="mb-6 text-sm text-slate-500">Review ages as at {reviewDateReference}.</p>
-          <div className="review-grid">
-            {customerReviews
-              .map((r, index) => (
-                <article className="review-card" key={r.name+'-'+index}>
+          <div className="reviews-library-heading">
+            <div><span className="reviews-library-eyebrow">CUSTOMER EXPERIENCES</span><h2>Good service. In their words.</h2><p>{customerReviews.length} customer reviews, all in one place.</p></div>
+            <label className="reviews-search"><span>Find a review</span><input type="search" value={reviewSearch} placeholder="Search name or plumbing topic" onChange={event => {setReviewSearch(event.target.value);setReviewLimit(12);}} /></label>
+          </div>
+          <div className="reviews-library-meta"><p role="status">Showing {Math.min(reviewLimit,matchingReviews.length)} of {matchingReviews.length} reviews</p><p>Review ages as at {reviewDateReference}.</p></div>
+          <div className="review-grid reviews-library-grid">
+            {matchingReviews.slice(0,reviewLimit)
+              .map((r) => (
+                <article className="review-card" key={r.index}>
+                  <header className="reviews-card-person"><span className="reviews-avatar" aria-hidden="true">{r.name.split(/\s+/).slice(0,2).map(part=>part[0]).join('').toUpperCase()}</span><div><b>{r.name}</b><small>{r.date}</small></div></header>
                   <div className="review-source-rating" aria-label="5 out of 5 stars">
                     <span className="review-stars" aria-hidden="true">★★★★★</span>
                   </div>
-                  {r.text ? <p className="whitespace-pre-line">{r.text}</p> : null}
-                  <footer>
-                    <b>{r.name}</b>
-                    <small>{r.date}</small>
-                  </footer>
+                  {r.text ? <><p id={`review-copy-${r.index}`} className={`reviews-card-copy ${r.text.length <= 240 || expandedReviews.has(r.index) ? 'is-expanded' : ''}`}>{r.text}</p>{r.text.length > 240 ? <button type="button" className="reviews-read-more" aria-expanded={expandedReviews.has(r.index)} aria-controls={`review-copy-${r.index}`} aria-label={`${expandedReviews.has(r.index) ? 'Show less' : 'Read full review'} by ${r.name}`} onClick={() => setExpandedReviews(previous => {const next=new Set(previous);if(next.has(r.index))next.delete(r.index);else next.add(r.index);return next;})}>{expandedReviews.has(r.index) ? 'Show less' : 'Read full review'}<span aria-hidden="true"> →</span></button> : null}</> : <span className="reviews-rating-only">Five-star rating</span>}
                 </article>
               ))}
           </div>
+          {matchingReviews.length === 0 ? <p className="reviews-empty">No reviews match your search. Try another name or plumbing topic.</p> : null}
+          {reviewLimit < matchingReviews.length ? <div className="reviews-show-more"><button type="button" onClick={() => setReviewLimit(limit => limit+12)}>Show more reviews <span aria-hidden="true">↓</span></button></div> : null}
         </div>
       </section>
     </div>
