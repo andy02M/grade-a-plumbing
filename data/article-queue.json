@@ -1411,7 +1411,7 @@
     "releasedDate": "2026-10-24"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "apartment plumbing water shutdown planning",
     "review": {
@@ -1533,10 +1533,11 @@
           "answer": "No. Treat the planned visit, technical assessment, permissions and resident communication as separate arrangements that need confirmation."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-25"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "hot water takes too long to reach tap",
     "review": {
@@ -1657,7 +1658,8 @@
           "answer": "Identify the affected outlet, the timing pattern, when the concern started and any model information you already have safely available."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-26"
   },
   {
     "status": "ready",
