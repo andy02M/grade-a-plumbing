@@ -14,6 +14,9 @@ import { selectLocationArticles } from "@/lib/article-selection";
 import { site } from "@/lib/site";
 import { JsonLd } from "@/lib/seo";
 import { pageMetadata, pageBreadcrumbs, serviceIdentity } from "@/lib/page-seo";
+import { pageCanonical, sharedCorporatePaths, editorialOrigin } from "@/lib/canonical-policy";
+import {customerReviews} from '@/lib/customer-reviews';
+import {reviewPageNumber,reviewPagePath} from '@/lib/review-pagination';
 const legacy: Record<string, string> = {
   "/emergency-plumbing/": "/emergency-plumber/",
   "/hot-water-systems/": "/hot-water/",
@@ -23,8 +26,10 @@ const legacy: Record<string, string> = {
 };
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ service: string }>;
+  searchParams: Promise<{page?:string|string[]}>;
 }): Promise<Metadata> {
   const { service } = await params;
   const path = "/" + service + "/";
@@ -32,8 +37,9 @@ export async function generateMetadata({
   const l = await getRequestLocation();
   const meta = getRouteMeta(normalizePageRoute(path));
   const identity = serviceIdentity(service, l.location);
-  const canonical = l.website + (legacy[path] ?? path);
-  const title = identity?.title ?? (service === "services" ? `Plumbing Services ${l.location} | Grade A Plumbing` : meta.title),
+  const reviewPage=service==='reviews'?reviewPageNumber((await searchParams).page,customerReviews.length):1;
+  const canonical = service==='reviews' ? editorialOrigin+reviewPagePath(reviewPage) : pageCanonical(l.website, legacy[path] ?? path);
+  const title = identity?.title ?? (service === "services" ? `Plumbing Services ${l.location} | Grade A Plumbing` : service==='reviews'&&reviewPage>1?`Customer Reviews — Page ${reviewPage} | Grade A Plumbing`:meta.title),
     description = identity?.description ?? (service === "services" ? `Explore plumbing assessment and repair services in ${l.location}. Compare service information and contact Grade A Plumbing to confirm availability.` : meta.description);
   return {
     ...pageMetadata(title, description, canonical),
@@ -46,14 +52,17 @@ export async function generateMetadata({
 }
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{ service: string }>;
+  searchParams: Promise<{page?:string|string[]}>;
 }) {
   const { service } = await params;
   const path = "/" + service + "/";
   if (legacy[path]) permanentRedirect(legacy[path]);
   if (!isMarketingRoute(path)) notFound();
   const l = await getRequestLocation();
+  const reviewPage=service==='reviews'?reviewPageNumber((await searchParams).page,customerReviews.length):1;
   const meta = getRouteMeta(normalizePageRoute(path));
   const seo = serviceSeoFor(normalizePageRoute(path).replaceAll("/", ""));
   const identity = serviceIdentity(service, l.location);
@@ -70,10 +79,10 @@ export default async function Page({
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: identity?.title ?? meta.title,
-          url: l.website + path,
+          url: service==='reviews'?editorialOrigin+reviewPagePath(reviewPage):pageCanonical(l.website, path),
         }}
       />
-      <JsonLd data={pageBreadcrumbs(l.website, meta.breadcrumbs.map((crumb, index) => ({name: crumb.label, path: index === meta.breadcrumbs.length - 1 ? path : crumb.href ?? "/"})))} />
+      <JsonLd data={pageBreadcrumbs(sharedCorporatePaths.has(path) ? editorialOrigin : l.website, meta.breadcrumbs.map((crumb, index) => ({name: crumb.label, path: index === meta.breadcrumbs.length - 1 ? service==='reviews'?reviewPagePath(reviewPage):path : crumb.href ?? "/"})))} />
       {seo && (
         <>
           <JsonLd
@@ -101,7 +110,7 @@ export default async function Page({
           />
         </>
       )}
-      <ManusApp initialPath={path} embedded locationName={l.location} />
+      <ManusApp initialPath={path} embedded locationName={l.location} reviewPage={reviewPage} />
       {related.length > 0 && (
         <section className="section">
           <div className="container">

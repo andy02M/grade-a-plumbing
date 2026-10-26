@@ -16,6 +16,7 @@ import { googleBusinessRegister, googleReviewSummary } from "@/lib/google-busine
 import { LocationAutocomplete } from "./LocationFeatures";
 import {
   loadLocationById,
+  loadLocationCatalogue,
   locationLabel,
   type LocationRecord,
 } from "./locationData";
@@ -229,7 +230,7 @@ export function Header() {
           {nav.map(([label, href]) => {
             const active = pathname === href || pathname.startsWith(`${href.replace(/\/$/, "")}/`);
             return (
-            <a key={href} href={href} className={active ? "nav-link-active" : undefined} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>
+            <a key={href} href={publicPageHref(href)} className={active ? "nav-link-active" : undefined} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>
               {label}
               {label === "Services" && <span className="nav-chevron">⌄</span>}
             </a>
@@ -353,7 +354,7 @@ export function Footer() {
             <h2>Explore</h2>
             <div>
               {explore.map(([label, href]) => (
-                <a key={href} href={href}>
+                  <a key={href} href={publicPageHref(href)}>
                   {label}
                   <img src={icon("chevron-right")} alt="" />
                 </a>
@@ -474,7 +475,7 @@ export function TrustStrip({ showGoogleRating = false }: { showGoogleRating?: bo
         {showGoogleRating && hasActiveGoogleProfiles && (
           <a
             className="trust-item trust-item-rating"
-            href="/reviews/"
+            href={publicPageHref('/reviews/')}
             key="google-rating"
             aria-label={`Business-wide Google rating ${googleReviewSummary.rating.toFixed(1)} out of 5 from ${googleReviewSummary.reviewCount} reviews across all profiles`}
             title="Business-wide summary across Grade A Plumbing Google profiles"
@@ -534,8 +535,23 @@ export function ServiceCard({
   );
 }
 
-export function QuoteForm({ compact = false }: { compact?: boolean; defaultService?: string; defaultLocationId?: string }) {
-  return <div className="quote-form existing-quote-form"><ContactForm compact={compact} /></div>;
+export function QuoteForm({ compact = false, defaultService = '', defaultLocationId = '' }: { compact?: boolean; defaultService?: string; defaultLocationId?: string }) {
+  const [suburb,setSuburb] = useState('');
+  const [service,setService] = useState(defaultService);
+  useEffect(() => {
+    let cancelled=false;
+    const requested=defaultLocationId || new URLSearchParams(window.location.search).get('location');
+    const resolve = requested ? loadLocationById(requested) : loadLocationCatalogue().then(catalogue=>{
+      const host=window.location.hostname;
+      const slug=host.endsWith('.gradeaplumbing.store')?host.split('.')[0]:'';
+      return catalogue.locations.find(location=>location.website && new URL(location.website).hostname===host)
+        ?? catalogue.locations.find(location=>slug && location.name.toLowerCase().replace(/[^a-z0-9]/g,'')===slug);
+    });
+    resolve.then(location=>{if(!cancelled)setSuburb(location ? `${location.name} ${location.state} ${location.postcode}` : '');}).catch(()=>{if(!cancelled)setSuburb('');});
+    setService(defaultService || window.location.pathname);
+    return ()=>{cancelled=true;};
+  },[defaultLocationId,defaultService]);
+  return <div className="quote-form existing-quote-form"><ContactForm compact={compact} defaultSuburb={suburb} defaultService={service} /></div>;
 }
 
 export function Gallery({ preview = false }: { preview?: boolean }) {

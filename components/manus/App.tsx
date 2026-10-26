@@ -15,7 +15,7 @@ import {
   TrustStrip,
 } from "./components";
 import { PHONE, PHONE_LINK, processSteps, reviews, services } from "./data";
-import { isMarketingRoute, normalizePageRoute } from "./routes";
+import { isMarketingRoute, normalizePageRoute, publicPageHref } from "./routes";
 import { LocationAutocomplete } from "./LocationFeatures";
 import {
   locationEnquiryHref,
@@ -42,7 +42,7 @@ function Hero({ locationName }: { locationName: string }) {
       <Image src={heroImage} alt="" fill priority sizes="100vw" className="hero-photo" />
       <div className="hero-overlay" />
       <div className="container hero-content">
-        <a className="hero-google-rating" href="/reviews/">
+        <a className="hero-google-rating" href={publicPageHref('/reviews/')}>
           <span className="hero-google-rating-mark" aria-hidden="true">
             <img src="/assets/google-g-logo.webp" alt="" width={20} height={20} />
           </span>
@@ -258,7 +258,8 @@ function ProcessSection() {
 }
 
 type NearbyLink = { name: string; url: string };
-function AreasSection({ locationName, nearbyLocations }: { locationName: string; nearbyLocations: NearbyLink[] }) {
+type HomeLocalGuidance = {heading:string;introduction?:string;paragraphs:string[];sources:{title:string;url:string}[]};
+function AreasSection({ locationName, nearbyLocations, localPropertyGuidance }: { locationName: string; nearbyLocations: NearbyLink[]; localPropertyGuidance?:HomeLocalGuidance }) {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationRecord | null>(null);
   const sydneyLocations = SYDNEY_LOCATIONS;
@@ -282,6 +283,7 @@ function AreasSection({ locationName, nearbyLocations }: { locationName: string;
               </Button>
             }
           />
+          {localPropertyGuidance && <div className="location-booking-guidance"><p>{localPropertyGuidance.introduction}</p><details><summary>{localPropertyGuidance.heading}</summary>{localPropertyGuidance.paragraphs.map((paragraph,index)=><p key={index}>{paragraph}</p>)}<p>Authority information is general guidance, not a diagnosis or approval for your property.</p>{localPropertyGuidance.sources.map(source=><p key={source.url}><a href={source.url} rel="noopener noreferrer">{source.title}</a></p>)}</details></div>}
           <div className="location-home-field">
             <label htmlFor="homepage-location-picker">
               Select a Melbourne or Sydney location
@@ -308,8 +310,8 @@ function AreasSection({ locationName, nearbyLocations }: { locationName: string;
             )}
           </div>
           <p className="location-home-links">
-            <a href="/service-areas/?state=VIC">Browse Melbourne A–Z</a>
-            <a href="/service-areas/?state=NSW">Browse Sydney locations</a>
+            <a href={publicPageHref('/service-areas/?state=VIC')}>Browse Melbourne A–Z</a>
+            <a href={publicPageHref('/service-areas/?state=NSW')}>Browse Sydney locations</a>
           </p>
           {nearbyLocations.length > 0 && <nav className="location-home-links" aria-label={`Nearby service areas around ${locationName}`}>
             <span>Nearby location websites:</span>
@@ -370,7 +372,7 @@ function NotFoundPage() {
   );
 }
 
-function HomePage({ locationName, nearbyLocations }: { locationName: string; nearbyLocations: NearbyLink[] }) {
+function HomePage({ locationName, nearbyLocations, localPropertyGuidance }: { locationName: string; nearbyLocations: NearbyLink[];localPropertyGuidance?:HomeLocalGuidance }) {
   return (
     <>
       <Hero locationName={locationName} />
@@ -380,7 +382,7 @@ function HomePage({ locationName, nearbyLocations }: { locationName: string; nea
       <DifferenceSection />
       <GallerySection />
       <ProcessSection />
-      <AreasSection locationName={locationName} nearbyLocations={nearbyLocations} />
+      <AreasSection locationName={locationName} nearbyLocations={nearbyLocations} localPropertyGuidance={localPropertyGuidance} />
     </>
   );
 }
@@ -390,7 +392,9 @@ export default function App({
   embedded = false,
   locationName = "Melbourne",
   nearbyLocations = [],
-}: { initialPath?: string; embedded?: boolean; locationName?: string; nearbyLocations?: NearbyLink[] } = {}) {
+  localPropertyGuidance,
+  reviewPage = 1,
+}: { initialPath?: string; embedded?: boolean; locationName?: string; nearbyLocations?: NearbyLink[];localPropertyGuidance?:HomeLocalGuidance;reviewPage?:number } = {}) {
   const rawPath =
     initialPath ??
     (typeof window === "undefined" ? "/" : window.location.pathname);
@@ -402,10 +406,10 @@ export default function App({
       {!embedded && <Header />}
       <main>
         {isHome ? (
-          <HomePage locationName={locationName} nearbyLocations={nearbyLocations} />
+          <HomePage locationName={locationName} nearbyLocations={nearbyLocations} localPropertyGuidance={localPropertyGuidance} />
         ) : isKnown ? (
           <Suspense fallback={null}>
-            <MarketingPage path={path} locationName={locationName} />
+            <MarketingPage path={path} locationName={locationName} reviewPage={reviewPage} />
           </Suspense>
         ) : (
           <NotFoundPage />

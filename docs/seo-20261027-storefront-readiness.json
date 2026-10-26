@@ -1,0 +1,1958 @@
+{
+  "scope": "Evidence reconciliation, not a live Google verification result. No new addresses or profile statuses inferred.",
+  "summary": {
+    "locations": 96,
+    "missingRecordedAddress": 70,
+    "serviceIndexingEnabled": 27
+  },
+  "locations": [
+    {
+      "location": "Melbourne",
+      "homepage": "https://melbourne.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "235 Queen St",
+        "addressLocality": "Melbourne",
+        "addressRegion": "VIC",
+        "postalCode": "3000",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Melbourne",
+        "locality": "Melbourne",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/Djwra7xumDAGfAvY9",
+        "additionalProfiles": [
+          {
+            "name": "Grade A Plumber Melbourne",
+            "locality": "Melbourne",
+            "region": "VIC",
+            "status": "Active",
+            "mapsUrl": "https://maps.app.goo.gl/996dGecW2nLqouoG6",
+            "locationSlug": "melbourne"
+          }
+        ]
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "St Albans",
+      "homepage": "https://stalbans.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 William St",
+        "addressLocality": "St Albans",
+        "addressRegion": "VIC",
+        "postalCode": "3021",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing St Albans",
+        "locality": "St Albans",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/aN541RAdK5NuVxMG9"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "South Melbourne",
+      "homepage": "https://southmelbourne.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Bank St",
+        "addressLocality": "South Melbourne",
+        "addressRegion": "VIC",
+        "postalCode": "3205",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing South Melbourne",
+        "locality": "South Melbourne",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/nAJPyVY2Gw8Ud6Up9"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Pakenham",
+      "homepage": "https://pakenham.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Henty St",
+        "addressLocality": "Pakenham",
+        "addressRegion": "VIC",
+        "postalCode": "3810",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Pakenham",
+        "locality": "Pakenham",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/s8QjpEHC8con1S187"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Ballarat",
+      "homepage": "https://ballarat.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Dana St",
+        "addressLocality": "Ballarat Central",
+        "addressRegion": "VIC",
+        "postalCode": "3350",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Ballarat",
+        "locality": "Ballarat Central",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/s3K75W7gmwNJgBZx6"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Bendigo",
+      "homepage": "https://bendigo.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Myers St",
+        "addressLocality": "Bendigo",
+        "addressRegion": "VIC",
+        "postalCode": "3550",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Bendigo",
+        "locality": "Bendigo",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/Azuu4JWB6xXGFZhu9"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Geelong",
+      "homepage": "https://geelong.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Little Myers St",
+        "addressLocality": "Geelong",
+        "addressRegion": "VIC",
+        "postalCode": "3220",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Geelong",
+        "locality": "Geelong",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/R8Xtj3KDWGwVu1uQA"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Melton",
+      "homepage": "https://melton.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 McKenzie St",
+        "addressLocality": "Melton",
+        "addressRegion": "VIC",
+        "postalCode": "3337",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Melton",
+        "locality": "Melton",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/kqjMuh6rhYo9hzty8"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Point Cook",
+      "homepage": "https://pointcook.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Boardwalk Blvd",
+        "addressLocality": "Point Cook",
+        "addressRegion": "VIC",
+        "postalCode": "3030",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Point Cook",
+        "locality": "Point Cook",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/CuJAUcQdpTCqsBv3A"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Reservoir",
+      "homepage": "https://reservoir.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Broadway",
+        "addressLocality": "Reservoir",
+        "addressRegion": "VIC",
+        "postalCode": "3073",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Reservoir",
+        "locality": "Reservoir",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/gBD4qveRkyxyb8eN9"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Richmond",
+      "homepage": "https://richmond.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "111 Gipps St",
+        "addressLocality": "Richmond",
+        "addressRegion": "VIC",
+        "postalCode": "3121",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing Richmond",
+        "locality": "Richmond",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/ytFph1biadDL3s219"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "St Kilda",
+      "homepage": "https://stkilda.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 St Kilda Rd",
+        "addressLocality": "St Kilda",
+        "addressRegion": "VIC",
+        "postalCode": "3182",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumbing St Kilda",
+        "locality": "St Kilda",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/Cbk5Cr9nGEeEbMkYA"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Epping",
+      "homepage": "https://epping.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "High St",
+        "addressLocality": "Epping",
+        "addressRegion": "VIC",
+        "postalCode": "3076",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Epping",
+        "locality": "Epping",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/EDwztfM8mv4HcF6c8"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Complete premises number",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Footscray",
+      "homepage": "https://footscray.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Leeds St",
+        "addressLocality": "Footscray",
+        "addressRegion": "VIC",
+        "postalCode": "3011",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Footscray",
+        "locality": "Footscray",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/qpkK2w4YFYE4XB5Q7"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Glen Waverley",
+      "homepage": "https://glenwaverley.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Snedden Dr",
+        "addressLocality": "Glen Waverley",
+        "addressRegion": "VIC",
+        "postalCode": "3150",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Glen Waverley",
+        "locality": "Glen Waverley",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/9B9M5pMpcvjW1yUv8"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Fitzroy",
+      "homepage": "https://fitzroy.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Fitzroy",
+        "locality": "Fitzroy",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/MSt1iptTvWfHcsom8"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Box Hill",
+      "homepage": "https://boxhill.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Carrington Rd",
+        "addressLocality": "Box Hill",
+        "addressRegion": "VIC",
+        "postalCode": "3128",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Box Hill",
+        "locality": "Box Hill",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/Viv2FQofxhmU1J3n7"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Hawthorn",
+      "homepage": "https://hawthorn.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Lynch St",
+        "addressLocality": "Hawthorn",
+        "addressRegion": "VIC",
+        "postalCode": "3122",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Hawthorn",
+        "locality": "Hawthorn",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/t7VQroTDq5v1SMKU6"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Essendon",
+      "homepage": "https://essendon.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Napier St",
+        "addressLocality": "Essendon",
+        "addressRegion": "VIC",
+        "postalCode": "3040",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Essendon",
+        "locality": "Essendon",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/M4PyFgG4HjXTEhEE9"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Ringwood",
+      "homepage": "https://ringwood.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Maroondah Hwy",
+        "addressLocality": "Ringwood",
+        "addressRegion": "VIC",
+        "postalCode": "3134",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Ringwood",
+        "locality": "Ringwood",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/BM4cyYAsgcdWaUdQ8"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Brighton",
+      "homepage": "https://brighton.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Church St",
+        "addressLocality": "Brighton",
+        "addressRegion": "VIC",
+        "postalCode": "3186",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Brighton",
+        "locality": "Brighton",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/2ALY1akwHoqKQQFz8"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Narre Warren",
+      "homepage": "https://narrewarren.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "Link Rd",
+        "addressLocality": "Narre Warren",
+        "addressRegion": "VIC",
+        "postalCode": "3805",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Narre Warren",
+        "locality": "Narre Warren",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/cWHZBz5VxffvZLTr9"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Complete premises number",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Mornington",
+      "homepage": "https://mornington.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Mornington",
+        "locality": "Mornington",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/oKUJRU5QKAGPPiUk7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Brunswick",
+      "homepage": "https://brunswick.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Albert St",
+        "addressLocality": "Brunswick East",
+        "addressRegion": "VIC",
+        "postalCode": "3057",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Brunswick",
+        "locality": "Brunswick",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/Wkt1AyBrVi2gwBPx8"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Dandenong",
+      "homepage": "https://dandenong.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Princes Hwy",
+        "addressLocality": "Dandenong",
+        "addressRegion": "VIC",
+        "postalCode": "3175",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Dandenong",
+        "locality": "Dandenong",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/9KDuYtwmWiSXMzbr7"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Frankston",
+      "homepage": "https://frankston.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Gertrude St",
+        "addressLocality": "Frankston",
+        "addressRegion": "VIC",
+        "postalCode": "3199",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Frankston",
+        "locality": "Frankston",
+        "status": "Pending",
+        "mapsUrl": "https://maps.app.goo.gl/nK6Bvr4a1xE1DKit5"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Kew",
+      "homepage": "https://kew.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Denmark St",
+        "addressLocality": "Kew",
+        "addressRegion": "VIC",
+        "postalCode": "3101",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Kew",
+        "locality": "Kew",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/t9MJGHZQ8o8Ftx1CA"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Caroline Springs",
+      "homepage": "https://carolinesprings.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Caroline Springs",
+        "locality": "Caroline Springs",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/RS3Tir5Ny86p37MX6"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Williamstown",
+      "homepage": "https://williamstown.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Williamstown",
+        "locality": "Williamstown",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/ShBbxc2mZi3Eu5oAA"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Kensington",
+      "homepage": "https://kensington.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Kensington",
+        "locality": "Kensington",
+        "status": "Suspended",
+        "mapsUrl": "https://maps.app.goo.gl/hgaJhnvAGmT9Ejkf7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Blackburn",
+      "homepage": "https://blackburn.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Blackburn",
+        "locality": "Blackburn",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/2iWz2QCNAJCyFLJS7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Thornbury",
+      "homepage": "https://thornbury.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Thornbury",
+        "locality": "Thornbury",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/6ZbrSNhzsAMeAP7UA"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Craigieburn",
+      "homepage": "https://craigieburn.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Craigieburn",
+        "locality": "Craigieburn",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/cA7KeuWUTvYProh59"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "North Melbourne",
+      "homepage": "https://northmelbourne.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber North Melbourne",
+        "locality": "North Melbourne",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/eKwx8yuTZLYVnL1M7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Berwick",
+      "homepage": "https://berwick.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Berwick",
+        "locality": "Berwick",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/bGRfJNpDdm9uWogs8"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Hoppers Crossing",
+      "homepage": "https://hopperscrossing.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Hoppers Crossing",
+        "locality": "Hoppers Crossing",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Altona",
+      "homepage": "https://altona.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Altona",
+        "locality": "Altona",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/7HXatEXjaxApbkJw5"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Bentleigh",
+      "homepage": "https://bentleigh.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Bentleigh",
+        "locality": "Bentleigh",
+        "status": "Verification Submitted"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Moorabbin",
+      "homepage": "https://moorabbin.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Moorabbin",
+        "locality": "Moorabbin",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/SoJGUD6aKmmmZ6sV7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Bundoora",
+      "homepage": "https://bundoora.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Bundoora",
+        "locality": "Bundoora",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/XCgxowc2niNnN9JP6"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Preston",
+      "homepage": "https://preston.gradeaplumbing.store/",
+      "recordedAddress": {
+        "streetAddress": "60 Garnet St",
+        "addressLocality": "Preston",
+        "addressRegion": "VIC",
+        "postalCode": "3072",
+        "addressCountry": "AU"
+      },
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Preston",
+        "locality": "Preston",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/a7LXTwqDUfkxJxqM8"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Doncaster",
+      "homepage": "https://doncaster.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Doncaster",
+        "locality": "Doncaster",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/T4c5rkDDVNF73r5M6"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Northcote",
+      "homepage": "https://northcote.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Northcote",
+        "locality": "Northcote",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/tPvPYYVjAWe667jZ8"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Coburg",
+      "homepage": "https://coburg.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Coburg",
+        "locality": "Coburg",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/jL565Tbas8uDsopM6"
+      },
+      "serviceIndexingEnabled": true,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Cremorne",
+      "homepage": "https://cremorne.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Cremorne",
+        "locality": "Cremorne",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/8tTZrN9J8drrNBBo6"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Werribee",
+      "homepage": "https://werribee.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Werribee",
+        "locality": "Werribee",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/yiqRXKnW1b51158VA"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Camberwell",
+      "homepage": "https://camberwell.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Camberwell",
+        "locality": "Camberwell",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/oYEBTnLHBzn29hH88"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Sunbury",
+      "homepage": "https://sunbury.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Sunbury",
+        "locality": "Sunbury",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/oTkGs9JxyHw8annn7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Sunshine",
+      "homepage": "https://sunshine.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Sunshine",
+        "locality": "Sunshine",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/Y9rh94T12N5EAQT87"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Port Melbourne",
+      "homepage": "https://portmelbourne.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Port Melbourne",
+        "locality": "Port Melbourne",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/c7mkUqkb11m8txQZA"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Balwyn",
+      "homepage": "https://balwyn.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Balwyn",
+        "locality": "Balwyn",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/ugMCUQ6woF1os3547"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Carlton",
+      "homepage": "https://carlton.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Carlton",
+        "locality": "Carlton",
+        "status": "Active",
+        "mapsUrl": "https://share.google/WtxK62PCqGEQfCOpg"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Tarneit",
+      "homepage": "https://tarneit.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Tarneit",
+        "locality": "Tarneit",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/ASyiPSrV1cPj7gWdA"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Cheltenham",
+      "homepage": "https://cheltenham.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Cheltenham",
+        "locality": "Cheltenham",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/Zs1AVEo82RYhwEeZ9"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Newport",
+      "homepage": "https://newport.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Newport",
+        "locality": "Newport",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/iQ7E3zmLDavELWgY9"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Templestowe",
+      "homepage": "https://templestowe.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Templestowe",
+        "locality": "Templestowe",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Hampton",
+      "homepage": "https://hampton.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Hampton",
+        "locality": "Hampton",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/yQxv7PNs64JkyPoq9"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Lalor",
+      "homepage": "https://lalor.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Lalor",
+        "locality": "Lalor",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/na36iVTGfm4wwX4c7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Mill Park",
+      "homepage": "https://millpark.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Mill Park",
+        "locality": "Mill Park",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/hvaRzwJre9mBjCkF9"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Bulleen",
+      "homepage": "https://bulleen.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Bulleen",
+        "locality": "Bulleen",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/NDKwCkGrb8851oZe8"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Malvern",
+      "homepage": "https://malvern.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Malvern",
+        "locality": "Malvern",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/u4VLniwxQFdnhjFbA"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Prahran",
+      "homepage": "https://prahran.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Prahran",
+        "locality": "Prahran",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/JBPGP8cBrUVQD2wf7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Mont Albert",
+      "homepage": "https://montalbert.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Mont Albert",
+        "locality": "Mont Albert",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/75YMqU9iGnpch4NA9"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Burwood",
+      "homepage": "https://burwood.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Burwood",
+        "locality": "Burwood",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Springvale",
+      "homepage": "https://springvale.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Springvale",
+        "locality": "Springvale",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/cjZr2eTSn8F9M3WS8"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Clifton Hill",
+      "homepage": "https://cliftonhill.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Clifton Hill",
+        "locality": "Clifton Hill",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/ScoPckZjeAxB3YW49"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Deanside",
+      "homepage": "https://deanside.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Deanside",
+        "locality": "Deanside",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/QWUdRysa2sZAvZwU6"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Mount Waverley",
+      "homepage": "https://mountwaverley.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Mount Waverley",
+        "locality": "Mount Waverley",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/qXNsxJVrsJZwr9sg7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Strathmore",
+      "homepage": "https://strathmore.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Strathmore",
+        "locality": "Strathmore",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/6m295HrVzLq6h1o7A"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Thomastown",
+      "homepage": "https://thomastown.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Thomastown",
+        "locality": "Thomastown",
+        "status": "Suspended",
+        "mapsUrl": "https://maps.app.goo.gl/PDGMYdk57VMnZJsa9"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Toorak",
+      "homepage": "https://toorak.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Toorak",
+        "locality": "Toorak",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/t6LSg3mTcYASNefz8"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Chadstone",
+      "homepage": "https://chadstone.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Chadstone",
+        "locality": "Chadstone",
+        "status": "Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Cranbourne",
+      "homepage": "https://cranbourne.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Cranbourne",
+        "locality": "Cranbourne",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/5cViJrGKK3RnvRsb7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Wantirna",
+      "homepage": "https://wantirna.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Wantirna",
+        "locality": "Wantirna",
+        "status": "Suspended",
+        "mapsUrl": "https://maps.app.goo.gl/4qjKrtQxGEGG1uS67"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Bayswater",
+      "homepage": "https://bayswater.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Bayswater",
+        "locality": "Bayswater",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/iQY1VJK7wchUqWP49"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Greenvale",
+      "homepage": "https://greenvale.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Greenvale",
+        "locality": "Greenvale",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Ferntree Gully",
+      "homepage": "https://ferntreegully.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Ferntree Gully",
+        "locality": "Ferntree Gully",
+        "status": "Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Yarraville",
+      "homepage": "https://yarraville.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Yarraville",
+        "locality": "Yarraville",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/vuD1ZPVA14EFHu9a7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Seaford",
+      "homepage": "https://seaford.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Seaford",
+        "locality": "Seaford",
+        "status": "Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "South Yarra",
+      "homepage": "https://southyarra.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber South Yarra",
+        "locality": "South Yarra",
+        "status": "Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Ascot Vale",
+      "homepage": "https://ascotvale.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Ascot Vale",
+        "locality": "Ascot Vale",
+        "status": "Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "South Morang",
+      "homepage": "https://southmorang.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber South Morang",
+        "locality": "South Morang",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/gVo2f4MMBB8HhDR4A"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Mordialloc",
+      "homepage": "https://mordialloc.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Mordialloc",
+        "locality": "Mordialloc",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/9KfS9ruKyimF5hpm9"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Huntingdale",
+      "homepage": "https://huntingdale.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Huntingdale",
+        "locality": "Huntingdale",
+        "status": "Verification Submitted"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Truganina",
+      "homepage": "https://truganina.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Truganina",
+        "locality": "Truganina",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Doreen",
+      "homepage": "https://doreen.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Doreen",
+        "locality": "Doreen",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Noble Park",
+      "homepage": "https://noblepark.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Noble Park",
+        "locality": "Noble Park",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Docklands",
+      "homepage": "https://docklands.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Docklands",
+        "locality": "Docklands",
+        "status": "Verification Required"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Macleod",
+      "homepage": "https://macleod.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Macleod",
+        "locality": "Macleod",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/TYWsyJL5LXGMpqAN6"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Moonee Ponds",
+      "homepage": "https://mooneeponds.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Moonee Ponds",
+        "locality": "Moonee Ponds",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/AhYHTyXwYRPRcwvM7"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Pascoe Vale",
+      "homepage": "https://pascoevale.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Pascoe Vale",
+        "locality": "Pascoe Vale",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/827hkCRnAQhVX88x8"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Tullamarine",
+      "homepage": "https://tullamarine.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Tullamarine",
+        "locality": "Tullamarine",
+        "status": "Verification Required"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Aspendale",
+      "homepage": "https://aspendale.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Aspendale",
+        "locality": "Aspendale",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/LgX3oKagLtXPKqNQ6"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Kings Park",
+      "homepage": "https://kingspark.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Kings Park",
+        "locality": "Kings Park",
+        "status": "Active",
+        "mapsUrl": "https://maps.app.goo.gl/ATVYKLZPVDZ5JuicA"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Keilor",
+      "homepage": "https://keilor.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Keilor",
+        "locality": "Keilor",
+        "status": "Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    },
+    {
+      "location": "Mernda",
+      "homepage": "https://mernda.gradeaplumbing.store/",
+      "recordedAddress": null,
+      "suppliedGoogleProfile": {
+        "name": "Grade A Plumber Mernda",
+        "locality": "Mernda",
+        "status": "Appeal Pending"
+      },
+      "serviceIndexingEnabled": false,
+      "evidenceStatus": "Repository and owner-supplied data only; not independently verified",
+      "outstanding": [
+        "Genuine public storefront address",
+        "Occupancy and signage evidence",
+        "Staffed customer-facing hours or correct service-area-business model",
+        "Current GBP status and matching website destination"
+      ]
+    }
+  ]
+}

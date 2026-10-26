@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   turbopack: { root: process.cwd() },
   async redirects() {
     return [
+      // Root aliases already declare Melbourne canonical. Redirect only their
+      // duplicate homepage; never move suburb hosts, APIs or other working URLs.
+      { source: '/', has: [{type:'host',value:'^(?:www\\.)?gradeaplumbing\\.store$'}], destination:'https://melbourne.gradeaplumbing.store/', permanent:true },
       // Consolidate the exact duplicate paths found in Search Console.
       // Keep API routes and all existing canonical page URLs unchanged.
       // Next matches an optional final slash; exclude it to avoid self-redirects.

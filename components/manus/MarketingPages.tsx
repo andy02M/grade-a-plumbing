@@ -10,6 +10,8 @@ import {
   TrustStrip,
 } from "./components";
 import { customerReviews, reviewDateReference } from "@/lib/customer-reviews";
+import {reviewsPerPage,reviewPagePath} from '@/lib/review-pagination';
+import {editorialOrigin} from '@/lib/canonical-policy';
 import { EMAIL, PHONE, PHONE_LINK } from "./data";
 import {
   Gallery,
@@ -973,10 +975,11 @@ function ContactPage() {
   );
 }
 
-function ReviewsPage() {
+function ReviewsPage({pageNumber=1}:{pageNumber?:number}) {
   const [reviewSearch, setReviewSearch] = useState('');
   const [reviewLimit, setReviewLimit] = useState(12);
   const [expandedReviews, setExpandedReviews] = useState<Set<number>>(() => new Set());
+  const reviewStart=reviewSearch.trim()?0:(pageNumber-1)*reviewsPerPage;
   const matchingReviews = useMemo(() => {
     const query = reviewSearch.trim().toLocaleLowerCase('en-AU');
     return customerReviews.map((review,index) => ({...review,index})).filter(review => !query || `${review.name} ${review.text ?? ''}`.toLocaleLowerCase('en-AU').includes(query));
@@ -1001,9 +1004,9 @@ function ReviewsPage() {
             <div><span className="reviews-library-eyebrow">CUSTOMER EXPERIENCES</span><h2>Good service. In their words.</h2><p>{customerReviews.length} customer reviews, all in one place.</p></div>
             <label className="reviews-search"><span>Find a review</span><input type="search" value={reviewSearch} placeholder="Search name or plumbing topic" onChange={event => {setReviewSearch(event.target.value);setReviewLimit(12);}} /></label>
           </div>
-          <div className="reviews-library-meta"><p role="status">Showing {Math.min(reviewLimit,matchingReviews.length)} of {matchingReviews.length} reviews</p><p>Review ages as at {reviewDateReference}.</p></div>
+          <div className="reviews-library-meta"><p role="status">Showing {matchingReviews.length?reviewStart+1:0}–{Math.min(reviewStart+reviewLimit,matchingReviews.length)} of {matchingReviews.length} reviews</p><p>Review ages as at {reviewDateReference}.</p></div>
           <div className="review-grid reviews-library-grid">
-            {matchingReviews.slice(0,reviewLimit)
+            {matchingReviews.slice(reviewStart,reviewStart+reviewLimit)
               .map((r) => (
                 <article className="review-card" key={r.index}>
                   <header className="reviews-card-person"><span className="reviews-avatar" aria-hidden="true">{r.name.split(/\s+/).slice(0,2).map(part=>part[0]).join('').toUpperCase()}</span><div><b>{r.name}</b><small>{r.date}</small></div></header>
@@ -1015,7 +1018,8 @@ function ReviewsPage() {
               ))}
           </div>
           {matchingReviews.length === 0 ? <p className="reviews-empty">No reviews match your search. Try another name or plumbing topic.</p> : null}
-          {reviewLimit < matchingReviews.length ? <div className="reviews-show-more"><button type="button" onClick={() => setReviewLimit(limit => limit+12)}>Show more reviews <span aria-hidden="true">↓</span></button></div> : null}
+          {reviewStart+reviewLimit < matchingReviews.length ? <div className="reviews-show-more"><button type="button" onClick={() => setReviewLimit(limit => limit+12)}>Show more reviews <span aria-hidden="true">↓</span></button></div> : null}
+          {!reviewSearch.trim() && <nav className="reviews-page-links" aria-label="Review pages">{Array.from({length:Math.ceil(customerReviews.length/reviewsPerPage)},(_,index)=>index+1).map(page=><a key={page} aria-current={page===pageNumber?'page':undefined} href={editorialOrigin+reviewPagePath(page)}>Page {page}</a>)}</nav>}
         </div>
       </section>
     </div>
@@ -1074,7 +1078,7 @@ function PageMeta({ path }: { path: string }) {
   return null;
 }
 
-export default function MarketingPage({ path, locationName = "Melbourne" }: { path: string; locationName?: string }) {
+export default function MarketingPage({ path, locationName = "Melbourne", reviewPage = 1 }: { path: string; locationName?: string;reviewPage?:number }) {
   const canonical = normalizePageRoute(path);
   const detail = serviceList.find((item) => item.route === canonical);
   const detailConfig = detail ? serviceDetails[detail.slug] : undefined;
@@ -1084,7 +1088,7 @@ export default function MarketingPage({ path, locationName = "Melbourne" }: { pa
   else if (canonical === "/about/") page = <AboutPage />;
   else if (canonical === "/service-areas/") page = <ServiceAreaPage />;
   else if (canonical === "/contact/") page = <ContactPage />;
-  else if (canonical === "/reviews/") page = <ReviewsPage />;
+  else if (canonical === "/reviews/") page = <ReviewsPage key={reviewPage} pageNumber={reviewPage} />;
   else if (detailConfig && detail)
     page = (
       <ServiceLanding

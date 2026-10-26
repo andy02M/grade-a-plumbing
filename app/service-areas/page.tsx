@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import ManusApp from "@/components/manus/App";
 import { getRequestLocation } from "@/lib/location-request";
 import { locations } from "@/lib/locations";
+import { pageCanonical } from "@/lib/canonical-policy";
 export async function generateMetadata(): Promise<Metadata> {
   const l = await getRequestLocation();
   return {
     title: "Plumbing Service Areas | Grade A Plumbing",
     description:
       "Search Melbourne suburbs and selected Sydney locations, and confirm plumbing service availability.",
-    alternates: { canonical: l.website + "/service-areas/" },
+    alternates: { canonical: pageCanonical(l.website, "/service-areas/") },
   };
 }
 export default function ServiceAreas() {

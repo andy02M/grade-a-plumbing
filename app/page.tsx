@@ -68,7 +68,7 @@ export default async function HomePage() {
         }}
       />
       <JsonLd data={{"@context": "https://schema.org", "@type": "WebSite", "@id": location.website + "/#website", name: "Grade A Plumbing " + location.location, url: location.website + "/", inLanguage: "en-AU"}} />
-      <ManusApp initialPath="/" embedded locationName={location.location} nearbyLocations={nearbyLocations} />
+      <ManusApp initialPath="/" embedded locationName={location.location} nearbyLocations={nearbyLocations} localPropertyGuidance={localGuidance[location.slug]} />
     </>
   );
 }

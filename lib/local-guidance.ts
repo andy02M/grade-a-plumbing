@@ -1,6 +1,7 @@
 import records from "@/data/local-guidance.json";
 import priorityCopy from "@/data/priority-location-copy.json";
 import { remainingLocalGuidance } from "./remaining-local-guidance";
+import { expansionLocalGuidance } from './expansion-local-guidance';
 
 export type LocalGuidance = {
   title?: string;
@@ -19,7 +20,7 @@ export type LocalGuidance = {
 for (const slug of Object.keys(remainingLocalGuidance)) {
   if (slug in records) throw new Error(`Local guidance overlap: ${slug}`);
 }
-export const localGuidance: Record<string, LocalGuidance> = { ...records, ...remainingLocalGuidance };
+export const localGuidance: Record<string, LocalGuidance> = { ...records, ...remainingLocalGuidance, ...expansionLocalGuidance };
 
 // Search Console priorities: improve booking intent without replacing local evidence.
 for (const [slug, copy] of Object.entries(priorityCopy)) {

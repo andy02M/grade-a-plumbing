@@ -113,19 +113,47 @@ test("supplied reviews preserve all entries without adding locations or invented
     assert.ok(Object.keys(review).every(key=>['name','text','rating','date'].includes(key)));
   }
   assert.match(customerReviews.find(review=>review.name==='Abe Van').text, /\n/);
-  const page = readFileSync(new URL('../components/manus/MarketingPages.tsx',import.meta.url),'utf8').split('function ReviewsPage()')[1].split('function upsertMeta')[0];
+  const page = readFileSync(new URL('../components/manus/MarketingPages.tsx',import.meta.url),'utf8').split('function ReviewsPage(')[1].split('function upsertMeta')[0];
   assert.doesNotMatch(page, /sourceUrl|\.filter\(\(r\) => r.text\)/);
   assert.doesNotMatch(readFileSync(new URL('../components/CustomerReviews.tsx',import.meta.url),'utf8'), /location-reviews|sourceUrl/);
   for(const [label,count] of [['2 months ago',50],['1 month ago',50],['3 weeks ago',50],['1 week ago',41]]) assert.equal(customerReviews.filter(review=>review.date===label).length,count);
   assert.match(page, /reviewDateReference/);
 });
 test("reviews library keeps the complete collection behind search and incremental browsing", () => {
-  const page = readFileSync(new URL('../components/manus/MarketingPages.tsx',import.meta.url),'utf8').split('function ReviewsPage()')[1].split('function upsertMeta')[0];
+  const page = readFileSync(new URL('../components/manus/MarketingPages.tsx',import.meta.url),'utf8').split('function ReviewsPage(')[1].split('function upsertMeta')[0];
   assert.match(page, /useState\(12\)/);
-  assert.match(page, /matchingReviews.slice\(0,reviewLimit\)/);
+  assert.match(page, /matchingReviews.slice\(reviewStart,reviewStart\+reviewLimit\)/);
   assert.match(page, /limit => limit\+12/);
   assert.match(page, /setReviewLimit\(12\)/);
   assert.match(page, /aria-expanded/);
   assert.match(page, /aria-controls/);
   assert.match(page, /No reviews match your search/);
+});
+test('shared corporate canonicals consolidate without changing local service targets',()=>{
+ const {pageCanonical,editorialOrigin}=readSeoConfiguration('lib/canonical-policy.ts');
+ for(const location of locations){
+  for(const path of ['/about/','/reviews/','/our-work/','/service-areas/'])assert.equal(pageCanonical(location.website,path),editorialOrigin+path);
+  assert.equal(pageCanonical(location.website,'/blocked-drains/'),location.website+'/blocked-drains/');
+ }
+ const {publicPageHref}=readSeoConfiguration('components/manus/routes.ts');
+ assert.equal(publicPageHref('/about-us/'),editorialOrigin+'/about/');
+ assert.equal(publicPageHref('/service-areas/?state=NSW'),editorialOrigin+'/service-areas/?state=NSW');
+});
+test('all review pages are discoverable with distinct canonical paths',()=>{
+ const {reviewPageNumber,reviewPagePath,reviewsPerPage}=readSeoConfiguration('lib/review-pagination.ts');
+ const {customerReviews}=readSeoConfiguration('lib/customer-reviews.ts');
+ assert.equal(reviewsPerPage,12);
+ assert.equal(reviewPageNumber('0',191),1);assert.equal(reviewPageNumber('999',191),16);assert.equal(reviewPageNumber('bad',191),1);
+ const covered=[];
+ for(let page=1;page<=16;page++){assert.equal(reviewPagePath(page),page===1?'/reviews/':`/reviews/?page=${page}`);covered.push(...customerReviews.slice((page-1)*12,page*12));}
+ assert.equal(covered.length,191);
+ assert.equal(new Set(covered.map(review=>review.name+'\n'+(review.text??''))).size,191);
+});
+test('quote context supports every service without replacing the existing endpoint',()=>{
+ const {quoteServiceDefault,quoteServiceOptions}=readSeoConfiguration('lib/quote-context.ts');
+ for(const slug of serviceSlugs)assert.ok(quoteServiceOptions.includes(quoteServiceDefault(slug)),slug);
+ const component=read('components/ContactForm.tsx');
+ assert.match(component,/fetch\("\/api\/quote"/);assert.match(component,/suburbEdited.current/);assert.match(component,/submissionLock.current/);
+ assert.match(read('components/manus/components.tsx'),/defaultSuburb=\{suburb\}/);
+ assert.match(read('components/manus/components.tsx'),/location.state.*location.postcode/);
 });

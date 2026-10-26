@@ -116,7 +116,7 @@ test("location readiness accounts for every target without silently expanding ho
  assert.equal(report.summary.targets, 100);
  assert.equal(report.summary.configured, 96);
  assert.equal(report.summary.expansionTargets, 4);
- assert.equal(report.summary.sourceLinkedLocalGuidance, 82);
+ assert.equal(report.summary.sourceLinkedLocalGuidance, 96);
  assert.equal(report.summary.incompleteRecordedAddresses, 2);
  assert.ok(report.inventory.filter(item => !item.configured).every(item => item.expansionApproved === false));
  assert.ok(report.inventory.filter(item => !item.configured).every(item => !item.serviceIndexingCurrentlyEnabled));
@@ -136,7 +136,7 @@ test("local guidance is distinct, sourced and limited to configured locations", 
   for (const source of entry.sources) {
    const url = new URL(source.url);
    assert.equal(url.protocol, "https:");
-   assert.ok(url.hostname.endsWith(".vic.gov.au") || ["www.gww.com.au", "ablis.business.gov.au", "yoursay.geelongaustralia.com.au"].includes(url.hostname));
+   assert.ok(url.hostname.endsWith(".vic.gov.au") || ["www.gww.com.au", "www.melbournewater.com.au", "ablis.business.gov.au", "yoursay.geelongaustralia.com.au"].includes(url.hostname));
   }
  }
 });
@@ -202,7 +202,7 @@ test("remaining batch covers exactly the previously missing configured locations
  const previous = JSON.parse(readFileSync(new URL("../data/local-guidance.json", import.meta.url), "utf8"));
  const rows = JSON.parse(readFileSync(new URL("../data/remaining-local-guidance.json", import.meta.url), "utf8"));
  const guidance = readSeoConfiguration("lib/local-guidance.ts").localGuidance;
- const expected = locationReadiness().inventory.filter(item => item.configured && guidance[item.slug] && !previous[item.slug]).map(item => item.slug).sort();
+ const expected = locationReadiness().inventory.filter(item => item.configured && guidance[item.slug]?.checkedDate === '2026-10-02' && !previous[item.slug]).map(item => item.slug).sort();
  assert.equal(rows.length, 61);
  assert.deepEqual(rows.map(row => row[0]).sort(), expected);
  for (const row of rows) {

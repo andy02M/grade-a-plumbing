@@ -1,25 +1,25 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect, useRef } from "react";
+import { quoteServiceOptions, quoteServiceDefault } from '@/lib/quote-context';
 
 type ContactFormProps = {
   compact?: boolean;
   tone?: "light" | "dark";
+  defaultSuburb?: string;
+  defaultService?: string;
 };
 
-const serviceOptions = [
-  "Emergency plumbing",
-  "Blocked drain",
-  "Hot water repair",
-  "Leaking tap or toilet",
-  "Burst pipe",
-  "Gas plumbing",
-  "Commercial plumbing",
-  "General maintenance",
-  "Other"
-];
+const serviceOptions = quoteServiceOptions;
 
-export function ContactForm({ compact = false, tone = "light" }: ContactFormProps) {
+export function ContactForm({ compact = false, tone = "light", defaultSuburb = '', defaultService = '' }: ContactFormProps) {
+  const [suburb,setSuburb] = useState(defaultSuburb);
+  const [selectedService,setSelectedService] = useState(quoteServiceDefault(defaultService));
+  const suburbEdited = useRef(false);
+  const serviceEdited = useRef(false);
+  const submissionLock = useRef(false);
+  useEffect(() => {if(!suburbEdited.current)setSuburb(defaultSuburb);},[defaultSuburb]);
+  useEffect(() => {if(!serviceEdited.current)setSelectedService(quoteServiceDefault(defaultService));},[defaultService]);
   const [submitState, setSubmitState] = useState<{
     type: "idle" | "success" | "error";
     message?: string;
@@ -30,6 +30,8 @@ export function ContactForm({ compact = false, tone = "light" }: ContactFormProp
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if(submissionLock.current) return;
+    submissionLock.current=true;
 
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -79,6 +81,7 @@ export function ContactForm({ compact = false, tone = "light" }: ContactFormProp
             : "We could not submit your quote right now. Please call or email us."
       });
     } finally {
+      submissionLock.current=false;
       setIsSubmitting(false);
     }
   }
@@ -121,7 +124,7 @@ export function ContactForm({ compact = false, tone = "light" }: ContactFormProp
         {!compact ? (
           <Field dark={dark} label="Email" name="email" placeholder="you@example.com" type="email" />
         ) : null}
-        <Field dark={dark} label="Suburb" name="suburb" placeholder="Melbourne suburb" required />
+        <Field dark={dark} label="Suburb, state and postcode" name="suburb" placeholder="Suburb, state and postcode" required value={suburb} onChange={value=>{suburbEdited.current=true;setSuburb(value);}} />
       </div>
 
       <label
@@ -137,6 +140,8 @@ export function ContactForm({ compact = false, tone = "light" }: ContactFormProp
           }`}
           id={compact ? "service-needed-compact" : "service-needed"}
           name="service"
+          value={selectedService}
+          onChange={event=>{serviceEdited.current=true;setSelectedService(event.target.value);}}
           required
         >
           <option value="">Select a service</option>
@@ -207,7 +212,9 @@ function Field({
   placeholder,
   required = false,
   type = "text",
-  dark = false
+  dark = false,
+  value,
+  onChange,
 }: {
   label: string;
   name: string;
@@ -215,6 +222,8 @@ function Field({
   required?: boolean;
   type?: string;
   dark?: boolean;
+  value?: string;
+  onChange?: (value:string)=>void;
 }) {
   return (
     <label className={`grid gap-2 text-sm font-bold ${dark ? "text-white" : "text-brand-charcoal"}`}>
@@ -226,6 +235,8 @@ function Field({
             : "border-slate-200 bg-white text-brand-charcoal focus:border-brand-blue focus:ring-4 focus:ring-blue-100"
         }`}
         name={name}
+        value={value}
+        onChange={onChange ? event=>onChange(event.target.value) : undefined}
         placeholder={placeholder}
         required={required}
         type={type}
