@@ -1,10 +1,13 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  images: { qualities: [60, 65, 75] },
+  images: { qualities: [60, 65, 75], imageSizes:[16,32,48,64,96,128,192,256,320,384] },
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   turbopack: { root: process.cwd() },
+  async headers() {
+    return [{source:"/assets/performance/:path*",headers:[{key:"Cache-Control",value:"public, max-age=31536000, immutable"}]}];
+  },
   async redirects() {
     return [
       // Root aliases already declare Melbourne canonical. Redirect only their

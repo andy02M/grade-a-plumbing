@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import performanceAssets from "@/data/performance-assets.json";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { site } from "@/lib/site";
@@ -43,7 +44,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-AU" className={inter.variable}>
-      <head><link rel="preload" as="font" href="/assets/fonts/inter-critical.woff2" type="font/woff2" crossOrigin="anonymous" fetchPriority="high" /></head>
+      <head>
+        <link rel="preload" as="font" href={performanceAssets.barlowFont} type="font/woff2" crossOrigin="anonymous" fetchPriority="high" />
+        <link rel="preload" as="font" href={performanceAssets.interFont} type="font/woff2" crossOrigin="anonymous" fetchPriority="high" />
+      </head>
       <body className="font-sans antialiased">
         <ManusShell>{children}</ManusShell>
         <SiteMeasurement />

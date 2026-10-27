@@ -11,6 +11,7 @@ profile-create-dry-run*.png
 artifacts
 scripts/*
 !scripts/prepare-image-dimensions.mjs
+!scripts/prepare-performance-assets.mjs
 docs
 bugfather-pest-control
 output

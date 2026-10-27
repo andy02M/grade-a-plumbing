@@ -1,0 +1,71 @@
+{
+  "interFont": "/assets/performance/inter-1b6ea2d695b8.woff2",
+  "barlowFont": "/assets/performance/barlow-b9ed3e0a7c95.woff2",
+  "headerLogo": "/assets/performance/header-logo-299567495ebb.webp",
+  "headerLogoSrcSet": "/assets/performance/header-logo-128-0b8f8a597fc4.webp 128w, /assets/performance/header-logo-192-5da73e2482f1.webp 192w, /assets/performance/header-logo-256-58e72f576080.webp 256w, /assets/performance/header-logo-299567495ebb.webp 384w",
+  "logos": [
+    {
+      "width": 128,
+      "src": "/assets/performance/header-logo-128-0b8f8a597fc4.webp"
+    },
+    {
+      "width": 192,
+      "src": "/assets/performance/header-logo-192-5da73e2482f1.webp"
+    },
+    {
+      "width": 256,
+      "src": "/assets/performance/header-logo-256-58e72f576080.webp"
+    },
+    {
+      "width": 384,
+      "src": "/assets/performance/header-logo-299567495ebb.webp"
+    }
+  ],
+  "serviceImages": {
+    "/assets/sharp/02_Emergency_Plumbing_Service.jpg": "/assets/performance/02-service-192-272a47183704.avif 192w, /assets/performance/02-service-256-3af5c601792f.avif 256w, /assets/performance/02-service-320-756fd23ffd76.avif 320w, /assets/performance/02-service-384-6c737b9fb19e.avif 384w, /assets/performance/02-service-640-17cb5b8948a1.avif 640w",
+    "/assets/sharp/03_Blocked_Drains.jpg": "/assets/performance/03-service-192-345801fc1917.avif 192w, /assets/performance/03-service-256-6b9287d3d190.avif 256w, /assets/performance/03-service-320-7e6bb09ead43.avif 320w, /assets/performance/03-service-384-eb4a99a262f4.avif 384w, /assets/performance/03-service-640-188ca26bcb8b.avif 640w",
+    "/assets/sharp/04_Hot_Water_Systems.jpg": "/assets/performance/04-service-192-225a1b9a336e.avif 192w, /assets/performance/04-service-256-b669255c9dbe.avif 256w, /assets/performance/04-service-320-3a849d05d2d0.avif 320w, /assets/performance/04-service-384-511082cda6ae.avif 384w, /assets/performance/04-service-640-3d5d172610d1.avif 640w",
+    "/assets/sharp/05_Burst_Pipe_Repairs.jpg": "/assets/performance/05-service-192-7862e279eb43.avif 192w, /assets/performance/05-service-256-11e3dbd01ae7.avif 256w, /assets/performance/05-service-320-9b1583be0812.avif 320w, /assets/performance/05-service-384-3a333df24b50.avif 384w, /assets/performance/05-service-640-6cbc417f461d.avif 640w",
+    "/assets/sharp/06_Toilet_Repairs.jpg": "/assets/performance/06-service-192-47b25ee91cce.avif 192w, /assets/performance/06-service-256-547c181c0724.avif 256w, /assets/performance/06-service-320-47e7e29b1483.avif 320w, /assets/performance/06-service-384-dae7120597ed.avif 384w, /assets/performance/06-service-640-73104b4aa47c.avif 640w",
+    "/assets/sharp/07_Gas_Plumbing.jpg": "/assets/performance/07-service-192-3a2d1115f9cd.avif 192w, /assets/performance/07-service-256-ac0637677a03.avif 256w, /assets/performance/07-service-320-d3fe314ca853.avif 320w, /assets/performance/07-service-384-c0caa687c263.avif 384w, /assets/performance/07-service-640-70ae08a9eeb4.avif 640w",
+    "/assets/sharp/08_Sewer_Repairs.jpg": "/assets/performance/08-service-192-aceef0932358.avif 192w, /assets/performance/08-service-256-bc12e0e4599a.avif 256w, /assets/performance/08-service-320-460c34f57a29.avif 320w, /assets/performance/08-service-384-78bc4f381944.avif 384w, /assets/performance/08-service-640-080ab9bc1317.avif 640w",
+    "/assets/sharp/09_Pipe_Relining.jpg": "/assets/performance/09-service-192-4883137887ae.avif 192w, /assets/performance/09-service-256-a8b6b2481853.avif 256w, /assets/performance/09-service-320-3ffb151bbc34.avif 320w, /assets/performance/09-service-384-6bffc62786ac.avif 384w, /assets/performance/09-service-640-c2220353fab4.avif 640w",
+    "/assets/sharp/10_Kitchen_Plumbing.jpg": "/assets/performance/10-service-192-ec248fa018a3.avif 192w, /assets/performance/10-service-256-42429e550ff5.avif 256w, /assets/performance/10-service-320-1018d150f6f0.avif 320w, /assets/performance/10-service-384-956f895c3c2a.avif 384w, /assets/performance/10-service-640-896d5a97ae65.avif 640w",
+    "/assets/sharp/11_Bathroom_Plumbing.jpg": "/assets/performance/11-service-192-c2f991cbf94e.avif 192w, /assets/performance/11-service-256-1e961abde4e2.avif 256w, /assets/performance/11-service-320-b0d0912ec113.avif 320w, /assets/performance/11-service-384-0e5b9bb68f0d.avif 384w, /assets/performance/11-service-640-f53e16978ebe.avif 640w",
+    "/assets/sharp/12_Leak_Detection.jpg": "/assets/performance/12-service-192-613515997f4a.avif 192w, /assets/performance/12-service-256-08e731117cdb.avif 256w, /assets/performance/12-service-320-bf29f52733ef.avif 320w, /assets/performance/12-service-384-2d0c3382d882.avif 384w, /assets/performance/12-service-640-7519287aca84.avif 640w",
+    "/assets/sharp/13_Commercial_Plumbing.jpg": "/assets/performance/13-service-192-46d95db863df.avif 192w, /assets/performance/13-service-256-5d8edd9d7b5e.avif 256w, /assets/performance/13-service-320-487b43b17eda.avif 320w, /assets/performance/13-service-384-ba17b5e216f3.avif 384w, /assets/performance/13-service-640-1bac6b58b97e.avif 640w"
+  },
+  "galleryImages": {
+    "/assets/project-photos/bathroom-shower.webp": "/assets/performance/bathroom-shower-192-7e3ecadda549.avif 192w, /assets/performance/bathroom-shower-320-134adf3140a7.avif 320w, /assets/performance/bathroom-shower-384-49a67f5783d2.avif 384w, /assets/performance/bathroom-shower-640-13f1810a0e14.avif 640w",
+    "/assets/project-photos/bathroom-vanity.webp": "/assets/performance/bathroom-vanity-192-91add8fb96dc.avif 192w, /assets/performance/bathroom-vanity-320-bf85a6817fb8.avif 320w, /assets/performance/bathroom-vanity-384-735b0bdcb15b.avif 384w, /assets/performance/bathroom-vanity-640-04c76a0d7aa6.avif 640w",
+    "/assets/project-photos/built-in-bath.webp": "/assets/performance/built-in-bath-192-f1d94cc6e999.avif 192w, /assets/performance/built-in-bath-320-4e784d821e6e.avif 320w, /assets/performance/built-in-bath-384-f9c5aa591e8e.avif 384w, /assets/performance/built-in-bath-640-f179574e7d65.avif 640w",
+    "/assets/project-photos/double-vanity.webp": "/assets/performance/double-vanity-192-de844178f100.avif 192w, /assets/performance/double-vanity-320-86998641d3c4.avif 320w, /assets/performance/double-vanity-384-0e2be28c2b6f.avif 384w, /assets/performance/double-vanity-640-414ccf84b52d.avif 640w",
+    "/assets/project-photos/hot-water-system.webp": "/assets/performance/hot-water-system-192-487a073f4498.avif 192w, /assets/performance/hot-water-system-320-a39346a14e3a.avif 320w, /assets/performance/hot-water-system-384-8f48a75042b3.avif 384w, /assets/performance/hot-water-system-640-437d9c8b0f0b.avif 640w",
+    "/assets/project-photos/kitchen-cooktop.webp": "/assets/performance/kitchen-cooktop-192-9441791e1ef9.avif 192w, /assets/performance/kitchen-cooktop-320-6bf01c4d6d41.avif 320w, /assets/performance/kitchen-cooktop-384-ebb6b971e6cb.avif 384w, /assets/performance/kitchen-cooktop-640-e6bacc9af372.avif 640w",
+    "/assets/project-photos/kitchen-sink.webp": "/assets/performance/kitchen-sink-192-0e023a997633.avif 192w, /assets/performance/kitchen-sink-320-5ed28b576307.avif 320w, /assets/performance/kitchen-sink-384-fd92d53b6d3a.avif 384w, /assets/performance/kitchen-sink-640-4e7dc3e6a2c5.avif 640w",
+    "/assets/project-photos/walk-in-shower.webp": "/assets/performance/walk-in-shower-192-75ffe1041b23.avif 192w, /assets/performance/walk-in-shower-320-483b1befa187.avif 320w, /assets/performance/walk-in-shower-384-70a910f80e67.avif 384w, /assets/performance/walk-in-shower-640-29b610429ac0.avif 640w"
+  },
+  "heroSrcSet": "/assets/performance/hero-480-bf68bd60aa61.avif 480w, /assets/performance/hero-750-ff8298cc7dff.avif 750w, /assets/performance/hero-1080-58c03b1a6fa2.avif 1080w, /assets/performance/hero-1440-de5a8b4c7413.avif 1440w",
+  "hero": [
+    {
+      "width": 480,
+      "src": "/assets/performance/hero-480-bf68bd60aa61.avif",
+      "bytes": 13973
+    },
+    {
+      "width": 750,
+      "src": "/assets/performance/hero-750-ff8298cc7dff.avif",
+      "bytes": 22908
+    },
+    {
+      "width": 1080,
+      "src": "/assets/performance/hero-1080-58c03b1a6fa2.avif",
+      "bytes": 32509
+    },
+    {
+      "width": 1440,
+      "src": "/assets/performance/hero-1440-de5a8b4c7413.avif",
+      "bytes": 42751
+    }
+  ]
+}

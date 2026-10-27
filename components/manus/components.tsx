@@ -15,6 +15,7 @@ import {
 import { gallery, PHONE, PHONE_LINK, services } from "./data";
 import { googleReviewSummary } from "@/lib/google-review-summary";
 import homepageData from "@/data/homepage-review-summary.json";
+import performanceAssets from "@/data/performance-assets.json";
 import { LocationAutocomplete } from "./LocationFeatures";
 import {
   loadLocationById,
@@ -41,19 +42,7 @@ type IconName =
   | "star"
   | "external";
 
-export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
-  const common = {
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.8,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
-  };
-  const paths: Record<IconName, ReactNode> = {
+const iconPaths: Record<IconName, ReactNode> = {
     arrow: (
       <>
         <path d="M4 12h15" />
@@ -149,7 +138,20 @@ export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
       </>
     ),
   };
-  return <svg {...common}>{paths[name]}</svg>;
+
+export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true,
+  };
+  return <svg {...common}>{iconPaths[name]}</svg>;
 }
 
 export function Button({
@@ -199,14 +201,18 @@ export function Logo({ invert = false }: { invert?: boolean }) {
       href="/"
       aria-label="Grade A Plumbing home"
     >
+      <picture style={{display:"contents"}}>
+      <source type="image/webp" srcSet={performanceAssets.headerLogoSrcSet} sizes="(max-width: 768px) 106px, 126px" />
       <Image
-        src="/assets/optimized/header-logo.webp"
+        src={performanceAssets.headerLogo}
+        unoptimized
         alt="Grade A Plumbing"
         width={1369}
         height={542}
         sizes="(max-width: 768px) 146px, 184px"
         loading="eager"
       />
+      </picture>
     </a>
   );
 }
@@ -263,6 +269,17 @@ export function Header() {
 }
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const [nearFooter, setNearFooter] = useState(false);
+  useEffect(() => {
+    if (!footerRef.current) return;
+    if (!("IntersectionObserver" in window)) { setNearFooter(true); return; }
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { setNearFooter(true); observer.disconnect(); }
+    }, {rootMargin:"1000px"});
+    observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
   const serviceColumns = [services.slice(0, 6), services.slice(6, 12)];
   const explore = [
     ["Home", "/"],
@@ -275,10 +292,11 @@ export function Footer() {
   const icon = (name: string) => `/assets/footer/icons/${name}.svg`;
   return (
     <footer
+      ref={footerRef}
       className="site-footer premium-footer"
       aria-label="Grade A Plumbing footer"
     >
-      <div className="premium-footer-bg" aria-hidden="true" />
+      <div className="premium-footer-bg" style={nearFooter ? undefined : {backgroundImage:"none"}} aria-hidden="true" />
       <div className="container premium-footer-inner">
         <div className="premium-footer-columns">
           <section className="premium-footer-brand">
@@ -514,7 +532,10 @@ export function ServiceCard({
   const inner = (
     <>
       <div className="service-image">
-        <ResponsiveImage src={service.image} alt={`${service.title} reference`} sizes="(max-width: 560px) calc(50vw - 24px), (max-width: 1024px) 30vw, 270px" />
+        <picture style={{display:"contents"}}>
+          <source type="image/avif" srcSet={(performanceAssets.serviceImages as Record<string,string>)[service.image]} sizes="(max-width: 720px) calc(50vw - 24px), (max-width: 900px) 30vw, (max-width:1100px) calc((94vw - 368px) / 3), (max-width:1399px) 184px, 180px" />
+          <ResponsiveImage src={service.image} alt={`${service.title} reference`} sizes="(max-width: 720px) calc(50vw - 24px), (max-width: 900px) 30vw, (max-width:1100px) calc((94vw - 368px) / 3), (max-width:1399px) 184px, 180px" />
+        </picture>
       </div>
       <div className="service-card-footer">
         <span>{service.shortTitle}</span>
@@ -588,12 +609,15 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
             key={`${item.title}-${index}`}
             onClick={() => setActive(index)}
           >
+            <picture style={{display:"contents"}}>
+            <source type="image/avif" srcSet={(performanceAssets.galleryImages as Record<string,string>)[item.image]} sizes="(max-width: 768px) 46vw, 280px" />
             <ResponsiveImage
               src={item.image}
               alt={item.alt}
               sizes="(max-width: 768px) 46vw, 280px"
               loading={nearViewport ? "eager" : "lazy"}
             />
+            </picture>
             <span className="gallery-caption">
               <b>{item.title}</b>
               <small>{item.label}</small>
@@ -656,10 +680,14 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
 export function EmergencyPanel() {
   return (
     <aside className="emergency-panel">
+      <picture style={{display:"contents"}}>
+      <source type="image/avif" srcSet={performanceAssets.serviceImages["/assets/sharp/05_Burst_Pipe_Repairs.jpg"]} sizes="(max-width:720px) calc(100vw - 32px), 500px" />
       <ResponsiveImage
         src="/assets/sharp/14_Emergency_Panel_Background.jpg"
         alt="Emergency plumbing pipework"
+        sizes="(max-width:720px) calc(100vw - 32px), 500px"
       />
+      </picture>
       <div className="emergency-overlay">
         <span className="eyebrow">WHEN IT CAN'T WAIT</span>
         <h2>

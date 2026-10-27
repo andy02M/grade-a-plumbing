@@ -1,5 +1,6 @@
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import Image from "next/image";
+import performanceAssets from "@/data/performance-assets.json";
 import {
   Button,
   EmergencyPanel,
@@ -25,7 +26,11 @@ const differenceImage = "/assets/external/freestanding-bathtub-unsplash.jpg";
 function Hero({ locationName }: { locationName: string }) {
   return (
     <section className="hero">
-      <Image src={heroImage} alt="" fill priority sizes="100vw" fetchPriority="high" quality={65} className="hero-photo" />
+      <link rel="preload" as="image" type="image/avif" imageSrcSet={performanceAssets.heroSrcSet} imageSizes="100vw" fetchPriority="high" />
+      <picture>
+        <source type="image/avif" srcSet={performanceAssets.heroSrcSet} sizes="100vw" />
+        <Image src={heroImage} alt="" fill loading="eager" sizes="100vw" fetchPriority="high" decoding="sync" quality={65} className="hero-photo" />
+      </picture>
       <div className="hero-overlay" />
       <div className="container hero-content">
         <a className="hero-google-rating" href={publicPageHref('/reviews/')}>

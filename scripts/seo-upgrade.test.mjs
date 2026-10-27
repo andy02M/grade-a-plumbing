@@ -52,7 +52,7 @@ test('article metadata uses the visible hero and publisher without fictional rat
 test('image performance keeps the artwork and bounds favicon transfer size',()=>{
  assert.ok(statSync('public/icon-64.png').size<10000);
  assert.match(read('app/layout.tsx'),/icon-64.png/);
- assert.match(read('components/manus/App.tsx'),/fill priority sizes="100vw"/);
+ assert.match(read('components/manus/App.tsx'),/fill loading="eager" sizes="100vw"/);
  assert.match(read('components/manus/App.tsx'),/fetchPriority="high"/);
  assert.match(read('components/manus/components.tsx'),/sizes="\(max-width: 768px\) 146px, 184px"/);
 });
