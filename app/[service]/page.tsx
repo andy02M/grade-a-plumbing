@@ -1,7 +1,7 @@
 import { serviceSeoFor } from "@/components/manus/seoContent";
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
-import ManusApp from "@/components/manus/App";
+import ManusApp from "@/components/manus/MarketingEntry";
 import { getRouteMeta } from "@/components/manus/routeMeta";
 import {
   normalizePageRoute,

@@ -35,10 +35,7 @@ for (const record of googleBusinessRegister) {
 
 // Business-wide figures, not a per-profile listing score. Rating confirmed by the
 // owner on 18 October 2026; 500+ review total confirmed on 21 October 2026.
-export const googleReviewSummary = {
-  rating: 5,
-  reviewCount: "500+",
-} as const;
+export { googleReviewSummary } from "./google-review-summary";
 
 export function publicMapsUrl(profile?: GoogleBusinessProfile) {
   return profile?.status === "Active" ? profile.mapsUrl : undefined;

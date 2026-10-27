@@ -1,4 +1,4 @@
-import { customerReviews } from "@/lib/customer-reviews";
+import homepageData from "@/data/homepage-review-summary.json";
 export const PHONE = "(02) 5837 5457";
 export const PHONE_LINK = "tel:+61258375457";
 export const EMAIL = "support@gradeaplumbing.store";
@@ -156,14 +156,7 @@ export const suburbs = [
   "Hawthorn",
 ];
 
-export const reviews = customerReviews
-  .filter((review) => review.text)
-  .slice(0, 3)
-  .map((review) => ({
-    name: review.name,
-    time: review.date + " (as at 25 October 2026)",
-    quote: review.text!,
-  }));
+export const reviews = homepageData.reviews;
 
 export const processSteps = [
   {

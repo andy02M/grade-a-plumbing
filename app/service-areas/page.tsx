@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ManusApp from "@/components/manus/App";
+import ManusApp from "@/components/manus/MarketingEntry";
 import { getRequestLocation } from "@/lib/location-request";
 import { locations } from "@/lib/locations";
 import { pageCanonical } from "@/lib/canonical-policy";

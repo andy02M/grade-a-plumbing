@@ -13,7 +13,8 @@ import {
   useRef,
 } from "react";
 import { gallery, PHONE, PHONE_LINK, services } from "./data";
-import { googleBusinessRegister, googleReviewSummary } from "@/lib/google-business-profiles";
+import { googleReviewSummary } from "@/lib/google-review-summary";
+import homepageData from "@/data/homepage-review-summary.json";
 import { LocationAutocomplete } from "./LocationFeatures";
 import {
   loadLocationById,
@@ -199,11 +200,12 @@ export function Logo({ invert = false }: { invert?: boolean }) {
       aria-label="Grade A Plumbing home"
     >
       <Image
-        src="/assets/GradeAPlumberLogo-horizontal.png"
+        src="/assets/optimized/header-logo.webp"
         alt="Grade A Plumbing"
         width={1369}
         height={542}
         sizes="(max-width: 768px) 146px, 184px"
+        loading="eager"
       />
     </a>
   );
@@ -467,9 +469,7 @@ export function TrustStrip({ showGoogleRating = false }: { showGoogleRating?: bo
     ["pin", "Melbourne-Wide", "Service"],
     ["shield", "Quality You", "Can Trust"],
   ] as const;
-  const hasActiveGoogleProfiles = googleBusinessRegister.some(
-    (profile) => profile.status === "Active" && Boolean(profile.mapsUrl),
-  );
+  const hasActiveGoogleProfiles = homepageData.hasActiveGoogleProfiles;
   return (
     <div className="trust-strip">
       <div className="container trust-grid">
@@ -556,6 +556,17 @@ export function QuoteForm({ compact = false, defaultService = '', defaultLocatio
 
 export function Gallery({ preview = false }: { preview?: boolean }) {
   const [active, setActive] = useState<number | null>(null);
+  const grid = useRef<HTMLDivElement>(null);
+  const [nearViewport, setNearViewport] = useState(false);
+  useEffect(() => {
+    if (!grid.current) return;
+    if (!("IntersectionObserver" in window)) { setNearViewport(true); return; }
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { setNearViewport(true); observer.disconnect(); }
+    }, { rootMargin: "400px" });
+    observer.observe(grid.current);
+    return () => observer.disconnect();
+  }, []);
   const list = preview ? gallery.slice(0, 8) : gallery;
   useEffect(() => {
     if (active === null) return;
@@ -570,7 +581,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
   }, [active, list.length]);
   return (
     <>
-      <div className="gallery-grid">
+      <div className="gallery-grid" ref={grid}>
         {list.map((item, index) => (
           <button
             className="gallery-card"
@@ -581,7 +592,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
               src={item.image}
               alt={item.alt}
               sizes="(max-width: 768px) 46vw, 280px"
-              loading="eager"
+              loading={nearViewport ? "eager" : "lazy"}
             />
             <span className="gallery-caption">
               <b>{item.title}</b>

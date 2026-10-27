@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ManusApp from "@/components/manus/App";
+import ManusApp from "@/components/manus/MarketingEntry";
 import { getRequestLocation } from "@/lib/location-request";
 import { pageMetadata } from "@/lib/page-seo";
 export async function generateMetadata(): Promise<Metadata> {

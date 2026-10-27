@@ -11,9 +11,9 @@ export function ResponsiveImage({ src, alt, width, height, sizes, loading, fetch
     ? "/assets/sharp/05_Burst_Pipe_Repairs.jpg" : src;
   const size = canonical ? metadata[canonical] : undefined;
   if (!canonical || !size) return <img {...props} src={src} alt={alt} width={width} height={height} sizes={sizes} loading={loading} fetchPriority={fetchPriority} />;
-  return <Image {...props} data-responsive-image="" src={canonical} alt={alt}
+  return <Image {...props} quality={60} data-responsive-image="" src={canonical} alt={alt}
     width={Number(width) || size.width} height={Number(height) || size.height}
     sizes={sizes ?? "(max-width: 768px) 100vw, 600px"}
     loading={loading ?? (fetchPriority === "high" ? "eager" : "lazy")}
-    fetchPriority={fetchPriority} />;
+    fetchPriority={fetchPriority ?? "low"} />;
 }

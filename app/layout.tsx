@@ -8,13 +8,11 @@ import { SiteMeasurement } from "@/components/SiteMeasurement";
 import "./globals.css";
 import "@/components/manus/styles.css";
 import "@/components/manus/critical-font.css";
-import "@/components/manus/pages.css";
 import "@/components/manus/location.css";
-import "@/components/manus/service-seo.css";
 import "@/components/manus/integration.css";
 import { ManusShell } from "@/components/ManusShell";
 
-const inter = localFont({ src: "../public/assets/fonts/inter-variable-latin.woff2", variable: "--font-inter", weight: "100 900", display: "swap", preload: true, adjustFontFallback: "Arial" });
+const inter = localFont({ src: "../public/assets/fonts/inter-variable-latin.woff2", variable: "--font-inter", weight: "100 900", display: "swap", preload: false, adjustFontFallback: "Arial", declarations: [{prop:"unicode-range",value:"U+0100-1FFF"}] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.baseUrl),
@@ -45,6 +43,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-AU" className={inter.variable}>
+      <head><link rel="preload" as="font" href="/assets/fonts/inter-critical.woff2" type="font/woff2" crossOrigin="anonymous" fetchPriority="high" /></head>
       <body className="font-sans antialiased">
         <ManusShell>{children}</ManusShell>
         <SiteMeasurement />

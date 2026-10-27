@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: { qualities: [60, 65, 75] },
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   turbopack: { root: process.cwd() },

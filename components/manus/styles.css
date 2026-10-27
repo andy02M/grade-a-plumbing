@@ -9,9 +9,9 @@
   --line: #dce4ec;
   --paper: #f4f8fc;
   --white: #fff;
-  --font-display: "Barlow Critical", sans-serif;
-  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-button: "Barlow Critical", sans-serif;
+  --font-display: "Barlow Critical", Impact, "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Inter Critical", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-button: "Barlow Critical", Impact, "Arial Narrow", "Roboto Condensed", sans-serif;
   --container: 1120px;
   --container-gutter: clamp(16px, 3vw, 48px);
   --body-size: clamp(16px, 1vw, 18px);

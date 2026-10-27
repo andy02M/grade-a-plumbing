@@ -36,7 +36,7 @@ test('server passes host location into visible homepage and service heroes',()=>
  assert.match(read('app/[service]/page.tsx'),/locationName=\{l.location\}/);
  assert.match(read('components/manus/MarketingPages.tsx'),/highlight=\{locationName === "Melbourne"/);
  assert.match(read('components/manus/App.tsx'),/\{locationName\} plumbing/);
- assert.match(read('components/manus/App.tsx'),/nearbyLocations.map/);
+ assert.match(read('components/manus/HomeAreas.tsx'),/nearbyLocations.map/);
 });
 test('breadcrumbs stay on the requested host and social URLs normalise origin roots',()=>{
  const schema=pageBreadcrumbs('https://coburg.gradeaplumbing.store',[{name:'Home',path:'/'},{name:'Services',path:'/services/'}]);
@@ -53,6 +53,7 @@ test('image performance keeps the artwork and bounds favicon transfer size',()=>
  assert.ok(statSync('public/icon-64.png').size<10000);
  assert.match(read('app/layout.tsx'),/icon-64.png/);
  assert.match(read('components/manus/App.tsx'),/fill priority sizes="100vw"/);
+ assert.match(read('components/manus/App.tsx'),/fetchPriority="high"/);
  assert.match(read('components/manus/components.tsx'),/sizes="\(max-width: 768px\) 146px, 184px"/);
 });
 test('Sydney enquiries remain while known 404 website links are suppressed',()=>{
@@ -60,7 +61,7 @@ test('Sydney enquiries remain while known 404 website links are suppressed',()=>
  assert.match(source,/catalogue.locations.map\(withWorkingWebsite\)/);
  assert.match(source,/suppliedSydneyLocations.map\(withWorkingWebsite\)/);
  for(const city of ['Penrith','Blacktown','North Sydney'])assert.ok(source.includes(city));
- assert.match(read('components/manus/App.tsx'),/Request plumbing help/);
+ assert.match(read('components/manus/HomeAreas.tsx'),/Request plumbing help/);
 });
 test("owner update configures every supplied location once without deleting omitted hosts", async () => {
   const update = readSeoConfiguration('data/owner-location-update-20261025.json');
