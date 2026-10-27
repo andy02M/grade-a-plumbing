@@ -583,5 +583,27 @@
     "recordedAt": "2026-10-26T00:01:25.046Z",
     "slug": "hot-water-takes-too-long-assessment-observations",
     "url": "https://melbourne.gradeaplumbing.store/blog/hot-water-takes-too-long-assessment-observations/"
+  },
+  {
+    "date": "2026-10-27",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-27T01:20:46.693Z",
+    "slug": "replacing-kitchen-sink-plumbing-before-benchtop-cut",
+    "words": 1242,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision guide. Official sources checked on 18 October 2026. No suburb-name-swapped text, unverified jobs, prices, qualifications or response promises. Practical checklists are editorial suggestions, not technical specifications."
+    }
+  },
+  {
+    "date": "2026-10-27",
+    "outcome": "verified",
+    "recordedAt": "2026-10-27T01:21:15.469Z",
+    "slug": "replacing-kitchen-sink-plumbing-before-benchtop-cut",
+    "url": "https://melbourne.gradeaplumbing.store/blog/replacing-kitchen-sink-plumbing-before-benchtop-cut/"
   }
 ]

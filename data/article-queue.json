@@ -1662,7 +1662,7 @@
     "releasedDate": "2026-10-26"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "kitchen sink replacement plumbing checklist",
     "review": {
@@ -1791,7 +1791,8 @@
           "answer": "Do not assume so. Report the drainage history separately and clarify whether investigation of that concern is included in the scope."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-27"
   },
   {
     "status": "ready",
