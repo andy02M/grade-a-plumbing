@@ -1,4 +1,5 @@
 "use client";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import Image from "next/image";
 import { publicPageHref } from "./routes";
 import { ContactForm } from "../ContactForm";
@@ -284,7 +285,7 @@ export function Footer() {
               href="/"
               aria-label="Grade A Plumbing home"
             >
-              <img
+              <ResponsiveImage
                 src="/assets/footer/grade-a-plumber-footer-white-blue-transparent.png"
                 alt="Grade A Plumber — Quality You Can Trust"
               />
@@ -301,7 +302,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Grade A Plumbing on Facebook"
               >
-                <img src={icon("facebook")} alt="" />
+                <ResponsiveImage src={icon("facebook")} alt="" />
               </a>
               <a
                 className="premium-social-icon"
@@ -310,7 +311,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Grade A Plumbing Facebook profile"
               >
-                <img src={icon("facebook")} alt="" />
+                <ResponsiveImage src={icon("facebook")} alt="" />
               </a>
               <a
                 className="premium-social-icon"
@@ -319,7 +320,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Grade A Plumbing on Instagram"
               >
-                <img src={icon("instagram")} alt="" />
+                <ResponsiveImage src={icon("instagram")} alt="" />
               </a>
               <a
                 className="premium-social-icon premium-social-tiktok"
@@ -340,7 +341,7 @@ export function Footer() {
                   {column.map((service) => (
                     <a key={service.slug} href={publicPageHref(service.route)}>
                       {service.title}
-                      <img src={icon("chevron-right")} alt="" />
+                      <ResponsiveImage src={icon("chevron-right")} alt="" />
                     </a>
                   ))}
                 </div>
@@ -356,7 +357,7 @@ export function Footer() {
               {explore.map(([label, href]) => (
                   <a key={href} href={publicPageHref(href)}>
                   {label}
-                  <img src={icon("chevron-right")} alt="" />
+                  <ResponsiveImage src={icon("chevron-right")} alt="" />
                 </a>
               ))}
             </div>
@@ -364,7 +365,7 @@ export function Footer() {
           <section className="premium-footer-contact">
             <h2>Get in touch</h2>
             <a className="premium-contact-row" href="tel:+61258375457">
-              <img src={icon("phone")} alt="" />
+              <ResponsiveImage src={icon("phone")} alt="" />
               <span>
                 <b>(02) 5837 5457</b>
                 <small>Available 24/7 for emergencies</small>
@@ -374,14 +375,14 @@ export function Footer() {
               className="premium-contact-row"
               href="mailto:support@gradeaplumbing.store"
             >
-              <img src={icon("mail")} alt="" />
+              <ResponsiveImage src={icon("mail")} alt="" />
               <span>
                 <b>support@gradeaplumbing.store</b>
                 <small>We'll respond as soon as possible</small>
               </span>
             </a>
             <div className="premium-contact-row">
-              <img src={icon("map-pin")} alt="" />
+              <ResponsiveImage src={icon("map-pin")} alt="" />
               <span>
                 <b>Melbourne, VIC</b>
                 <small>Serving Melbourne and surrounding suburbs</small>
@@ -391,28 +392,28 @@ export function Footer() {
         </div>
         <div className="premium-trust-bar">
           <div>
-            <img src={icon("clock")} alt="" />
+            <ResponsiveImage src={icon("clock")} alt="" />
             <span>
               <b>24/7</b>
               <small>Emergency Plumbing</small>
             </span>
           </div>
           <div>
-            <img src={icon("building")} alt="" />
+            <ResponsiveImage src={icon("building")} alt="" />
             <span>
               <b>Residential &amp;</b>
               <small>Commercial</small>
             </span>
           </div>
           <div>
-            <img src={icon("map-pin")} alt="" />
+            <ResponsiveImage src={icon("map-pin")} alt="" />
             <span>
               <b>Melbourne-Wide</b>
               <small>Service</small>
             </span>
           </div>
           <div>
-            <img src={icon("shield-check")} alt="" />
+            <ResponsiveImage src={icon("shield-check")} alt="" />
             <span>
               <b>Quality You</b>
               <small>Can Trust</small>
@@ -477,7 +478,6 @@ export function TrustStrip({ showGoogleRating = false }: { showGoogleRating?: bo
             className="trust-item trust-item-rating"
             href={publicPageHref('/reviews/')}
             key="google-rating"
-            aria-label={`Business-wide Google rating ${googleReviewSummary.rating.toFixed(1)} out of 5 from ${googleReviewSummary.reviewCount} reviews across all profiles`}
             title="Business-wide summary across Grade A Plumbing Google profiles"
           >
             <Icon name="star" size={27} />
@@ -514,7 +514,7 @@ export function ServiceCard({
   const inner = (
     <>
       <div className="service-image">
-        <img src={service.image} alt={`${service.title} reference`} />
+        <ResponsiveImage src={service.image} alt={`${service.title} reference`} sizes="(max-width: 560px) calc(50vw - 24px), (max-width: 1024px) 30vw, 270px" />
       </div>
       <div className="service-card-footer">
         <span>{service.shortTitle}</span>
@@ -577,9 +577,11 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
             key={`${item.title}-${index}`}
             onClick={() => setActive(index)}
           >
-            <img
+            <ResponsiveImage
               src={item.image}
               alt={item.alt}
+              sizes="(max-width: 768px) 46vw, 280px"
+              loading="eager"
             />
             <span className="gallery-caption">
               <b>{item.title}</b>
@@ -610,7 +612,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
             >
               <Icon name="close" />
             </button>
-            <img src={list[active].image} alt={list[active].title} />
+            <ResponsiveImage loading="eager" sizes="90vw" src={list[active].image} alt={list[active].title} />
             <div className="lightbox-meta">
               <span>{list[active].title}</span>
               <small>{list[active].label}</small>
@@ -643,7 +645,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
 export function EmergencyPanel() {
   return (
     <aside className="emergency-panel">
-      <img
+      <ResponsiveImage
         src="/assets/sharp/14_Emergency_Panel_Background.jpg"
         alt="Emergency plumbing pipework"
       />

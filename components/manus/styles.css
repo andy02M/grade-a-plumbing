@@ -1,5 +1,3 @@
-@font-face { font-family: "Barlow Condensed"; src: url("/assets/fonts/barlow-condensed-800-latin.woff2") format("woff2"); font-style: normal; font-weight: 800 900; font-display: swap; }
-@font-face { font-family: "Inter"; src: url("/assets/fonts/inter-variable-latin.woff2") format("woff2"); font-style: normal; font-weight: 100 900; font-display: swap; }
 :root {
   --navy: #07182b;
   --navy-2: #0d233c;
@@ -11,9 +9,9 @@
   --line: #dce4ec;
   --paper: #f4f8fc;
   --white: #fff;
-  --font-display: "Barlow Condensed", sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-button: "Barlow Condensed", sans-serif;
+  --font-display: "Barlow Critical", sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-button: "Barlow Critical", sans-serif;
   --container: 1120px;
   --container-gutter: clamp(16px, 3vw, 48px);
   --body-size: clamp(16px, 1vw, 18px);
@@ -30,6 +28,7 @@
   font-synthesis: none;
 }
 * { box-sizing: border-box; }
+:where(img[data-responsive-image]) { height: auto; max-width: 100%; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-size: var(--body-size); line-height: 1.5; }
 a { color: inherit; text-decoration: none; }

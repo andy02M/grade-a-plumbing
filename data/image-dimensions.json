@@ -1,0 +1,610 @@
+{
+  "/assets/01_hero_plumber_under_sink_REFERENCE_CROP.jpg": {
+    "width": 519,
+    "height": 309
+  },
+  "/assets/02_emergency_plumber_service_REFERENCE_CROP.jpg": {
+    "width": 105,
+    "height": 75
+  },
+  "/assets/03_blocked_drain_service_REFERENCE_CROP.jpg": {
+    "width": 106,
+    "height": 75
+  },
+  "/assets/04_hot_water_system_service_REFERENCE_CROP.jpg": {
+    "width": 108,
+    "height": 75
+  },
+  "/assets/05_burst_pipe_service_REFERENCE_CROP.jpg": {
+    "width": 107,
+    "height": 75
+  },
+  "/assets/06_toilet_service_REFERENCE_CROP.jpg": {
+    "width": 108,
+    "height": 75
+  },
+  "/assets/07_gas_plumbing_service_REFERENCE_CROP.jpg": {
+    "width": 107,
+    "height": 75
+  },
+  "/assets/08_sewer_repair_service_REFERENCE_CROP.jpg": {
+    "width": 105,
+    "height": 58
+  },
+  "/assets/09_pipe_relining_service_REFERENCE_CROP.jpg": {
+    "width": 107,
+    "height": 58
+  },
+  "/assets/10_kitchen_plumbing_service_REFERENCE_CROP.jpg": {
+    "width": 110,
+    "height": 58
+  },
+  "/assets/11_bathroom_plumbing_service_REFERENCE_CROP.jpg": {
+    "width": 109,
+    "height": 58
+  },
+  "/assets/12_leak_detection_service_REFERENCE_CROP.jpg": {
+    "width": 105,
+    "height": 58
+  },
+  "/assets/13_commercial_plumbing_service_REFERENCE_CROP.jpg": {
+    "width": 105,
+    "height": 58
+  },
+  "/assets/14_grade_a_difference_bathtub_REFERENCE_CROP.jpg": {
+    "width": 462,
+    "height": 225
+  },
+  "/assets/15_emergency_plumbing_banner_REFERENCE_CROP.jpg": {
+    "width": 429,
+    "height": 187
+  },
+  "/assets/16_melbourne_skyline_REFERENCE_CROP.jpg": {
+    "width": 351,
+    "height": 104
+  },
+  "/assets/17_gallery_hot_water_REFERENCE_CROP.jpg": {
+    "width": 104,
+    "height": 83
+  },
+  "/assets/18_gallery_kitchen_sink_REFERENCE_CROP.jpg": {
+    "width": 105,
+    "height": 83
+  },
+  "/assets/19_gallery_copper_pipes_REFERENCE_CROP.jpg": {
+    "width": 107,
+    "height": 83
+  },
+  "/assets/external/freestanding-bathtub-unsplash.jpg": {
+    "width": 3000,
+    "height": 2003
+  },
+  "/assets/external/melbourne-yarra-skyline-wikimedia.jpg": {
+    "width": 4336,
+    "height": 2355
+  },
+  "/assets/footer/footer-pipes-background-dark.webp": {
+    "width": 2400,
+    "height": 1000
+  },
+  "/assets/footer/footer-pipes-background.webp": {
+    "width": 2400,
+    "height": 1000
+  },
+  "/assets/footer/grade-a-plumber-footer-white-blue-transparent.png": {
+    "width": 1367,
+    "height": 538
+  },
+  "/assets/google-g-logo.webp": {
+    "width": 3840,
+    "height": 3840
+  },
+  "/assets/grade-a/bathroom-inspection.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/bathroom-shower.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/bathroom-toilet-technician.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/blocked-drains-closeup.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/burst-copper-pipe.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/drain-inspection.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/emergency-plumber-working.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/gas-plumbing.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/hero-plumber-under-sink.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/grade-a/hot-water-cylinder.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/hot-water-service.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/kitchen-plumbing.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/leak-detection.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/melbourne-community-concept.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/grade-a/melbourne-skyline-concept.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/grade-a/plumber-at-door.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/reference-logo-raster.webp": {
+    "width": 1254,
+    "height": 1254
+  },
+  "/assets/grade-a/sewer-pipe-lining.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/grade-a/team-brand-concept.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/grade-a/toilet-repairs.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/GradeAPlumberLogo-horizontal.png": {
+    "width": 1369,
+    "height": 542
+  },
+  "/assets/Grade_A_Logo_From_Mockup_CROP.png": {
+    "width": 109,
+    "height": 43
+  },
+  "/assets/hq/additional_brand_and_section_images/golden_pin_over_melbourne_skyline.png": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/hq/additional_brand_and_section_images/grade_a_plumber_at_the_door.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/additional_brand_and_section_images/grade_a_plumbing_drain_inspection.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/additional_brand_and_section_images/grade_a_plumbing_hot_water_service.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/additional_brand_and_section_images/grade_a_plumbing_in_melbourne_suburbs.png": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/hq/additional_brand_and_section_images/grade_a_plumbing_logo.png": {
+    "width": 1254,
+    "height": 1254
+  },
+  "/assets/hq/additional_brand_and_section_images/grade_a_plumbing_team_in_melbourne.png": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/hq/additional_brand_and_section_images/professional_bathroom_pipe_inspection.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/additional_brand_and_section_images/professional_plumber_repairing_kitchen_sink.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/additional_brand_and_section_images/professional_plumber_repairing_modern_bathroom_toi.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/burst_copper_pipe_leak.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/glistening_blue_lined_industrial_pipe.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/luxurious_rainfall_shower_retreat.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/modern_bathroom_toilet_with_chrome_fixtures.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/modern_utility_room_water_heater.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/professional_plumber_repairing_sink_pipes.png": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/hq/homepage_core/sunlit_contemporary_kitchen_sink_scene.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/swirling_water_in_a_stainless_steel_drain.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/thermal_leak_detection_under_the_sink.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/hq/homepage_core/yellow_gas_pipe_and_brass_valve_assembly.png": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/project-photos/bathroom-shower.webp": {
+    "width": 1086,
+    "height": 1448
+  },
+  "/assets/project-photos/bathroom-vanity-toilet.webp": {
+    "width": 900,
+    "height": 1600
+  },
+  "/assets/project-photos/bathroom-vanity.webp": {
+    "width": 1122,
+    "height": 1402
+  },
+  "/assets/project-photos/built-in-bath.webp": {
+    "width": 1122,
+    "height": 1402
+  },
+  "/assets/project-photos/double-vanity.webp": {
+    "width": 1122,
+    "height": 1402
+  },
+  "/assets/project-photos/drainage-trench.webp": {
+    "width": 1086,
+    "height": 1448
+  },
+  "/assets/project-photos/freestanding-bath.webp": {
+    "width": 1600,
+    "height": 900
+  },
+  "/assets/project-photos/hot-water-pipework.webp": {
+    "width": 1086,
+    "height": 1448
+  },
+  "/assets/project-photos/hot-water-system.webp": {
+    "width": 1122,
+    "height": 1402
+  },
+  "/assets/project-photos/kitchen-cooktop.webp": {
+    "width": 1122,
+    "height": 1402
+  },
+  "/assets/project-photos/kitchen-sink.webp": {
+    "width": 1122,
+    "height": 1402
+  },
+  "/assets/project-photos/plumbing-pipework.webp": {
+    "width": 1086,
+    "height": 1448
+  },
+  "/assets/project-photos/roof-drainage.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/project-photos/shower-suite.webp": {
+    "width": 1086,
+    "height": 1448
+  },
+  "/assets/project-photos/shower-toilet-renovation.webp": {
+    "width": 1086,
+    "height": 1448
+  },
+  "/assets/project-photos/tiled-shower.webp": {
+    "width": 1086,
+    "height": 1448
+  },
+  "/assets/project-photos/toilet-and-shower.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/project-photos/walk-in-shower.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/01_Hero_Plumber_Under_Sink.jpg": {
+    "width": 1672,
+    "height": 941
+  },
+  "/assets/sharp/02_Emergency_Plumbing_Service.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/03_Blocked_Drains.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/04_Hot_Water_Systems.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/05_Burst_Pipe_Repairs.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/06_Toilet_Repairs.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/07_Gas_Plumbing.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/08_Sewer_Repairs.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/09_Pipe_Relining.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/10_Kitchen_Plumbing.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/11_Bathroom_Plumbing.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/12_Leak_Detection.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/13_Commercial_Plumbing.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/14_Emergency_Panel_Background.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/assets/sharp/15_Alternative_Plumber_On_Site.jpg": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/cards/bathroom-inspection-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/bathroom-shower-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/bathroom-toilet-technician-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/blocked-drains-closeup-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/burst-copper-pipe-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/drain-inspection-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/emergency-plumber-working-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/gas-plumbing-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/hero-plumber-under-sink-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/hot-water-cylinder-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/hot-water-service-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/kitchen-plumbing-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/leak-detection-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/melbourne-skyline-concept-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/plumber-at-door-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/sewer-pipe-lining-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/cards/toilet-repairs-card.webp": {
+    "width": 960,
+    "height": 620
+  },
+  "/images/plumbing-advice/generated/bathroom-planning-v1.webp": {
+    "width": 1440,
+    "height": 810
+  },
+  "/images/plumbing-advice/generated/heat-pump-garden-v1.webp": {
+    "width": 1440,
+    "height": 810
+  },
+  "/images/plumbing-advice/generated/laundry-connections-v1.webp": {
+    "width": 1440,
+    "height": 810
+  },
+  "/images/plumbing-advice/generated/rainwater-garden-v1.webp": {
+    "width": 1440,
+    "height": 810
+  },
+  "/images/plumbing-advice/hero/bathroom-inspection-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/bathroom-shower-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/bathroom-toilet-technician-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/blocked-drains-closeup-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/burst-copper-pipe-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/drain-inspection-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/emergency-plumber-working-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/gas-plumbing-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/hero-plumber-under-sink-hero.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/images/plumbing-advice/hero/hot-water-cylinder-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/hot-water-service-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/kitchen-plumbing-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/leak-detection-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/melbourne-skyline-concept-hero.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/images/plumbing-advice/hero/plumber-at-door-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/sewer-pipe-lining-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/hero/toilet-repairs-hero.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/images/plumbing-advice/inline/bathroom-inspection-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/bathroom-shower-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/blocked-drains-closeup-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/burst-copper-pipe-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/drain-inspection-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/emergency-plumber-working-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/gas-plumbing-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/hero-plumber-under-sink-inline.webp": {
+    "width": 1100,
+    "height": 619
+  },
+  "/images/plumbing-advice/inline/hot-water-cylinder-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/hot-water-service-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/kitchen-plumbing-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/leak-detection-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/sewer-pipe-lining-inline.webp": {
+    "width": 1100,
+    "height": 825
+  },
+  "/images/plumbing-advice/inline/toilet-repairs-inline.webp": {
+    "width": 1100,
+    "height": 825
+  }
+}

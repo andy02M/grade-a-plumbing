@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@/components/manus/article-reading.css";
 import { notFound, permanentRedirect } from "next/navigation";
 import { articleBySlug, publishedArticles } from "@/lib/articles";
 import { getRequestLocation } from "@/lib/location-request";

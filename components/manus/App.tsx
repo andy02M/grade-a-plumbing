@@ -1,5 +1,6 @@
 "use client";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Button,
@@ -24,7 +25,7 @@ import {
   type LocationRecord,
 } from "./locationData";
 
-const MarketingPage = lazy(() => import("./MarketingPages"));
+import MarketingPage from "./MarketingPages";
 
 const heroImage = "/assets/sharp/01_Hero_Plumber_Under_Sink.jpg";
 const differenceImage = "/assets/external/freestanding-bathtub-unsplash.jpg";
@@ -44,7 +45,7 @@ function Hero({ locationName }: { locationName: string }) {
       <div className="container hero-content">
         <a className="hero-google-rating" href={publicPageHref('/reviews/')}>
           <span className="hero-google-rating-mark" aria-hidden="true">
-            <img src="/assets/google-g-logo.webp" alt="" width={20} height={20} />
+            <ResponsiveImage src="/assets/google-g-logo.webp" alt="" width={20} height={20} sizes="20px" loading="eager" />
           </span>
           <span>Highly Rated on Google</span>
         </a>
@@ -128,8 +129,9 @@ function DifferenceSection() {
     <section className="section difference-section">
       <div className="container difference-layout">
         <div className="difference-photo">
-          <img
+          <ResponsiveImage
             src={differenceImage}
+            sizes="(max-width: 768px) 100vw, 560px"
             alt="Reference image of a freestanding bathtub in a bright bathroom"
           />
         </div>
@@ -266,8 +268,9 @@ function AreasSection({ locationName, nearbyLocations, localPropertyGuidance }: 
   return (
     <section className="section areas-section">
       <div className="areas-photo">
-        <img
+        <ResponsiveImage
           src={skylineImage}
+          sizes="(max-width: 768px) 100vw, 50vw"
           alt="Melbourne skyline and Yarra River reference image"
         />
       </div>
@@ -408,9 +411,7 @@ export default function App({
         {isHome ? (
           <HomePage locationName={locationName} nearbyLocations={nearbyLocations} localPropertyGuidance={localPropertyGuidance} />
         ) : isKnown ? (
-          <Suspense fallback={null}>
-            <MarketingPage path={path} locationName={locationName} reviewPage={reviewPage} />
-          </Suspense>
+          <MarketingPage path={path} locationName={locationName} reviewPage={reviewPage} />
         ) : (
           <NotFoundPage />
         )}

@@ -1,4 +1,5 @@
 "use client";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import "./pages.css";
@@ -187,7 +188,7 @@ function FeatureSplit({
   return (
     <section className={`page-feature ${dark ? "page-feature-dark" : ""}`}>
       <div className="page-feature-image">
-        <img src={image} alt={imageAlt} loading="lazy" />
+        <ResponsiveImage src={image} alt={imageAlt} loading="lazy" />
         <span className="image-disclosure">concept</span>
       </div>
       <div className="page-feature-copy">
@@ -480,7 +481,7 @@ function EmergencyCTA({ compact = false }: { compact?: boolean }) {
       className={`page-emergency-cta ${compact ? "page-emergency-cta-compact" : ""}`}
     >
       {!compact && (
-        <img
+        <ResponsiveImage
           src="/assets/grade-a/emergency-plumber-working.webp"
           alt="Emergency plumbing"
           loading="lazy"
@@ -617,7 +618,7 @@ function GalleryLightbox({
         >
           ×
         </button>
-        <img src={item.image} alt={item.body} />
+        <ResponsiveImage loading="eager" sizes="90vw" src={item.image} alt={item.body} />
         <div className="page-lightbox-caption">
           <b>{item.title}</b>
           <span>{item.body}</span>
@@ -717,7 +718,7 @@ function OurWorkPage() {
                   setActive(index);
                 }}
               >
-                <img
+                <ResponsiveImage
                   src={item.image}
                   alt={item.body}
                   loading="lazy"

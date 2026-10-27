@@ -1,4 +1,5 @@
 "use client";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 
 import { useMemo, useState } from "react";
 import type { Article } from "@/lib/articles";
@@ -68,7 +69,7 @@ export function PlumbingAdvicePage({ articles }: { articles: AdviceArticle[] }) 
   return (
     <main className="advice-page">
       <section className="advice-hero">
-        <img className="advice-hero-image" src="/images/plumbing-advice/hero/hot-water-service-hero.webp" alt="Hot water service plumbing equipment" fetchPriority="high" />
+        <ResponsiveImage className="advice-hero-image" src="/images/plumbing-advice/hero/hot-water-service-hero.webp" alt="Hot water service plumbing equipment" fetchPriority="high" />
         <div className="advice-hero-overlay" />
         <div className="container advice-hero-inner">
           <div className="advice-hero-copy">
@@ -103,13 +104,13 @@ export function PlumbingAdvicePage({ articles }: { articles: AdviceArticle[] }) 
           </div>
 
           {featured && <article className="advice-featured">
-            <a href={`/blog/${featured.slug}/`} className="advice-featured-image"><img src={imageFor(featured, "hero")} alt={featured.heroImageAlt ?? `${categoryFor(featured)} article image`} /></a>
+            <a href={`/blog/${featured.slug}/`} className="advice-featured-image"><ResponsiveImage src={imageFor(featured, "hero")} alt={featured.heroImageAlt ?? `${categoryFor(featured)} article image`} /></a>
             <div className="advice-featured-copy"><span className="advice-card-category">FEATURED / {categoryFor(featured)}</span><h3><a href={`/blog/${featured.slug}/`}>{featured.title}</a></h3><p>{featured.excerpt}</p><div className="advice-card-meta"><time dateTime={featured.publishedDate}>{displayDate(featured.publishedDate)}</time><span>{featured.readingMinutes} min read</span></div><a className="advice-arrow-link" href={`/blog/${featured.slug}/`}>Read the guide <span>↗</span></a></div>
           </article>}
 
           <div className="advice-content-layout">
             <div className="advice-results"><div className="advice-results-heading"><h3>{query || activeCategory !== "All Articles" ? "Matching advice" : "Latest advice"}</h3><span>{filtered.length} {filtered.length === 1 ? "article" : "articles"}</span></div>
-              <div className="advice-card-grid">{visible.map((article) => <article className="advice-card" key={article.slug}><a href={`/blog/${article.slug}/`} className="advice-card-image"><img src={imageFor(article, "card")} alt={article.heroImageAlt ?? `${categoryFor(article)} article image`} loading="lazy" /></a><div className="advice-card-body"><span className="advice-card-category">{categoryFor(article)}</span><h3><a href={`/blog/${article.slug}/`}>{article.title}</a></h3><p>{article.excerpt}</p><div className="advice-card-meta"><time dateTime={article.publishedDate}>{displayDate(article.publishedDate)}</time><span>{article.readingMinutes} min read</span></div></div></article>)}</div>
+              <div className="advice-card-grid">{visible.map((article) => <article className="advice-card" key={article.slug}><a href={`/blog/${article.slug}/`} className="advice-card-image"><ResponsiveImage src={imageFor(article, "card")} alt={article.heroImageAlt ?? `${categoryFor(article)} article image`} loading="lazy" /></a><div className="advice-card-body"><span className="advice-card-category">{categoryFor(article)}</span><h3><a href={`/blog/${article.slug}/`}>{article.title}</a></h3><p>{article.excerpt}</p><div className="advice-card-meta"><time dateTime={article.publishedDate}>{displayDate(article.publishedDate)}</time><span>{article.readingMinutes} min read</span></div></div></article>)}</div>
               {visible.length < filtered.length && <button className="advice-load-more" type="button" onClick={() => setVisibleCount((count) => count + 6)}>Load more articles <span>＋</span></button>}
               {filtered.length === 0 && <p className="advice-empty">No published articles match that search. Try another topic or phrase.</p>}
             </div>

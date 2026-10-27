@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@/components/manus/advice.css";
 import { permanentRedirect } from "next/navigation";
 import { publishedArticles } from "@/lib/articles";
 import { getRequestLocation } from "@/lib/location-request";

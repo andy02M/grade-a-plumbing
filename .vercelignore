@@ -9,7 +9,8 @@ oauth-client.json
 oauth-*.png
 profile-create-dry-run*.png
 artifacts
-scripts
+scripts/*
+!scripts/prepare-image-dimensions.mjs
 docs
 bugfather-pest-control
 output
