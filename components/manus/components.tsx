@@ -441,6 +441,9 @@ export function Footer() {
           </div>
         </div>
       </div>
+      <p className="container relative py-3 text-sm leading-relaxed">
+        After-hours attendance applies from 4 pm, subject to availability. Any additional charges are confirmed and accepted before dispatch.
+      </p>
       <div className="premium-footer-bottom">
         <div className="container">
           <span>
