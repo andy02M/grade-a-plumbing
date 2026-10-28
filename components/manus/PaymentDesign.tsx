@@ -2,10 +2,10 @@ import styles from "./PaymentDesign.module.css";
 import { PHONE, PHONE_LINK } from "./data";
 
 const methods = [
-  { icon: "card", name: "Card payment", text: "Pay by card. Confirm your preferred card with our team before your visit." },
+  { icon: "card", name: "Card payment", text: "Pay by card. Confirm accepted cards with our team." },
   { icon: "cash", name: "Cash", text: "Pay directly to your plumber when the job is completed." },
-  { icon: "bank", name: "Bank transfer", text: "Ask our team for payment details and include your job or invoice reference." },
-  { icon: "payid", name: "PayID", text: "Convenient PayID payments, where available. Confirm with our team first." },
+  { icon: "bank", name: "Bank transfer", text: "Bank transfer available. Ask our team for payment details." },
+  { icon: "payid", name: "PayID", text: "PayID available where confirmed by our team." },
 ];
 const reminders = [
   { icon: "card", title: "Payment due", text: "Immediately on completion" },
@@ -18,15 +18,15 @@ export function PaymentDesign() {
   return (
     <>
       <section className={styles.hero} aria-labelledby="payment-title">
-        <div className={`container ${styles.inner}`}>
+        <div className={styles.shell}>
           <p className={styles.eyebrow}>PAYMENT INFORMATION</p>
-          <h1 id="payment-title">Payment options for<br />your plumbing job</h1>
-          <p className={styles.lead}>Choose a convenient way to pay for your plumbing service. Payment is required immediately after the job is completed, unless alternative terms have been agreed with our team beforehand.</p>
+          <h1 id="payment-title">Payment Options for<br />Your Plumbing Job</h1>
+          <p className={styles.lead}>We accept a range of payment methods to make things simple and convenient. Payment is required immediately on completion unless alternative terms have been agreed in advance.</p>
           <div className={styles.layout}>
             <div className={styles.methods}>
               {methods.map(method => (
                 <article className={styles.method} key={method.icon}>
-                  <img src={`/assets/payment/icon-${method.icon}.svg`} width={52} height={52} alt="" />
+                  <img src={`/assets/payment/icon-${method.icon}.svg`} width={49} height={49} alt="" />
                   <h2>{method.name}</h2>
                   <p>{method.text}</p>
                 </article>
@@ -34,7 +34,7 @@ export function PaymentDesign() {
             </div>
             <aside className={styles.help}>
               <h2><span aria-hidden="true">?</span> Questions about payment?</h2>
-              <p>Talk to our team about your preferred payment method or discuss an arrangement that suits your circumstances.</p>
+              <p>Speak with our team about your preferred payment method or payment arrangements.</p>
               <a href={PHONE_LINK} className={styles.call}>Call {PHONE}</a>
               <a href="/contact/" className={styles.contact}>Contact our team <span aria-hidden="true">&rarr;</span></a>
             </aside>
@@ -42,7 +42,7 @@ export function PaymentDesign() {
         </div>
       </section>
       <section className={styles.reminders} aria-label="Payment at a glance">
-        <div className={`container ${styles.reminderGrid}`}>
+        <div className={`${styles.shell} ${styles.reminderGrid}`}>
           {reminders.map(item => <div className={styles.reminder} key={item.title}>
             <img src={`/assets/payment/icon-${item.icon}.svg`} width={32} height={32} alt="" />
             <p><strong>{item.title}</strong><span>{item.text}</span></p>
