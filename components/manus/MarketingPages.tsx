@@ -1085,21 +1085,34 @@ function PaymentInformationPage() {
       <section className="page-contact-section">
         <div className="container">
           <h1 className="text-3xl font-bold">Payment information</h1>
-          <p className="mb-8 mt-3">Simple payment options for your plumbing job.</p>
+          <p className="mb-8 mt-3">Everything you need to know about paying for your plumbing service, when payment is due and arranging alternative payment terms.</p>
           <div className="page-contact-grid">
             <div>
               <h2 className="mb-2 text-xl font-bold">Payment methods</h2>
-              <p>We accept all payment methods, including cash, card and bank transfer. Please confirm your preferred method with our team before payment.</p>
+              <p>We accept all payment methods, including cash, card and bank transfer. Let our team know your preferred payment method when booking so we can confirm the arrangements for your visit.</p>
+              <ul className="my-4 list-disc space-y-2 pl-5">
+                <li><strong>Cash:</strong> Pay the attending plumber when the job is complete.</li>
+                <li><strong>Card:</strong> Speak with the attending plumber or our team to arrange your card payment.</li>
+                <li><strong>Bank transfer:</strong> Use the payment details supplied directly by our team and include your invoice or job reference so your payment can be identified.</li>
+                <li><strong>Other payment methods:</strong> Contact us before your appointment to confirm how your preferred method can be accepted.</li>
+              </ul>
               <h2 className="mb-2 mt-6 text-xl font-bold">When payment is due</h2>
-              <p>Payment is required upon completion of the job.</p>
+              <p>Payment is required immediately after the job is completed, unless different payment terms have been agreed with our team beforehand. Please be ready to make payment at the end of the visit.</p>
+              <p className="mt-3">If someone else is responsible for paying, such as a property owner, property manager or business, please tell us before work begins and make sure the payment arrangements are confirmed with our team.</p>
               <h2 className="mb-2 mt-6 text-xl font-bold">Need more time to pay?</h2>
-              <p>Please discuss this with our team as early as possible, preferably before work begins. Any alternative payment arrangement must be agreed with our team; extra time is not automatically provided.</p>
+              <p>If you need additional time to pay, please discuss this with our team as early as possible, preferably before work begins. We can discuss your circumstances and whether an alternative payment arrangement is available.</p>
+              <p className="mt-3">Payment terms are subject to agreement with our team and are not automatically provided. Please confirm the agreed amount, payment date and method with us. Unless an alternative arrangement has been agreed, payment remains due immediately on completion.</p>
+              <h2 className="mb-2 mt-6 text-xl font-bold">Invoices and payment questions</h2>
+              <p>Please provide the correct name, contact details and any business or billing information when booking. If you need an invoice or payment receipt, ask our team and provide the email address you would like us to use.</p>
+              <p className="mt-3">If you have a question about the amount charged or how to pay, raise it with the attending plumber or contact our team promptly. Have your job address and invoice or booking reference available so we can help.</p>
               <h2 className="mb-2 mt-6 text-xl font-bold">After-hours attendance</h2>
-              <p>Attendance from 4 pm is treated as after-hours service and is subject to availability. Any additional charges are confirmed and accepted before dispatch.</p>
+              <p>Attendance from 4:00 PM onwards is considered an after-hours service and is subject to plumber availability and applicable after-hours rates.</p>
+              <p className="mt-3">Submitting an enquiry does not guarantee attendance or a specific arrival time. Our team will contact you to confirm availability and appointment details. For non-urgent plumbing issues, you may request the next available appointment during standard business hours.</p>
             </div>
             <div>
               <h2 className="mb-2 text-xl font-bold">Questions about payment?</h2>
-              <p>Speak with our team about your payment method or an arrangement that suits your circumstances.</p>
+              <p>Contact us before your appointment if you would like to check a payment method, provide billing details or discuss extra time to pay.</p>
+              <p className="mt-3"><strong>Payment is due immediately on completion unless alternative terms have been agreed with our team.</strong></p>
               <div className="hero-actions">
                 <Button href={PHONE_LINK}>Call {PHONE}</Button>
                 <Button href="/contact/" variant="dark">Contact our team</Button>
