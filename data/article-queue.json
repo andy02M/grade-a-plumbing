@@ -1795,7 +1795,7 @@
     "releasedDate": "2026-10-27"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "low water pressure what to tell plumber",
     "review": {
@@ -1923,7 +1923,8 @@
           "answer": "Not necessarily. Check the notice relevant to your address and supplier, then report any remaining concern with accurate observations."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-28"
   },
   {
     "status": "ready",
