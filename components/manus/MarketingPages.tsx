@@ -1079,6 +1079,39 @@ function PageMeta({ path }: { path: string }) {
   return null;
 }
 
+function PaymentInformationPage() {
+  return (
+    <div className="marketing-page" data-page="payment">
+      <section className="page-contact-section">
+        <div className="container">
+          <h1 className="text-3xl font-bold">Payment information</h1>
+          <p className="mb-8 mt-3">Simple payment options for your plumbing job.</p>
+          <div className="page-contact-grid">
+            <div>
+              <h2 className="mb-2 text-xl font-bold">Payment methods</h2>
+              <p>We accept all payment methods, including cash, card and bank transfer. Please confirm your preferred method with our team before payment.</p>
+              <h2 className="mb-2 mt-6 text-xl font-bold">When payment is due</h2>
+              <p>Payment is required upon completion of the job.</p>
+              <h2 className="mb-2 mt-6 text-xl font-bold">Need more time to pay?</h2>
+              <p>Please discuss this with our team as early as possible, preferably before work begins. Any alternative payment arrangement must be agreed with our team; extra time is not automatically provided.</p>
+              <h2 className="mb-2 mt-6 text-xl font-bold">After-hours attendance</h2>
+              <p>Attendance from 4 pm is treated as after-hours service and is subject to availability. Any additional charges are confirmed and accepted before dispatch.</p>
+            </div>
+            <div>
+              <h2 className="mb-2 text-xl font-bold">Questions about payment?</h2>
+              <p>Speak with our team about your payment method or an arrangement that suits your circumstances.</p>
+              <div className="hero-actions">
+                <Button href={PHONE_LINK}>Call {PHONE}</Button>
+                <Button href="/contact/" variant="dark">Contact our team</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function MarketingPage({ path, locationName = "Melbourne", reviewPage = 1 }: { path: string; locationName?: string;reviewPage?:number }) {
   const canonical = normalizePageRoute(path);
   const detail = serviceList.find((item) => item.route === canonical);
@@ -1089,6 +1122,7 @@ export default function MarketingPage({ path, locationName = "Melbourne", review
   else if (canonical === "/about/") page = <AboutPage />;
   else if (canonical === "/service-areas/") page = <ServiceAreaPage />;
   else if (canonical === "/contact/") page = <ContactPage />;
+  else if (canonical === "/payment/") page = <PaymentInformationPage />;
   else if (canonical === "/reviews/") page = <ReviewsPage key={reviewPage} pageNumber={reviewPage} />;
   else if (detailConfig && detail)
     page = (

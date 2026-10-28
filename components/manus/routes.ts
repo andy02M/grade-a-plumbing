@@ -17,7 +17,7 @@ const aliasRoutes: Record<string, string> = {
   '/hot-water/': '/hot-water-systems/',
   '/burst-pipe-repair/': '/burst-pipe-repairs/',
 }
-const staticRoutes = ['/services/', '/our-work/', '/about/', '/service-areas/', '/contact/', '/reviews/']
+const staticRoutes = ['/services/', '/our-work/', '/about/', '/service-areas/', '/contact/', '/reviews/', '/payment/']
 const pageRoutes = [...staticRoutes, ...services.map(service => service.route)]
 
 export function normalizePageRoute(input: string): string {

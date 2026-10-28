@@ -288,6 +288,7 @@ export function Footer() {
     ["About", "/about-us/"],
     ["Reviews", "/reviews/"],
     ["Contact", "/contact-us/"],
+    ["Payment information", "/payment/"],
   ];
   const icon = (name: string) => `/assets/footer/icons/${name}.svg`;
   return (
