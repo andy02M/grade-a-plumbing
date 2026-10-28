@@ -21,7 +21,7 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "postinstall": "prisma generate",
-    "test": "node --test scripts/seo-architecture.test.mjs scripts/seo-upgrade.test.mjs scripts/plan-article.test.mjs scripts/article-quality.test.mjs scripts/article-model.test.mjs scripts/measurement.test.mjs scripts/queued-article.test.mjs scripts/performance-assets.test.mjs",
+    "test": "node --test scripts/seo-architecture.test.mjs scripts/seo-upgrade.test.mjs scripts/plan-article.test.mjs scripts/article-quality.test.mjs scripts/article-model.test.mjs scripts/measurement.test.mjs scripts/queued-article.test.mjs scripts/performance-assets.test.mjs scripts/commit-article-records.test.mjs",
     "seo:audit": "node scripts/seo-content-audit.mjs",
     "seo:locations": "node scripts/location-readiness.mjs",
     "seo:baseline": "node scripts/seo-baseline.mjs",

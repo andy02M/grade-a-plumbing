@@ -46,14 +46,8 @@ jobs:
         run: npm run typecheck && npm test && npm run build
       - name: Publish to GitHub and Vercel
         if: steps.readiness.outputs.should_run == 'true'
-        run: |
-          if git diff --quiet -- data/generated-articles.json data/article-queue.json data/article-calendar-*.json data/article-publication-log.json; then exit 0; fi
-          git config user.name 'Grade A Plumbing publisher'
-          git config user.email 'publisher@users.noreply.github.com'
-          git add data/generated-articles.json data/article-queue.json data/article-calendar-*.json data/article-publication-log.json
-          git commit -m 'Record daily article preparation and editorial checks'
-          git pull --rebase origin main
-          git push origin HEAD:main
+        # Publishes data/article-queue.json and article records only, from a clean worktree.
+        run: node scripts/commit-article-records.mjs
       - name: Flag editorial holds and retry-required failures
         if: steps.prepare.outputs.outcome == 'held' || steps.prepare.outputs.outcome == 'failed'
         run: |
@@ -70,12 +64,4 @@ jobs:
           ALERT_FROM_EMAIL: ${{ vars.ALERT_FROM_EMAIL }}
         run: node scripts/email-queue-status.mjs
       - name: Record verified publication
-        run: |
-          if git diff --quiet -- data/article-calendar-*.json data/article-publication-log.json data/article-queue-alert.json; then exit 0; fi
-          git config user.name 'Grade A Plumbing publisher'
-          git config user.email 'publisher@users.noreply.github.com'
-          git add data/article-calendar-*.json data/article-publication-log.json
-          if test -f data/article-queue-alert.json; then git add data/article-queue-alert.json; fi
-          git commit -m 'Record verified article deployment'
-          git pull --rebase origin main
-          git push origin HEAD:main
+        run: node scripts/commit-article-records.mjs --verify
