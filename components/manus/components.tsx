@@ -217,17 +217,18 @@ export function Logo({ invert = false }: { invert?: boolean }) {
   );
 }
 
+const primaryNavigation = [
+  ["Services", "/services/"],
+  ["Service Areas", "/service-areas/"],
+  ["Plumbing Advice", "/blog/"],
+  ["Our Work", "/our-work/"],
+  ["About", "/about/"],
+  ["Contact", "/contact/"],
+] as const;
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const nav = [
-    ["Services", "/services/"],
-    ["Service Areas", "/service-areas/"],
-    ["Plumbing Advice", "/blog/"],
-    ["Our Work", "/our-work/"],
-    ["About", "/about/"],
-    ["Contact", "/contact/"],
-  ];
   return (
     <header className="site-header">
       <div className="container header-inner">
@@ -236,7 +237,7 @@ export function Header() {
           className={`desktop-nav ${open ? "nav-open" : ""}`}
           aria-label="Primary navigation"
         >
-          {nav.map(([label, href]) => {
+          {primaryNavigation.map(([label, href]) => {
             const active = pathname === href || pathname.startsWith(`${href.replace(/\/$/, "")}/`);
             return (
             <a key={href} href={publicPageHref(href)} className={active ? "nav-link-active" : undefined} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>
@@ -281,13 +282,8 @@ export function Footer() {
     return () => observer.disconnect();
   }, []);
   const serviceColumns = [services.slice(0, 6), services.slice(6, 12)];
-  const explore = [
-    ["Home", "/"],
-    ["Our Work", "/our-work/"],
-    ["Service Areas", "/service-areas/"],
-    ["About", "/about-us/"],
-    ["Reviews", "/reviews/"],
-    ["Contact", "/contact-us/"],
+  const explore: ReadonlyArray<readonly [string, string]> = [
+    ...primaryNavigation,
     ["Payment information", "/payment/"],
   ];
   const icon = (name: string) => `/assets/footer/icons/${name}.svg`;
