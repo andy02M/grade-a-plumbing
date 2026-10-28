@@ -3,6 +3,7 @@ import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import "./pages.css";
+import { PaymentDesign } from "./PaymentDesign";
 import {
   Button,
   Icon,
@@ -1082,10 +1083,10 @@ function PageMeta({ path }: { path: string }) {
 function PaymentInformationPage() {
   return (
     <div className="marketing-page" data-page="payment">
+      <PaymentDesign />
       <section className="page-contact-section">
         <div className="container">
-          <h1 className="text-3xl font-bold">Payment information</h1>
-          <p className="mb-8 mt-3">Everything you need to know about paying for your plumbing service, when payment is due and arranging alternative payment terms.</p>
+          <h2 className="mb-8 text-2xl font-bold">Additional payment information</h2>
           <div className="page-contact-grid">
             <div>
               <h2 className="mb-2 text-xl font-bold">Payment methods</h2>
