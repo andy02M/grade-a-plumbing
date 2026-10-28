@@ -187,6 +187,16 @@ export function ContactForm({ compact = false, tone = "light", defaultSuburb = '
         </p>
       ) : null}
 
+      <details className={`text-sm leading-relaxed ${dark ? "text-blue-100" : "text-brand-charcoal"}`}>
+        <summary className="cursor-pointer font-bold">After-hours attendance from 4 pm</summary>
+        <div className="mt-2 grid gap-2">
+          <p>Attendance from 4:00 pm onwards is treated as after-hours service and is subject to plumber availability.</p>
+          <p>Any after-hours call-out fee and additional charges will be explained and must be accepted by you before a plumber is dispatched.</p>
+          <p>Submitting an enquiry does not confirm attendance, an arrival time or pricing. Our team will confirm these details with you.</p>
+          <p>For non-urgent jobs, you can request the next available standard-hours appointment.</p>
+        </div>
+      </details>
+
       <button
         className={`min-h-12 rounded-full px-5 py-3 text-sm font-black transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
           dark
