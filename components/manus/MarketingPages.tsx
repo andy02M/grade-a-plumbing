@@ -1102,7 +1102,6 @@ function PaymentInformationPage() {
             <details>
               <summary>When is payment due?</summary>
               <p>Payment is required immediately after the job is completed, unless different payment terms have been agreed with our team beforehand. Please be ready to make payment at the end of the visit.</p>
-              <p className="mt-3">If someone else is responsible for paying, such as a property owner, property manager or business, please tell us before work begins and make sure the payment arrangements are confirmed with our team.</p>
             </details>
             <details>
               <summary>Need more time to pay?</summary>
