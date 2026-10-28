@@ -218,12 +218,14 @@ export function Logo({ invert = false }: { invert?: boolean }) {
 }
 
 const primaryNavigation = [
+  ["Home", "/"],
   ["Services", "/services/"],
   ["Service Areas", "/service-areas/"],
   ["Plumbing Advice", "/blog/"],
   ["Our Work", "/our-work/"],
   ["About", "/about/"],
   ["Contact", "/contact/"],
+  ["Payment Information", "/payment/"],
 ] as const;
 
 export function Header() {
@@ -238,7 +240,7 @@ export function Header() {
           aria-label="Primary navigation"
         >
           {primaryNavigation.map(([label, href]) => {
-            const active = pathname === href || pathname.startsWith(`${href.replace(/\/$/, "")}/`);
+            const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href.replace(/\/$/, "")}/`);
             return (
             <a key={href} href={publicPageHref(href)} className={active ? "nav-link-active" : undefined} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>
               {label}
@@ -282,10 +284,7 @@ export function Footer() {
     return () => observer.disconnect();
   }, []);
   const serviceColumns = [services.slice(0, 6), services.slice(6, 12)];
-  const explore: ReadonlyArray<readonly [string, string]> = [
-    ...primaryNavigation,
-    ["Payment information", "/payment/"],
-  ];
+  const explore: ReadonlyArray<readonly [string, string]> = primaryNavigation;
   const icon = (name: string) => `/assets/footer/icons/${name}.svg`;
   return (
     <footer

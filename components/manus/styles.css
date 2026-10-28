@@ -264,7 +264,7 @@ legend { color: #283a4e; font-size: 12px; font-weight: 700; padding: 0 0 6px; }
   .difference-layout { grid-template-columns: 48% 52%; }
   .areas-inner { width: min(calc(100% - 56px), 920px); margin: 0 auto; }
 }
-@media (max-width: 900px) {
+@media (max-width: 1250px) {
   :root { --container: 1120px; }
   .site-header { height: 72px; }
   .header-inner { gap: 12px; }
@@ -643,13 +643,13 @@ legend { color: #283a4e; font-size: 12px; font-weight: 700; padding: 0 0 6px; }
   :root { --container: 1440px; --container-gutter: clamp(72px, 6vw, 160px); }
 }
 
-@media (min-width: 901px) and (max-width: 1100px) {
+@media (min-width: 1251px) and (max-width: 1450px) {
   .header-inner { gap: 12px; }
   .logo { min-width: 140px; }
   .logo img { width: clamp(140px, 14vw, 154px); }
   .desktop-nav { gap: 9px; }
   .desktop-nav a { font-size: 12px; }
   .header-actions { gap: 7px; }
-  .header-phone { height: 42px; padding-inline: 10px; gap: 6px; font-size: 12px; }
+  .header-phone { display: none; }
   .header-actions .button { min-height: 42px; padding-inline: 12px; font-size: 12px; }
 }
