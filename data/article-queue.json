@@ -1927,7 +1927,7 @@
     "releasedDate": "2026-10-28"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "WaterMark vs WELS plumbing products",
     "review": {
@@ -2049,7 +2049,8 @@
           "answer": "Do not assume so. Resolve property-specific suitability and supply responsibilities before committing to a purchase."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-29"
   },
   {
     "status": "ready",
