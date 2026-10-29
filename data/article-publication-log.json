@@ -642,5 +642,12 @@
       "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
       "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
     }
+  },
+  {
+    "date": "2026-10-29",
+    "outcome": "verified",
+    "recordedAt": "2026-10-29T01:41:41.524Z",
+    "slug": "watermark-wels-plumbing-products-online-purchase-checks",
+    "url": "https://melbourne.gradeaplumbing.store/blog/watermark-wels-plumbing-products-online-purchase-checks/"
   }
 ]
