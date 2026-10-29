@@ -24,6 +24,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...publishedArticles.map((article) => ({ url: `${location.website}/blog/${article.slug}/`, lastModified: new Date(article.updatedDate ?? article.publishedDate), changeFrequency: "monthly" as const, priority: 0.7 })),
     ] : []),
     { url: `${location.website}/contact/`, lastModified: locationContentUpdated, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${location.website}/payment/`, changeFrequency: "monthly", priority: 0.5 },
+    ...(isEditorialHost ? [{ url: `${location.website}/payment/`, changeFrequency: "monthly" as const, priority: 0.5 }] : []),
   ];
 }

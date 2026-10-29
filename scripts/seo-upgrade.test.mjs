@@ -133,12 +133,15 @@ test("reviews library keeps the complete collection behind search and incrementa
 test('shared corporate canonicals consolidate without changing local service targets',()=>{
  const {pageCanonical,editorialOrigin}=readSeoConfiguration('lib/canonical-policy.ts');
  for(const location of locations){
-  for(const path of ['/about/','/reviews/','/our-work/','/service-areas/'])assert.equal(pageCanonical(location.website,path),editorialOrigin+path);
+  for(const path of ['/about/','/reviews/','/our-work/','/service-areas/','/payment/'])assert.equal(pageCanonical(location.website,path),editorialOrigin+path);
   assert.equal(pageCanonical(location.website,'/blocked-drains/'),location.website+'/blocked-drains/');
  }
  const {publicPageHref}=readSeoConfiguration('components/manus/routes.ts');
  assert.equal(publicPageHref('/about-us/'),editorialOrigin+'/about/');
  assert.equal(publicPageHref('/service-areas/?state=NSW'),editorialOrigin+'/service-areas/?state=NSW');
+ assert.equal(publicPageHref('/payment/'),editorialOrigin+'/payment/');
+ assert.match(read('app/payment/page.tsx'),/pageCanonical\(location\.website, "\/payment\/"\)/);
+ assert.match(read('app/sitemap.ts'),/isEditorialHost \? \[\{ url: `\$\{location\.website\}\/payment\/`/);
 });
 test('all review pages are discoverable with distinct canonical paths',()=>{
  const {reviewPageNumber,reviewPagePath,reviewsPerPage}=readSeoConfiguration('lib/review-pagination.ts');

@@ -33,12 +33,6 @@ function Hero({ locationName }: { locationName: string }) {
       </picture>
       <div className="hero-overlay" />
       <div className="container hero-content">
-        <a className="hero-google-rating" href={publicPageHref('/reviews/')}>
-          <span className="hero-google-rating-mark" aria-hidden="true">
-            <ResponsiveImage src="/assets/google-g-logo.webp" alt="" width={20} height={20} sizes="20px" loading="eager" />
-          </span>
-          <span>Highly Rated on Google</span>
-        </a>
         <span className="eyebrow">{locationName.toUpperCase()} · LOCAL PLUMBING TEAM</span>
         <h1>
           {locationName} plumbing
