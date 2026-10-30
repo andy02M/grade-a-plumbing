@@ -649,5 +649,20 @@
     "recordedAt": "2026-10-29T01:41:41.524Z",
     "slug": "watermark-wels-plumbing-products-online-purchase-checks",
     "url": "https://melbourne.gradeaplumbing.store/blog/watermark-wels-plumbing-products-online-purchase-checks/"
+  },
+  {
+    "date": "2026-10-30",
+    "outcome": "prepared",
+    "recordedAt": "2026-10-30T01:46:29.301Z",
+    "slug": "dishwasher-leak-appliance-support-plumbing-assessment",
+    "words": 1211,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original guide checked against the listed official sources on 18 October 2026. Distinct from existing queue and published intents. No invented jobs, local evidence, product approvals, business qualifications, prices or response times. Practical coordination examples are explicitly hypothetical. Manufacturer and retailer guidance retains its scope. Review is not practitioner certification."
+    }
   }
 ]

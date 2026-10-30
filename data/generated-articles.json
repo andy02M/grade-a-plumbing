@@ -1864,5 +1864,122 @@
     ],
     "publishedDate": "2026-10-29",
     "updatedDate": "2026-10-29"
+  },
+  {
+    "title": "Dishwasher Leaking: Separate Appliance Support from Plumbing Assessment",
+    "slug": "dishwasher-leak-appliance-support-plumbing-assessment",
+    "metaTitle": "Dishwasher Leaking: Separate Appliance Support from Plumbing Assessment",
+    "metaDescription": "Prepare a safe, useful dishwasher leak report and clarify appliance-support, plumbing and access responsibilities before arranging assessment.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Prepare a safe, useful dishwasher leak report and clarify appliance-support, plumbing and access responsibilities before arranging assessment.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "blocked-drains",
+      "burst-pipe-repair"
+    ],
+    "relatedArticles": [
+      "why-drains-keep-blocking",
+      "higher-water-bill-billing-questions-possible-plumbing-leaks"
+    ],
+    "sources": [
+      {
+        "title": "Bosch Australia: appliance repair service",
+        "url": "https://www.bosch-home.com.au/service/book-a-repair-online/",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Victorian Government: power safety and emergency contacts",
+        "url": "https://www.energy.vic.gov.au/about-energy/safety/power-safety-and-emergency-contacts",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Building and Plumbing Commission: engaging a plumber",
+        "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+        "checkedDate": "2026-10-18"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Treat the visible water as a concern, not a diagnosis",
+        "paragraphs": [
+          "Water beside a dishwasher can raise two immediate questions: how to keep the area safe and who should assess the problem. The visible location alone does not establish whether the cause is inside the appliance, at a connection or elsewhere in the kitchen. Begin by reporting what you can see without continuing to run the appliance to investigate. This guide helps organise the support enquiry. It is not an appliance repair manual, an electrical isolation procedure or a set of instructions for disconnecting plumbing.",
+          "Keep people away from water near electrical equipment and seek appropriate advice. The Victorian Government's power-safety guidance warns about electrical hazards associated with water. Do not step into water to reach a plug, operate wet equipment or remove an appliance panel. If the situation presents an immediate danger, use the appropriate emergency assistance rather than waiting to assemble a complete written report. A routine booking form is not an emergency response system.",
+          "From a safe position, note the area affected and whether the machine was operating when the concern appeared. State whether water is still appearing or that you cannot tell. Avoid describing it as a failed hose or faulty seal unless a qualified assessment has established that finding. Accurate initial language makes it easier to direct the enquiry."
+        ],
+        "sourceUrls": [
+          "https://www.energy.vic.gov.au/about-energy/safety/power-safety-and-emergency-contacts"
+        ]
+      },
+      {
+        "heading": "Collect the model and event information already available",
+        "paragraphs": [
+          "Find the model information in your existing purchase records or user documents if you can do so without approaching an unsafe area. Record any displayed message exactly as it appears, without treating the same-looking code from a different model as an explanation. Keep the appliance's purchase and service details available for manufacturer support. The goal is to identify the machine and the reported event, not to open it or search for a hidden component.",
+          "Describe the stage of normal use when the concern was first noticed: shortly after starting, during the cycle or after the machine had finished. Do not restart it to prove the timing. If your recollection is uncertain, say so. Note whether anyone recently moved the appliance or arranged kitchen work, while making clear that the timing does not establish responsibility.",
+          "Bosch Australia provides an appliance repair support route, illustrating why manufacturer assistance belongs in the conversation for an appliance concern. Use the support information relevant to your own brand and exact model. This article does not imply that Grade A Plumbing is a manufacturer's authorised appliance repairer or that one brand's support process applies to all machines."
+        ],
+        "sourceUrls": [
+          "https://www.bosch-home.com.au/service/book-a-repair-online/"
+        ]
+      },
+      {
+        "heading": "Ask which part of the concern each provider will assess",
+        "paragraphs": [
+          "When contacting an appliance support service, explain the visible water, model and any recent work. Ask what its assessment covers and whether the appliance must remain installed for the visit. When contacting a plumber, ask whether the enquiry concerns the water or drainage connections or a broader kitchen plumbing issue. Do not assume either provider will undertake the other's work. Clear scope can prevent two appointments booked on contradictory assumptions.",
+          "If a provider refers you elsewhere, request a short explanation of what remains unconfirmed. A referral is not automatically a diagnosis or a refusal to assist. Share relevant findings with the next assessor so the same question is not repeatedly investigated without context. Avoid turning an informal telephone suggestion into an established component fault on a later booking.",
+          "Keep the distinction between assessment and repair visible. You may need an investigation before anyone can specify the work or the party best placed to do it. Ask what information would enable that decision and whether the initial visit carries a separate fee. Do not request a final repair price for a fault that has not been identified.",
+          "If there is a warranty or existing service case, provide its reference before arranging another appointment. Ask the manufacturer which information it needs about previous attendance and whether an independent assessment affects its proposed process. Do not assume the answer; record it. Avoid sending serial numbers, receipts or household photographs to unrelated public forums simply to obtain a faster opinion."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Plan access without moving a connected appliance yourself",
+        "paragraphs": [
+          "Tell the booking contact whether the machine is freestanding, built into cabinetry or located behind a decorative panel, using the description you already know. Provide a safe overview photograph if helpful. Explain any narrow entrance, difficult parking or building access process. Do not pull the dishwasher out to improve the photograph or make plumbing connections visible. Moving a connected appliance can create additional issues that this guide does not assess.",
+          "Ask who would arrange any access involving cabinetry or another trade. If a panel needs attention, make sure the provider explains the process and its scope. A visit booked as a plumbing assessment should not silently include cabinet alterations. Where a building manager or rental provider must authorise access or work, identify the responsible contact before the appointment.",
+          "Keep household expectations realistic while the concern is assessed. Ask the relevant support service about safe ordinary use rather than assuming the machine can be run carefully. Arrange a different way to manage dishes if advised not to use it, but do not improvise temporary water or waste connections."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Keep the repair decision tied to the findings",
+        "paragraphs": [
+          "After assessment, ask which part was inspected, what was established and whether another investigation is still required. Request an explanation of the proposed task in ordinary language. A repair to one connection should not be described as renewal of the whole appliance or kitchen plumbing. Conversely, an appliance diagnosis should not automatically settle a separate drainage complaint affecting other fixtures.",
+          "If work is proposed, confirm who supplies the relevant component, who performs the task and how changes outside the accepted scope are approved. Ask which records will be provided after completion. Discuss the actual process rather than assuming every part is stocked or every repair can be completed during the first visit. Avoid giving the household a guaranteed completion time not confirmed by the provider.",
+          "For plumbing work in Victoria, use the Building and Plumbing Commission's practitioner-checking information. Match the enquiry with the relevant work rather than assuming a general service listing establishes every qualification. If manufacturer-authorised servicing matters to your circumstances, confirm that status with the manufacturer; this guide makes no claim about it."
+        ],
+        "sourceUrls": [
+          "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+        ]
+      },
+      {
+        "heading": "Use one clear record for follow-up enquiries",
+        "paragraphs": [
+          "Keep your first observation note, model details, support references and any assessment explanation together. Record whether a proposed repair was actually completed or remains a recommendation. A short timeline helps another provider understand the sequence without relying on a chain of forwarded messages. Remove unrelated household information before sharing photographs or records.",
+          "If water reappears, report the current observation through the agreed support process. Do not restart the appliance repeatedly or remove covers to obtain evidence. Explain whether the visible area is the same and which work was completed, without deciding that the same cause must have returned. The distinction helps the next assessor address the actual concern.",
+          "To discuss the plumbing side of a dishwasher leak enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb and any established appliance-support reference. The Melbourne location and linked service guides provide the booking path. Sending an enquiry does not confirm appliance-repair coverage, a diagnosis, an appointment or final cost.",
+          "For a rental or managed property, identify who will receive the assessment report and who can authorise a further visit. Keep those decisions separate from arranging entry. A person available to open the door may not be the person approving expenditure or holding the appliance purchase records."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Should I pull the dishwasher out to find the leak?",
+        "answer": "Do not move a connected appliance to investigate. Describe the safely visible concern and ask the appropriate service provider how access will be managed."
+      },
+      {
+        "question": "Is every dishwasher leak a plumbing problem?",
+        "answer": "No cause is established from visible water alone. Clarify appliance-support and plumbing assessment scopes for the actual machine and connections."
+      },
+      {
+        "question": "Can Grade A Plumbing provide manufacturer-authorised repairs?",
+        "answer": "This guide makes no such claim. Confirm manufacturer-authorised service directly through the appliance brand if required."
+      }
+    ],
+    "publishedDate": "2026-10-30",
+    "updatedDate": "2026-10-30"
   }
 ]

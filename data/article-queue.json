@@ -2053,7 +2053,7 @@
     "releasedDate": "2026-10-29"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "dishwasher leak plumber or appliance repair",
     "review": {
@@ -2177,7 +2177,8 @@
           "answer": "This guide makes no such claim. Confirm manufacturer-authorised service directly through the appliance brand if required."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-30"
   },
   {
     "status": "ready",
