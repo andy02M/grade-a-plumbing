@@ -2181,7 +2181,7 @@
     "releasedDate": "2026-10-30"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "banging pipes water hammer assessment",
     "review": {
@@ -2297,7 +2297,8 @@
           "answer": "Ask your relevant retailer and practitioner about the applicable process. South East Water publishes a process for suspected involvement of its assets; it does not apply automatically to every property."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-10-31"
   },
   {
     "status": "ready",

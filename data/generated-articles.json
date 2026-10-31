@@ -1981,5 +1981,114 @@
     ],
     "publishedDate": "2026-10-30",
     "updatedDate": "2026-10-30"
+  },
+  {
+    "title": "Banging Pipes: Prepare a Water Hammer Assessment Without DIY Adjustments",
+    "slug": "banging-pipes-water-hammer-assessment-preparation",
+    "metaTitle": "Banging Pipes: Prepare a Water Hammer Assessment Without DIY Adjustments",
+    "metaDescription": "Record pipe-noise timing, affected fixtures and recent changes, then clarify a water hammer assessment without changing valves or guessing the cause.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Record pipe-noise timing, affected fixtures and recent changes, then clarify a water hammer assessment without changing valves or guessing the cause.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "burst-pipe-repair",
+      "hot-water"
+    ],
+    "relatedArticles": [
+      "higher-water-bill-billing-questions-possible-plumbing-leaks"
+    ],
+    "sources": [
+      {
+        "title": "South East Water: water hammer",
+        "url": "https://southeastwater.com.au/faults-and-works/maintenance/water-hammers/",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Building and Plumbing Commission: engaging a plumber",
+        "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+        "checkedDate": "2026-10-18"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Describe the sound and the event separately",
+        "paragraphs": [
+          "A bang heard when a tap closes is an observation; water hammer is a possible technical explanation to be assessed. Keep those two ideas separate when arranging a visit. South East Water describes water hammer as a pressure shock associated with water flow stopping or changing direction suddenly. That description provides context, not a diagnosis for every sound in a building. A rattle, hum or knocking noise may need its own explanation. Report what you hear rather than deciding that a particular component has failed.",
+          "This guide is about safe observation and communication. It does not instruct you to drain the system, adjust a pressure valve, remove brackets or change appliance connections. Some published utility material includes checks intended for a plumber; do not treat professional instructions as household experiments. If the noise comes with leaking water, visible damage or another immediate concern, explain that when seeking help instead of continuing a recording exercise.",
+          "Write one sentence about the sound, one about when it occurs and one about where it seems loudest. Those locations may not identify the source. Say appears near the laundry rather than claiming a pipe behind the wall is the cause. Keep approximate information useful by marking it as approximate."
+        ],
+        "sourceUrls": [
+          "https://southeastwater.com.au/faults-and-works/maintenance/water-hammers/"
+        ]
+      },
+      {
+        "heading": "Build a normal-use event record",
+        "paragraphs": [
+          "Notice whether the sound occurs during ordinary tap use, toilet refilling or an appliance cycle. Record the fixture or activity you already observed, without repeatedly operating it to provoke a louder event. The aim is to help an assessor understand the reported pattern. A deliberately recreated sequence can waste water and still fail to show the installation conditions that matter.",
+          "Add dates and ordinary circumstances where known. Was the building quiet when the sound was first noticed, or did someone hear it while several people were using water? Did it happen once or on several separate days? Distinguish the absence of an observation from proof that a sound never occurs. A short account of three relevant events is usually clearer than a long list of guesses about every valve in the property.",
+          "If several residents hear a noise, ask each to describe their own observation without adopting the first explanation offered. One person may report a tap closing while another hears a separate sound later. Keep the accounts labelled by location and time. Avoid circulating private household schedules or audio recordings unnecessarily when a concise event summary can convey the useful information."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Provide recent-change information without assigning blame",
+        "paragraphs": [
+          "Tell the assessor about recent work, appliance replacement or a known meter change if it is relevant and documented. State when it occurred and who holds the record. A sound beginning afterwards is useful chronology, but it does not establish that the person who attended caused it. Keep that distinction in a booking message to avoid presenting an untested allegation as the starting point for the assessment.",
+          "If a product was changed, retain its exact model and any installer paperwork. A generic description such as new mixer may not identify the configuration. Ask the assessor which documents will help before sending a large folder of unrelated renovation records. Do not open equipment or remove a cover to find a hidden label. Existing paperwork and safe observations are sufficient to begin.",
+          "Where an earlier provider has already investigated, share the actual findings rather than a shortened retelling that loses their limits. For example, a note saying one component was checked is not evidence that all plumbing was ruled out. Keeping the original wording available helps the next practitioner decide what, if anything, still needs investigation.",
+          "If the concern was already present before recent work, preserve that part of the chronology too. A maintenance invoice can show what was commissioned but may not record every observation discussed on the day. Ask for clarification rather than treating an absent note as proof that no concern existed. This can be particularly helpful when a property manager or another household member now handles the enquiry."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Agree what the visit needs to establish",
+        "paragraphs": [
+          "Ask whether the proposed visit is an assessment of the reported sound or a quote for a repair already identified by another practitioner. These are different scopes. Clarify which areas need access and whether the noise must be observed during a particular ordinary activity. Do not promise that an intermittent sound can be reproduced on command, and do not authorise an unexplained repair merely because it is offered as a common cure.",
+          "Request an explanation of the findings in plain language. If a practitioner recommends a component or adjustment, ask which observation or measurement supports it and what result the work is intended to achieve. This is not a request for hazardous instructions. It is a way to distinguish a site-specific recommendation from a product sold on the assumption that all pipe noises share the same cause.",
+          "Ask how an inconclusive visit will be handled. An intermittent concern may need further information; that does not prove the sound is harmless or serious. Establish what to record next, who receives it and whether another appointment would require separate approval. A defined next step is more useful than a sequence of unrecorded adjustments.",
+          "Tell the contractor whether an audio clip includes more than the reported sound, and share only the relevant portion through an agreed channel. A quiet recording does not disprove a noise that was clearer in person."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Clarify retailer and shared-building involvement where applicable",
+        "paragraphs": [
+          "South East Water explains that it may need information from a plumber if its assets are thought to contribute to water hammer. That is the utility's process for its customers, not proof that your sound originates in its network. Ask the relevant supplier or practitioner which process applies at your property. Do not submit a plumber's checklist with technical findings you have filled in yourself.",
+          "In an apartment or managed building, tell the contractor about the authorised access process. Do not turn off a shared supply to see whether the sound changes. Identify who can arrange entry to service areas and who would approve any interruption if one becomes necessary. The presence of a noise in several rooms does not establish ownership of an affected component.",
+          "Before plumbing work, check the practitioner's relevant Victorian registration or licence through the regulator's information. For a proposed retailer referral, agree who will send the factual report and who will follow it up. Keep a copy of the material actually submitted so a later enquiry does not rely on assumptions about what another party received."
+        ],
+        "sourceUrls": [
+          "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+        ]
+      },
+      {
+        "heading": "Record the completed work and the remaining question",
+        "paragraphs": [
+          "If work proceeds, retain the agreed scope and explanation of what was changed. Ask how to report a continuing sound and whether any observation period or follow-up arrangement has actually been agreed. Do not convert a general comment about monitoring into a promise that every future noise will be covered by the same visit. A specific record supports a clearer follow-up enquiry.",
+          "Use normal observations to explain what happens afterwards. Keep new symptoms separate from the original concern and seek assistance if a leak or other hazard develops. Do not attempt further adjustments to obtain a preferred sound level. The purpose of the original record is to support assessment, not create a home testing routine that substitutes for it.",
+          "For a pipe-noise enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store. Include your suburb, the ordinary event associated with the sound and any earlier assessment record. Use the Melbourne location and service links alongside this guide. An enquiry does not establish the cause, retailer responsibility, a fixed price or an appointment."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is every pipe noise water hammer?",
+        "answer": "No diagnosis is established by a description alone. Report the sound and associated activity so the practitioner can decide what assessment is appropriate."
+      },
+      {
+        "question": "Should I adjust the pressure valve to test the noise?",
+        "answer": "No DIY adjustment is recommended here. Leave technical checks and changes to an appropriately qualified practitioner."
+      },
+      {
+        "question": "Can the water retailer investigate?",
+        "answer": "Ask your relevant retailer and practitioner about the applicable process. South East Water publishes a process for suspected involvement of its assets; it does not apply automatically to every property."
+      }
+    ],
+    "publishedDate": "2026-10-31",
+    "updatedDate": "2026-10-31"
   }
 ]
