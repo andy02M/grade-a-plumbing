@@ -2301,7 +2301,7 @@
     "releasedDate": "2026-10-31"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "intermittent sewer smell drainage assessment",
     "review": {
@@ -2426,7 +2426,8 @@
           "answer": "Explain that it is intermittent and provide a short dated observation record. Do not recreate an unsafe event to make the concern visible."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-01"
   },
   {
     "status": "ready",
