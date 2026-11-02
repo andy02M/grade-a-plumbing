@@ -2208,5 +2208,127 @@
     ],
     "publishedDate": "2026-11-01",
     "updatedDate": "2026-11-01"
+  },
+  {
+    "title": "Stormwater or Sewer? Describe a Wet-Weather Drainage Problem Clearly",
+    "slug": "stormwater-or-sewer-wet-weather-drainage-report",
+    "metaTitle": "Stormwater or Sewer? Describe a Wet-Weather Drainage Problem Clearly",
+    "metaDescription": "Understand the broad difference between stormwater and sewage, record wet-weather observations safely and find the right starting point for an assessment.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Understand the broad difference between stormwater and sewage, record wet-weather observations safely and find the right starting point for an assessment.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "blocked-drains",
+      "sewer-repairs"
+    ],
+    "relatedArticles": [
+      "why-drains-keep-blocking"
+    ],
+    "sources": [
+      {
+        "title": "Melbourne Water: drainage system",
+        "url": "https://www.melbournewater.com.au/water-and-environment/flooding-and-drainage/drainage-system",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Greater Western Water: fixing a blocked sewer",
+        "url": "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "VICSES: when to call for emergency assistance",
+        "url": "https://www.ses.vic.gov.au/when-to-call",
+        "checkedDate": "2026-10-18"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Start by naming the observation, not the system",
+        "paragraphs": [
+          "Water appearing outside during rain can be difficult to describe. A household may call every opening a drain and every overflow a sewer problem, even when the affected system is not established. Start with the visible observation: water collecting beside a doorway, an outdoor opening overflowing, or a fixture behaving unusually indoors. This guide helps you report the event without entering drainage infrastructure or deciding who owns an unassessed pipe. It does not provide instructions for altering connections or diverting water.",
+          "If the property is flooding or about to flood, use the appropriate emergency assistance. VICSES publishes guidance for Victorian flood and storm emergencies; life-threatening situations require emergency services. Do not wait to finish an email while a hazard is developing. Keep away from unsafe water, unstable structures and electrical risks. A routine plumbing enquiry is not a substitute for the relevant emergency response.",
+          "Once it is safe to organise a report, separate things you actually saw from what someone suggested might be happening. You can describe the date, rainfall context and location without claiming that a nearby public drain caused the problem. That distinction helps the receiving organisation direct the next assessment."
+        ],
+        "sourceUrls": [
+          "https://www.ses.vic.gov.au/when-to-call"
+        ]
+      },
+      {
+        "heading": "Understand the broad system difference without tracing pipes",
+        "paragraphs": [
+          "Melbourne Water describes the stormwater network as carrying rainfall runoff through property, local and regional drainage towards waterways. Greater Western Water describes sewer faults in the context of wastewater from property plumbing and its network. Those broad descriptions explain why wet-weather water outside and a malfunctioning toilet are not automatically the same enquiry. They do not establish the connections or condition at an individual property.",
+          "Use existing labels, plans or earlier reports as information for the practitioner, not permission to trace pipes yourself. Tell them which records describe current work and which may be old. A plan for proposed drainage is not proof that the installation matches it. If the property has been changed, provide the known history and identify anything you cannot confirm.",
+          "Never enter a stormwater drain. Melbourne Water warns that conditions inside drains can become dangerous rapidly. Do not lift heavy covers, climb into an opening or stand in floodwater to identify where a pipe leads. An accurate statement that the system is unknown is safer and more useful than a guessed identification obtained through unsafe access."
+        ],
+        "sourceUrls": [
+          "https://www.melbournewater.com.au/water-and-environment/flooding-and-drainage/drainage-system"
+        ]
+      },
+      {
+        "heading": "Build a simple wet-weather event record",
+        "paragraphs": [
+          "Record the date, approximate time and where water was first visible from a safe position. Describe whether it appeared during rain, after rain or at a time you cannot connect with rainfall. Note any relevant ordinary fixture use without recreating it. If a photograph can be taken safely from an already accessible place, include a wide view with recognisable landmarks. Do not approach an overflow to obtain a dramatic close-up.",
+          "Keep observations from different events separate. A puddle during one storm and an indoor drainage symptom on another day may or may not be related. Describe each rather than merging them into a single asserted fault. Where other people contribute information, ask what they personally observed and preserve that distinction in the summary.",
+          "After water recedes, note any visible sign left behind without opening walls, digging or moving fixed fittings. Ask the assessor which additional records are useful. Avoid drawing a route on a property photo as though it is a verified underground plan. A homeowner sketch can show where a concern was noticed while clearly marking pipe locations as unconfirmed."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Contact the organisation relevant to the reported location",
+        "paragraphs": [
+          "Melbourne Water explains that drainage responsibilities involve property owners, councils and regional infrastructure. That is a reason to identify the relevant contact, not to assume one organisation manages every drain in the street. Start with the actual location and observed issue, then ask the recipient whether it falls within its process. A council or utility reference should be recorded with the date and the advice given.",
+          "For a possible sewer concern, use the water retailer serving the property and tell it whether sewage is visible or fixtures are affected. Greater Western Water's guidance distinguishes its network from property pipes and advises keeping away from sewage spills. Do not apply that retailer's property-specific procedure to every suburb or fill in technical findings you cannot establish. Ask the relevant provider how it wants the concern reported.",
+          "If a private assessment is required, provide the same observation record used for the initial enquiry. Include any existing service reference and explain what has already been considered. A referral between organisations does not itself prove ownership or fault. Keep the unresolved question explicit so the next contact is not asked to act on a mistaken conclusion."
+        ],
+        "sourceUrls": [
+          "https://www.gww.com.au/faults-works/helpful-advice/fixing-blocked-sewer"
+        ]
+      },
+      {
+        "heading": "Ask for a scoped investigation before proposed alterations",
+        "paragraphs": [
+          "Clarify whether the proposed visit is an assessment of the observed event, investigation of an identified system or a quote for work already recommended. Ask what access is required and what findings the practitioner expects to provide. Do not commission a connection change or additional outlet merely because it sounds like a way to move water away. The installation and applicable requirements need professional assessment.",
+          "If further work is proposed, ask what evidence supports it, which area is included and what remains outside the scope. Discuss surfaces, access and finishing responsibilities where relevant. A recommendation about a property drain should not silently become a claim that wider public drainage issues will be resolved. Keep the proposed outcome tied to what the contractor can actually assess and undertake.",
+          "Record any further authority contact or permission that the practitioner says is necessary. Ask who obtains it and what work must wait for the answer. This guide does not establish an exemption, a drainage approval or the suitability of a proposed design. It is intended to make those questions visible before a customer treats a suggestion as an agreed solution."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "An example of a clear report",
+        "sourceUrls": [],
+        "paragraphs": [
+          "Consider this hypothetical reporting format, not a Grade A Plumbing job: water was observed beside the side gate during rain on a stated date; the observer did not enter the water; no indoor fixture symptoms were noted during normal use; the type of underground drain is unknown. This gives the receiving contact a location, context and limits without asserting a diagnosis.",
+          "A less useful report would state that the council sewer is definitely blocked, demand a particular repair and omit that the concern was observed only outdoors. That wording invents both the system and responsibility. Keep the first version factual, add any relevant reference supplied by an authority, and let the appropriate assessor explain the next step. If the situation becomes unsafe, the emergency pathway takes precedence over improving the wording of the report."
+        ]
+      },
+      {
+        "heading": "Retain the event history for follow-up",
+        "paragraphs": [
+          "Keep the observation log, organisation references and assessment findings together. If work is completed, record the final scope separately from any longer-term recommendation. A later wet-weather event can then be described against the same factual record. Do not deliberately create a flood or run water into drainage infrastructure to demonstrate performance.",
+          "Use the relevant emergency pathway again if a later event is unsafe. For routine follow-up, explain what you observed, how it differs from the earlier event and which work was actually completed. Avoid claiming that a particular repair failed solely because water was seen somewhere else after a different storm. Equally, do not ignore a recurring concern because one earlier event was assessed.",
+          "For a private drainage enquiry, contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store with your suburb, safe location description and any existing authority reference. The Melbourne location and drainage service links provide the contact path. An enquiry does not determine system ownership, approval requirements, a repair design or availability."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does water outside during rain mean the sewer is blocked?",
+        "answer": "Not necessarily. Describe the event and any fixture symptoms without assuming which system is involved."
+      },
+      {
+        "question": "Can I enter a drain to trace where it goes?",
+        "answer": "No. Keep out of stormwater drains and away from unsafe water. Ask the appropriate organisation or practitioner how assessment should be arranged."
+      },
+      {
+        "question": "Who manages the drain?",
+        "answer": "Responsibility depends on the specific asset and location. Ask the relevant property contact, council or water organisation rather than assuming one body manages all drainage."
+      }
+    ],
+    "publishedDate": "2026-11-02",
+    "updatedDate": "2026-11-02"
   }
 ]

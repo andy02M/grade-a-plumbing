@@ -2430,7 +2430,7 @@
     "releasedDate": "2026-11-01"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "stormwater vs sewer drainage problem",
     "review": {
@@ -2559,7 +2559,8 @@
           "answer": "Responsibility depends on the specific asset and location. Ask the relevant property contact, council or water organisation rather than assuming one body manages all drainage."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-02"
   },
   {
     "status": "ready",
