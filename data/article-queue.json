@@ -2563,7 +2563,7 @@
     "releasedDate": "2026-11-02"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "fridge water connection plumbing checklist",
     "review": {
@@ -2691,7 +2691,8 @@
           "answer": "Use the actual manufacturer's instructions for the exact supplied model. A general support guide may not describe your product."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-03"
   },
   {
     "status": "ready",
