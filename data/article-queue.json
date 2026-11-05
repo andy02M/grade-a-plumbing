@@ -2823,7 +2823,7 @@
     "releasedDate": "2026-11-04"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "hidden water leak investigation scope",
     "review": {
@@ -2960,7 +2960,8 @@
           "answer": "Only if those tasks are expressly included. Clarify repair, drying and reinstatement responsibilities separately."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-05"
   },
   {
     "status": "ready",
