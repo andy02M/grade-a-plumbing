@@ -2964,7 +2964,7 @@
     "releasedDate": "2026-11-05"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "food premises trade waste plumbing handover",
     "review": {
@@ -3090,7 +3090,8 @@
           "answer": "Describe the intended activities, exact address, equipment changes, available records and any current retailer correspondence, while clearly marking missing information."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-06"
   },
   {
     "status": "ready",
