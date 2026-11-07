@@ -3094,7 +3094,7 @@
     "releasedDate": "2026-11-06"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-18",
     "targetKeyword": "business backflow testing preparation",
     "review": {
@@ -3216,7 +3216,8 @@
           "answer": "No. Use the actual requirement and qualified advice for the property and device. Requirements are not assumed to be identical across all businesses."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-07"
   },
   {
     "status": "ready",
