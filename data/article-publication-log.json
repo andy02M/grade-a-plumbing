@@ -847,5 +847,20 @@
     "recordedAt": "2026-11-07T01:46:25.018Z",
     "slug": "business-backflow-testing-visit-records",
     "url": "https://melbourne.gradeaplumbing.store/blog/business-backflow-testing-visit-records/"
+  },
+  {
+    "date": "2026-11-08",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-08T01:14:00.407Z",
+    "slug": "suddenly-no-hot-water-describe-failure-before-repair",
+    "words": 1249,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer decision and enquiry guide. Primary government, regulator or manufacturer sources reviewed 18–19 October 2026; source-specific technical statements cited. No DIY installation procedure, invented business evidence, prices or manufacturer-authorised status. Review again if model documents or release conditions change."
+    }
   }
 ]

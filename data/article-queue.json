@@ -3220,7 +3220,7 @@
     "releasedDate": "2026-11-07"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "suddenly no hot water",
     "review": {
@@ -3332,7 +3332,8 @@
           "answer": "Do not repeatedly reset unfamiliar equipment or clear fault information. Record a safely visible message and seek model-specific advice. Leave internal components and safety devices to the appropriate professional."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-08"
   },
   {
     "status": "ready",
