@@ -869,5 +869,20 @@
     "recordedAt": "2026-11-08T01:15:01.655Z",
     "slug": "suddenly-no-hot-water-describe-failure-before-repair",
     "url": "https://melbourne.gradeaplumbing.store/blog/suddenly-no-hot-water-describe-failure-before-repair/"
+  },
+  {
+    "date": "2026-11-09",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-09T01:34:12.906Z",
+    "slug": "planting-trees-near-sewer-pipes-before-landscaping",
+    "words": 1310,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial source review; not practitioner certification or a property inspection",
+      "notes": "Landscape planning intent, distinct from recurring blockage diagnosis. Official asset location limitations and root-risk context checked; no species-specific clearance, removal permission or root treatment advice."
+    }
   }
 ]

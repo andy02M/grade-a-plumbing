@@ -3336,7 +3336,7 @@
     "releasedDate": "2026-11-08"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "tree planting near sewer pipes",
     "review": {
@@ -3460,7 +3460,8 @@
           "answer": "Do not assume it does. BYDA plans identify infrastructure information supplied by responding owners and are not exact-location guarantees. Ask the contractor how private drainage and remaining uncertainty will be addressed."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-09"
   },
   {
     "status": "ready",
