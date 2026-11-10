@@ -3464,7 +3464,7 @@
     "releasedDate": "2026-11-09"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "small business plumbing asset register",
     "review": {
@@ -3581,7 +3581,8 @@
       "locationSlugs": [
         "melbourne"
       ]
-    }
+    },
+    "releasedDate": "2026-11-10"
   },
   {
     "status": "ready",

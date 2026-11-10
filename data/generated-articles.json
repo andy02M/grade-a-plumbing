@@ -3154,5 +3154,115 @@
     ],
     "publishedDate": "2026-11-09",
     "updatedDate": "2026-11-09"
+  },
+  {
+    "title": "A Plumbing Asset Register for a Small Business: Make Maintenance Priorities Visible",
+    "slug": "small-business-plumbing-asset-register-maintenance-priorities",
+    "metaTitle": "Small Business Plumbing Asset Register | Grade A Plumbing",
+    "metaDescription": "Build a useful plumbing asset register for your business, separate unknowns from faults and prioritise maintenance without assuming every fixture needs replacement.",
+    "excerpt": "A practical way for a small business to connect its plumbing equipment, operating needs, fault history and next maintenance decisions.",
+    "relatedServices": [
+      "commercial-plumbing"
+    ],
+    "relatedArticles": [
+      "before-booking-a-plumber-in-coburg-photos-access-and-questions-to-prepare"
+    ],
+    "sources": [
+      {
+        "title": "WorkSafe Victoria: workplace facilities and the working environment",
+        "url": "https://www.worksafe.vic.gov.au/resources/compliance-code-workplace-facilities-and-working-environment",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Consumer Affairs Victoria: getting quotes",
+        "url": "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes",
+        "checkedDate": "2026-10-18"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Start with business dependence, not a shopping list",
+        "paragraphs": [
+          "A plumbing asset register is a structured record of the equipment and connections your business relies on. Its value is not the number of rows in a spreadsheet. It helps a new manager understand what a fault interrupts, whom to contact and which questions remain unresolved. For a small business, a modest register that someone maintains is more useful than an elaborate system nobody opens.",
+          "Begin by walking through normal operations on paper. Identify the washrooms, sinks, hot water equipment, appliances and other water-dependent activities that matter to your premises. Use existing plans and safely visible labels rather than opening cabinets containing equipment or entering restricted plant spaces. A register is not a technical inspection, and an unseen pipe should be marked unknown rather than confidently drawn from memory.",
+          "WorkSafe Victoria's workplace facilities guidance addresses the provision and maintenance of workplace facilities. It gives a useful reason to treat plumbing as part of operational planning, not simply a repair expense. This guide does not determine your workplace obligations or set inspection intervals. Those decisions require the relevant guidance and advice for the actual premises, equipment and activities."
+        ],
+        "sourceUrls": [
+          "https://www.worksafe.vic.gov.au/resources/compliance-code-workplace-facilities-and-working-environment"
+        ]
+      },
+      {
+        "heading": "Give each item a stable identity and a useful location",
+        "paragraphs": [
+          "Assign simple references that remain understandable if an employee leaves. A label such as rear staff washroom basin is better than Sarah's sink. Add the building, level and room where necessary, and distinguish the physical fixture from a connected appliance. If a tenancy has several identical toilets, a room reference and a small location sketch can prevent the wrong unit being inspected.",
+          "Record the manufacturer and model only where they are available from safe observations or existing documents. Add the approximate installation date if supported by an invoice, and otherwise say that the date is unknown. Keep a link to the operating instructions and prior service records. Avoid presenting an estimated age as an established fact, particularly when deciding whether replacement is economical.",
+          "Include the owner of the record and the date it was checked. Separate a supplier's contact from the person authorised to approve spending. Where equipment may belong to the landlord or be shared with another tenant, record that question explicitly. A row should not assign ownership merely because the fixture sits within your occupied space; the agreement and property records need to establish responsibility."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Record condition as evidence with a confidence level",
+        "paragraphs": [
+          "Separate observations, reported symptoms and professional findings. An employee reporting a recurring puddle has provided a useful observation, but not identified a failed seal or a hidden leak. Your register could record the date, location, frequency and operational impact, with a link to a fault report. The technician's later diagnosis should be a new entry rather than an invisible replacement of the original information.",
+          "A simple condition scale can be helpful if its meaning is defined. For example, observed working, reported concern, assessed defect and not yet assessed distinguish very different evidence. Avoid green ticks that suggest a safety clearance when nobody has performed an assessment. Likewise, a recent invoice for one repair does not show that every connected component was inspected.",
+          "Keep photographs focused on the asset and safely visible surroundings. Use a wider context image and a close view when useful, but do not dismantle equipment to obtain a serial number. Record limits such as inaccessible label or concealed pipe route. These gaps can become questions for the next planned visit, allowing the register to improve without turning office staff into plumbing investigators."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Prioritise by consequence and uncertainty together",
+        "paragraphs": [
+          "An attractive replacement can be less important than a small recurring fault that affects the only usable washroom. Consider how an issue changes staff access, customer service, stock protection and the ability to continue essential activities. Then ask how much is actually known. A symptom with potentially serious consequences may deserve assessment even when there is not yet enough evidence to price a repair.",
+          "Keep urgent incidents outside the routine scoring process. Active flooding, sewage escape, a suspected gas problem or water near electrical equipment needs an appropriate immediate response, not a place in next month's spreadsheet. Staff should avoid unsafe areas and use the relevant emergency or utility channels. The register can point to your incident procedure, but must not replace it or encourage untrained intervention.",
+          "For non-urgent work, group items into assess, plan and monitor, with a named next action. An assess item needs diagnosis; a plan item has enough information to seek a defined proposal; a monitor item needs agreed observations and a review trigger. This is an editorial planning framework, not a technical risk rating. A suitably qualified practitioner should advise on the plumbing implications."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Convert the register into a realistic maintenance request",
+        "paragraphs": [
+          "Send a selected extract rather than an entire archive when arranging a visit. Identify the equipment, symptoms, documents available and the outcome you want from the assessment. Explain access restrictions, operating hours and whether a water interruption would affect other occupants. Ask which checks can be combined and which require separate specialists, permissions or a different attendance window.",
+          "Consumer Affairs Victoria recommends understanding what a quote covers and documenting cost discussions, including travel, parts and applicable call-out or timing charges. Its page concerns building and renovating; use those scope questions as practical prompts rather than assuming domestic building contract rules apply to your commercial job. Ask the contractor to describe the commercial proposal and any exclusions in writing.",
+          "Distinguish maintenance, investigation and replacement in your budget. If a technician needs to establish a concealed condition first, request a staged approach with an approval point. Do not turn an unconfirmed maintenance allowance into an instruction to replace everything on the list. A useful quote should explain the specific assets covered, the expected deliverable and how newly discovered work would be discussed."
+        ],
+        "sourceUrls": [
+          "https://www.consumer.vic.gov.au/housing/building-and-renovating/plan-and-manage-your-building-project/getting-quotes"
+        ]
+      },
+      {
+        "heading": "Maintain the record after a visit and during staff changes",
+        "paragraphs": [
+          "After work, record what was assessed, what was repaired and what remains open. Attach the actual report or invoice rather than copying an oversimplified summary into the condition column. If only one branch or fixture was tested, keep that limit visible. Update model details when equipment changes, retain earlier records and distinguish the installation date from the date a document was uploaded.",
+          "Set the next review from the equipment instructions, actual findings and relevant requirements, rather than assigning the same annual interval to every asset. A consumable, a persistent fault and a regulatory testing obligation are different tasks. Ask who is responsible for arranging each one, and avoid describing a reminder in your spreadsheet as proof that a required test has been completed.",
+          "Give the register a place in handover procedures. A new site manager should be able to find the open issues, approval contacts and current documents without searching a former employee's messages. Check that old staff access is removed where appropriate and that the record is backed up through your normal business systems. The aim is continuity of useful information, not collection of unnecessary personal details."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Use a small first version to arrange the next useful step",
+        "paragraphs": [
+          "Start with the assets that matter most to daily operations and the faults already known. Add technical detail as reliable information becomes available. A blank cell labelled unknown is more useful than a guessed answer, because it tells the next assessor what still needs to be established. Review whether the register actually improves decisions instead of expanding it simply to look comprehensive.",
+          "For a commercial plumbing enquiry, call Grade A Plumbing on (02) 5837 5457 or email support@gradeaplumbing.store. Include the premises suburb, a concise asset list and the main operational concern. Availability, assessment scope and pricing need confirmation. Use the Melbourne location homepage and commercial plumbing service page for the relevant enquiry route; this article is a planning guide, not an inspection report."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does an asset register replace a plumbing inspection?",
+        "answer": "No. It organises observations, documents and next actions. Hidden conditions, technical suitability and required testing still need appropriate assessment."
+      },
+      {
+        "question": "Should every asset have the same maintenance interval?",
+        "answer": "No. Follow the equipment instructions, assessed condition and applicable requirements. Ask the relevant practitioner to explain the recommended interval and record its basis."
+      }
+    ],
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "publishedDate": "2026-11-10",
+    "updatedDate": "2026-11-10"
   }
 ]
