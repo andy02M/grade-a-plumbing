@@ -913,5 +913,20 @@
     "recordedAt": "2026-11-10T04:02:00.702Z",
     "slug": "small-business-plumbing-asset-register-maintenance-priorities",
     "url": "https://melbourne.gradeaplumbing.store/blog/small-business-plumbing-asset-register-maintenance-priorities/"
+  },
+  {
+    "date": "2026-11-11",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-11T01:47:52.692Z",
+    "slug": "flexible-water-hose-condition-assessment",
+    "words": 1202,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer guide reviewed for source relevance, distinct intent and practical usefulness on 19 October 2026. Official references support the cited sections; illustrative scenarios and planning suggestions are editorial, not reported jobs. No DIY technical procedures, invented credentials, prices or response promises. AI editorial review is not a licensed inspection."
+    }
   }
 ]

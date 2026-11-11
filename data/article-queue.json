@@ -3585,7 +3585,7 @@
     "releasedDate": "2026-11-10"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "flexible water hose inspection questions",
     "review": {
@@ -3715,7 +3715,8 @@
           "answer": "This guide gives no universal interval. Ask about the actual product, conditions and relevant maintenance guidance."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-11"
   },
   {
     "status": "ready",
