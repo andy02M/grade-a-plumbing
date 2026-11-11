@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getLocationFromHost, isUnconfiguredLocationHost } from "./locations";
+import { site } from "./site";
 
 export async function getRequestLocation() {
   const requestHeaders = await headers();
@@ -8,5 +9,9 @@ export async function getRequestLocation() {
   // Unknown wildcard hosts are not real suburb pages. Keep configured hosts,
   // www, apex, local development and deployment previews unchanged.
   if (isUnconfiguredLocationHost(host)) notFound();
-  return getLocationFromHost(host);
+  const location = getLocationFromHost(host);
+  if (/^(?:www\.)?gradeaplumbing\.store(?::\d+)?$/i.test(host ?? "")) {
+    return { ...location, hostname: "gradeaplumbing.store", website: site.mainUrl };
+  }
+  return location;
 }

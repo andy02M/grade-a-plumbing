@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Book a Plumbing Appointment | Grade A Plumbing",
   description: "See available appointment times and book online with Grade A Plumbing. For urgent plumbing help, call (02) 5837 5457.",
-  alternates: { canonical: `${site.baseUrl}/booking/` },
+  alternates: { canonical: `${site.mainUrl}/booking/` },
 };
 
 export default async function BookingPage() {

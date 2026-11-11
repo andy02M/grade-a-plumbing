@@ -4,6 +4,7 @@ const whatsAppMessage = "Hi Grade A Plumbing, I need help with a plumbing issue 
 export const site = {
   name: "Grade A Plumbing",
   baseUrl: "https://melbourne.gradeaplumbing.store",
+  mainUrl: "https://gradeaplumbing.store",
   phone: "(02) 5837 5457",
   phoneHref: "tel:0258375457",
   email: "support@gradeaplumbing.store",
