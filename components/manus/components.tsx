@@ -446,6 +446,7 @@ export function Footer() {
             © {new Date().getFullYear()} Grade A Plumbing. All rights reserved.
           </span>
           <nav aria-label="Legal and site links">
+            <a href="/booking/">Book an appointment</a>
             <a href="/sitemap.xml">Sitemap</a>
           </nav>
         </div>

@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
       // Keep API routes and all existing canonical page URLs unchanged.
       // Next matches an optional final slash; exclude it to avoid self-redirects.
       { source: "/:page(contact(?!/))", destination: "/contact/", permanent: true },
+      { source: "/:page(booking(?!/))", destination: "/booking/", permanent: true },
       { source: "/:page(service-areas(?!/))", destination: "/service-areas/", permanent: true },
       { source: "/blocked-drains-melbourne", destination: "/blocked-drains/", permanent: true },
       { source: "/hot-water-repairs-melbourne", destination: "/hot-water/", permanent: true },
