@@ -3719,7 +3719,7 @@
     "releasedDate": "2026-11-11"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "shower temperature keeps changing",
     "review": {
@@ -3830,7 +3830,8 @@
           "answer": "Describe observations from ordinary use and stop using an outlet that cannot be used safely. Do not ask anyone to stand under an unpredictable shower or deliberately recreate simultaneous demand. Let the professional plan suitable testing."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-12"
   },
   {
     "status": "ready",
