@@ -957,5 +957,20 @@
     "recordedAt": "2026-11-12T02:49:17.559Z",
     "slug": "shower-temperature-keeps-changing-professional-assessment",
     "url": "https://melbourne.gradeaplumbing.store/blog/shower-temperature-keeps-changing-professional-assessment/"
+  },
+  {
+    "date": "2026-11-13",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-13T02:30:06.777Z",
+    "slug": "after-blocked-drain-cleared-returning-to-normal-use",
+    "words": 1256,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial source review; not practitioner certification",
+      "notes": "Post-clearance handover and household resumption, not recurring blockage cause diagnosis. Safety and prevention context checked against water retailers; no clearance or future-performance guarantee."
+    }
   }
 ]

@@ -3834,7 +3834,7 @@
     "releasedDate": "2026-11-12"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "after a blocked drain is cleared",
     "review": {
@@ -3953,7 +3953,8 @@
           "answer": "Do not improvise a stress test. Follow the plumber's handover about normal use and report persistent symptoms rather than deliberately risking another overflow."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-13"
   },
   {
     "status": "ready",
