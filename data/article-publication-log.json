@@ -979,5 +979,20 @@
     "recordedAt": "2026-11-13T02:31:12.841Z",
     "slug": "after-blocked-drain-cleared-returning-to-normal-use",
     "url": "https://melbourne.gradeaplumbing.store/blog/after-blocked-drain-cleared-returning-to-normal-use/"
+  },
+  {
+    "date": "2026-11-14",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-14T02:09:08.116Z",
+    "slug": "office-kitchenette-hot-water-demand-equipment-assessment",
+    "words": 1206,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial source review; not a licensed practitioner or site inspection",
+      "notes": "Original commercial planning guidance. Specific source-supported summaries are cited in sections; remaining workflow suggestions are editorial guidance, not compliance findings. No invented business claims, site diagnoses, prices or response times. Primary pages checked 18–19 October 2026."
+    }
   }
 ]

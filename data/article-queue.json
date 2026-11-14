@@ -3957,7 +3957,7 @@
     "releasedDate": "2026-11-13"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "office kitchenette hot water assessment",
     "review": {
@@ -4075,7 +4075,8 @@
       "locationSlugs": [
         "melbourne"
       ]
-    }
+    },
+    "releasedDate": "2026-11-14"
   },
   {
     "status": "ready",
