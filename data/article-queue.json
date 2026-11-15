@@ -4079,7 +4079,7 @@
     "releasedDate": "2026-11-14"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "find household water shut off arrangements",
     "review": {
@@ -4211,7 +4211,8 @@
           "answer": "No. It is an information-planning guide. Seek appropriate urgent assistance when there is an active hazard."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-15"
   },
   {
     "status": "ready",
