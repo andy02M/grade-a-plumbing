@@ -3839,5 +3839,116 @@
     ],
     "publishedDate": "2026-11-15",
     "updatedDate": "2026-11-15"
+  },
+  {
+    "title": "Hot Water Maintenance: Build a Schedule from Your Actual Owner's Manual",
+    "slug": "hot-water-maintenance-schedule-actual-owners-manual",
+    "metaTitle": "Hot Water Maintenance from Your Manual | Grade A Plumbing",
+    "metaDescription": "Build a model-specific hot water maintenance calendar, separate owner tasks from professional service, and keep useful records without inventing intervals.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Build a model-specific hot water maintenance calendar, separate owner tasks from professional service, and keep useful records without inventing intervals.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "hot-water"
+    ],
+    "relatedArticles": [
+      "how-long-does-a-hot-water-system-last"
+    ],
+    "sources": [
+      {
+        "title": "Rheem Australia: hot water system troubleshooting",
+        "url": "https://www.rheem.com.au/rheem/help/troubleshooting",
+        "checkedDate": "2026-10-19"
+      },
+      {
+        "title": "YourHome: hot water systems",
+        "url": "https://www.yourhome.gov.au/energy/hot-water-systems",
+        "checkedDate": "2026-10-19"
+      },
+      {
+        "title": "Rheem 551E280 WiFi owner's guide and installation instructions, revision 02 May 2026",
+        "url": "https://www.rheem.com.au/rheem/medias/install-instruct-Rheem-heat-pump-551E280-WiFi-122339-Rev-02-2026-May.pdf?attachment=true&context=bWFzdGVyfHBkZnN8MjA0NjMwN3xhcHBsaWNhdGlvbi9wZGZ8YURWbEwyZzRPQzg1TXprMU5qazJNVEEzTlRVd0wybHVjM1JoYkd3Z2FXNXpkSEoxWTNRZ0xTQlNhR1ZsYlNCb1pXRjBJSEIxYlhBZ05UVXhSVEk0TUNCWGFVWnBJQzBnTVRJeU16TTVJRkpsZGkwd01pQXRJREl3TWpZZ1RXRjVMbkJrWmd8MzM5YTRmZThmNTY2MGFkZjQ2ZTdjZDI4ZjQ2YTY1ZWU2YmZjNjY2ZDgzZGRmN2ZhMzQ1MzQwM2U4NzE4ODcyZQ",
+        "checkedDate": "2026-10-19"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Start with the installed model, not a universal timetable",
+        "paragraphs": [
+          "A maintenance calendar is only useful if it belongs to the water heater actually installed at your property. A generic reminder to service every system at the same interval can overlook differences in equipment, water conditions and manufacturer requirements. Start with the brand, full model and any separate tank, booster or controller. Use existing paperwork or a safely visible label. Do not open equipment to find a number. If a label cannot be read safely, ask the service provider to identify the equipment during an authorised visit.",
+          "This guide is about organising instructions, not performing servicing. Rheem tells owners to limit their maintenance to tasks specified for owners in the relevant guide. Other work needs the appropriate professional. Apply that principle before adding anything to a household calendar. A task appearing in a manual does not mean it is an owner task; manuals may contain installer and service sections as well. Read the intended audience and ask for clarification. Do not use an online article as authority to operate safety valves, remove covers or adjust gas or electrical components."
+        ],
+        "sourceUrls": [
+          "https://www.rheem.com.au/rheem/help/troubleshooting"
+        ]
+      },
+      {
+        "heading": "Locate and verify the right document",
+        "paragraphs": [
+          "Find the owner's guide through the manufacturer's official support channel using the complete model information. A search result that mentions a similar capacity is not enough. Check that the document covers your model and relevant version. Where a home has multiple components, keep the corresponding documents together rather than assuming one leaflet covers the whole installation. If the document includes instructions for several configurations, ask which section applies. Record where the guide came from and when you checked it so a later owner can repeat the process.",
+          "An actual manufacturer document matters because maintenance arrangements are model-specific. The Rheem 551E280 WiFi guide, revision 02 dated May 2026, provides a concrete example. Its maintenance section distinguishes minor six-monthly maintenance from a major service every five years, with servicing reserved for qualified personnel. These are that document's requirements, not a timetable for every heat pump. Ask the appropriate professional to identify the applicable tasks and warnings for your own installation; this guide does not reproduce valve-operation instructions. If you have a different system, do not transfer its requirements across. Request help if the manufacturer has replaced the document or the model is no longer listed. Keep an older supplied guide as part of the equipment history, but ask which current instructions govern ongoing care. This avoids silently treating an unrelated download as an update to your installation."
+        ],
+        "sourceUrls": [
+          "https://www.rheem.com.au/rheem/medias/install-instruct-Rheem-heat-pump-551E280-WiFi-122339-Rev-02-2026-May.pdf?attachment=true&context=bWFzdGVyfHBkZnN8MjA0NjMwN3xhcHBsaWNhdGlvbi9wZGZ8YURWbEwyZzRPQzg1TXprMU5qazJNVEEzTlRVd0wybHVjM1JoYkd3Z2FXNXpkSEoxWTNRZ0xTQlNhR1ZsYlNCb1pXRjBJSEIxYlhBZ05UVXhSVEk0TUNCWGFVWnBJQzBnTVRJeU16TTVJRkpsZGkwd01pQXRJREl3TWpZZ1RXRjVMbkJrWmd8MzM5YTRmZThmNTY2MGFkZjQ2ZTdjZDI4ZjQ2YTY1ZWU2YmZjNjY2ZDgzZGRmN2ZhMzQ1MzQwM2U4NzE4ODcyZQ"
+        ]
+      },
+      {
+        "heading": "Turn instructions into a usable calendar",
+        "paragraphs": [
+          "Create separate calendar entries for owner observations, professional servicing and document review. Copy the task description accurately into your private record without changing its meaning, and note the page and applicable equipment. If the manual gives conditions rather than a simple date, record those conditions and ask how they apply. Do not turn a conditional requirement into an arbitrary annual task. An appointment reminder should tell you what needs arranging and why, not merely say that the hot water is due.",
+          "Set the next date using the confirmed installation or service record where the instruction calls for one. If that date is unknown, label it unknown and ask the provider how to establish a baseline. Do not invent an installation date from the appearance of the tank. Where someone else manages the property, agree who receives reminders and who approves attendance. A calendar entry without responsibility can be missed even when it is technically correct. Keep a second reminder to check the service report was received, because booking the visit and retaining the outcome are different administrative steps."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Do not confuse symptoms with scheduled care",
+        "paragraphs": [
+          "A planned service reminder is not a reason to postpone a new fault. A loss of hot water, an unexpected visible discharge or a new warning message needs its own enquiry. Describe the observation and ask for advice rather than waiting until the next diary date. Conversely, a system that seems to operate normally has not automatically satisfied every maintenance requirement. Separate routine care from fault response in your records so that an emergency visit is not casually assumed to have completed all scheduled work.",
+          "Government guidance notes that water-heating systems differ in construction and operating arrangements. That supports checking the installed model, but it does not tell you what a technician completed at a visit. Ask whether scheduled items were included and what remains outstanding. If a service was limited to diagnosing a symptom, record that limit. Do not mark every calendar task completed because someone attended the property. This distinction is useful when warranty questions arise or a new owner asks for history: an attendance date alone does not establish the scope of work performed."
+        ],
+        "sourceUrls": [
+          "https://www.yourhome.gov.au/energy/hot-water-systems"
+        ]
+      },
+      {
+        "heading": "Keep reports that explain the next due action",
+        "paragraphs": [
+          "After professional servicing, retain the date, provider, equipment identity and work description. Ask for any recommended follow-up and the basis for it. If parts were replaced, keep their details where provided. A useful record says what was inspected or changed, not simply that the system was checked. Where recommendations depend on water conditions or the installation, ask for those conditions to be explained rather than applying them to every property you own. Do not treat this record as a compliance certificate unless the actual document is one.",
+          "Keep warranty and maintenance records together while distinguishing them. A warranty document describes terms; it does not prove that every future issue will be covered. If you have questions about coverage, contact the manufacturer through its official process. Grade A Plumbing is not presented here as manufacturer-authorised. For rental or managed property, share the relevant service outcome with the authorised manager without circulating unrelated customer information. When ownership changes, pass on the equipment identity and documented history so the next person does not have to start with an uncertain calendar and an unlabeled folder."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Check the diary against the actual service outcome",
+        "paragraphs": [
+          "For a managed property, arrange a simple handover when the person responsible for maintenance changes. Identify the equipment, where the guide is stored and any task awaiting confirmation. Do not mark an item overdue solely because an old reminder survived after the appliance was replaced. Equally, do not erase an unresolved recommendation because a new person took over. The diary should reflect the equipment and records, not the length of time a particular manager has been involved.",
+          "When a provider recommends a different future schedule, ask whether the reason is a manufacturer instruction, an observed condition or a separate service recommendation. Record the distinction. It may be reasonable to investigate further, but it should not be presented as a universal rule for all water heaters. A short note linking the next action to its basis can prevent repeated confusion. If the recommendation is unclear, request clarification while the report is fresh rather than waiting until the next calendar reminder arrives."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Review the plan when the equipment or household changes",
+        "paragraphs": [
+          "A replacement system needs a new maintenance plan even if it occupies the same space. Remove reminders that belong to the previous equipment and retain them as historical records rather than active instructions. If a component is changed, ask whether any associated instructions or service requirements also change. A household member taking over maintenance should be shown the documents and approval process. The point is not to create a complicated spreadsheet; it is to make the next appropriate action easy to understand and difficult to confuse with old advice.",
+          "Contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store to discuss a model-specific maintenance enquiry and confirm the available scope. Provide the model, manual and previous service date if known. Do not ask for an invented interval when those records are missing; ask what information is needed to establish one. The hot water service page and lifespan guide provide broader context. A sound maintenance calendar ends with a documented next step tied to the actual product, while fault observations remain separate and can be raised when they occur."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is there one maintenance interval for every hot water system?",
+        "answer": "No. Establish the schedule from the actual product instructions and professional advice applying to the installation. Do not transfer a named model's timetable to a different system."
+      },
+      {
+        "question": "Does a fault repair count as a complete scheduled service?",
+        "answer": "Only the recorded work can answer that. Ask which scheduled items were included, what was excluded and when any outstanding work needs arranging. An attendance date alone does not describe the scope."
+      }
+    ],
+    "publishedDate": "2026-11-16",
+    "updatedDate": "2026-11-16"
   }
 ]

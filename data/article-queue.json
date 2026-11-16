@@ -4215,7 +4215,7 @@
     "releasedDate": "2026-11-15"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "hot water maintenance schedule manual",
     "review": {
@@ -4333,7 +4333,8 @@
           "answer": "Only the recorded work can answer that. Ask which scheduled items were included, what was excluded and when any outstanding work needs arranging. An attendance date alone does not describe the scope."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-16"
   },
   {
     "status": "ready",
