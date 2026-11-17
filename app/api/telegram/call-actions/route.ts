@@ -306,14 +306,6 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     : buildCallActionKeyboard(parsedAction.actionKey);
   const shouldDeleteWithoutRepost = shouldDeleteCallActionWithoutRepost(parsedAction.action);
 
-  const editResult = deliveries.length
-    ? await editTelegramMessage(updatedText, deliveries, {
-        replyMarkup: {
-          inline_keyboard: []
-        }
-      })
-    : { ok: false as const, error: "Original Telegram message was not available." };
-
   const sourceChatId = getSourceChatId(callbackQuery);
   const topicId = getCallActionTopicId(parsedAction.action);
   const repostText = formatTopicAlertText(updatedText, actionLabel, destinationLabel);
@@ -325,6 +317,19 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
         })
       : { ok: true as const };
   const repostDeliveries = repostResult.ok && "deliveries" in repostResult ? repostResult.deliveries ?? [] : [];
+  if (!repostResult.ok) {
+    console.error("Telegram handled call repost failed", repostResult.error);
+    await answerTelegramCallbackQuery(callbackQuery.id, "Could not move alert. Please try again.");
+    return NextResponse.json({ error: repostResult.error }, { status: 500 });
+  }
+
+  const editResult = deliveries.length
+    ? await editTelegramMessage(updatedText, deliveries, {
+        replyMarkup: {
+          inline_keyboard: []
+        }
+      })
+    : { ok: false as const, error: "Original Telegram message was not available." };
   const currentDeliveries = shouldDeleteWithoutRepost ? [] : repostDeliveries.length ? repostDeliveries : deliveries;
 
   await Promise.all([
@@ -356,7 +361,7 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     });
   }
 
-  let deletedOriginal = true;
+  let deletedOriginal = deliveries.length === 0;
   let deleteError = "";
 
   if (shouldDeleteWithoutRepost && deliveries.length) {
@@ -377,26 +382,33 @@ export async function handleTelegramCallbackUpdate(update: TelegramCallbackUpdat
     }
   }
 
+  if (!deletedOriginal && deliveries.length && (shouldDeleteWithoutRepost || shouldDeleteHandledCallAlert())) {
+    const shortText = formatUndeletableSourceAlert(actionLabel, shouldDeleteWithoutRepost ? "" : destinationLabel, handlerName);
+    const fallbackResult = await editTelegramMessage(shortText, deliveries, {
+      replyMarkup: { inline_keyboard: [] }
+    });
+    if (!fallbackResult.ok) {
+      console.error("Telegram old call fallback edit failed", fallbackResult.error);
+    }
+  }
+
   await answerTelegramCallbackQuery(
     callbackQuery.id,
     shouldDeleteWithoutRepost
       ? deletedOriginal
         ? `Deleted as ${actionLabel.replace(/^[^\w]+/, "")}.`
-        : `Marked as ${actionLabel.replace(/^[^\w]+/, "")}; could not delete alert.`
+        : `Marked as ${actionLabel.replace(/^[^\w]+/, "")}; old alert needs manual removal.`
       : parsedAction.action === "block_caller"
       ? `Blocked ${formatBlockedCallerNumber(blockedCaller.normalizedNumber)}. Future alerts ignored.`
       : topicId
-      ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}. Moved to ${destinationLabel}.`
+      ? deletedOriginal
+        ? `Marked as ${actionLabel.replace(/^[^\w]+/, "")}. Moved to ${destinationLabel}.`
+        : `Moved to ${destinationLabel}; old alert needs manual removal.`
       : `Marked as ${actionLabel}. Topic not configured.`
   );
 
   if (!editResult.ok) {
     console.error("Telegram handled call edit failed", editResult.error);
-  }
-
-  if (!repostResult.ok) {
-    console.error("Telegram handled call repost failed", repostResult.error);
-    return NextResponse.json({ error: repostResult.error }, { status: 500 });
   }
 
   return NextResponse.json({
@@ -574,6 +586,15 @@ function formatHandledAlertText(text: string, actionLabel: string, destinationLa
   ]
     .filter(Boolean)
     .join("\n");
+}
+
+function formatUndeletableSourceAlert(actionLabel: string, destinationLabel: string, handlerName: string) {
+  return [
+    `✅ ${actionLabel.toUpperCase()}`,
+    destinationLabel ? `📂 Now in ${destinationLabel}` : "This call is closed.",
+    handlerName ? `👤 Updated by ${handlerName}` : "",
+    "⚠️ Telegram cannot delete alerts older than 48 hours. An admin can remove this message manually."
+  ].filter(Boolean).join("\n");
 }
 
 function formatTopicAlertText(text: string, actionLabel: string, destinationLabel: string) {

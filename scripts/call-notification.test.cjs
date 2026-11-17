@@ -65,3 +65,19 @@ test('repeated calling and final booking preserve every customer field', () => {
   assert.equal((twice.match(/CUSTOMER BEING CALLED/g) || []).length, 1);
   assert.ok(!booked.includes('CUSTOMER BEING CALLED'));
 });
+
+test('undeletable old alerts become short and truthful notices', () => {
+  const route = fs.readFileSync('app/api/telegram/call-actions/route.ts', 'utf8');
+  const functionText = route.slice(route.indexOf('function formatUndeletableSourceAlert('), route.indexOf('function formatTopicAlertText('));
+  const scope = { exports: {} };
+  vm.runInNewContext(ts.transpileModule(functionText + '\nexports.format = formatUndeletableSourceAlert;', {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS }
+  }).outputText, scope);
+  const closed = scope.exports.format('Not Interested', '', 'Andy');
+  const moved = scope.exports.format('Booked', '02 Booked', 'Andy');
+  assert.ok(closed.includes('This call is closed.'));
+  assert.ok(!closed.includes('MOVED TO'));
+  assert.ok(!closed.includes('RECORDING'));
+  assert.ok(moved.includes('Now in 02 Booked'));
+  assert.ok(moved.includes('manual'));
+});
