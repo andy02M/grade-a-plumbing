@@ -4337,7 +4337,7 @@
     "releasedDate": "2026-11-16"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "slow kitchen sink assessment",
     "review": {
@@ -4454,7 +4454,8 @@
           "answer": "This guide does not recommend dismantling plumbing. Report the ordinary-use pattern and visible leaks, and tell the plumber about any products already used."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-17"
   },
   {
     "status": "ready",

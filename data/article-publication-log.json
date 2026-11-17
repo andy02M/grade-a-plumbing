@@ -1045,5 +1045,20 @@
     "recordedAt": "2026-11-16T01:45:36.507Z",
     "slug": "hot-water-maintenance-schedule-actual-owners-manual",
     "url": "https://melbourne.gradeaplumbing.store/blog/hot-water-maintenance-schedule-actual-owners-manual/"
+  },
+  {
+    "date": "2026-11-17",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-17T04:24:06.129Z",
+    "slug": "slow-kitchen-sink-pattern-before-drainage-fix",
+    "words": 1239,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial source review; not practitioner certification",
+      "notes": "Fixture-specific assessment of slow kitchen drainage, not sewer recurrence or sink replacement. No trap disassembly, chemicals or deliberate overflow testing. Official prevention and professional-scope guidance checked."
+    }
   }
 ]
