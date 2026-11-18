@@ -4458,7 +4458,7 @@
     "releasedDate": "2026-11-17"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "commercial bathroom out of service",
     "review": {
@@ -4576,7 +4576,8 @@
       "locationSlugs": [
         "melbourne"
       ]
-    }
+    },
+    "releasedDate": "2026-11-18"
   },
   {
     "status": "ready",
