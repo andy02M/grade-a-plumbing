@@ -1089,5 +1089,20 @@
     "recordedAt": "2026-11-18T03:32:05.822Z",
     "slug": "commercial-bathroom-out-of-service-repair-workplace-response",
     "url": "https://melbourne.gradeaplumbing.store/blog/commercial-bathroom-out-of-service-repair-workplace-response/"
+  },
+  {
+    "date": "2026-11-19",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-19T03:04:06.585Z",
+    "slug": "leaking-shower-plumbing-surface-assessment",
+    "words": 1220,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer guide reviewed for source relevance, distinct intent and practical usefulness on 19 October 2026. Official references support the cited sections; illustrative scenarios and planning suggestions are editorial, not reported jobs. No DIY technical procedures, invented credentials, prices or response promises. AI editorial review is not a licensed inspection."
+    }
   }
 ]

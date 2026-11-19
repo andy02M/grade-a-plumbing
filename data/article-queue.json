@@ -4580,7 +4580,7 @@
     "releasedDate": "2026-11-18"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "leaking shower plumbing or waterproofing assessment",
     "review": {
@@ -4712,7 +4712,8 @@
           "answer": "Only the agreed scope applies. Clarify plumbing, wet-area and restoration responsibilities rather than assuming a general visit certifies everything."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-19"
   },
   {
     "status": "ready",
