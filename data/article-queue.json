@@ -4716,7 +4716,7 @@
     "releasedDate": "2026-11-19"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "hot water tank size peak demand",
     "review": {
@@ -4828,7 +4828,8 @@
           "answer": "Describe the busiest normal use window, occasional visitors, genuine future changes and the current equipment if known. Ask each provider to assess the same scenario rather than comparing unexplained headcount rules."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-20"
   },
   {
     "status": "ready",

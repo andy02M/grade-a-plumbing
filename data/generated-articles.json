@@ -4296,5 +4296,110 @@
     ],
     "publishedDate": "2026-11-19",
     "updatedDate": "2026-11-19"
+  },
+  {
+    "title": "Hot Water Tank Size: Compare Storage with Your Household's Peak Demand",
+    "slug": "hot-water-tank-size-household-peak-demand",
+    "metaTitle": "Hot Water Tank Size and Peak Demand | Grade A Plumbing",
+    "metaDescription": "Plan a hot water sizing discussion around shower patterns, peak demand and recovery information rather than choosing a tank by household headcount alone.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Plan a hot water sizing discussion around shower patterns, peak demand and recovery information rather than choosing a tank by household headcount alone.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "hot-water"
+    ],
+    "relatedArticles": [
+      "how-long-does-a-hot-water-system-last"
+    ],
+    "sources": [
+      {
+        "title": "Australian Government: hot water systems",
+        "url": "https://www.energy.gov.au/households/hot-water-systems",
+        "checkedDate": "2026-10-19"
+      },
+      {
+        "title": "YourHome: hot water systems",
+        "url": "https://www.yourhome.gov.au/energy/hot-water-systems",
+        "checkedDate": "2026-10-19"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Describe the busiest normal part of the day",
+        "paragraphs": [
+          "Choosing a storage water heater by the number printed on the tank misses an important question: when does your household need hot water? Two homes with the same number of residents can have very different routines. One might spread showers across the day; another may need them close together before school and work. Begin a sizing discussion with that pattern rather than a universal litres-per-person rule. This guide helps prepare a demand brief for a professional recommendation. It does not calculate a compliant installation or select a model remotely.",
+          "Write down the busiest normal window using actual household experience. Include baths, showers and appliances only where they genuinely use the hot water supply. Do not assume every dishwasher or washing machine does. Separate a usual day from occasional visitors or a future renovation. The purpose is to explain the level of service you want considered and how often you need it. A rare unusual day can be discussed explicitly instead of being allowed to dictate every assumption. Do not estimate measurements with false precision when a simple description of routines is all you currently know."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Keep storage capacity and heating recovery distinct",
+        "paragraphs": [
+          "Australian Government guidance distinguishes storing heated water from heating it as required. Within a storage proposal, ask the provider to explain both the stored supply and the model's ability to reheat under the intended operating arrangement. These are related but not identical pieces of information. A larger nominal tank is not a complete account of service performance. Ask for the manufacturer's relevant data and the conditions attached to it rather than comparing product names or marketing claims alone.",
+          "If you are given a claimed number of showers, ask what shower duration, flow, water temperatures and recovery assumptions support it. Do not treat that number as a guarantee for every household. A meaningful comparison should describe the same demand scenario for each option. If the options use different system types, their published figures may not be directly comparable. Request an explanation in ordinary language: what happens during the busy window, when reheating occurs, and which circumstances could leave the home waiting. A clear answer can identify limitations without promising that the system will never run short."
+        ],
+        "sourceUrls": [
+          "https://www.energy.gov.au/households/hot-water-systems",
+          "https://www.yourhome.gov.au/energy/hot-water-systems"
+        ]
+      },
+      {
+        "heading": "Include timing and energy arrangements in the brief",
+        "paragraphs": [
+          "The time available for heating belongs in a sizing conversation. Government guidance explains that some storage systems operate during off-peak periods. Ask how the actual proposed electricity arrangement and controls interact with your household's use. Do not assume a salesperson's default schedule matches the tariff or equipment at your property. If rooftop solar is part of the proposal, distinguish the intended operating arrangement from a guarantee about daily sunshine or future energy bills. Keep technical control decisions with the appropriate professionals.",
+          "Explain non-negotiable routines, such as an early start for work, without asking someone to make unsupported promises. Ask whether the recommendation still meets the agreed demand scenario when conditions differ from the most favourable case. If a proposal depends on changing household habits, have that stated plainly. You may accept that trade-off, but it should not be hidden inside an attractive price. Record the difference between what the model can provide under stated conditions and what the household must do for the proposal to work as intended. That distinction helps compare options fairly."
+        ],
+        "sourceUrls": [
+          "https://www.energy.gov.au/households/hot-water-systems"
+        ]
+      },
+      {
+        "heading": "Do not use a fault as your only sizing evidence",
+        "paragraphs": [
+          "An existing system running out does not automatically establish that its tank is too small. If performance changed without a corresponding change in household use, an assessment may be needed before using the current experience as a baseline. Describe whether the problem is longstanding or recent and provide the model if known. Avoid deciding that replacement with a bigger tank is the answer before a professional considers the symptom. This article is not a diagnosis of reduced output, temperature variation or a failed heating component.",
+          "A household can also be satisfied with an existing system while planning for different future needs. Explain the expected change and how certain it is. A planned additional bathroom does not necessarily mean simultaneous use every day; a larger household may have staggered routines. Present the scenario rather than a vague instruction to install the biggest available product. Ask the provider to show which assumptions drive their recommendation. If those assumptions change, the sizing discussion can be revisited instead of leaving you with an unexplained number that nobody can trace back to the household's requirements."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Compare complete proposals, not tank labels",
+        "paragraphs": [
+          "A sizing recommendation still has to fit the property and the installation scope. Ask who confirms access, location, supporting work and the exact model. Do not assume that a replacement tank with similar nominal capacity occupies the same space or has the same requirements. The site assessment and product documentation should settle those questions. If a proposal excludes electrical or other work, identify who will arrange it and how that affects the installation decision. An apparently simple capacity comparison should not conceal a different project scope.",
+          "Make a comparison record with the model, stated demand scenario, heating assumptions, included work and unresolved conditions. Ask for clarification where one quote supplies only a brand while another identifies a specific model. If a recommendation has a limitation during high demand, write it down without treating it as an automatic defect. It may be an acceptable trade-off, but it is a household choice. Avoid accepting a precise annual saving or an unqualified performance promise from this guide; neither can be established without the actual product, usage and energy arrangement."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Use a simple scenario to compare the answers",
+        "paragraphs": [
+          "A useful comparison might describe a weekday morning with the actual number of showers in sequence, followed by the household's other normal uses. Label it as your scenario, not a manufacturer's test. Ask each provider to respond to the same description and identify missing information. If one recommendation assumes shorter showers or a different heating window, note the difference before comparing its price. That makes a genuine trade-off visible without requiring a homeowner to carry out engineering calculations.",
+          "Ask what evidence will be retained at handover to explain the chosen model. The recommendation, product information and agreed operating arrangement should tell a consistent story. If the equipment supplied changes from the quoted model, request an updated explanation before accepting it as equivalent. A substitution may be suitable, but the tank label alone does not establish that. Keeping the demand brief with the final paperwork also helps if future occupants ask why a particular size was selected for the property."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Agree what a successful selection is meant to do",
+        "paragraphs": [
+          "Before approving a model, summarise the demand scenario back to the provider. Confirm the normal peak window, occasional demands, intended heating arrangement and any agreed changes in use. Ask which manufacturer information supports the recommendation and what remains to be confirmed onsite. This gives the conversation an understandable endpoint. It is more useful than an unexplained instruction to buy a particular tank size, because it connects the selection to the household's needs and makes important trade-offs visible.",
+          "Contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store to discuss a hot water assessment. Provide your suburb, current model if known and the demand pattern you want considered. Confirm availability and scope before proceeding. The related hot water service page and existing lifespan guide cover broader ownership topics; this article focuses on storage and peak demand. Retain the final recommendation and product documents after installation. If the household's needs later change, those records provide a starting point for a new conversation rather than another guess based only on headcount."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is the biggest tank always the better choice?",
+        "answer": "Not necessarily. Ask for a recommendation tied to the household's peak demand, intended heating arrangement, product information and site assessment. Capacity alone does not explain the full proposal."
+      },
+      {
+        "question": "What should I tell a plumber before a sizing assessment?",
+        "answer": "Describe the busiest normal use window, occasional visitors, genuine future changes and the current equipment if known. Ask each provider to assess the same scenario rather than comparing unexplained headcount rules."
+      }
+    ],
+    "publishedDate": "2026-11-20",
+    "updatedDate": "2026-11-20"
   }
 ]
