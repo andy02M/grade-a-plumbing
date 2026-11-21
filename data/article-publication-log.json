@@ -1133,5 +1133,20 @@
     "recordedAt": "2026-11-20T02:56:42.653Z",
     "slug": "hot-water-tank-size-household-peak-demand",
     "url": "https://melbourne.gradeaplumbing.store/blog/hot-water-tank-size-household-peak-demand/"
+  },
+  {
+    "date": "2026-11-21",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-21T03:03:51.954Z",
+    "slug": "toilet-will-not-drain-stop-using-what-to-report",
+    "words": 1256,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial source review; not practitioner certification",
+      "notes": "Immediate use decisions and enquiry for blocked toilet, distinct from repair-versus-replace purchasing guide. No plunging, chemicals, repeat flushing, sewer access opening or remote diagnosis."
+    }
   }
 ]

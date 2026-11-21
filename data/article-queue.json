@@ -4832,7 +4832,7 @@
     "releasedDate": "2026-11-20"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "blocked toilet when to stop using",
     "review": {
@@ -4950,7 +4950,8 @@
           "answer": "Not automatically. Ask what has been assessed and whether the problem is in the fixture, its connection or downstream drainage before choosing work."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-21"
   },
   {
     "status": "ready",
