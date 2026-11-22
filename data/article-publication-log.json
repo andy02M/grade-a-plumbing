@@ -1155,5 +1155,20 @@
     "recordedAt": "2026-11-21T03:05:11.960Z",
     "slug": "toilet-will-not-drain-stop-using-what-to-report",
     "url": "https://melbourne.gradeaplumbing.store/blog/toilet-will-not-drain-stop-using-what-to-report/"
+  },
+  {
+    "date": "2026-11-22",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-22T02:00:28.709Z",
+    "slug": "childcare-premises-plumbing-maintenance-access-authorisation-privacy",
+    "words": 1215,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial source review; not a licensed practitioner or site inspection",
+      "notes": "Original commercial planning guidance. Specific source-supported summaries are cited in sections; remaining workflow suggestions are editorial guidance, not compliance findings. No invented business claims, site diagnoses, prices or response times. Primary pages checked 18–19 October 2026."
+    }
   }
 ]

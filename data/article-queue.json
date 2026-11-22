@@ -4954,7 +4954,7 @@
     "releasedDate": "2026-11-21"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "childcare plumbing maintenance booking",
     "review": {
@@ -5073,7 +5073,8 @@
       "locationSlugs": [
         "melbourne"
       ]
-    }
+    },
+    "releasedDate": "2026-11-22"
   },
   {
     "status": "ready",
