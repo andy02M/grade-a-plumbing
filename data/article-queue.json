@@ -5077,7 +5077,7 @@
     "releasedDate": "2026-11-22"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "toilet keeps refilling water waste",
     "review": {
@@ -5203,7 +5203,8 @@
           "answer": "They are different observations. Report whether the issue concerns filling, running water, flushing or drainage, including any separate symptoms."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-23"
   },
   {
     "status": "ready",

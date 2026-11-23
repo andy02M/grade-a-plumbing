@@ -1177,5 +1177,20 @@
     "recordedAt": "2026-11-22T02:01:33.593Z",
     "slug": "childcare-premises-plumbing-maintenance-access-authorisation-privacy",
     "url": "https://melbourne.gradeaplumbing.store/blog/childcare-premises-plumbing-maintenance-access-authorisation-privacy/"
+  },
+  {
+    "date": "2026-11-23",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-23T02:26:04.281Z",
+    "slug": "toilet-keeps-refilling-running-water-observations",
+    "words": 1273,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer guide reviewed for source relevance, distinct intent and practical usefulness on 19 October 2026. Official references support the cited sections; illustrative scenarios and planning suggestions are editorial, not reported jobs. No DIY technical procedures, invented credentials, prices or response promises. AI editorial review is not a licensed inspection."
+    }
   }
 ]
