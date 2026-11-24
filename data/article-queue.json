@@ -5207,7 +5207,7 @@
     "releasedDate": "2026-11-23"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "solar hot water booster questions",
     "review": {
@@ -5318,7 +5318,8 @@
           "answer": "No. Weather is useful context, not a diagnosis. Record the change in hot water service and any safely observed messages, and ask for an assessment of the installed arrangement."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-24"
   },
   {
     "status": "ready",
