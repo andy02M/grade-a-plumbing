@@ -1221,5 +1221,20 @@
     "recordedAt": "2026-11-24T05:51:12.915Z",
     "slug": "solar-hot-water-booster-supply-changes-questions",
     "url": "https://melbourne.gradeaplumbing.store/blog/solar-hot-water-booster-supply-changes-questions/"
+  },
+  {
+    "date": "2026-11-25",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-25T04:50:33.347Z",
+    "slug": "damaged-downpipe-connection-investigate-join",
+    "words": 1213,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-18",
+      "reviewer": "AI editorial source review; not practitioner certification",
+      "notes": "Visible downpipe-to-ground interface, roof versus below-ground scope and evidence; no roof access, disconnection, hydraulic design or universal stormwater defect claim."
+    }
   }
 ]

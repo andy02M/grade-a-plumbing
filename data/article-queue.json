@@ -5322,7 +5322,7 @@
     "releasedDate": "2026-11-24"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "downpipe connection assessment",
     "review": {
@@ -5439,7 +5439,8 @@
           "answer": "Only if that scope has been agreed. Ask which sections are included and which require another assessment or provider."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-25"
   },
   {
     "status": "ready",
