@@ -5443,7 +5443,7 @@
     "releasedDate": "2026-11-25"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "hair salon wastewater changes utility enquiry",
     "review": {
@@ -5561,7 +5561,8 @@
       "locationSlugs": [
         "melbourne"
       ]
-    }
+    },
+    "releasedDate": "2026-11-26"
   },
   {
     "status": "ready",

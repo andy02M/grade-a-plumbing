@@ -1243,5 +1243,20 @@
     "recordedAt": "2026-11-25T04:52:03.805Z",
     "slug": "damaged-downpipe-connection-investigate-join",
     "url": "https://melbourne.gradeaplumbing.store/blog/damaged-downpipe-connection-investigate-join/"
+  },
+  {
+    "date": "2026-11-26",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-26T04:02:29.479Z",
+    "slug": "hair-salon-wastewater-changes-utility-enquiry-before-fitout",
+    "words": 1206,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial source review; not a licensed practitioner or site inspection",
+      "notes": "Original commercial planning guidance. Specific source-supported summaries are cited in sections; remaining workflow suggestions are editorial guidance, not compliance findings. No invented business claims, site diagnoses, prices or response times. Primary pages checked 18–19 October 2026."
+    }
   }
 ]
