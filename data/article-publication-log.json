@@ -1265,5 +1265,20 @@
     "recordedAt": "2026-11-26T04:03:34.742Z",
     "slug": "hair-salon-wastewater-changes-utility-enquiry-before-fitout",
     "url": "https://melbourne.gradeaplumbing.store/blog/hair-salon-wastewater-changes-utility-enquiry-before-fitout/"
+  },
+  {
+    "date": "2026-11-27",
+    "outcome": "prepared",
+    "recordedAt": "2026-11-27T04:00:41.068Z",
+    "slug": "moving-home-plumbing-handover-information",
+    "words": 1226,
+    "method": "reviewed-queue",
+    "review": {
+      "status": "approved",
+      "method": "source-checked-editorial-review",
+      "checkedDate": "2026-10-19",
+      "reviewer": "AI editorial review in this chat; not a licensed plumbing inspection",
+      "notes": "Original customer guide reviewed for source relevance, distinct intent and practical usefulness on 19 October 2026. Official references support the cited sections; illustrative scenarios and planning suggestions are editorial, not reported jobs. No DIY technical procedures, invented credentials, prices or response promises. AI editorial review is not a licensed inspection."
+    }
   }
 ]

@@ -5068,5 +5068,117 @@
     ],
     "publishedDate": "2026-11-26",
     "updatedDate": "2026-11-26"
+  },
+  {
+    "title": "Moving into a home: a practical plumbing handover",
+    "slug": "moving-home-plumbing-handover-information",
+    "metaTitle": "Moving into a home: a practical plumbing handover | Grade A Plumbing",
+    "metaDescription": "Organise plumbing information when moving home: appliance documents, water accounts, access, existing faults and questions that need a qualified assessment.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Organise plumbing information when moving home: appliance documents, water accounts, access, existing faults and questions that need a qualified assessment.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "hot-water"
+    ],
+    "relatedArticles": [
+      "after-hot-water-installation-handover-recordkeeping-checklist"
+    ],
+    "sources": [
+      {
+        "title": "Building and Plumbing Commission: engaging a plumber",
+        "url": "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "Australian Government: hot water systems",
+        "url": "https://www.energy.gov.au/households/hot-water-systems",
+        "checkedDate": "2026-10-18"
+      },
+      {
+        "title": "South East Water: locating and reading an analogue meter",
+        "url": "https://southeastwater.com.au/accounts-and-billing/water-meters/read-your-meter/read-your-analogue-water-meter/",
+        "checkedDate": "2026-10-18"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Start with information, not assumptions",
+        "paragraphs": [
+          "Moving day is a poor time to discover that nobody knows where the hot water paperwork is. A plumbing handover brings together information about the home without pretending that a collection of documents is a condition inspection. Its purpose is to separate what has been supplied, what you have personally observed and what still needs checking. An estate agent's summary, an old invoice and a new owner's observation answer different questions. Keep those distinctions visible rather than combining them into a reassuring but unsupported statement that everything has been serviced.",
+          "Create a short register before arranging optional improvements. Give each item a name, location, document reference and unresolved question. For example, record a hot water unit's model from a readable label rather than guessing its capacity from a photograph. If the previous owner mentioned an intermittent problem, retain the original description and date instead of translating it into a diagnosis. This makes the handover useful to a plumber later and prevents a vague recollection becoming an apparent fact. The register can be simple; accuracy matters more than presentation."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Collect the hot water documents",
+        "paragraphs": [
+          "Energy.gov.au explains that hot water systems vary by technology and household circumstances. A moving-home file should therefore identify the installed equipment before adopting someone else's operating routine. Request the manual, installation documentation, warranty information and any available service records. A brochure for a similar product is not a substitute for the correct instructions. When documents are missing, record the gap and seek model-specific information rather than applying a setting or maintenance interval found in a general online article.",
+          "Separate operating questions from repair questions. You may need help understanding a controller even when there is no fault, or you may have an actual loss of hot water requiring assessment. Write down which question you are asking. Include any information about shared equipment, building management access or controls located outside the dwelling. Do not change unfamiliar settings simply to see what happens during an already busy move. A clear handover allows the appropriate professional to explain the actual arrangement and identify which records belong with the property."
+        ],
+        "sourceUrls": [
+          "https://www.energy.gov.au/households/hot-water-systems"
+        ]
+      },
+      {
+        "heading": "Make account and access arrangements explicit",
+        "paragraphs": [
+          "The water retailer's account process is separate from a plumber's assessment of private plumbing. South East Water provides guidance for locating and reading its analogue meters, but that does not establish the arrangements for every property. Confirm the retailer and whether the dwelling has its own meter, a shared meter or a building-managed arrangement. Match documents to the actual address and unit number. An account transfer should not be treated as evidence that the property's internal plumbing has been inspected.",
+          "Record access information that would matter during a later appointment. This can include the responsible building contact, permission needed for a common cupboard and which areas are locked. Keep keys and sensitive access codes outside a widely shared maintenance document. A note saying that access requires coordination is usually enough for an initial enquiry. If ownership or responsibility for a component is unclear, ask the retailer, manager or relevant professional rather than trying unfamiliar valves. The useful outcome is a reliable contact route, not a speculative diagram."
+        ],
+        "sourceUrls": [
+          "https://southeastwater.com.au/accounts-and-billing/water-meters/read-your-meter/read-your-analogue-water-meter/"
+        ]
+      },
+      {
+        "heading": "Describe the condition you inherit",
+        "paragraphs": [
+          "Walk through the rooms and record visible concerns from ordinary safe access. A marked cabinet base, a loose-looking fitting or a toilet that refills unexpectedly can be documented without dismantling anything. Note the room, fixture and what you actually observed. Photographs should show context as well as detail, with personal documents and occupants excluded. Do not label a stain an active leak unless that has been established, and do not assume a dry surface proves that an earlier problem has been resolved.",
+          "Keep previous and current observations separate. An old repair invoice might identify work undertaken without confirming the condition of every nearby component today. Similarly, a new photograph cannot explain the full history. If there is a concern requiring assessment, provide both records and ask a defined question. For instance, ask whether a recurring mark needs investigation and what access that assessment involves. This approach is more useful than asking someone to certify the entire house based on a moving-day checklist."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Arrange work with a defined scope",
+        "paragraphs": [
+          "The Building and Plumbing Commission provides information about engaging a plumber. Use the appropriate qualified professional for plumbing assessment rather than treating a handover checklist as permission for unfamiliar work. Explain whether you want help with a specific fault, an introduction to installed equipment or a broader condition review. These are not interchangeable services. Ask what can be assessed during the proposed visit and what would need a separate investigation, specialist or later access.",
+          "Make exclusions visible before booking. A visit to inspect an accessible kitchen connection may not include concealed drainage, appliance servicing or waterproofing. If you want several concerns considered, list them in advance and ask whether the booking can cover them. Keep a copy of the agreed scope with the handover file. Where no particular problem has been identified, avoid demanding replacement recommendations merely because equipment is unfamiliar. First establish the installed arrangement, available records and reason for any proposed work."
+        ],
+        "sourceUrls": [
+          "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-plumber"
+        ]
+      },
+      {
+        "heading": "Build a useful first-month record",
+        "paragraphs": [
+          "After the move, add observations as they occur rather than running every fixture repeatedly to create a test programme. Record dates, affected outlets and whether an issue is consistent or intermittent. A household routine may differ from the previous occupant's, so do not assume every change indicates a newly developed defect. Equally, do not dismiss a concern simply because the previous owner described it as normal. Bring the specific observation to the appropriate professional and let assessment determine its significance.",
+          "Keep repairs, explanations and unresolved items in separate columns. If a plumber explains a control, note that explanation without recording the equipment as newly serviced. If a repair is completed, retain the invoice and any stated limitations. Update the contact list when responsibilities become clear. Over time the file should become shorter and more certain, not a growing collection of contradictory guesses. This gives future appointments a dependable starting point and makes another eventual handover substantially easier.",
+          "If several people share the household, agree where the final records live and who updates them. A printed summary near the household paperwork can point to a secure digital folder without exposing private details. Remove superseded instructions only after confirming what replaced them, and retain original invoices separately. This avoids one person relying on an outdated note while another has the current explanation. A single maintained record is more useful than several incomplete messages."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Prepare a focused enquiry",
+        "paragraphs": [
+          "For a Grade A Plumbing enquiry, describe the property type, suburb, relevant fixtures and the main question you want answered. Tell us which records are available and whether access needs a manager or another occupant. Avoid sending an entire property contract when a model label or short description would answer the initial question. Share documents through the agreed channel and remove unrelated personal information. Call (02) 5837 5457 or email support@gradeaplumbing.store to discuss a suitable assessment; the enquiry itself is not a whole-property inspection.",
+          "A useful request might explain that you have just moved in, have no hot water service history and want the installed equipment identified and its documentation gaps discussed. Another might describe one recurring fixture concern separately from general orientation questions. Those descriptions allow a booking to be scoped honestly. Ask what information to prepare and what the proposed appointment will not establish. Keep the response with your handover register so the next conversation starts from agreed information rather than repeating the same uncertain history."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does a handover file replace a plumbing inspection?",
+        "answer": "No. It organises documents and observations. A condition assessment needs an agreed professional scope and appropriate access."
+      },
+      {
+        "question": "What if the previous owner left no service records?",
+        "answer": "Record that the history is unavailable, identify the equipment where safely possible and ask about a model-specific assessment. Do not invent a service date."
+      }
+    ],
+    "publishedDate": "2026-11-27",
+    "updatedDate": "2026-11-27"
   }
 ]

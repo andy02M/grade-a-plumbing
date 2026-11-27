@@ -5565,7 +5565,7 @@
     "releasedDate": "2026-11-26"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "moving home plumbing handover",
     "review": {
@@ -5684,7 +5684,8 @@
           "answer": "Record that the history is unavailable, identify the equipment where safely possible and ask about a model-specific assessment. Do not invent a service date."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-27"
   },
   {
     "status": "ready",
