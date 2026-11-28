@@ -5688,7 +5688,7 @@
     "releasedDate": "2026-11-27"
   },
   {
-    "status": "ready",
+    "status": "released",
     "availableFrom": "2026-10-19",
     "targetKeyword": "heat pump hot water noise assessment",
     "review": {
@@ -5806,7 +5806,8 @@
           "answer": "Do not present a phone reading as a formal compliance assessment. Record the concern clearly and ask the relevant council or appropriate assessor what evidence and method are needed."
         }
       ]
-    }
+    },
+    "releasedDate": "2026-11-28"
   },
   {
     "status": "ready",

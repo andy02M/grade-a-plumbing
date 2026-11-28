@@ -5180,5 +5180,116 @@
     ],
     "publishedDate": "2026-11-27",
     "updatedDate": "2026-11-27"
+  },
+  {
+    "title": "Heat Pump Hot Water Noise: Separate Operation, Faults and Neighbour Concerns",
+    "slug": "heat-pump-hot-water-noise-operation-faults-neighbours",
+    "metaTitle": "Heat Pump Hot Water Noise Assessment | Grade A Plumbing",
+    "metaDescription": "Prepare a useful heat pump noise enquiry, understand the limits of phone recordings and distinguish equipment assessment from residential noise concerns.",
+    "author": "Grade A Plumbing",
+    "status": "published",
+    "excerpt": "Prepare a useful heat pump noise enquiry, understand the limits of phone recordings and distinguish equipment assessment from residential noise concerns.",
+    "locationSlugs": [
+      "melbourne"
+    ],
+    "relatedServices": [
+      "hot-water"
+    ],
+    "relatedArticles": [
+      "how-long-does-a-hot-water-system-last"
+    ],
+    "sources": [
+      {
+        "title": "EPA Victoria: residential noise",
+        "url": "https://www.epa.vic.gov.au/residential-noise",
+        "checkedDate": "2026-10-19"
+      },
+      {
+        "title": "EPA Victoria: noise guideline for residential equipment",
+        "url": "https://www.epa.vic.gov.au/sites/default/files/epa/publications/1973.pdf",
+        "checkedDate": "2026-10-19"
+      },
+      {
+        "title": "YourHome: hot water systems",
+        "url": "https://www.yourhome.gov.au/energy/hot-water-systems",
+        "checkedDate": "2026-10-19"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Name the noise and the question you need answered",
+        "paragraphs": [
+          "A new hum outside a bedroom can raise several different questions. Is the heat pump behaving differently from before, was its location suitable, or is its operation disturbing another household? These questions overlap but are not identical. Begin by stating which concern you have rather than deciding that every audible sound proves a failed appliance. This article is about noise from the water-heating unit, not a bang in plumbing when a tap closes. It helps organise an assessment without opening equipment or making improvised acoustic alterations.",
+          "Write down a description in everyday language: a steady hum, intermittent rattle, vibration felt indoors or a newly changed sound. Include where you noticed it and whether hot water performance also changed. Avoid diagnostic labels such as failed compressor unless a professional has established that finding. A heat pump can produce operational sound; that does not settle whether a particular noise is normal for the model or reasonable in its setting. The equipment, installation and surrounding circumstances need consideration before a remedy or a conclusion can be proposed."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Record timing without treating a phone as a compliance instrument",
+        "paragraphs": [
+          "Keep a short diary of when the sound starts and ends, the room or outdoor position where it is heard and whether it is new. If it is safe and lawful to record from your own property, a short audio clip may help convey the character of the sound to a provider. Do not enter a neighbour's property or point a camera into private rooms. Ask how the service provider wants material supplied. The aim is an understandable symptom record, not a collection of recordings that cannot be matched to a date or location.",
+          "A phone recording or consumer sound application should not be presented as a formal noise compliance result. A microphone, distance and surrounding sounds can change what is captured. EPA's equipment guideline is intended for the assessment of residential equipment noise and explains that unreasonable noise involves more than one consideration. If a formal assessment is needed, ask who can perform it and which procedure applies. Keep any technical assessment separate from your personal description of disturbance. Both can be useful, but neither should be made to say more than its evidence supports."
+        ],
+        "sourceUrls": [
+          "https://www.epa.vic.gov.au/sites/default/files/epa/publications/1973.pdf"
+        ]
+      },
+      {
+        "heading": "Use the actual model and site arrangement",
+        "paragraphs": [
+          "Locate the exact model from the supplied paperwork or a safely visible label. Government guidance distinguishes integrated and split heat pump arrangements, which helps explain where the sound-producing equipment is situated. Tell the provider which components are present and where they sit relative to the room affected. Do not remove a casing to inspect a fan or place an object near moving parts. If the model is uncertain, say so and arrange identification rather than using another product's sound rating as an answer.",
+          "Describe the installed location without assuming why it was chosen. Mention nearby walls, fences, bedrooms or a shared boundary as features for assessment, not as proof of a particular acoustic effect. If the installation was recent, provide the quote and any siting discussion. A product brochure sound figure alone does not describe every neighbour's experience at a particular property. Ask the provider what can be concluded from the manufacturer's information and what needs site assessment. The distinction matters when deciding whether the next step is servicing, siting review or specialist acoustic advice."
+        ],
+        "sourceUrls": [
+          "https://www.yourhome.gov.au/energy/hot-water-systems"
+        ]
+      },
+      {
+        "heading": "Understand the residential noise pathway",
+        "paragraphs": [
+          "EPA Victoria's residential noise guidance includes hot water systems and heat pumps among prescribed equipment and explains that unreasonable noise can also be assessed outside prohibited times. It identifies local councils as the investigators of residential noise reports. Check that official guidance for the current rules rather than relying on a neighbour's recollection of a universal quiet time. This article does not decide whether a particular installation breaches those rules or provide a legal finding about your property.",
+          "If a neighbour raises a concern, ask calmly for the time, place and character of the disturbance. Share that factual information with the appropriate provider. Avoid promising that an appliance will never be audible or insisting that a product label ends the discussion. If informal communication does not resolve the concern, ask the council about its process and evidence requirements. Keep the council process separate from any repair appointment: a technician's visit does not automatically determine the regulatory question, and a noise concern does not by itself identify a failed mechanical component."
+        ],
+        "sourceUrls": [
+          "https://www.epa.vic.gov.au/residential-noise"
+        ]
+      },
+      {
+        "heading": "Do not build an enclosure as a first response",
+        "paragraphs": [
+          "Avoid wrapping the unit, blocking openings, placing a makeshift screen against it or changing its mounting yourself. A proposed noise treatment needs to remain compatible with the manufacturer's requirements and safe service access. Ask the equipment professional what assessment is needed before any enclosure, relocation or operating change is considered. This is not a construction guide. An improvised fix can make future assessment harder without establishing whether the original issue was operational, mechanical or related to the site.",
+          "Similarly, do not change heating schedules solely to silence a complaint without discussing the equipment requirements and household's hot water needs. Ask what options are appropriate for the specific model and whether another trade or adviser is needed. A recommendation should explain what problem it is intended to address and what limits remain. If a quotation proposes relocation, identify the complete work involved rather than comparing it with a simple service call as if they were the same remedy. Request a clear scope, not an unsupported promise of absolute silence."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Separate maintenance findings from the noise outcome",
+        "paragraphs": [
+          "An assessment can produce more than one finding. The equipment may need servicing, the installation may need further review, or the particular complaint may require a different assessment. Ask the provider to distinguish what was observed from what remains unknown. If a part is proposed for replacement, request the evidence and the expected purpose of the work. Do not assume that replacing any noisy component guarantees the end of a neighbour's disturbance. The receiver location and operating circumstances still matter.",
+          "After approved work, keep the service report and note whether the reported symptom changed during ordinary operation. If a separate acoustic or council process remains open, tell the relevant contact what work occurred without claiming a formal result you have not received. Avoid commissioning several unrelated alterations at once if nobody can explain which finding each one addresses. A documented sequence makes later decisions more understandable. It also helps distinguish a recurring mechanical symptom from a continuing concern about where otherwise functioning equipment has been installed."
+        ],
+        "sourceUrls": []
+      },
+      {
+        "heading": "Send the right enquiry to the right place",
+        "paragraphs": [
+          "For a service enquiry, include suburb, model, installation date if known, a brief sound description and the times it is noticed. Say whether the concern is a new mechanical sound, indoor vibration or neighbour disturbance. Confirm who owns the equipment and who can approve work, particularly in an apartment or rental. Share only relevant images and records through the method the provider accepts. You do not need to make intrusive recordings or investigate the inside of the unit to request help.",
+          "Contact Grade A Plumbing on (02) 5837 5457 or support@gradeaplumbing.store to discuss an assessment and confirm scope and availability. The hot water service page offers service context and the lifespan guide covers ownership considerations. For the residential noise complaint process, use the relevant council and current EPA guidance. No manufacturer-authorised status or acoustic certification is claimed here. A useful next step is a clearly assigned assessment with realistic limits, so the household knows whether it is addressing equipment condition, installation choices, community disturbance or more than one of those concerns."
+        ],
+        "sourceUrls": []
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does an audible heat pump prove it is faulty?",
+        "answer": "No. Ask separately about model-specific operation, equipment condition, installation and any disturbance. A product can be audible without that observation alone identifying a fault or determining the regulatory question."
+      },
+      {
+        "question": "Can a phone app prove that the installation meets noise rules?",
+        "answer": "Do not present a phone reading as a formal compliance assessment. Record the concern clearly and ask the relevant council or appropriate assessor what evidence and method are needed."
+      }
+    ],
+    "publishedDate": "2026-11-28",
+    "updatedDate": "2026-11-28"
   }
 ]
